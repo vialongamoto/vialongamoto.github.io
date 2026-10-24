@@ -933,6 +933,60 @@ details.lib summary{cursor:pointer;font:600 1.15rem var(--display);display:flex;
 .sky{display:inline-flex;align-items:center;gap:4px;font-size:.9rem}
 .wbig{display:flex;justify-content:flex-end;align-items:center;gap:2px;margin-bottom:2px}
 .wic{flex:none;vertical-align:middle}
+.why{display:block;font-size:.82rem;color:var(--laguna);margin-top:2px}
+.radio-row{display:flex;flex-wrap:wrap;gap:4px 16px;margin-top:6px}
+:root{--st-dry:#2BB673;--st-drizzle:#E9B23A;--st-light:#F08A24;--st-heavy:#E5484D;--st-snow:#6BA8E5}
+#days{position:relative}
+#days::before{content:"";position:absolute;left:12px;top:10px;bottom:10px;width:3px;border-radius:2px;background:var(--line)}
+.day.tl{background:none;border:0;padding:0 0 0 34px;margin:14px 0;box-shadow:none}
+.day.tl .tldot{position:absolute;left:3px;top:20px;width:21px;height:21px;border-radius:50%;background:var(--bg);border:4px solid #8A96A3;box-sizing:border-box}
+.dcard{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px}
+.day.tl.today .dcard{border-color:var(--flamingo);box-shadow:0 0 0 2px var(--flbg)}
+.day.tl.done .dcard{opacity:.7}
+.dtop{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.dtt{min-width:0}
+.dno{font-size:.82rem;color:var(--muted)}
+.dtop h3{font:600 1.3rem/1.15 var(--display);margin-top:2px}
+.dright{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex:none}
+.dtemp{font:700 1.5rem var(--display)}
+.dchip{font:600 .85rem ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--sunk);padding:4px 8px;border-radius:8px;white-space:nowrap}
+.metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 12px;align-items:end;margin-top:12px}
+.mt{display:flex;flex-direction:column;gap:2px;min-width:0}
+.mt>span{font-size:.75rem;color:var(--muted);line-height:1.2}
+.mt .wbig{display:flex;align-items:center;gap:2px;justify-content:flex-start;margin:0}
+.mv{font:600 1.45rem/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:-.02em;white-space:nowrap}
+.mv small{font-size:.65em;margin-left:1px;opacity:.75}
+.mv.st-dry{color:var(--st-dry)} .mv.st-drizzle{color:var(--st-drizzle)} .mv.st-light{color:var(--st-light)} .mv.st-heavy{color:var(--st-heavy)} .mv.st-snow{color:var(--st-snow)}
+.wrow{display:flex;align-items:center;gap:8px;margin-top:10px;flex-wrap:wrap}
+.badge{font:700 .75rem var(--text);letter-spacing:.06em;text-transform:uppercase;padding:5px 10px;border-radius:8px}
+.badge.st-dry{background:color-mix(in srgb,var(--st-dry) 18%,transparent);color:var(--st-dry)}
+.badge.st-drizzle{background:color-mix(in srgb,var(--st-drizzle) 20%,transparent);color:#B07D10}
+.badge.st-light{background:color-mix(in srgb,var(--st-light) 18%,transparent);color:var(--st-light)}
+.badge.st-heavy{background:color-mix(in srgb,var(--st-heavy) 18%,transparent);color:var(--st-heavy)}
+.badge.st-snow{background:color-mix(in srgb,var(--st-snow) 20%,transparent);color:#3D7FC0}
+.badge.st-na{background:var(--sunk);color:var(--muted)}
+.bars5{display:flex;gap:4px;align-items:flex-end;height:46px;margin-top:12px;border-bottom:1px solid var(--line)}
+.bars5 .b{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:stretch;height:100%;position:relative}
+.bars5 i{display:block;background:color-mix(in srgb,#6C7BE0 55%,var(--sunk));border-radius:4px 4px 0 0}
+.bars5 i.hot.st-dry{background:var(--st-dry)} .bars5 i.hot.st-drizzle{background:var(--st-drizzle)} .bars5 i.hot.st-light{background:var(--st-light)} .bars5 i.hot.st-heavy{background:var(--st-heavy)} .bars5 i.hot.st-snow{background:var(--st-snow)}
+.bars5 span{position:absolute;bottom:-18px;left:0;right:0;text-align:center;font-size:.68rem;color:var(--muted);white-space:nowrap;overflow:hidden}
+.blab{font-size:.72rem;color:var(--muted);margin:20px 0 0}
+.flag{font-size:.8rem;padding:2px 8px;border-radius:999px;background:var(--lagbg);color:var(--laguna);font-weight:600}
+.flag.fwarn{background:var(--amberbg);color:var(--amber)}
+.dmore{margin-top:10px;border-top:1px dashed var(--line);padding-top:8px}
+.dmore summary{cursor:pointer;font:600 .95rem var(--display);color:var(--laguna)}
+.wsum{display:flex;gap:12px;align-items:center;border-radius:16px;padding:14px;margin:12px 0;border:1px solid}
+.wsum.ok{background:color-mix(in srgb,var(--st-dry) 12%,var(--surface));border-color:color-mix(in srgb,var(--st-dry) 40%,transparent)}
+.wsum.mid{background:color-mix(in srgb,var(--st-drizzle) 14%,var(--surface));border-color:color-mix(in srgb,var(--st-drizzle) 45%,transparent)}
+.wsum.warn{background:color-mix(in srgb,var(--st-heavy) 10%,var(--surface));border-color:color-mix(in srgb,var(--st-heavy) 40%,transparent)}
+.wsi{flex:none;width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font:700 1.3rem var(--text);color:#fff;background:var(--st-dry)}
+.wsum.mid .wsi{background:var(--st-drizzle)} .wsum.warn .wsi{background:var(--st-heavy)}
+.wsum b{display:block;font:600 1.1rem var(--display)} .wsum span{font-size:.88rem;color:var(--muted)}
+.mleg{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.8rem;color:var(--muted);margin-top:8px}
+.mleg i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:middle}
+.mleg i.st-dry{background:var(--st-dry)} .mleg i.st-drizzle{background:var(--st-drizzle)} .mleg i.st-light{background:var(--st-light)} .mleg i.st-heavy{background:var(--st-heavy)} .mleg i.st-snow{background:var(--st-snow)}
+.mleg i.route{width:18px;height:4px;border-radius:2px;background:#6C7BE0}
+@media (min-width:560px){ .metrics{grid-template-columns:repeat(4,minmax(0,1fr))} }
 #toast{position:fixed;left:50%;transform:translateX(-50%) translateY(20px);bottom:calc(78px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);border-radius:12px;padding:10px 14px;display:flex;gap:14px;align-items:center;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:50;max-width:calc(100% - 32px);font-size:.95rem}
 #toast.on{opacity:1;transform:translateX(-50%);pointer-events:auto}
 #toast button{background:none;border:0;color:var(--bg);font:700 .95rem var(--text);text-decoration:underline;cursor:pointer;padding:4px}
@@ -969,7 +1023,8 @@ details.lib summary{cursor:pointer;font:600 1.15rem var(--display);display:flex;
 <section class="tab" id="t-roteiro">
   <div id="vbarwrap"></div>
   <div class="warn" id="planwarn"></div>
-  <div class="card" id="mapcard"><h3 class="sub" style="margin-top:0" data-i="map_h">Mapa da rota</h3><div id="map" class="map"></div><div id="mapinfo" class="small"></div><div class="actions" id="mapact"></div></div>
+  <div class="card" id="mapcard"><h3 class="sub" style="margin-top:0" data-i="map_h">Mapa da rota</h3><div id="map" class="map"></div><div id="mleg"></div><div id="mapinfo" class="small"></div><div class="actions" id="mapact"></div></div>
+  <div id="wsum"></div>
   <div id="days"></div>
 </section>
 
@@ -1232,6 +1287,21 @@ Object.assign(I18N.es,{"sky_sun": "Soleado", "sky_partly": "Sol y nubes", "sky_c
 Object.assign(I18N.it,{"sky_sun": "Soleggiato", "sky_partly": "Sole e nuvole", "sky_cloud": "Nuvoloso", "sky_rain": "Pioggia", "sky_snow": "Possibile neve", "sky_fog": "Nebbia", "sky_thunder": "Temporale", "sky_wind": "Vento forte", "clouds": "nuvolosità tipica ~{c}%", "fc_line2": "{min}° / {max}°, pioggia {p}%, nuvole {c}%, vento fino a {w} km/h, raffiche {g} km/h", "road_other": "Nessuna tabella per {x}: il costo usa il prezzo “Altri paesi”, modificabile sotto.", "chat_h": "Assistente vialonga", "chat_ph": "Chiedi o fai una ricerca...", "chat_send": "Invia", "chat_hi": "Ciao! Posso cercare luoghi (es.: “farmacia a Lima, Perù”), rispondere su itinerario, spese, meteo e veicolo, o spiegare le funzioni dell’app.", "chat_results": "Ho trovato questi luoghi:", "chat_none": "Nessun risultato qui. Prova la ricerca su Google Maps:", "chat_open_maps": "Apri su Google Maps", "chat_go": "Apri {x}", "chat_dunno": "Non so ancora rispondere. Chiedi di percorso, veicolo, spese, meteo, alloggi o documenti, o chiedimi di cercare un luogo.", "chat_s1": "Cerca un distributore vicino alla destinazione di oggi", "chat_s2": "Quanto ho speso finora?", "chat_s3": "Come salvo il mio itinerario?", "chat_clear": "Cancella chat", "chat_open": "Apri assistente"});
 Object.assign(I18N.de,{"sky_sun": "Sonnig", "sky_partly": "Sonne und Wolken", "sky_cloud": "Bewölkt", "sky_rain": "Regen", "sky_snow": "Schnee möglich", "sky_fog": "Nebel", "sky_thunder": "Gewitter", "sky_wind": "Starker Wind", "clouds": "typische Bewölkung ~{c} %", "fc_line2": "{min}° / {max}°, Regen {p} %, Wolken {c} %, Wind bis {w} km/h, Böen {g} km/h", "road_other": "Keine eigene Tabelle für {x}: die Kosten nutzen den Preis „Andere Länder“, unten änderbar.", "chat_h": "vialonga-Assistent", "chat_ph": "Frag oder such etwas...", "chat_send": "Senden", "chat_hi": "Hallo! Ich finde Orte (z. B. „Apotheke in Lima, Peru“), beantworte Fragen zu Route, Ausgaben, Wetter und Fahrzeug oder erkläre jede Funktion.", "chat_results": "Diese Orte habe ich gefunden:", "chat_none": "Hier keine Ergebnisse. Versuch die Google-Maps-Suche:", "chat_open_maps": "In Google Maps öffnen", "chat_go": "{x} öffnen", "chat_dunno": "Das kann ich noch nicht beantworten. Frag nach Route, Fahrzeug, Ausgaben, Wetter, Unterkunft oder Dokumenten, oder lass mich einen Ort suchen.", "chat_s1": "Tankstelle nahe dem heutigen Ziel suchen", "chat_s2": "Wie viel habe ich bisher ausgegeben?", "chat_s3": "Wie speichere ich meine Route?", "chat_clear": "Chat leeren", "chat_open": "Assistent öffnen"});
 Object.assign(I18N.zh,{"sky_sun": "晴", "sky_partly": "晴间多云", "sky_cloud": "多云", "sky_rain": "雨", "sky_snow": "可能下雪", "sky_fog": "雾", "sky_thunder": "雷雨", "sky_wind": "大风", "clouds": "典型云量约 {c}%", "fc_line2": "{min}° / {max}°，降雨 {p}%，云量 {c}%，风速最高 {w} 公里/时，阵风 {g} 公里/时", "road_other": "{x} 没有专门数据：费用按“其他国家”价格计算，可在下方修改。", "chat_h": "vialonga 助手", "chat_ph": "提问或搜索……", "chat_send": "发送", "chat_hi": "你好！我可以搜索地点（例如“秘鲁利马的药店”），回答关于行程、花费、天气和车辆的问题，或解释应用的任何功能。", "chat_results": "找到以下地点：", "chat_none": "这里没有结果。试试谷歌地图搜索：", "chat_open_maps": "在谷歌地图中打开", "chat_go": "打开{x}", "chat_dunno": "暂时无法回答。可以问路线、车辆、花费、天气、住宿或证件，或让我搜索地点。", "chat_s1": "搜索今天目的地附近的加油站", "chat_s2": "到目前为止我花了多少？", "chat_s3": "如何保存我的路线？", "chat_clear": "清空对话", "chat_open": "打开助手"});
+Object.assign(I18N.pt,{"pm_rep": "Substituir a rota atual", "pm_add": "Acrescentar no fim", "pl_fill": "Copiar a rota atual para a lista", "plan_fit": "{t} de {n} dias", "dist_btn": "Distribuir os dias", "dist_need": "Informe os dias na etapa Viagem.", "dist_wait": "Distribuindo os dias...", "dist_done": "Plano com {t} de {n} dias: noites extras nos lugares mais interessantes. Ajuste como quiser.", "why_nature": "Natureza e paisagens que pedem mais tempo", "why_rest": "Dia livre para descanso ou passeios", "why_pass": "Só passagem para caber nos dias"});
+Object.assign(I18N.en,{"pm_rep": "Replace current route", "pm_add": "Add to the end", "pl_fill": "Copy current route into the list", "plan_fit": "{t} of {n} days", "dist_btn": "Distribute the days", "dist_need": "Enter the days in the Trip step.", "dist_wait": "Distributing days...", "dist_done": "Plan uses {t} of {n} days: extra nights at the most interesting places. Adjust as you like.", "why_nature": "Nature and scenery worth more time", "why_rest": "Free day to rest or explore", "why_pass": "Pass through to fit the days"});
+Object.assign(I18N.es,{"pm_rep": "Reemplazar la ruta actual", "pm_add": "Agregar al final", "pl_fill": "Copiar la ruta actual a la lista", "plan_fit": "{t} de {n} días", "dist_btn": "Distribuir los días", "dist_need": "Indicá los días en la etapa Viaje.", "dist_wait": "Distribuyendo los días...", "dist_done": "Plan con {t} de {n} días: noches extra en los lugares más interesantes. Ajustá como quieras.", "why_nature": "Naturaleza y paisajes que piden más tiempo", "why_rest": "Día libre para descansar o pasear", "why_pass": "Solo paso para entrar en los días"});
+Object.assign(I18N.it,{"pm_rep": "Sostituisci il percorso attuale", "pm_add": "Aggiungi alla fine", "pl_fill": "Copia il percorso attuale nell’elenco", "plan_fit": "{t} di {n} giorni", "dist_btn": "Distribuisci i giorni", "dist_need": "Inserisci i giorni nella fase Viaggio.", "dist_wait": "Distribuisco i giorni...", "dist_done": "Piano con {t} di {n} giorni: notti extra nei luoghi più interessanti. Modifica come vuoi.", "why_nature": "Natura e paesaggi che meritano più tempo", "why_rest": "Giorno libero per riposo o gite", "why_pass": "Solo passaggio per rientrare nei giorni"});
+Object.assign(I18N.de,{"pm_rep": "Aktuelle Route ersetzen", "pm_add": "Am Ende anfügen", "pl_fill": "Aktuelle Route in die Liste kopieren", "plan_fit": "{t} von {n} Tagen", "dist_btn": "Tage verteilen", "dist_need": "Tage im Schritt Reise angeben.", "dist_wait": "Verteile die Tage...", "dist_done": "Plan mit {t} von {n} Tagen: Extranächte an den interessantesten Orten. Nach Belieben anpassen.", "why_nature": "Natur und Landschaft, die mehr Zeit verdienen", "why_rest": "Freier Tag zum Ausruhen oder Erkunden", "why_pass": "Nur Durchfahrt, damit die Tage reichen"});
+Object.assign(I18N.zh,{"pm_rep": "替换当前路线", "pm_add": "追加到最后", "pl_fill": "把当前路线复制到列表", "plan_fit": "{t}/{n} 天", "dist_btn": "分配天数", "dist_need": "请在“旅行”步骤填写天数。", "dist_wait": "正在分配天数……", "dist_done": "计划使用 {t}/{n} 天：在最值得的地方多住几晚。可随意调整。", "why_nature": "自然风光值得多停留", "why_rest": "休息或游览的自由日", "why_pass": "仅途经，以控制天数"});
+I18N.pt.dist_short="A rota precisa de pelo menos {t} dias, mesmo passando direto pelos lugares menos procurados. Aumente para {t} dias ou remova paradas.";I18N.en.dist_short="The route needs at least {t} days, even passing straight through less popular places. Increase to {t} days or remove stops.";I18N.es.dist_short="La ruta necesita al menos {t} días, aun pasando directo por los lugares menos buscados. Aumentá a {t} días o quitá paradas.";I18N.it.dist_short="Il percorso richiede almeno {t} giorni, anche passando dritto dai luoghi meno richiesti. Porta a {t} giorni o togli tappe.";I18N.de.dist_short="Die Route braucht mindestens {t} Tage, selbst wenn weniger gefragte Orte nur durchfahren werden. Auf {t} Tage erhöhen oder Stopps entfernen.";I18N.zh.dist_short="即使直接经过较冷门的地点，这条路线也至少需要 {t} 天。请增加到 {t} 天或删除途经点。";
+I18N.pt.why_visit="Visita no caminho, sem pernoite";I18N.en.why_visit="Visit on the way, no overnight";I18N.es.why_visit="Visita en el camino, sin pernocte";I18N.it.why_visit="Visita lungo la strada, senza pernottare";I18N.de.why_visit="Besuch unterwegs, ohne Übernachtung";I18N.zh.why_visit="途中游览，不过夜";
+Object.assign(I18N.pt,{"st_dry": "Seco", "st_drizzle": "Garoa", "st_light": "Chuva leve", "st_heavy": "Chuva forte", "st_snow": "Neve", "st_na": "Sem dados", "m_rain": "chance de chuva", "m_mm": "precipitação, {p}% de chance", "m_temp": "mín / máx", "m_gust": "rajadas", "m_live": "previsão real", "m_hist": "média histórica", "bars_rain": "chance de chuva por horário", "bars_alt": "altitude ao longo do trecho", "ws_ok": "Viagem tranquila: tempo seco na maior parte", "ws_mid": "Atenção a alguns dias de chuva leve", "ws_warn": "Atenção: dias com chuva forte, neve ou vento perigoso", "ws_dry": "dias secos ou com garoa", "ws_wind": "com rajadas acima de 70 km/h", "leg_route": "Rota", "d_more": "Detalhes do dia: roteiro, clima, segurança e combustível", "f_gap": "{k} km sem posto"});
+Object.assign(I18N.en,{"st_dry": "Dry", "st_drizzle": "Drizzle", "st_light": "Light rain", "st_heavy": "Heavy rain", "st_snow": "Snow", "st_na": "No data", "m_rain": "chance of rain", "m_mm": "precipitation, {p}% chance", "m_temp": "low / high", "m_gust": "gusts", "m_live": "live forecast", "m_hist": "historical average", "bars_rain": "chance of rain by time", "bars_alt": "altitude along the leg", "ws_ok": "Smooth trip: mostly dry weather", "ws_mid": "Watch a few days of light rain", "ws_warn": "Heads up: days with heavy rain, snow or dangerous wind", "ws_dry": "dry or drizzle days", "ws_wind": "with gusts above 70 km/h", "leg_route": "Route", "d_more": "Day details: plan, weather, safety and fuel", "f_gap": "{k} km without fuel"});
+Object.assign(I18N.es,{"st_dry": "Seco", "st_drizzle": "Llovizna", "st_light": "Lluvia leve", "st_heavy": "Lluvia fuerte", "st_snow": "Nieve", "st_na": "Sin datos", "m_rain": "chance de lluvia", "m_mm": "precipitación, {p}% de chance", "m_temp": "mín / máx", "m_gust": "ráfagas", "m_live": "pronóstico real", "m_hist": "promedio histórico", "bars_rain": "chance de lluvia por horario", "bars_alt": "altitud a lo largo del tramo", "ws_ok": "Viaje tranquilo: tiempo seco casi todo", "ws_mid": "Atención a algunos días de lluvia leve", "ws_warn": "Atención: días con lluvia fuerte, nieve o viento peligroso", "ws_dry": "días secos o con llovizna", "ws_wind": "con ráfagas de más de 70 km/h", "leg_route": "Ruta", "d_more": "Detalles del día: itinerario, clima, seguridad y combustible", "f_gap": "{k} km sin estación"});
+Object.assign(I18N.it,{"st_dry": "Asciutto", "st_drizzle": "Pioviggine", "st_light": "Pioggia debole", "st_heavy": "Pioggia forte", "st_snow": "Neve", "st_na": "Nessun dato", "m_rain": "probabilità di pioggia", "m_mm": "precipitazioni, {p}% di probabilità", "m_temp": "min / max", "m_gust": "raffiche", "m_live": "previsione reale", "m_hist": "media storica", "bars_rain": "probabilità di pioggia per orario", "bars_alt": "altitudine lungo la tappa", "ws_ok": "Viaggio tranquillo: tempo per lo più asciutto", "ws_mid": "Attenzione ad alcuni giorni di pioggia debole", "ws_warn": "Attenzione: giorni con pioggia forte, neve o vento pericoloso", "ws_dry": "giorni asciutti o con pioviggine", "ws_wind": "con raffiche oltre 70 km/h", "leg_route": "Percorso", "d_more": "Dettagli del giorno: itinerario, meteo, sicurezza e carburante", "f_gap": "{k} km senza distributori"});
+Object.assign(I18N.de,{"st_dry": "Trocken", "st_drizzle": "Niesel", "st_light": "Leichter Regen", "st_heavy": "Starker Regen", "st_snow": "Schnee", "st_na": "Keine Daten", "m_rain": "Regenwahrscheinlichkeit", "m_mm": "Niederschlag, {p} % Wahrscheinlichkeit", "m_temp": "Tief / Hoch", "m_gust": "Böen", "m_live": "echte Vorhersage", "m_hist": "historisches Mittel", "bars_rain": "Regenwahrscheinlichkeit nach Uhrzeit", "bars_alt": "Höhe entlang der Etappe", "ws_ok": "Entspannte Reise: meist trockenes Wetter", "ws_mid": "Achtung, einige Tage mit leichtem Regen", "ws_warn": "Achtung: Tage mit Starkregen, Schnee oder gefährlichem Wind", "ws_dry": "trockene oder Nieseltage", "ws_wind": "mit Böen über 70 km/h", "leg_route": "Route", "d_more": "Tagesdetails: Plan, Wetter, Sicherheit und Kraftstoff", "f_gap": "{k} km ohne Tankstelle"});
+Object.assign(I18N.zh,{"st_dry": "干燥", "st_drizzle": "毛毛雨", "st_light": "小雨", "st_heavy": "大雨", "st_snow": "雪", "st_na": "无数据", "m_rain": "降雨概率", "m_mm": "降水量，概率 {p}%", "m_temp": "最低 / 最高", "m_gust": "阵风", "m_live": "实时预报", "m_hist": "历史平均", "bars_rain": "各时段降雨概率", "bars_alt": "路段海拔", "ws_ok": "旅途顺利：大部分天气干燥", "ws_mid": "注意几天小雨", "ws_warn": "注意：有大雨、降雪或危险大风的日子", "ws_dry": "干燥或毛毛雨的天数", "ws_wind": "阵风超过 70 公里/时", "leg_route": "路线", "d_more": "当天详情：行程、天气、安全与燃油", "f_gap": "{k} 公里无加油站"});
+I18N.pt.clouds_s="nuvens ~{c}%";I18N.en.clouds_s="clouds ~{c}%";I18N.es.clouds_s="nubes ~{c}%";I18N.it.clouds_s="nuvole ~{c}%";I18N.de.clouds_s="Wolken ~{c} %";I18N.zh.clouds_s="云量约 {c}%";
 const LOCALES = {pt:'pt-BR',en:'en-GB',es:'es-AR',it:'it-IT',de:'de-DE',zh:'zh-CN'};
 const LANG_NAMES = {pt:'Português',en:'English',es:'Español',it:'Italiano',de:'Deutsch',zh:'中文'};
 
@@ -1294,7 +1364,7 @@ function climaBox(d,i){
   const hi=pts.reduce((a,b)=>S[b][3]>S[a][3]?b:a);
   const dest = d.to===d.from ? hi : d.to;
   const mo=dateOf(i).getUTCMonth();
-  const okC=c=>c && (c[12]!=null ? true : mo===6);
+  const okC=c=>c && (c[12]!=null ? true : (mo>=5&&mo<=7));
   const c1=nearestClim(dest), c2=nearestClim(hi);
   const list=[]; if(okC(c1)) list.push([c1,tr('dest')]); if(okC(c2) && (!list.length || c2[0]!==list[0][0][0])) list.push([c2,tr('highest')]);
   if(!list.length){ const s=S[dest]; return `<div class="box cbox"><b>${tr('clima')}</b><p class="small" style="margin:4px 0 0">${tr('no_clim')} <a href="https://www.windy.com/${s[1]}/${s[2]}?${s[1]},${s[2]},9" target="_blank" rel="noopener">${tr('live')}</a></p><div class="fc" data-fc="${i}"></div></div>`; }
@@ -1387,28 +1457,30 @@ function renderStats(){
 function renderDays(){
   const days = planDays(); const done = store.get('done',{}); const notes = store.get('notes',{});
   const todayIso = iso(new Date());
+  $('#wsum').innerHTML = weatherSummary(); $('#mleg').innerHTML = legendHtml();
   $('#days').innerHTML = days.map((d,i)=>{
     const dt = dateOf(i), key = plan+':'+(d.uid||d.id), isToday = iso(dt)===todayIso, ed = plan==='meu'||plan==='nova';
-    const chips = [`<span class="chip">${nf.format(d.km)} km${d.kmEst?' '+tr('estimated'):''}</span>`,`<span class="chip">${esc(d.h==='dia livre'?tr('free_day'):d.h)}</span>`,
+    const chips = [d.kmEst?`<span class="chip">km ${tr('estimated')}</span>`:'',`<span class="chip">${esc(d.h==='dia livre'?tr('free_day'):d.h)}</span>`,
       `<span class="chip ${d.road==='asfalto'?'':'dirt'}">${esc(d.road)}</span>`,
       `<span class="chip ${maxAlt(d)>=3500?'alt':''}">${tr('max')} ${nf.format(maxAlt(d))} m</span>`, expTotal(key)?`<span class="chip">${tr('spent')}: ${money(expTotal(key))}</span>`:''].join('');
-    return `<article class="day ${done[key]?'done':''} ${isToday?'today':''}" id="d-${i+1}">
-      <div class="dhead"><span class="dnum">${i+1}</span><div><h3>${esc(title(d))}</h3><div class="date">${fmt(dt)}${isToday?', '+tr('today'):''}</div></div></div>
-      <div class="chips">${chips}</div>
+    const w=dayWeather(d,i), g=dayGap(d), sf=surfOf(d);
+    const flags=[d.border?`<span class="flag">${tr('border')}</span>`:'', g?`<span class="flag fwarn">${tr('f_gap',{k:nf.format(g.km)})}</span>`:'', (sf.includes('areia')||sf.includes('off'))?`<span class="flag fwarn">${tr('chip_4x4')}</span>`:''].join('');
+    return `<article class="day tl ${done[key]?'done':''} ${isToday?'today':''}" id="d-${i+1}">
+      <span class="tldot" style="border-color:${statusColor(w.status)}"></span>
+      <div class="dcard">
+      <div class="dtop"><div class="dtt"><span class="dno">${dayLabel(i+1)}, ${fmt(dt)}${isToday?', '+tr('today'):''}</span><h3>${esc(title(d))}</h3></div>
+        <div class="dright"><span class="dtemp">${w.tmax!=null?w.tmax+'°':''}</span><span class="dchip">${d.km?nf.format(d.km)+' km':esc(tr('free_day'))}</span></div></div>
+      ${weatherPart(d,i)}
+      <div class="chips">${chips}${flags}</div>
+      <details class="dmore" ${isToday?'open':''}><summary>${tr('d_more')}</summary>
+      <ul>${d.see.map(s=>`<li>${esc(s)}</li>`).join('')}</ul>
       ${climaBox(d,i)}
       ${safetyBox(d)}
       ${fuelBox(d,i,days)}
       ${d.sleep==='salar'?incaBox(dt):''}
       ${ed && d.route.length ? `<div class="via">${tr('passing')} ${d.route.map(r=>`<button type="button" data-unvia="${i}:${r}" aria-label="Remover ${esc(S[r][0])}">${esc(S[r][0].split(' (')[0])} ×</button>`).join('')}</div>`:''}
-      <ul>${d.see.map(s=>`<li>${esc(s)}</li>`).join('')}</ul>
       ${d.border?`<div class="box border"><b>${tr('border')}</b>${esc(d.border)}</div>`:''}
       ${d.alert?`<div class="box alert"><b>${tr('alert')}</b>${esc(d.alert)}</div>`:''}
-      <div class="actions">
-        ${d.km?`<a class="btn primary" href="${gmDir(d)}" target="_blank" rel="noopener">${tr('maps')}</a>`:''}
-        <a class="btn" href="#dormir" data-city="${d.sleep}" data-day="${i}">${tr('sleep')}</a>
-        <a class="btn" href="#gastos" data-gday="${i}">${tr('add_exp')}</a>
-        <label class="done"><input type="checkbox" data-done="${key}" ${done[key]?'checked':''}> ${tr('done')}</label>
-      </div>
       ${ed?`<div class="edit">
         <button class="btn" type="button" data-add="${i}">${tr('plus_loc')}</button>
         <button class="btn" type="button" data-rest="${i}">${tr('plus_rest')}</button>
@@ -1416,7 +1488,15 @@ function renderDays(){
         ${days.length>1?trashBtn(`data-del="${i}"`, tr('del_day_any')):''}
         ${d.km?`<label class="kmedit">km <input type="number" min="0" step="10" data-km="${i}" value="${d.km}"></label>`:''}
       </div>`:''}
+      </details>
+      <div class="actions">
+        ${d.km?`<a class="btn primary" href="${gmDir(d)}" target="_blank" rel="noopener">${tr('maps')}</a>`:''}
+        <a class="btn" href="#dormir" data-city="${d.sleep}" data-day="${i}">${tr('sleep')}</a>
+        <a class="btn" href="#gastos" data-gday="${i}">${tr('add_exp')}</a>
+        <label class="done"><input type="checkbox" data-done="${key}" ${done[key]?'checked':''}> ${tr('done')}</label>
+      </div>
       <textarea data-note="${key}" placeholder="${tr('notes_ph')}">${esc(notes[key]||'')}</textarea>
+      </div>
     </article>`;
   }).join('');
   $('#days').querySelectorAll('[data-done]').forEach(c=>c.onchange=()=>{ const o=store.get('done',{}); o[c.dataset.done]=c.checked; store.set('done',o); c.closest('.day').classList.toggle('done',c.checked); });
@@ -1825,9 +1905,9 @@ function fcPoints(d){ const pts=[d.from,...d.route,d.to]; const hi=pts.reduce((a
 async function getFc(id, date){
   const s=S[id], key='fc2:'+s[1].toFixed(2)+','+s[2].toFixed(2)+':'+date, cached=store.get(key,null);
   if(cached && Date.now()-cached.t < 3*36e5) return {...cached, old:false};
-  const u=`https://api.open-meteo.com/v1/forecast?latitude=${s[1]}&longitude=${s[2]}&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,wind_speed_10m_max,wind_gusts_10m_max,sunshine_duration,daylight_duration&wind_speed_unit=kmh&timezone=auto&start_date=${date}&end_date=${date}`;
+  const u=`https://api.open-meteo.com/v1/forecast?latitude=${s[1]}&longitude=${s[2]}&hourly=precipitation_probability&daily=weather_code,precipitation_sum,temperature_2m_max,temperature_2m_min,precipitation_probability_max,wind_speed_10m_max,wind_gusts_10m_max,sunshine_duration,daylight_duration&wind_speed_unit=kmh&timezone=auto&start_date=${date}&end_date=${date}`;
   try{ const r=await fetch(u); if(!r.ok) throw 0; const j=await r.json(); const dd=j.daily;
-    const v={t:Date.now(), max:Math.round(dd.temperature_2m_max[0]), min:Math.round(dd.temperature_2m_min[0]), p:dd.precipitation_probability_max[0]??0, w:Math.round(dd.wind_speed_10m_max[0]), g:Math.round(dd.wind_gusts_10m_max[0]), code:dd.weather_code?dd.weather_code[0]:null, cl:(dd.sunshine_duration&&dd.daylight_duration&&dd.daylight_duration[0])?Math.max(0,Math.min(100,Math.round(100*(1-dd.sunshine_duration[0]/dd.daylight_duration[0])))):null};
+    const v={t:Date.now(), max:Math.round(dd.temperature_2m_max[0]), min:Math.round(dd.temperature_2m_min[0]), p:dd.precipitation_probability_max[0]??0, w:Math.round(dd.wind_speed_10m_max[0]), g:Math.round(dd.wind_gusts_10m_max[0]), code:dd.weather_code?dd.weather_code[0]:null, mm:dd.precipitation_sum?Math.round(dd.precipitation_sum[0]*10)/10:null, hp:(j.hourly&&j.hourly.precipitation_probability)?[6,9,12,15,18].map(h=>j.hourly.precipitation_probability[h]??0):null, cl:(dd.sunshine_duration&&dd.daylight_duration&&dd.daylight_duration[0])?Math.max(0,Math.min(100,Math.round(100*(1-dd.sunshine_duration[0]/dd.daylight_duration[0])))):null};
     store.set(key,v); return {...v, old:false};
   }catch(e){ return cached?{...cached, old:true}:null; }
 }
@@ -1840,6 +1920,8 @@ async function loadForecasts(){
     const date=iso(dt), out=[];
     for(const id of fcPoints(days[i])){ const f=await getFc(id,date); if(f) out.push([id,f]); }
     if(!out.length) continue;
+    const card=document.getElementById('d-'+(i+1)); if(card){ const wp=card.querySelector('.wpart'); if(wp) wp.outerHTML=weatherPart(days[i],i); const w2=dayWeather(days[i],i); const dot=card.querySelector('.tldot'); if(dot) dot.style.borderColor=statusColor(w2.status); const tp=card.querySelector('.dtemp'); if(tp&&w2.tmax!=null) tp.textContent=w2.tmax+'°'; }
+    $('#wsum').innerHTML = weatherSummary();
     el.innerHTML = `<b>${tr('fc_title')}</b>`+out.map(([id,f])=>{ const l=windLvl(f.g); const h=new Intl.DateTimeFormat(LOCALES[LANG],{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}).format(new Date(f.t));
       return `<div class="wind">${wIcon(wmoKind(f.code),22)} ${esc(S[id][0].split(' (')[0])}: ${tr(f.cl!=null?'fc_line2':'fc_line',{min:f.min,max:f.max,p:f.p,w:f.w,g:f.g,c:f.cl})} <span class="wl ${l}">${tr('wl_'+l)}</span><br><span class="small">${f.old?tr('fc_old')+', ':''}${tr('fc_upd',{h})}</span></div>`; }).join('');
   }
@@ -2259,7 +2341,7 @@ function dayLine(d){ const g=store.get(geoKey(d),null); return g || [d.from,...d
 function pointHtml(p){
   const days=planDays(), i=p.i<0?0:p.i, d=days[i], s=S[p.id], dt=dateOf(p.i<0?0:i);
   const lab = (p.is||[p.i]).map(x=>x<0?tr('start_pt'):dayLabel(x+1)).join(', ');
-  const c=nearestClim(p.id), mo=dt.getUTCMonth(), okc=c && (c[12]!=null || mo===6);
+  const c=nearestClim(p.id), mo=dt.getUTCMonth(), okc=c && (c[12]!=null || (mo>=5&&mo<=7));
   const clim = okc ? `<div>${c[3]}° / ${c[2]}°, ${tr('rain')} ${c[4]}%${c[9]!=null?`<br>${tr('wind')}: ${tr('wind_line',{a:c[9],g:c[10]})}`:''}</div>` : `<div class="small">${tr('no_clim')}</div>`;
   return `<div class="mpop"><b>${esc(lab)}: ${esc(s[0].split(' (')[0])}</b><div class="small">${fmt(dt)}, ${nf.format(s[3])} m</div>${clim}<div class="mfc small" data-mfc="${p.id}|${iso(dt)}">${tr('fc_load')}</div>
     <div class="actions" style="margin-top:6px">${(p.is||[p.i]).filter(x=>x>=0).map(x=>`<a class="btn" href="#d-${x+1}">${tr('see_day')} ${x+1}</a>`).join('')}<a class="btn" target="_blank" rel="noopener" href="${gmPoint(p.id)}">${tr('gm_point')}</a><a class="btn" target="_blank" rel="noopener" href="https://www.windy.com/${s[1]}/${s[2]}?${s[1]},${s[2]},9">Windy</a></div></div>`;
@@ -2301,9 +2383,10 @@ async function renderMap(){
     LMAP=L.map(box,{zoomControl:true, attributionControl:true});
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:17, attribution:'© OpenStreetMap'}).addTo(LMAP);
     const all=[];
-    days.forEach(d=>{ if(!d.km) return; const line=dayLine(d); all.push(...line); L.polyline(line,{color:cLine, weight:4, opacity:.85}).addTo(LMAP); });
+    days.forEach(d=>{ if(!d.km) return; const line=dayLine(d); all.push(...line); L.polyline(line,{color:'#6C7BE0', weight:5, opacity:.85}).addTo(LMAP); });
     pts.forEach(p=>{ const s=S[p.id]; all.push([s[1],s[2]]);
-      const icon=L.divIcon({className:'mk', html:`<span>${p.i<0?'P':p.i+1}${(p.is||[]).length>1?'+':''}</span>`, iconSize:[28,28], iconAnchor:[14,14]});
+      const stc=p.i<0?'#8A96A3':statusColor(dayWeather(days[p.i],p.i).status);
+      const icon=L.divIcon({className:'mk', html:`<span style="background:${stc}">${p.i<0?'P':p.i+1}${(p.is||[]).length>1?'+':''}</span>`, iconSize:[28,28], iconAnchor:[14,14]});
       L.marker([s[1],s[2]],{icon, title:s[0]}).addTo(LMAP).bindPopup(()=>pointHtml(p),{maxWidth:280}); });
     LMAP.on('popupopen',e=>fillMfc(e.popup.getElement()));
     LMAP.fitBounds(L.latLngBounds(all),{padding:[24,24]});
@@ -2318,8 +2401,8 @@ async function renderMap(){
   const W=400, H=300, pad=22, sc=Math.min((W-2*pad)/Math.max(.01,x1-x0),(H-2*pad)/Math.max(.01,y1-y0));
   const ox=(W-(x1-x0)*sc)/2, oy=(H-(y1-y0)*sc)/2;
   const P=(la,lo)=>[(ox+(lo*kx-x0)*sc).toFixed(1),(H-oy-(la-y0)*sc).toFixed(1)];
-  const lines=days.filter(d=>d.km).map(d=>`<polyline points="${dayLine(d).map(c=>P(c[0],c[1]).join(',')).join(' ')}" fill="none" stroke="${cLine}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" opacity=".85"/>`).join('');
-  const dots=pts.map((p,k)=>{ const [x,y]=P(S[p.id][1],S[p.id][2]); return `<g class="mdot" data-k="${k}" tabindex="0" role="button" aria-label="${esc(S[p.id][0])}"><circle cx="${x}" cy="${y}" r="11" fill="${cDot}" stroke="var(--surface)" stroke-width="2"/><text x="${x}" y="${(+y+4).toFixed(1)}" text-anchor="middle" font-size="10" font-weight="700" fill="var(--surface)">${p.i<0?'P':p.i+1}${(p.is||[]).length>1?'+':''}</text></g>`; }).join('');
+  const lines=days.filter(d=>d.km).map(d=>`<polyline points="${dayLine(d).map(c=>P(c[0],c[1]).join(',')).join(' ')}" fill="none" stroke="#6C7BE0" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" opacity=".85"/>`).join('');
+  const dots=pts.map((p,k)=>{ const [x,y]=P(S[p.id][1],S[p.id][2]); return `<g class="mdot" data-k="${k}" tabindex="0" role="button" aria-label="${esc(S[p.id][0])}"><circle cx="${x}" cy="${y}" r="11" fill="${p.i<0?cDot:statusColor(dayWeather(days[p.i],p.i).status)}" stroke="var(--surface)" stroke-width="2"/><text x="${x}" y="${(+y+4).toFixed(1)}" text-anchor="middle" font-size="10" font-weight="700" fill="var(--surface)">${p.i<0?'P':p.i+1}${(p.is||[]).length>1?'+':''}</text></g>`; }).join('');
   if(LMAP){ LMAP.remove(); LMAP=null; }
   box.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${tr('map_h')}" style="width:100%;height:100%">${lines}${dots}</svg>`;
   info.textContent = tr('map_offline')+' '+tr('map_tap');
@@ -2364,7 +2447,7 @@ async function geoBatchClaude(names){
 function addPts(list, replace){
   const b=bState(); if(replace) b.pts=[];
   list.forEach(p=>{ let id=knownByName(p.name); if(!id || Math.abs(S[id][1]-p.lat)+Math.abs(S[id][2]-p.lng)>0.5){ id='b'+newUid(); S[id]=[p.name,p.lat,p.lng,p.alt||nearestAlt(p.lat,p.lng),'pernoite',p.c||'XX',null]; CST[id]=S[id]; }
-    b.pts.push({id, type:p.type||'sleep', nights:p.nights||1}); if(p.leg){ b._legNext=b._legNext||[]; } });
+    if(b.pts.length && b.pts[b.pts.length-1].id===id) return; b.pts.push({id, type:p.type||'sleep', nights:p.nights||1}); });
   store.set('cstops',CST); bSave(b); return b;
 }
 function pathKm(coords){ let s=0; for(let i=1;i<coords.length;i++){ const a=coords[i-1], c=coords[i]; const R=6371, r=Math.PI/180, dl=(c[0]-a[0])*r, dn=(c[1]-a[1])*r, x=Math.sin(dl/2)**2+Math.cos(a[0]*r)*Math.cos(c[0]*r)*Math.sin(dn/2)**2; s+=2*R*Math.asin(Math.sqrt(x)); } return s; }
@@ -2454,6 +2537,7 @@ async function smartPlan(){
       list.push({...Z});
       const b=addPts(list,true); bLegs(b).forEach(L=>{ b.legs[L.key]={km:Math.round(km/n), src, dur:src==='osrm'?hrs/n:undefined, surf:['asfalto']}; }); bSave(b);
     }
+    await autoDistribute(true);
     renderBuilder();
     const b=bState(), Ls=bLegs(b), k=Ls.reduce((s,L)=>s+legData(b,L).km,0), h=Ls.reduce((s,L)=>s+legHours(legData(b,L),v.type),0);
     const s2=$('#sp-st'); if(s2) s2.textContent=tr('smart_done',{n:bDaysPreview(b),k:nf.format(k),h:nf.format(Math.round(h))});
@@ -2469,8 +2553,9 @@ function smartCard(){
     <div class="field" style="margin-top:8px"><label for="sp-style">${tr('smart_style')}</label><select id="sp-style"><option value="fast">${tr('st_fast')}</option><option value="scenic" ${SAMPLE?'':'disabled'}>${tr('st_scenic')}</option></select></div>
     <div class="actions"><button class="btn primary" type="button" id="sp-go">${tr('smart_go')}</button></div><p class="small" id="sp-st" style="margin:6px 0 0"></p>
     <details style="margin-top:12px;border-top:1px dashed var(--line);padding-top:10px" ${window._plOpen?'open':''}><summary class="sub" style="cursor:pointer;font:600 1.1rem var(--display)">${tr('paste_h')}</summary>
-      <p class="small">${tr('paste_lead')}</p><textarea id="pl-txt" rows="6" placeholder="${esc(tr('paste_ph'))}"></textarea>
-      <div class="actions"><button class="btn primary" type="button" id="pl-go">${tr('paste_go')}</button></div><p class="small" id="pl-st" style="margin:6px 0 0"></p></details></div>`;
+      <p class="small">${tr('paste_lead')}</p><textarea id="pl-txt" rows="8" placeholder="${esc(tr('paste_ph'))}">${esc(b.pasteText!=null?b.pasteText:b.pts.map(p=>S[p.id][0].split(' (')[0]).join('\n'))}</textarea>
+      <div class="radio-row"><label class="radio"><input type="radio" name="pmode" value="rep" checked><span>${tr('pm_rep')}</span></label><label class="radio"><input type="radio" name="pmode" value="add"><span>${tr('pm_add')}</span></label></div>
+      <div class="actions"><button class="btn primary" type="button" id="pl-go">${tr('paste_go')}</button>${b.pts.length?`<button class="btn" type="button" id="pl-fill">${tr('pl_fill')}</button>`:''}</div><p class="small" id="pl-st" style="margin:6px 0 0"></p></details></div>`;
 }
 function wireSmart(){
   const go=$('#sp-go'); if(!go) return;
@@ -2513,8 +2598,8 @@ function pointsHtml(b){
   if(!b.pts.length) return `<p class="small" style="margin:0">${tr('b_empty')}</p>`;
   return b.pts.map((p,i)=>{ const s=S[p.id]||['?',0,0,0]; const first=i===0, last=i===b.pts.length-1;
     const role = first?tr('b_start_pt'):(last?tr('b_end_pt'):'');
-    const sel = first ? `<span class="small">${role}</span>` : `<select data-bnight="${i}" aria-label="${tr('b_nights')}">${last?'':`<option value="0" ${p.type==='via'?'selected':''}>${tr('b_pass')}</option>`}${[1,2,3,4,5].map(n=>`<option value="${n}" ${p.type==='sleep'&&(p.nights||1)===n?'selected':''}>${n} ${n===1?tr('b_night1'):tr('b_nights')}</option>`).join('')}</select>`;
-    return `<div class="bpt"><span class="bn">${i+1}</span><div class="bt"><b>${esc(s[0])}</b><br><span class="small">${nf.format(s[3])} m${last&&!first?', '+role:''}</span></div>
+    const sel = first ? `<span class="small">${role}</span>` : `<select data-bnight="${i}" aria-label="${tr('b_nights')}">${last?'':`<option value="0" ${p.type==='via'?'selected':''}>${tr('b_pass')}</option>`}${[1,2,3,4,5,6,7].map(n=>`<option value="${n}" ${p.type==='sleep'&&(p.nights||1)===n?'selected':''}>${n} ${n===1?tr('b_night1'):tr('b_nights')}</option>`).join('')}</select>`;
+    return `<div class="bpt"><span class="bn">${i+1}</span><div class="bt"><b>${esc(s[0])}</b><br><span class="small">${nf.format(s[3])} m${last&&!first?', '+role:''}</span>${p.why?`<span class="why">${p.type==='via'?'':'★ '}${esc(p.why)}</span>`:''}</div>
       ${sel}<div class="bact"><button class="btn" type="button" data-bup="${i}" aria-label="${tr('b_up')}" ${first?'disabled':''}>↑</button><button class="btn" type="button" data-bdown="${i}" aria-label="${tr('b_down')}" ${last?'disabled':''}>↓</button>${trashBtn(`data-brm="${i}"`, tr('del_pt'))}</div></div>`; }).join('');
 }
 function missingHtml(b){
@@ -2548,10 +2633,13 @@ function renderBuilder(){
     <div class="actions"><button class="btn primary" type="button" id="sp-go">${tr('smart_go')}</button>${SAMPLE?`<select id="sp-style" aria-label="${tr('smart_style')}" style="width:auto"><option value="fast">${tr('st_fast')}</option><option value="scenic">${tr('st_scenic')}</option></select>`:'<input type="hidden" id="sp-style" value="fast">'}</div>
     <p class="small" id="sp-st" style="margin:6px 0 0"></p>
     <details class="paste" ${window._plOpen?'open':''}><summary>${tr('paste_h')}</summary>
-      <p class="small">${tr('paste_lead')}</p><textarea id="pl-txt" rows="6" placeholder="${esc(tr('paste_ph'))}"></textarea>
-      <div class="actions"><button class="btn primary" type="button" id="pl-go">${tr('paste_go')}</button></div><p class="small" id="pl-st" style="margin:6px 0 0"></p></details>
+      <p class="small">${tr('paste_lead')}</p><textarea id="pl-txt" rows="8" placeholder="${esc(tr('paste_ph'))}">${esc(b.pasteText!=null?b.pasteText:b.pts.map(p=>S[p.id][0].split(' (')[0]).join('\n'))}</textarea>
+      <div class="radio-row"><label class="radio"><input type="radio" name="pmode" value="rep" checked><span>${tr('pm_rep')}</span></label><label class="radio"><input type="radio" name="pmode" value="add"><span>${tr('pm_add')}</span></label></div>
+      <div class="actions"><button class="btn primary" type="button" id="pl-go">${tr('paste_go')}</button>${b.pts.length?`<button class="btn" type="button" id="pl-fill">${tr('pl_fill')}</button>`:''}</div><p class="small" id="pl-st" style="margin:6px 0 0"></p></details>
     ${missingHtml(b)}
-    <h4 class="h4">${tr('my_route')}</h4><div id="b-pts">${pointsHtml(b)}</div>
+    <div class="phead" style="margin-top:16px"><h4 class="h4" style="margin:0">${tr('my_route')}</h4>${b.pts.length>1&&td.n?`<span class="wl ${nd>td.n?'strong':'calm'}">${tr('plan_fit',{t:nd,n:td.n})}</span>`:''}</div>
+    ${b.pts.length>1?`<div class="actions" style="margin-top:6px"><button class="btn" type="button" id="b-dist" ${td.n?'':'disabled'}>${tr('dist_btn')}</button>${td.n?'':`<span class="small">${tr('dist_need')}</span>`}</div>`:''}
+    <div id="b-pts">${pointsHtml(b)}</div>
     <div class="field" style="margin-top:10px"><label for="b-q">${tr('add_stop')}</label><input type="text" id="b-q" class="tin" placeholder="${tr('b_search_ph')}"></div>
     ${b.pts.length>1?`<div class="field" style="margin-top:8px"><label for="b-pos">${tr('ins_pos')}</label><select id="b-pos"><option value="">${tr('ins_end')}</option>${b.pts.slice(0,-1).map((p,i)=>`<option value="${i+1}">${tr('ins_after',{n:i+1,x:esc(S[p.id][0])})}</option>`).join('')}</select></div>`:''}
     ${done[2]?next(3):''}`;
@@ -2580,6 +2668,10 @@ function renderBuilder(){
   el.querySelectorAll('[data-mode]').forEach(x=>x.onclick=()=>{ const y=bState(); y.mode=x.dataset.mode; bSave(y); renderBuilder(); });
   // step 2
   if($('#sp-go')){ wireSmart(); attachAC($('#b-q'), x=>addBuilderPoint(x)); }
+  if($('#pl-fill')) $('#pl-fill').onclick=()=>{ const x=bState(); $('#pl-txt').value=x.pts.map(p=>S[p.id][0].split(' (')[0]).join('\n'); };
+  if($('#pl-txt')) $('#pl-txt').oninput=()=>{ const x=bState(); x.pasteText=$('#pl-txt').value; store.set('builder',x); };
+  if($('#b-dist')) $('#b-dist').onclick=async()=>{ const bt=$('#b-dist'); bt.disabled=true; bt.textContent=tr('dist_wait'); const snap=localStorage.getItem(K+'builder'); await autoDistribute(true); renderBuilder();
+    const y=bState(); toast(tr(bDaysPreview(y)>tripDates(y).n?'dist_short':'dist_done',{t:bDaysPreview(y),n:tripDates(y).n}), ()=>{ try{ snap===null?localStorage.removeItem(K+'builder'):localStorage.setItem(K+'builder',snap);}catch(e){} renderBuilder(); }); };
   el.querySelectorAll('[data-bnight]').forEach(s=>s.onchange=()=>{ const x=bState(), p=x.pts[Number(s.dataset.bnight)], n=Number(s.value); if(n===0){p.type='via';} else {p.type='sleep'; p.nights=n;} bSave(x); renderBuilder(); });
   el.querySelectorAll('[data-bup]').forEach(bt=>bt.onclick=()=>{ const x=bState(), i=Number(bt.dataset.bup); [x.pts[i-1],x.pts[i]]=[x.pts[i],x.pts[i-1]]; bSave(x); renderBuilder(); });
   el.querySelectorAll('[data-bdown]').forEach(bt=>bt.onclick=()=>{ const x=bState(), i=Number(bt.dataset.bdown); [x.pts[i+1],x.pts[i]]=[x.pts[i],x.pts[i+1]]; bSave(x); renderBuilder(); });
@@ -2593,26 +2685,32 @@ function renderBuilder(){
   // step 4
   if($('#b-gen')) wireLegs(el);
 }
+function localWords(q){ const ws=fold(q).split(/\s+/).filter(w=>w.length>2); if(!ws.length) return null; const k=Object.keys(S).find(k=>!/^v/.test(k) && ws.every(w=>fold(S[k][0]).includes(w))); return k?{name:S[k][0].split(' (')[0], lat:S[k][1], lng:S[k][2], alt:S[k][3], c:ctryOf(k)}:null; }
 async function geoOne(name, near){
-  const loc=acLocal(name); if(loc.length) return loc[0];
   const variants=[name, name.replace(/\b(do|da|dos|das)\b/gi,'de'), name.split(/[(\-–,]/)[0].trim(), fold(name)].filter((x,i,a)=>x && a.indexOf(x)===i);
+  for(const q of variants){ const loc=acLocal(q); if(loc.length) return loc[0]; const lw=localWords(q); if(lw) return lw; }
   for(const q of variants){ let res=[]; try{ res=await acRemote(q); }catch(e){}
     if(res.length){ if(near){ res.sort((p,q2)=>((p.lat-near.lat)**2+(p.lng-near.lng)**2)-((q2.lat-near.lat)**2+(q2.lng-near.lng)**2)); } return res[0]; } }
   return null;
 }
 async function pasteRoute(){
   const txt=$('#pl-txt').value, st=$('#pl-st'), names=parseList(txt); if(!names.length) return;
+  const append = document.querySelector('input[name="pmode"]:checked')?.value==='add';
+  const snap=(()=>{ try{ return localStorage.getItem(K+'builder'); }catch(e){ return null; } })();
   $('#pl-go').disabled=true; const found=[], miss=[];
   let cl={}; const needRemote=names.filter(n=>!acLocal(n).length);
   if(SAMPLE && needRemote.length){ st.textContent=tr('b_claude_wait'); cl=await geoBatchClaude(needRemote); }
-  const b0=bState(); let prev=b0.pts.length?{lat:S[b0.pts[b0.pts.length-1].id][1], lng:S[b0.pts[b0.pts.length-1].id][2]}:null;
+  const b0=bState(); const base = append ? b0.pts.length : 0;
+  let prev = append && b0.pts.length ? {lat:S[b0.pts[b0.pts.length-1].id][1], lng:S[b0.pts[b0.pts.length-1].id][2]} : null;
   for(let i=0;i<names.length;i++){ const n=names[i]; st.textContent=tr('paste_wait',{i:i+1,n:names.length,x:n});
     let p=cl[n.toLowerCase()] || await geoOne(n, prev);
-    if(p){ found.push(p); prev=p; } else miss.push({name:n, pos:b0.pts.length+found.length}); }
-  const b=addPts(found,false); b.missing=[...(b.missing||[]), ...miss]; bSave(b);
-  window._plOpen=false; renderBuilder();
-  const s2=$('#pl-st'); if(s2) s2.innerHTML=tr('paste_done',{n:found.length});
-  toast(miss.length ? tr('paste_miss_n',{n:miss.length}) : tr('paste_done',{n:found.length}));
+    if(p){ found.push({...p, src:n}); prev=p; } else miss.push({name:n, pos:base+found.length}); }
+  const b=addPts(found, !append); b.missing = append ? [...(b.missing||[]), ...miss] : miss; b.pasteText=txt; bSave(b);
+  st.textContent=tr('dist_wait'); await autoDistribute(true);
+  window._plOpen=true; renderBuilder(); window._plOpen=false;
+  const bb=bState(); const td=tripDates(bb).n;
+  toast((miss.length?tr('paste_miss_n',{n:miss.length})+' ':'')+(td?tr(bDaysPreview(bb)>td?'dist_short':'dist_done',{t:bDaysPreview(bb),n:td}):tr('paste_done',{n:found.length})),
+    ()=>{ try{ snap===null?localStorage.removeItem(K+'builder'):localStorage.setItem(K+'builder',snap); }catch(e){} renderBuilder(); });
 }
 
 /* Weather symbols (universal) */
@@ -2770,6 +2868,81 @@ function wireChat(){
   $('#chat-in').onkeydown=e=>{ if(e.key==='Enter'){ e.preventDefault(); sendChat(); } };
   $('#chat-clear').onclick=()=>withUndo([CHAT_KEY],()=>{ store.del(CHAT_KEY); renderChat(); });
 }
+
+/* Suggested time at each place: fit the planned days, favouring places travellers rate highly */
+const STAY_SCORE={foz:[1,'Cataratas do Iguaçu, lados brasileiro e argentino'],sal:[1,'Centro histórico e Quebrada de Humahuaca'],caf:[1,'Vinícolas e Quebrada de las Conchas'],uyu:[1,'Salar de Uyuni'],spa:[2,'Valle de la Luna, lagunas altiplânicas e gêiseres del Tatio'],mza:[1,'Vinícolas e Aconcágua'],vu:[0.8,'Talampaya e Ischigualasto'],trh:[0.5,'Águas termais'],tup:[0.5,'Cânions de Tupiza'],pos:[0.5,'Ruínas jesuíticas de San Ignacio'],fiam:[0.5,'Termas e dunas de Fiambalá'],ctes:[0.3,'Costanera do Paraná'],cur:[0.3,'Centro histórico e Jardim Botânico'],anto:[0.3,'La Portada e orla'],sju:[0.3,'Base para Ischigualasto'],inca:[0,'']};
+const STAY_WORDS=/parque|nacional|laguna|lago|salar|catarat|cachoeira|termas?|valle|vale\b|quebrada|glaciar|geleira|vulc|desierto|deserto|praia|playa|ilha|isla|chapada|c[aâ]nion|canyon|serra|sierra|cusco|machu|atacama|uyuni|bariloche|ushuaia|calafate|chalt[eé]n|iguaz|igua[çc]u|mendoza|salta|cafayate/i;
+function stayScore(id){ if(STAY_SCORE[id]) return STAY_SCORE[id]; const n=(S[id]&&S[id][0])||''; return STAY_WORDS.test(n)?[0.8, tr('why_nature')]:[0.3,'']; }
+function capFor(sc){ return sc>=2?3: sc>=1?2: sc>=0.5?1:0; }
+function distributeDays(b, ext){
+  const N=tripDates(b).n; if(!N || b.pts.length<2) return null;
+  const last=b.pts.length-1, round = hav(b.pts[0].id, b.pts[last].id) < 30;
+  b.pts.forEach((p,i)=>{ if(i>0 && p.type!=='via'){ p.nights=1; } if(i>0) p.why='';
+    const s=S[p.id]; if(i>0 && i<b.pts.length-1 && s && (s[4]==='atracao' || /^(laguna|lago|salar|cerro|volc[aá]n|mirador|cascada|cachoeira|quebrada|paso)\b/i.test(fold(s[0])))){ p.type='via'; p.why=tr('why_visit'); } });
+  const cand=b.pts.map((p,i)=>({p,i,sc:(ext&&ext[i])||stayScore(p.id)})).filter(x=>x.i>0 && x.p.type!=='via' && !(x.i===last && round));
+  let extra=N-bDaysPreview(b);
+  if(extra>0 && cand.length){
+    const order=cand.slice().sort((a,c)=>c.sc[0]-a.sc[0]);
+    let moved=true; while(extra>0 && moved){ moved=false; for(const c of order){ if(extra<=0) break; if((c.p.nights-1) < capFor(c.sc[0])){ c.p.nights++; c.p.why=c.sc[1]||tr('why_rest'); extra--; moved=true; } } }
+    let j=0; while(extra>0){ const c=order[j%order.length]; c.p.nights++; c.p.why=c.p.why||tr('why_rest'); extra--; j++; }
+  } else if(extra<0){
+    const low=cand.filter(x=>x.i<last && x.sc[0]<1).sort((a,c)=>a.sc[0]-c.sc[0]);
+    for(const c of low){ if(N-bDaysPreview(b)>=0) break; c.p.type='via'; c.p.why=tr('why_pass'); if(N-bDaysPreview(b) < extra){ c.p.type='sleep'; c.p.why=''; } else extra=N-bDaysPreview(b); }
+  }
+  return {N, total:bDaysPreview(b)};
+}
+async function claudeScores(b){
+  if(!SAMPLE) return null;
+  try{ const N=tripDates(b).n; const r=await SAMPLE.json(`Viagem por terra de ${N} dias com ${vehName(myVeh())}. Pontos na ordem: ${JSON.stringify(b.pts.map((p,i)=>({i,name:S[p.id][0]})))}. Com base no que viajantes costumam fazer e nos atrativos de cada lugar, dê para cada ponto (exceto o primeiro) uma nota de interesse de 0 a 3 (0 = só pernoite ou passagem, 3 = merece vários dias) e o motivo em até 8 palavras em ${LANG==='pt'?'português':LOCALES[LANG]}. Responda somente JSON: {"points":[{"i":number,"score":number,"why":string}]}`, {modelTier:'default'});
+    const out={}; (r.points||[]).forEach(p=>{ if(typeof p.i==='number') out[p.i]=[Math.max(0,Math.min(3,Number(p.score)||0)), String(p.why||'')]; }); return out;
+  }catch(e){ return null; }
+}
+async function autoDistribute(silent){
+  const b=bState(); if(!tripDates(b).n || b.pts.length<2) return;
+  const ext=await claudeScores(b); const res=distributeDays(b, ext); bSave(b);
+  if(res && !silent) toast(tr(res.total>res.N?'dist_short':'dist_done',{t:res.total,n:res.N}));
+}
+
+/* Timeline cards: weather status per day (live forecast when available, history otherwise) */
+const ST_ORDER=['dry','drizzle','light','heavy','snow'];
+function fcCached(id,date){ const s=S[id]; if(!s) return null; return store.get('fc2:'+s[1].toFixed(2)+','+s[2].toFixed(2)+':'+date, null); }
+function dayWeather(d,i){
+  const pts=[d.from,...d.route,d.to], hi=pts.reduce((a,b)=>S[b][3]>S[a][3]?b:a), dest=d.to===d.from?hi:d.to, dt=dateOf(i), mo=dt.getUTCMonth();
+  const ok=c=>c && (c[12]!=null || (mo>=5&&mo<=7));
+  const c1=nearestClim(dest), c2=nearestClim(hi), cs=[c1,c2].filter(ok);
+  const f=fcCached(dest, iso(dt));
+  if(f){ const kind=wmoKind(f.code), mm=f.mm||0, p=f.p||0;
+    const status = kind==='snow'?'snow' : (mm>=5||p>=70)?'heavy' : (mm>=1||p>=40)?'light' : (mm>=0.2||p>=20)?'drizzle':'dry';
+    return {live:true, status, kind, tmax:f.max, tmin:f.min, rain:p, mm, gust:f.g, cl:f.cl, hp:f.hp||null}; }
+  if(!cs.length) return {status:'na', kind:'cloud'};
+  const c=ok(c1)?c1:c2, rain=Math.max(...cs.map(x=>x[4])), gust=Math.max(...cs.map(x=>x[10]||0)), tmin=Math.min(...cs.map(x=>x[3])), snow=cs.some(x=>climCond(x).kind==='snow');
+  const status = snow?'snow' : rain>=50?'heavy' : rain>=25?'light' : rain>=10?'drizzle':'dry';
+  return {live:false, status, kind:climCond(c).kind, tmax:c[2], tmin, rain, gust, cl:climCond(c).cl};
+}
+function weatherPart(d,i){
+  const w=dayWeather(d,i), pts=[d.from,...d.route,d.to].filter((x,k,a)=>k===0||x!==a[k-1]);
+  const bars = w.hp && w.hp.length
+    ? `<div class="bars5" aria-label="${tr('bars_rain')}">${w.hp.map((v,k)=>`<div class="b"><i style="height:${Math.max(6,v)}%" class="${v===Math.max(...w.hp)&&v>=20?'hot st-'+w.status:''}"></i><span>${[6,9,12,15,18][k]}h</span></div>`).join('')}</div><p class="blab">${tr('bars_rain')}</p>`
+    : (pts.length>1?`<div class="bars5" aria-label="${tr('bars_alt')}">${pts.slice(0,7).map(id=>`<div class="b"><i style="height:${Math.max(6,Math.round(S[id][3]/48))}%" class="${S[id][3]>=3500?'hot st-snow':''}"></i><span>${esc(S[id][0].split(' (')[0].slice(0,6))}</span></div>`).join('')}</div><p class="blab">${tr('bars_alt')}</p>`:'');
+  if(w.status==='na') return `<div class="wpart"><div class="metrics"><div class="mt"><span class="wbig">${wIcon('cloud',34)}</span></div><div class="mt"><b class="mv">${nf.format(d.km)}</b><span>km</span></div></div>${bars}</div>`;
+  return `<div class="wpart"><div class="metrics">
+      <div class="mt"><span class="wbig">${wIcon(w.kind,36)}${(w.gust||0)>=50?wIcon('wind',22):''}</span><span>${tr('sky_'+w.kind)}</span></div>
+      <div class="mt"><b class="mv st-${w.status}">${w.live&&w.mm!=null?nf.format(w.mm)+'<small>mm</small>':w.rain+'<small>%</small>'}</b><span>${w.live&&w.mm!=null?tr('m_mm',{p:w.rain}):tr('m_rain')}</span></div>
+      <div class="mt"><b class="mv">${w.tmin}°<small>/${w.tmax}°</small></b><span>${tr('m_temp')}</span></div>
+      <div class="mt"><b class="mv ${(w.gust||0)>=50?'st-light':''}">${w.gust||0}<small>km/h</small></b><span>${tr('m_gust')}</span></div>
+    </div><div class="wrow"><span class="badge st-${w.status}">${tr('st_'+w.status)}</span><span class="small">${w.live?tr('m_live'):tr('m_hist')}, ${tr('clouds_s',{c:w.cl!=null?w.cl:'–'})}</span></div>${bars}</div>`;
+}
+function weatherSummary(){
+  const days=planDays(); if(!days.length) return '';
+  const ws=days.map((d,i)=>dayWeather(d,i)), n=s=>ws.filter(w=>w.status===s).length;
+  const windy=ws.filter(w=>(w.gust||0)>=70).length, bad=n('heavy')+n('snow');
+  const dry=n('dry')+n('drizzle');
+  let cls='ok', t=tr('ws_ok'); if(bad||windy){ cls='warn'; t=tr('ws_warn'); } else if(n('light')){ cls='mid'; t=tr('ws_mid'); }
+  const parts=[`${dry}/${days.length} ${tr('ws_dry')}`]; if(n('light')) parts.push(`${n('light')} ${tr('st_light').toLowerCase()}`); if(n('heavy')) parts.push(`${n('heavy')} ${tr('st_heavy').toLowerCase()}`); if(n('snow')) parts.push(`${n('snow')} ${tr('st_snow').toLowerCase()}`); if(windy) parts.push(`${windy} ${tr('ws_wind')}`);
+  return `<div class="wsum ${cls}"><span class="wsi">${cls==='ok'?'✓':'!'}</span><div><b>${t}</b><span>${parts.join(', ')}</span></div></div>`;
+}
+function legendHtml(){ return `<div class="mleg">${['dry','drizzle','light','heavy','snow'].map(s=>`<span><i class="st-${s}"></i>${tr('st_'+s)}</span>`).join('')}<span><i class="route"></i>${tr('leg_route')}</span></div>`; }
+function statusColor(s){ return ({dry:'#2BB673',drizzle:'#E9B23A',light:'#F08A24',heavy:'#E5484D',snow:'#6BA8E5'})[s]||'#8A96A3'; }
 
 /* Tabs and hash */
 const TABS = ['criar','roteiro','dormir','gastos','estrada','docs','extra'];
