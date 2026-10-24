@@ -884,6 +884,55 @@ svg.leaflet-image-layer.leaflet-interactive path {
 .vrow select{flex:1}
 .grow{display:flex;gap:8px;align-items:center;margin-bottom:10px}
 .grow select{flex:1}
+.acbox{position:absolute;left:0;right:0;top:100%;margin-top:4px;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.18);z-index:30;max-height:320px;overflow:auto}
+.acitem{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--line);padding:10px 12px;font:inherit;color:var(--ink);cursor:pointer}
+.acitem:first-child{border-top:0}
+.acitem.on,.acitem:hover{background:var(--sunk)}
+.acitem span{display:block;font-size:.82rem;color:var(--muted)}
+.acload{padding:8px 12px;font-size:.85rem;color:var(--muted)}
+.bbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:10px 12px;margin:10px 0}
+.bbar-t{display:flex;flex-direction:column;gap:3px;min-width:0}
+.bbar-t b{font:600 1.15rem var(--display);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:14px;margin:10px 0;overflow:visible}
+.step.open{border-color:var(--laguna);box-shadow:0 0 0 2px var(--lagbg)}
+.shead{display:flex;gap:12px;align-items:center;width:100%;background:none;border:0;padding:14px;text-align:left;cursor:pointer;color:var(--ink);font:inherit}
+.sn{flex:none;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:700 1rem var(--display);background:var(--sunk);color:var(--ink)}
+.sn.ok{background:var(--laguna);color:var(--surface)}
+.st{flex:1;display:flex;flex-direction:column;min-width:0}
+.st b{font:600 1.2rem var(--display)}
+.chev{font:600 1.4rem var(--display);color:var(--muted)}
+.sbody{padding:0 14px 14px}
+.sbody #veh-card{border:0;padding:0;margin:0;box-shadow:none}
+.sbody #veh-card>h3{display:none}
+.segm{display:flex;gap:4px;background:var(--sunk);padding:4px;border-radius:12px}
+.segm button{flex:1;border:0;background:transparent;padding:9px 6px;border-radius:9px;font:600 .9rem var(--text);color:var(--muted);cursor:pointer}
+.segm button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 0 var(--line)}
+.paste{margin-top:12px;border-top:1px dashed var(--line);padding-top:10px}
+.paste summary{cursor:pointer;font:600 1.05rem var(--display)}
+.h4{font:600 1.1rem var(--display);margin:16px 0 4px}
+.ferr{color:var(--flamingo);font-size:.88rem;margin:4px 0 0}
+.box.miss .mrow{display:flex;gap:8px;align-items:center;margin-top:6px}
+.btn.big{padding:12px 18px;font-size:1rem}
+details.lib summary{cursor:pointer;font:600 1.15rem var(--display);display:flex;justify-content:space-between}
+.sbody .bpt{grid-template-columns:auto 1fr auto;gap:2px 10px;padding:8px 0}
+.sbody .bpt select,.sbody .bpt>.small{grid-column:3;grid-row:1;justify-self:end;width:auto;font-size:.85rem;padding:5px 6px}
+.sbody .bpt .bact{grid-column:2 / 4;justify-self:end}
+.sbody .bpt .bact .btn{min-width:38px;padding:3px 8px}
+.sbody .bpt .bn{font-size:1.15rem}
+#chat-fab{position:fixed;right:16px;bottom:calc(84px + env(safe-area-inset-bottom,0px));width:54px;height:54px;border-radius:50%;border:0;background:var(--laguna);color:var(--surface);box-shadow:0 6px 18px rgba(0,0,0,.25);z-index:25;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.chatsheet{display:flex;flex-direction:column;height:86vh}
+.chatlog{flex:1;overflow:auto;display:flex;flex-direction:column;gap:8px;padding:8px 0}
+.msg{max-width:86%;padding:9px 12px;border-radius:14px;font-size:.95rem;line-height:1.4}
+.msg.me{align-self:flex-end;background:var(--laguna);color:var(--surface);border-bottom-right-radius:4px}
+.msg.bot{align-self:flex-start;background:var(--sunk);color:var(--ink);border-bottom-left-radius:4px}
+.msg .res a{display:block;margin-top:6px;padding:8px;border-radius:10px;background:var(--surface);text-decoration:none;color:var(--ink)}
+.msg .res a span{display:block;font-size:.82rem;color:var(--muted)}
+.chip-b{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:5px 10px;font:inherit;font-size:.82rem;cursor:pointer;text-align:left}
+.chatin{display:flex;gap:8px;padding-top:8px}
+.chatin input{flex:1}
+.sky{display:inline-flex;align-items:center;gap:4px;font-size:.9rem}
+.wbig{display:flex;justify-content:flex-end;align-items:center;gap:2px;margin-bottom:2px}
+.wic{flex:none;vertical-align:middle}
 #toast{position:fixed;left:50%;transform:translateX(-50%) translateY(20px);bottom:calc(78px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);border-radius:12px;padding:10px 14px;display:flex;gap:14px;align-items:center;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:50;max-width:calc(100% - 32px);font-size:.95rem}
 #toast.on{opacity:1;transform:translateX(-50%);pointer-events:auto}
 #toast button{background:none;border:0;color:var(--bg);font:700 .95rem var(--text);text-decoration:underline;cursor:pointer;padding:4px}
@@ -999,6 +1048,13 @@ svg.leaflet-image-layer.leaflet-interactive path {
   </div>
 </div>
 
+<button id="chat-fab" type="button" aria-label="Assistente"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 10h.01M12 10h.01M16 10h.01"/></svg></button>
+<div class="overlay" id="chat" role="dialog" aria-modal="true" aria-labelledby="chat-t"><div class="sheet chatsheet">
+  <div class="phead"><h3 id="chat-t" data-i="chat_h">Assistente</h3><div class="actions" style="margin:0"><button class="btn" type="button" id="chat-clear" data-i="chat_clear">Limpar</button><button class="btn" type="button" id="chat-x" aria-label="Fechar">×</button></div></div>
+  <div id="chat-log" class="chatlog" aria-live="polite"></div>
+  <div id="chat-sugg" class="chips"></div>
+  <div class="chatin"><input type="text" id="chat-in" class="tin" data-iph="chat_ph" autocomplete="off"><button class="btn primary" type="button" id="chat-send" data-i="chat_send">Enviar</button></div>
+</div></div>
 <div id="toast" role="status" aria-live="polite"></div>
 <nav class="tabs" aria-label="Seções">
   <div class="in">
@@ -1157,6 +1213,25 @@ Object.assign(I18N.es,{"tab_dormir": "Estadía", "h_dormir": "Dónde dormir y co
 Object.assign(I18N.it,{"tab_dormir": "Soggiorno", "h_dormir": "Dove dormire e mangiare", "veh_bar": "Veicolo di questo itinerario", "veh_switched": "Itinerario ricalcolato per {v}.", "veh_regen": "Rifai i giorni per il limite di questo veicolo ({k} km al giorno)", "veh_new": "+ Nuovo veicolo", "garage": "Garage", "veh_del": "Elimina veicolo", "veh_edit": "Modifica veicoli", "smart_h": "Pianificazione intelligente", "smart_lead": "Inserisci partenza e destinazione: l’app suggerisce le tappe e i tempi di guida secondo il tuo veicolo e i giorni a disposizione.", "smart_from": "Partenza", "smart_to": "Destinazione finale", "smart_go": "Suggerisci percorso", "smart_style": "Priorità", "st_fast": "Più veloce", "st_scenic": "Più panoramico", "smart_wait": "Pianifico il percorso...", "smart_done": "Suggerimento pronto: {n} giorni, {k} km, circa {h} h di guida. Modifica le tappe come vuoi.", "smart_fail": "Non riesco a pianificare ora. Controlla i nomi o costruisci il percorso punto per punto.", "smart_replace": "Tocca di nuovo per sostituire i punti attuali", "paste_h": "Incolla un elenco di località", "paste_lead": "Incolla le località in ordine, una per riga o separate da virgole, come un piano scritto nelle note. L’app trova ognuna e costruisce il percorso.", "paste_ph": "Rio de Janeiro\nFoz do Iguaçu\nSalta\nUyuni\nSan Pedro de Atacama", "paste_go": "Costruisci il percorso dall’elenco", "paste_wait": "Cerco {i} di {n}: {x}", "paste_done": "{n} località aggiunte.", "paste_miss": "Non trovate: {x}. Aggiungile con la ricerca o con le coordinate.", "food_h": "Dove mangiare", "food_tips": "Consigli di viaggio", "dish_h": "Piatti della zona", "mrest": "Ristoranti su Maps", "best_booking": "Booking, voti migliori", "tabs_h": "Personalizza le schede", "tabs_lead": "Scegli quali schede compaiono nella barra in basso. Crea e Itinerario restano sempre visibili."});
 Object.assign(I18N.de,{"tab_dormir": "Aufenthalt", "h_dormir": "Schlafen und essen", "veh_bar": "Fahrzeug dieser Reise", "veh_switched": "Reiseplan für {v} neu berechnet.", "veh_regen": "Tage für das Limit dieses Fahrzeugs neu bauen ({k} km pro Tag)", "veh_new": "+ Neues Fahrzeug", "garage": "Garage", "veh_del": "Fahrzeug löschen", "veh_edit": "Fahrzeuge bearbeiten", "smart_h": "Intelligent planen", "smart_lead": "Start und Ziel eingeben: die App schlägt Übernachtungen und Fahrzeit passend zu deinem Fahrzeug und deinen Tagen vor.", "smart_from": "Start", "smart_to": "Endziel", "smart_go": "Route vorschlagen", "smart_style": "Priorität", "st_fast": "Am schnellsten", "st_scenic": "Am schönsten", "smart_wait": "Plane die Route...", "smart_done": "Vorschlag fertig: {n} Tage, {k} km, etwa {h} h Fahrzeit. Passe die Stopps nach Belieben an.", "smart_fail": "Planung gerade nicht möglich. Namen prüfen oder Route Punkt für Punkt bauen.", "smart_replace": "Erneut tippen, um die aktuellen Punkte zu ersetzen", "paste_h": "Ortsliste einfügen", "paste_lead": "Füge die Orte in Reihenfolge ein, einer pro Zeile oder durch Kommas getrennt, wie in einer Notiz-App. Die App findet jeden Ort und baut die Route.", "paste_ph": "Rio de Janeiro\nFoz do Iguaçu\nSalta\nUyuni\nSan Pedro de Atacama", "paste_go": "Route aus Liste bauen", "paste_wait": "Suche {i} von {n}: {x}", "paste_done": "{n} Orte hinzugefügt.", "paste_miss": "Nicht gefunden: {x}. Über die Suche oder mit Koordinaten hinzufügen.", "food_h": "Wo essen", "food_tips": "Reisetipps", "dish_h": "Regionale Gerichte", "mrest": "Restaurants in Maps", "best_booking": "Booking, beste Bewertungen", "tabs_h": "Tabs anpassen", "tabs_lead": "Wähle, welche Tabs unten erscheinen. Planen und Route bleiben immer sichtbar."});
 Object.assign(I18N.zh,{"tab_dormir": "食宿", "h_dormir": "住宿与餐饮", "veh_bar": "本行程的车辆", "veh_switched": "已按 {v} 重新计算行程。", "veh_regen": "按该车辆的每日上限（{k} 公里）重新安排天数", "veh_new": "+ 新车辆", "garage": "车库", "veh_del": "删除车辆", "veh_edit": "编辑车辆", "smart_h": "智能规划", "smart_lead": "输入出发地和目的地：应用会根据你的车辆和天数建议过夜点和行车时间。", "smart_from": "出发地", "smart_to": "最终目的地", "smart_go": "建议路线", "smart_style": "优先", "st_fast": "最快", "st_scenic": "风景最美", "smart_wait": "正在规划路线……", "smart_done": "建议已生成：{n} 天，{k} 公里，约 {h} 小时驾驶。可随意调整过夜点。", "smart_fail": "暂时无法规划。请检查地名或逐个添加地点。", "smart_replace": "再点一次以替换当前地点", "paste_h": "粘贴地点列表", "paste_lead": "按顺序粘贴地点，每行一个或用逗号分隔，就像在备忘录里写的计划。应用会逐个查找并生成路线。", "paste_ph": "Rio de Janeiro\nFoz do Iguaçu\nSalta\nUyuni\nSan Pedro de Atacama", "paste_go": "用列表生成路线", "paste_wait": "正在查找第 {i}/{n} 个：{x}", "paste_done": "已添加 {n} 个地点。", "paste_miss": "未找到：{x}。请通过搜索或坐标添加。", "food_h": "在哪吃", "food_tips": "旅行者建议", "dish_h": "当地菜", "mrest": "地图上的餐厅", "best_booking": "Booking 高分", "tabs_h": "自定义标签页", "tabs_lead": "选择底部栏显示哪些标签页。“创建”和“路线”始终显示。"});
+Object.assign(I18N.pt,{"ac_load": "Buscando lugares...", "smart_need": "Escolha a partida e o destino.", "smart_pick": "Não achei um dos lugares. Comece a digitar e escolha na lista de sugestões.", "smart_ready": "Rota sugerida. Confira os pontos e toque em Gerar roteiro."});
+Object.assign(I18N.en,{"ac_load": "Searching places...", "smart_need": "Choose departure and destination.", "smart_pick": "One of the places was not found. Start typing and pick from the suggestions.", "smart_ready": "Route suggested. Check the points and tap Build itinerary."});
+Object.assign(I18N.es,{"ac_load": "Buscando lugares...", "smart_need": "Elegí la salida y el destino.", "smart_pick": "No encontré uno de los lugares. Empezá a escribir y elegí de la lista de sugerencias.", "smart_ready": "Ruta sugerida. Revisá los puntos y tocá Generar itinerario."});
+Object.assign(I18N.it,{"ac_load": "Cerco luoghi...", "smart_need": "Scegli partenza e destinazione.", "smart_pick": "Un luogo non è stato trovato. Inizia a scrivere e scegli dai suggerimenti.", "smart_ready": "Percorso suggerito. Controlla i punti e tocca Genera itinerario."});
+Object.assign(I18N.de,{"ac_load": "Suche Orte...", "smart_need": "Start und Ziel wählen.", "smart_pick": "Ein Ort wurde nicht gefunden. Tippe los und wähle aus den Vorschlägen.", "smart_ready": "Route vorgeschlagen. Punkte prüfen und Reiseplan erstellen tippen."});
+Object.assign(I18N.zh,{"ac_load": "正在搜索地点……", "smart_need": "请选择出发地和目的地。", "smart_pick": "有地点未找到。请开始输入并从建议列表中选择。", "smart_ready": "已建议路线。请检查地点并点“生成行程”。"});
+Object.assign(I18N.pt,{"s1": "Viagem", "s2": "Rota", "s3": "Veículo", "s4": "Revisar e gerar", "next": "Continuar", "b_ret": "Data de retorno", "b_days_n": "Quantidade de dias", "mode_ret": "Pela data de retorno", "mode_days": "Pela quantidade de dias", "trip_len": "{n} dias, de {a} a {b}", "my_route": "Sua rota", "add_stop": "Adicionar parada", "miss_h": "Não encontramos estes lugares", "miss_lead": "Digite de novo e escolha uma sugestão da lista, ou remova.", "adj_legs": "Ajustar trechos: km, piso e 4x4", "lib_h": "Minhas rotas e histórico", "sp_err": "Não encontramos “{x}”. Comece a digitar e escolha uma sugestão.", "sum_none": "a preencher", "b_need_dates": "Informe a data de saída e a de retorno, ou a quantidade de dias.", "paste_miss_n": "{n} lugares não encontrados: veja o aviso na etapa Rota."});
+Object.assign(I18N.en,{"s1": "Trip", "s2": "Route", "s3": "Vehicle", "s4": "Review and build", "next": "Continue", "b_ret": "Return date", "b_days_n": "Number of days", "mode_ret": "By return date", "mode_days": "By number of days", "trip_len": "{n} days, {a} to {b}", "my_route": "Your route", "add_stop": "Add a stop", "miss_h": "We could not find these places", "miss_lead": "Type again and pick a suggestion, or remove them.", "adj_legs": "Adjust legs: km, surface and 4x4", "lib_h": "My routes and history", "sp_err": "We could not find “{x}”. Start typing and pick a suggestion.", "sum_none": "to fill in", "b_need_dates": "Enter departure and return dates, or the number of days.", "paste_miss_n": "{n} places not found: see the notice in the Route step."});
+Object.assign(I18N.es,{"s1": "Viaje", "s2": "Ruta", "s3": "Vehículo", "s4": "Revisar y generar", "next": "Continuar", "b_ret": "Fecha de regreso", "b_days_n": "Cantidad de días", "mode_ret": "Por fecha de regreso", "mode_days": "Por cantidad de días", "trip_len": "{n} días, del {a} al {b}", "my_route": "Tu ruta", "add_stop": "Agregar parada", "miss_h": "No encontramos estos lugares", "miss_lead": "Escribí de nuevo y elegí una sugerencia, o quitalos.", "adj_legs": "Ajustar tramos: km, calzada y 4x4", "lib_h": "Mis rutas e historial", "sp_err": "No encontramos “{x}”. Empezá a escribir y elegí una sugerencia.", "sum_none": "por completar", "b_need_dates": "Indicá fecha de salida y de regreso, o la cantidad de días.", "paste_miss_n": "{n} lugares no encontrados: mirá el aviso en la etapa Ruta."});
+Object.assign(I18N.it,{"s1": "Viaggio", "s2": "Percorso", "s3": "Veicolo", "s4": "Rivedi e genera", "next": "Continua", "b_ret": "Data di ritorno", "b_days_n": "Numero di giorni", "mode_ret": "Per data di ritorno", "mode_days": "Per numero di giorni", "trip_len": "{n} giorni, dal {a} al {b}", "my_route": "Il tuo percorso", "add_stop": "Aggiungi una tappa", "miss_h": "Non abbiamo trovato questi luoghi", "miss_lead": "Riscrivi e scegli un suggerimento, oppure rimuovili.", "adj_legs": "Regola le tappe: km, fondo e 4x4", "lib_h": "I miei itinerari e lo storico", "sp_err": "Non abbiamo trovato “{x}”. Inizia a scrivere e scegli un suggerimento.", "sum_none": "da compilare", "b_need_dates": "Inserisci data di partenza e di ritorno, o il numero di giorni.", "paste_miss_n": "{n} luoghi non trovati: vedi l’avviso nella fase Percorso."});
+Object.assign(I18N.de,{"s1": "Reise", "s2": "Route", "s3": "Fahrzeug", "s4": "Prüfen und erstellen", "next": "Weiter", "b_ret": "Rückkehrdatum", "b_days_n": "Anzahl Tage", "mode_ret": "Nach Rückkehrdatum", "mode_days": "Nach Anzahl Tage", "trip_len": "{n} Tage, {a} bis {b}", "my_route": "Deine Route", "add_stop": "Stopp hinzufügen", "miss_h": "Diese Orte haben wir nicht gefunden", "miss_lead": "Neu tippen und einen Vorschlag wählen oder entfernen.", "adj_legs": "Etappen anpassen: km, Belag und 4x4", "lib_h": "Meine Routen und Verlauf", "sp_err": "„{x}“ nicht gefunden. Tippe los und wähle einen Vorschlag.", "sum_none": "noch offen", "b_need_dates": "Abfahrts- und Rückkehrdatum oder Anzahl Tage angeben.", "paste_miss_n": "{n} Orte nicht gefunden: siehe Hinweis im Schritt Route."});
+Object.assign(I18N.zh,{"s1": "旅行", "s2": "路线", "s3": "车辆", "s4": "检查并生成", "next": "继续", "b_ret": "返回日期", "b_days_n": "天数", "mode_ret": "按返回日期", "mode_days": "按天数", "trip_len": "{n} 天，{a} 至 {b}", "my_route": "你的路线", "add_stop": "添加途经点", "miss_h": "以下地点未找到", "miss_lead": "重新输入并从建议中选择，或删除。", "adj_legs": "调整路段：里程、路面和四驱", "lib_h": "我的路线与历史", "sp_err": "未找到“{x}”。请开始输入并选择建议。", "sum_none": "待填写", "b_need_dates": "请填写出发和返回日期，或天数。", "paste_miss_n": "{n} 个地点未找到：请查看“路线”步骤中的提示。"});
+I18N.pt.lead_criar="Quatro etapas: viagem, rota, veículo e revisão. Salve quando quiser e continue depois.";I18N.en.lead_criar="Four steps: trip, route, vehicle and review. Save any time and continue later.";I18N.es.lead_criar="Cuatro etapas: viaje, ruta, vehículo y revisión. Guardá cuando quieras y seguí después.";I18N.it.lead_criar="Quattro fasi: viaggio, percorso, veicolo e revisione. Salva quando vuoi e continua dopo.";I18N.de.lead_criar="Vier Schritte: Reise, Route, Fahrzeug und Prüfung. Jederzeit speichern und später weitermachen.";I18N.zh.lead_criar="四个步骤：旅行、路线、车辆和检查。随时保存，之后继续。";
+Object.assign(I18N.pt,{"sky_sun": "Ensolarado", "sky_partly": "Sol entre nuvens", "sky_cloud": "Nublado", "sky_rain": "Chuva", "sky_snow": "Neve possível", "sky_fog": "Neblina", "sky_thunder": "Tempestade", "sky_wind": "Vento forte", "clouds": "nebulosidade típica ~{c}%", "fc_line2": "{min}° / {max}°, chuva {p}%, nuvens {c}%, vento até {w} km/h, rajadas {g} km/h", "road_other": "Sem tabela própria para {x}: o custo usa o preço de “Outros países”, que você pode editar abaixo.", "chat_h": "Assistente vialonga", "chat_ph": "Pergunte ou peça uma busca...", "chat_send": "Enviar", "chat_hi": "Oi! Posso buscar lugares (por exemplo: “farmácia em Lima, Peru”), responder sobre o seu roteiro, gastos, clima e veículo, ou explicar qualquer função do app.", "chat_results": "Encontrei estes lugares:", "chat_none": "Não encontrei resultados por aqui. Veja a busca no Google Maps:", "chat_open_maps": "Ver no Google Maps", "chat_go": "Abrir {x}", "chat_dunno": "Ainda não sei responder isso. Tente perguntar sobre rota, veículo, gastos, clima, hospedagem ou documentos, ou peça uma busca de lugar.", "chat_s1": "Busque um posto de combustível perto do destino de hoje", "chat_s2": "Quanto gastei até agora?", "chat_s3": "Como salvo minha rota?", "chat_clear": "Limpar conversa", "chat_open": "Abrir assistente"});
+Object.assign(I18N.en,{"sky_sun": "Sunny", "sky_partly": "Sun and clouds", "sky_cloud": "Cloudy", "sky_rain": "Rain", "sky_snow": "Snow possible", "sky_fog": "Fog", "sky_thunder": "Thunderstorm", "sky_wind": "Strong wind", "clouds": "typical cloud cover ~{c}%", "fc_line2": "{min}° / {max}°, rain {p}%, clouds {c}%, wind up to {w} km/h, gusts {g} km/h", "road_other": "No dedicated table for {x}: cost uses the “Other countries” price, editable below.", "chat_h": "vialonga assistant", "chat_ph": "Ask or request a search...", "chat_send": "Send", "chat_hi": "Hi! I can find places (e.g. “pharmacy in Lima, Peru”), answer about your itinerary, spending, weather and vehicle, or explain any app feature.", "chat_results": "I found these places:", "chat_none": "No results here. Try the Google Maps search:", "chat_open_maps": "Open in Google Maps", "chat_go": "Open {x}", "chat_dunno": "I can’t answer that yet. Ask about route, vehicle, spending, weather, lodging or documents, or ask me to find a place.", "chat_s1": "Find a fuel station near today’s destination", "chat_s2": "How much have I spent so far?", "chat_s3": "How do I save my route?", "chat_clear": "Clear chat", "chat_open": "Open assistant"});
+Object.assign(I18N.es,{"sky_sun": "Soleado", "sky_partly": "Sol y nubes", "sky_cloud": "Nublado", "sky_rain": "Lluvia", "sky_snow": "Nieve posible", "sky_fog": "Niebla", "sky_thunder": "Tormenta", "sky_wind": "Viento fuerte", "clouds": "nubosidad típica ~{c}%", "fc_line2": "{min}° / {max}°, lluvia {p}%, nubes {c}%, viento hasta {w} km/h, ráfagas {g} km/h", "road_other": "Sin tabla propia para {x}: el costo usa el precio de “Otros países”, editable abajo.", "chat_h": "Asistente vialonga", "chat_ph": "Preguntá o pedí una búsqueda...", "chat_send": "Enviar", "chat_hi": "¡Hola! Puedo buscar lugares (por ejemplo: “farmacia en Lima, Perú”), responder sobre tu itinerario, gastos, clima y vehículo, o explicar cualquier función.", "chat_results": "Encontré estos lugares:", "chat_none": "No encontré resultados acá. Probá la búsqueda en Google Maps:", "chat_open_maps": "Ver en Google Maps", "chat_go": "Abrir {x}", "chat_dunno": "Todavía no sé responder eso. Preguntá por ruta, vehículo, gastos, clima, alojamiento o documentos, o pedime buscar un lugar.", "chat_s1": "Buscá una estación de servicio cerca del destino de hoy", "chat_s2": "¿Cuánto gasté hasta ahora?", "chat_s3": "¿Cómo guardo mi ruta?", "chat_clear": "Borrar conversación", "chat_open": "Abrir asistente"});
+Object.assign(I18N.it,{"sky_sun": "Soleggiato", "sky_partly": "Sole e nuvole", "sky_cloud": "Nuvoloso", "sky_rain": "Pioggia", "sky_snow": "Possibile neve", "sky_fog": "Nebbia", "sky_thunder": "Temporale", "sky_wind": "Vento forte", "clouds": "nuvolosità tipica ~{c}%", "fc_line2": "{min}° / {max}°, pioggia {p}%, nuvole {c}%, vento fino a {w} km/h, raffiche {g} km/h", "road_other": "Nessuna tabella per {x}: il costo usa il prezzo “Altri paesi”, modificabile sotto.", "chat_h": "Assistente vialonga", "chat_ph": "Chiedi o fai una ricerca...", "chat_send": "Invia", "chat_hi": "Ciao! Posso cercare luoghi (es.: “farmacia a Lima, Perù”), rispondere su itinerario, spese, meteo e veicolo, o spiegare le funzioni dell’app.", "chat_results": "Ho trovato questi luoghi:", "chat_none": "Nessun risultato qui. Prova la ricerca su Google Maps:", "chat_open_maps": "Apri su Google Maps", "chat_go": "Apri {x}", "chat_dunno": "Non so ancora rispondere. Chiedi di percorso, veicolo, spese, meteo, alloggi o documenti, o chiedimi di cercare un luogo.", "chat_s1": "Cerca un distributore vicino alla destinazione di oggi", "chat_s2": "Quanto ho speso finora?", "chat_s3": "Come salvo il mio itinerario?", "chat_clear": "Cancella chat", "chat_open": "Apri assistente"});
+Object.assign(I18N.de,{"sky_sun": "Sonnig", "sky_partly": "Sonne und Wolken", "sky_cloud": "Bewölkt", "sky_rain": "Regen", "sky_snow": "Schnee möglich", "sky_fog": "Nebel", "sky_thunder": "Gewitter", "sky_wind": "Starker Wind", "clouds": "typische Bewölkung ~{c} %", "fc_line2": "{min}° / {max}°, Regen {p} %, Wolken {c} %, Wind bis {w} km/h, Böen {g} km/h", "road_other": "Keine eigene Tabelle für {x}: die Kosten nutzen den Preis „Andere Länder“, unten änderbar.", "chat_h": "vialonga-Assistent", "chat_ph": "Frag oder such etwas...", "chat_send": "Senden", "chat_hi": "Hallo! Ich finde Orte (z. B. „Apotheke in Lima, Peru“), beantworte Fragen zu Route, Ausgaben, Wetter und Fahrzeug oder erkläre jede Funktion.", "chat_results": "Diese Orte habe ich gefunden:", "chat_none": "Hier keine Ergebnisse. Versuch die Google-Maps-Suche:", "chat_open_maps": "In Google Maps öffnen", "chat_go": "{x} öffnen", "chat_dunno": "Das kann ich noch nicht beantworten. Frag nach Route, Fahrzeug, Ausgaben, Wetter, Unterkunft oder Dokumenten, oder lass mich einen Ort suchen.", "chat_s1": "Tankstelle nahe dem heutigen Ziel suchen", "chat_s2": "Wie viel habe ich bisher ausgegeben?", "chat_s3": "Wie speichere ich meine Route?", "chat_clear": "Chat leeren", "chat_open": "Assistent öffnen"});
+Object.assign(I18N.zh,{"sky_sun": "晴", "sky_partly": "晴间多云", "sky_cloud": "多云", "sky_rain": "雨", "sky_snow": "可能下雪", "sky_fog": "雾", "sky_thunder": "雷雨", "sky_wind": "大风", "clouds": "典型云量约 {c}%", "fc_line2": "{min}° / {max}°，降雨 {p}%，云量 {c}%，风速最高 {w} 公里/时，阵风 {g} 公里/时", "road_other": "{x} 没有专门数据：费用按“其他国家”价格计算，可在下方修改。", "chat_h": "vialonga 助手", "chat_ph": "提问或搜索……", "chat_send": "发送", "chat_hi": "你好！我可以搜索地点（例如“秘鲁利马的药店”），回答关于行程、花费、天气和车辆的问题，或解释应用的任何功能。", "chat_results": "找到以下地点：", "chat_none": "这里没有结果。试试谷歌地图搜索：", "chat_open_maps": "在谷歌地图中打开", "chat_go": "打开{x}", "chat_dunno": "暂时无法回答。可以问路线、车辆、花费、天气、住宿或证件，或让我搜索地点。", "chat_s1": "搜索今天目的地附近的加油站", "chat_s2": "到目前为止我花了多少？", "chat_s3": "如何保存我的路线？", "chat_clear": "清空对话", "chat_open": "打开助手"});
 const LOCALES = {pt:'pt-BR',en:'en-GB',es:'es-AR',it:'it-IT',de:'de-DE',zh:'zh-CN'};
 const LANG_NAMES = {pt:'Português',en:'English',es:'Español',it:'Italiano',de:'Deutsch',zh:'中文'};
 
@@ -1224,7 +1299,8 @@ function climaBox(d,i){
   const list=[]; if(okC(c1)) list.push([c1,tr('dest')]); if(okC(c2) && (!list.length || c2[0]!==list[0][0][0])) list.push([c2,tr('highest')]);
   if(!list.length){ const s=S[dest]; return `<div class="box cbox"><b>${tr('clima')}</b><p class="small" style="margin:4px 0 0">${tr('no_clim')} <a href="https://www.windy.com/${s[1]}/${s[2]}?${s[1]},${s[2]},9" target="_blank" rel="noopener">${tr('live')}</a></p><div class="fc" data-fc="${i}"></div></div>`; }
   const rows=list.map(([c,lab])=>{ const lvl=rainLvl(c[4]); const what=c[3]<=0&&c[1]>=2500?tr('rainsnow'):tr('rain'); const lvlT=tr({baixa:'low',moderada:'mod',alta:'high'}[lvl]);
-    return `<div class="cl"><div><span class="small">${lab}:</span> ${esc(c[0])}<br><span class="small">${what}</span><span class="rain ${lvl}">${lvlT}, ${c[4]}%</span><br><span class="small">${esc(c[5])}. <a href="https://www.windy.com/${c[7]}/${c[8]}?${c[7]},${c[8]},9" target="_blank" rel="noopener">${tr('live')}</a></span>${windHtml(c)}</div><div class="tt"><span class="lo">${c[3]}°</span> / <span class="hi">${c[2]}°</span>${c[10]!=null?`<div class="wv">${tr('gusts',{g:c[10]})}</div>`:''}</div></div>`; }).join('');
+    const cc=climCond(c);
+    return `<div class="cl"><div><span class="small">${lab}:</span> ${esc(c[0])}<br><span class="sky">${wIcon(cc.kind,20)} ${tr('sky_'+cc.kind)}${cc.windy?', '+tr('sky_wind').toLowerCase():''}</span><br><span class="small">${what}</span><span class="rain ${lvl}">${lvlT}, ${c[4]}%</span> <span class="small">${tr('clouds',{c:cc.cl})}</span><br><span class="small">${esc(c[5])}. <a href="https://www.windy.com/${c[7]}/${c[8]}?${c[7]},${c[8]},9" target="_blank" rel="noopener">${tr('live')}</a></span>${windHtml(c)}</div><div class="tt"><div class="wbig">${wIcon(cc.kind,38)}${cc.windy?wIcon('wind',24):''}</div><span class="lo">${c[3]}°</span> / <span class="hi">${c[2]}°</span>${c[10]!=null?`<div class="wv">${tr('gusts',{g:c[10]})}</div>`:''}</div></div>`; }).join('');
   return `<div class="box cbox"><b>${tr('clima')}</b><span class="small">${tr('clima_sub')}</span>${rows}<div class="fc" data-fc="${i}"></div></div>`;
 }
 function fromTemplate(k){ return D.plans[k].days.map((id,i)=>({...JSON.parse(JSON.stringify(D.days[id])), id, uid:id})); }
@@ -1250,7 +1326,7 @@ function renderSeg(){
   const hv=(store.get('history',[])||[]).find(x=>x.id===store.get('histView',null)); if(hv) lab.hist=tr('hist_plan',{x:hv.name});
   const mine=(nova.length?['meu','nova']:['meu']).concat(plan==='hist'&&hv?['hist']:[]);
   $('#seg').innerHTML = `<label for="plansel" class="small">${tr('route_sel')}</label><select id="plansel">${mine.map(k=>`<option value="${k}" ${k===plan?'selected':''}>${esc(lab[k])}</option>`).join('')}<optgroup label="${tr('models')}">${['26','20'].map(k=>`<option value="${k}" ${k===plan?'selected':''}>${esc(lab[k])}</option>`).join('')}</optgroup></select>`;
-  $('#plansel').onchange=()=>{ plan=$('#plansel').value; store.set('plan2',plan); renderAll(); };
+  $('#plansel').onchange=()=>{ setPlan($('#plansel').value); renderAll(); };
 }
 function renderProfile(){
   const days = planDays(), n = days.length, W = 420, H = 210, top = 34, bot = 30;
@@ -1388,6 +1464,7 @@ function openAdd(i){
   ['a-name','a-coord','a-alt'].forEach(id=>$('#'+id).value=''); $('#a-st').textContent='';
   $('#a-c').value = days[i].c || 'AR'; pendingClim=null;
   $('#a-ai').hidden = !SAMPLE;
+  attachAC($('#a-name'), x=>{ $('#a-coord').value=`${x.lat}, ${x.lng}`; if(x.alt!=null) $('#a-alt').value=x.alt; if(['AR','BO','CL','BR'].includes(x.c)) $('#a-c').value=x.c; });
   $('#ov').classList.add('on'); $('#a-name').focus();
 }
 let pendingClim=null;
@@ -1551,10 +1628,15 @@ function renderRoad(){
     ['PRF, condições das rodovias federais','https://www.gov.br/prf/','Brasil'],
     ['Bencina en Línea (CNE)','https://www.bencinaenlinea.cl/','Preço por posto no Chile']
   ];
+  const PC=planCountries(), NM={'Brasil':'BR','Argentina':'AR','Bolívia':'BO','Chile':'CL'};
+  const keepRow=r=>{ const k=NM[String(r[0]).split(',')[0].trim()]; return !k || PC.has(k); };
+  const LTAG=[['CL','AR'],['AR'],['AR'],['CL'],['BO'],['BO'],['BR'],['CL']];
+  const linksF=links.filter((l,i)=>!LTAG[i] || LTAG[i].some(c=>PC.has(c)));
+  const other=[...PC].filter(c=>!['BR','AR','BO','CL'].includes(c)).map(c=>tr('c_'+c));
   $('#road').innerHTML = `
   <h3 class="sub">Combustível</h3>
   <div class="card scroll"><table><thead><tr><th>País</th><th>Produto</th><th>Preço local</th><th>Em reais/L</th><th>Pagamento</th></tr></thead>
-  <tbody>${fuelRows.map(r=>`<tr>${r.map((c,j)=>`<td class="${j===3?'num':''}">${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table>
+  <tbody>${fuelRows.filter(keepRow).map(r=>`<tr>${r.map((c,j)=>`<td class="${j===3?'num':''}">${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table>
   <p class="small">Câmbio usado: 1 real = ${D.rates.ARS} pesos argentinos, ${D.rates.CLP} pesos chilenos e ${D.rates.BOB.toFixed(2).replace('.',',')} bolivianos (Banco Central de Bolivia, 17 a 19/10/2026).</p></div>
   <div class="card"><h3 class="sub" style="margin-top:0">Autonomia e custo do plano</h3>
     <p style="margin:0"><b>${esc(vehName(V0))}</b>${V0.year?' '+esc(V0.year):''}: ${tr('f_'+V0.fuel)}${V0.ron?', RON '+V0.ron:''}, ${nf.format(V0.tank)} L, ${nf.format(V0.kml)} km/L${V0.extra?`, ${tr('veh_extra').toLowerCase()} ${V0.extra} L`:''}. <a href="#criar">${tr('edit_builder')}</a></p>
@@ -1564,12 +1646,13 @@ function renderRoad(){
   </div>
   <h3 class="sub">Pedágios</h3>
   <div class="card scroll"><p class="small" style="margin:0 0 6px"><b>${tr(moto?'toll_moto':(V0.type==='van'?'toll_van':'toll_car'))}</b></p><table><thead><tr><th>Trecho</th><th>Praças</th><th>Tarifa</th><th>${moto?'Moto':'Carro'}</th><th>Pagamento</th></tr></thead>
-  <tbody>${tolls.map(r=>{ const row=[r[0],r[1],r[2],moto?r[3]:r[4],r[5]]; return `<tr>${row.map((c,j)=>`<td class="${j===3?'num':''}">${esc(c)}</td>`).join('')}</tr>`; }).join('')}</tbody></table>
+  <tbody>${tolls.filter(keepRow).map(r=>{ const row=[r[0],r[1],r[2],moto?r[3]:r[4],r[5]]; return `<tr>${row.map((c,j)=>`<td class="${j===3?'num':''}">${esc(c)}</td>`).join('')}</tr>`; }).join('')}</tbody></table>
   <p class="small">Bolívia e o percentual chileno são estimativas sem tabela oficial consultada. Leve sempre cartão de débito e algum dinheiro local.</p></div>
-  <h3 class="sub">Plano B se um passo fechar</h3>
-  <div class="card"><p style="margin:0">Em julho de 2026 o Paso de Jama fechou por neve nos dias 3 a 7, 17 e 22. Se o Paso San Francisco fechar, saia de San Pedro por Jama (até Purmamarca) ou Sico (até San Antonio de los Cobres) e desça por Salta. Isso troca Antofagasta e Copiapó por mais Puna argentina. O Paso Agua Negra, que levaria direto a San Juan, só abre no verão.</p></div>
+  ${other.length?`<p class="small">${tr('road_other',{x:other.join(', ')})}</p>`:''}
+  ${isAndesPlan()?`<h3 class="sub">Plano B se um passo fechar</h3>
+  <div class="card"><p style="margin:0">Em julho de 2026 o Paso de Jama fechou por neve nos dias 3 a 7, 17 e 22. Se o Paso San Francisco fechar, saia de San Pedro por Jama (até Purmamarca) ou Sico (até San Antonio de los Cobres) e desça por Salta. Isso troca Antofagasta e Copiapó por mais Puna argentina. O Paso Agua Negra, que levaria direto a San Juan, só abre no verão.</p></div>`:''}
   <h3 class="sub">Comunicados e status das rotas</h3>
-  <div class="card linklist">${links.map(l=>`<a href="${l[1]}" target="_blank" rel="noopener">${esc(l[0])}<span>${esc(l[2])}</span></a>`).join('')}</div>`;
+  <div class="card linklist">${linksF.map(l=>`<a href="${l[1]}" target="_blank" rel="noopener">${esc(l[0])}<span>${esc(l[2])}</span></a>`).join('')}</div>`;
   const kmTotal = Object.values(kmBy).reduce((a,b)=>a+b,0);
   const calc = ()=>{
     const P = isDiesel?PRICE_DIESEL:PRICE_FUEL;
@@ -1635,9 +1718,9 @@ const DOCS = [
 ];
 function renderDocs(){
   const st = store.get('docs',{});
-  $('#docs').innerHTML = DOCS.map(([id,t,items])=>{
+  $('#docs').innerHTML = planDocs().map(([id,t,items])=>{
     const n = items.filter((_,j)=>st[id+j]).length;
-    return `<details class="card" ${id==='br'?'open':''}><summary>${esc(t)}<span class="cnt">${n} de ${items.length}</span></summary>
+    return `<details class="card" ${(id==='br'||id==='gBR')?'open':''}><summary>${esc(t)}<span class="cnt">${n} de ${items.length}</span></summary>
       ${items.map((it,j)=>`<label class="check"><input type="checkbox" data-doc="${id+j}" ${st[id+j]?'checked':''}><span>${esc(it[0])}${it[1]?` <a href="${it[1]}" target="_blank" rel="noopener">fonte oficial</a>`:''}</span></label>`).join('')}</details>`;
   }).join('');
   $('#docs').querySelectorAll('[data-doc]').forEach(c=>c.onchange=()=>{ const o=store.get('docs',{}); o[c.dataset.doc]=c.checked; store.set('docs',o);
@@ -1740,11 +1823,11 @@ function renderExtra(){
 /* Live forecast (Open-Meteo): works where the page may reach the internet, e.g. the installed app */
 function fcPoints(d){ const pts=[d.from,...d.route,d.to]; const hi=pts.reduce((a,b)=>S[b][3]>S[a][3]?b:a); const dest=d.to===d.from?hi:d.to; return dest===hi?[dest]:[dest,hi]; }
 async function getFc(id, date){
-  const s=S[id], key='fc:'+s[1].toFixed(2)+','+s[2].toFixed(2)+':'+date, cached=store.get(key,null);
+  const s=S[id], key='fc2:'+s[1].toFixed(2)+','+s[2].toFixed(2)+':'+date, cached=store.get(key,null);
   if(cached && Date.now()-cached.t < 3*36e5) return {...cached, old:false};
-  const u=`https://api.open-meteo.com/v1/forecast?latitude=${s[1]}&longitude=${s[2]}&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,wind_speed_10m_max,wind_gusts_10m_max&wind_speed_unit=kmh&timezone=auto&start_date=${date}&end_date=${date}`;
+  const u=`https://api.open-meteo.com/v1/forecast?latitude=${s[1]}&longitude=${s[2]}&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,wind_speed_10m_max,wind_gusts_10m_max,sunshine_duration,daylight_duration&wind_speed_unit=kmh&timezone=auto&start_date=${date}&end_date=${date}`;
   try{ const r=await fetch(u); if(!r.ok) throw 0; const j=await r.json(); const dd=j.daily;
-    const v={t:Date.now(), max:Math.round(dd.temperature_2m_max[0]), min:Math.round(dd.temperature_2m_min[0]), p:dd.precipitation_probability_max[0]??0, w:Math.round(dd.wind_speed_10m_max[0]), g:Math.round(dd.wind_gusts_10m_max[0])};
+    const v={t:Date.now(), max:Math.round(dd.temperature_2m_max[0]), min:Math.round(dd.temperature_2m_min[0]), p:dd.precipitation_probability_max[0]??0, w:Math.round(dd.wind_speed_10m_max[0]), g:Math.round(dd.wind_gusts_10m_max[0]), code:dd.weather_code?dd.weather_code[0]:null, cl:(dd.sunshine_duration&&dd.daylight_duration&&dd.daylight_duration[0])?Math.max(0,Math.min(100,Math.round(100*(1-dd.sunshine_duration[0]/dd.daylight_duration[0])))):null};
     store.set(key,v); return {...v, old:false};
   }catch(e){ return cached?{...cached, old:true}:null; }
 }
@@ -1758,7 +1841,7 @@ async function loadForecasts(){
     for(const id of fcPoints(days[i])){ const f=await getFc(id,date); if(f) out.push([id,f]); }
     if(!out.length) continue;
     el.innerHTML = `<b>${tr('fc_title')}</b>`+out.map(([id,f])=>{ const l=windLvl(f.g); const h=new Intl.DateTimeFormat(LOCALES[LANG],{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}).format(new Date(f.t));
-      return `<div class="wind">${esc(S[id][0].split(' (')[0])}: ${tr('fc_line',{min:f.min,max:f.max,p:f.p,w:f.w,g:f.g})} <span class="wl ${l}">${tr('wl_'+l)}</span><br><span class="small">${f.old?tr('fc_old')+', ':''}${tr('fc_upd',{h})}</span></div>`; }).join('');
+      return `<div class="wind">${wIcon(wmoKind(f.code),22)} ${esc(S[id][0].split(' (')[0])}: ${tr(f.cl!=null?'fc_line2':'fc_line',{min:f.min,max:f.max,p:f.p,w:f.w,g:f.g,c:f.cl})} <span class="wl ${l}">${tr('wl_'+l)}</span><br><span class="small">${f.old?tr('fc_old')+', ':''}${tr('fc_upd',{h})}</span></div>`; }).join('');
   }
 }
 
@@ -1858,7 +1941,7 @@ function safetyBox(d){
 /* Route builder */
 const BCTRY = ['BR','AR','BO','CL','PE','UY','PY','XX'];
 function bState(){ const t=new Date(); t.setDate(t.getDate()+30);
-  const b=store.get('builder',null) || {name:'', start:t.toISOString().slice(0,10), days:'', split:true, pts:[], legs:{}}; b.vehicle=vehicle(); return b; }
+  const b=store.get('builder',null) || {name:'', start:t.toISOString().slice(0,10), days:'', mode:'ret', ret:'', split:true, pts:[], legs:{}, missing:[]}; b.vehicle=vehicle(); if(!b.missing) b.missing=[]; if(b.mode==='days' || b.mode==='ret'){} else b.mode = b.days&&!b.ret?'days':'ret'; return b; }
 function bSave(b){ store.set('builder',b); if(typeof renderTitle==='function') renderTitle(); }
 function bLegs(b){
   const pts=b.pts; if(pts.length<2) return [];
@@ -1896,80 +1979,7 @@ function addBuilderPoint(p){
   }
   const pe=document.getElementById('b-pos'); const pos=pe&&pe.value!==''?Number(pe.value):b.pts.length; b.pts.splice(pos,0,{id, type:'sleep', nights:1}); bSave(b); renderBuilder();
 }
-function renderBuilder(){
-  const b=bState(), legs=bLegs(b), v=b.vehicle||'adv';
-  const el=$('#builder');
-  const vOpts=Object.keys(VEH).map(k=>`<option value="${k}" ${k===v?'selected':''}>${tr('v_'+k)}</option>`).join('');
-  const cOpts=BCTRY.map(c=>`<option value="${c}">${tr('c_'+c)}</option>`).join('');
-  const ptsHtml = b.pts.length ? b.pts.map((p,i)=>{ const s=S[p.id]||['?',0,0,0]; const first=i===0, last=i===b.pts.length-1;
-    const role = first?tr('b_start_pt'):(last?tr('b_end_pt'):'');
-    const sel = first ? `<span class="small">${role}</span>` : `<select data-bnight="${i}" aria-label="${tr('b_nights')}">${last?'':`<option value="0" ${p.type==='via'?'selected':''}>${tr('b_pass')}</option>`}${[1,2,3,4,5].map(n=>`<option value="${n}" ${p.type==='sleep'&&(p.nights||1)===n?'selected':''}>${n} ${n===1?tr('b_night1'):tr('b_nights')}</option>`).join('')}</select>`;
-    return `<div class="bpt"><span class="bn">${i+1}</span><div class="bt"><b>${esc(s[0])}</b><br><span class="small">${s[1].toFixed(3)}, ${s[2].toFixed(3)}, ${nf.format(s[3])} m${last&&!first?', '+role:''}</span></div>
-      ${sel}<div class="bact"><button class="btn" type="button" data-bup="${i}" aria-label="${tr('b_up')}" ${first?'disabled':''}>↑</button><button class="btn" type="button" data-bdown="${i}" aria-label="${tr('b_down')}" ${last?'disabled':''}>↓</button>${trashBtn(`data-brm="${i}"`, tr('del_pt'))}</div></div>`; }).join('')
-    : `<p class="small" style="margin:0">${tr('b_empty')}</p>`;
-  const legsHtml = legs.map((L,k)=>{ const ld=legData(b,L); const h=legHours(ld,v);
-    const srcT = ld.src==='osrm'?tr('b_km_src_osrm'):tr('src_'+ld.src);
-    return `<div class="bleg"><div class="prow" style="border:0;padding:0"><div><b>${esc(S[L.from][0])} ${tr('to')} ${esc(S[L.to][0])}</b>${L.vias.length?`<br><span class="small">${tr('passing')} ${L.vias.map(x=>esc(S[x][0])).join(', ')}</span>`:''}</div>${trashBtn(`data-ldel="${k}"`, tr('del_leg'))}</div>
-      <div class="bkm"><label class="kmedit">km <input type="number" min="0" step="10" data-lkm="${k}" value="${ld.km}"></label><span class="small">${srcT}, ${fmtH(h)}</span></div>
-      <div class="chips" role="group" aria-label="${tr('b_surface')}">${SURF.map(s=>`<button type="button" class="sf ${ld.surf.includes(s)?'on':''}" data-lsurf="${k}:${s}" aria-pressed="${ld.surf.includes(s)}">${tr('surf_'+s)}</button>`).join('')}
-      <label class="small" style="display:inline-flex;gap:4px;align-items:center;margin-left:4px"><input type="checkbox" data-lx4="${k}" ${ld.x4?'checked':''}> ${tr('b_x4')}</label></div>
-      ${ld.notes?`<p class="small" style="margin:6px 0 0">${esc(ld.notes)}</p>`:''}</div>`; }).join('');
-  const nd=bDaysPreview(b), target=Number(b.days)||0, totKm=legs.reduce((s,L)=>s+legData(b,L).km,0);
-  const diff = target ? nd-target : 0;
-  el.innerHTML = `${projectsCard()}
-  ${smartCard()}
-  <div class="card"><h3 class="sub" style="margin-top:0">${tr('b_trip')}</h3>
-    <div class="field"><label for="b-name">${tr('b_name')}</label><input type="text" id="b-name" class="tin" value="${esc(b.name)}" placeholder="${tr('b_name_ph')}"></div>
-    <div class="grid2" style="margin-top:10px">
-      <div class="field"><label for="b-start">${tr('b_start')}</label><input type="date" id="b-start" class="tin" value="${b.start}"></div>
-      <div class="field"><label for="b-days">${tr('b_days')}</label><input type="number" id="b-days" min="1" max="365" value="${b.days}" placeholder="${tr('b_days_ph')}"></div>
-    </div>
-  </div>
-  ${renderVehCard()}
-  <div class="card"><h3 class="sub" style="margin-top:0">${tr('b_points')}</h3>
-    <div id="b-pts">${ptsHtml}</div>
-    <div class="badd">
-      <div class="field"><label for="b-q">${tr('b_search')}</label><input type="text" id="b-q" class="tin" list="a-known" placeholder="${tr('b_search_ph')}"></div>
-      <div class="field" style="margin-top:8px"><input type="text" id="b-coord" class="tin" placeholder="${tr('b_coord_ph')}" aria-label="${tr('s_coord')}"></div>
-      ${b.pts.length>1?`<div class="field" style="margin-top:8px"><label for="b-pos">${tr('ins_pos')}</label><select id="b-pos"><option value="">${tr('ins_end')}</option>${b.pts.slice(0,-1).map((p,i)=>`<option value="${i+1}">${tr('ins_after',{n:i+1,x:esc(S[p.id][0])})}</option>`).join('')}</select></div>`:''}
-      <div class="grid2" style="margin-top:8px"><div class="field"><select id="b-c" aria-label="${tr('s_c')}">${cOpts}</select></div>
-      <div class="actions" style="margin-top:0"><button class="btn primary" type="button" id="b-go">${tr('b_add')}</button></div></div>
-      <div id="b-res" class="small" style="margin-top:8px"></div>
-    </div>
-  </div>
-  ${legs.length?`<div class="card"><h3 class="sub" style="margin-top:0">${tr('b_legs')}</h3>
-    <div class="actions" style="margin-top:0;margin-bottom:8px"><button class="btn" type="button" id="b-calc">${tr('b_calc')}</button><button class="btn" type="button" id="b-ai" ${SAMPLE?'':'hidden'}>${tr('b_claude')}</button></div>
-    <div id="b-st" class="small"></div>${legsHtml}</div>
-  <div class="card"><h3 class="sub" style="margin-top:0">${tr('b_summary')}</h3>
-    <p style="margin:0"><b>${tr('b_days_total',{n:nd})}</b>, ${nf.format(totKm)} km${target?`. ${diff>0?'<b>'+tr('b_over',{n:diff})+'</b>':tr('b_under',{n:-diff})}`:''}</p>
-    <label class="check" style="border:0"><input type="checkbox" id="b-split" ${b.split?'checked':''}><span>${tr('b_split')} (${nf.format(VEH[v].max)} km)</span></label>
-    <div class="actions"><button class="btn primary" type="button" id="b-gen">${tr('b_gen')}</button></div><div id="b-done" class="small"></div></div>`:''}
-  ${historyCard()}`;
-  wireProjects(); wireSmart(); wireVehCard(); wireHistory();
-  // trip fields
-  $('#b-name').oninput=()=>{ const x=bState(); x.name=$('#b-name').value; bSave(x); const m=store.get('novaMeta',null); if(m){ m.name=x.name||tr('name_default'); store.set('novaMeta',m); renderSeg(); } };
-  $('#b-start').onchange=()=>{ const x=bState(); x.start=$('#b-start').value; bSave(x); };
-  $('#b-days').onchange=()=>{ const x=bState(); x.days=$('#b-days').value; bSave(x); renderBuilder(); };
-  // points
-  el.querySelectorAll('[data-bnight]').forEach(s=>s.onchange=()=>{ const x=bState(), p=x.pts[Number(s.dataset.bnight)], n=Number(s.value); if(n===0){p.type='via';} else {p.type='sleep'; p.nights=n;} bSave(x); renderBuilder(); });
-  el.querySelectorAll('[data-bup]').forEach(bt=>bt.onclick=()=>{ const x=bState(), i=Number(bt.dataset.bup); [x.pts[i-1],x.pts[i]]=[x.pts[i],x.pts[i-1]]; bSave(x); renderBuilder(); });
-  el.querySelectorAll('[data-bdown]').forEach(bt=>bt.onclick=()=>{ const x=bState(), i=Number(bt.dataset.bdown); [x.pts[i+1],x.pts[i]]=[x.pts[i],x.pts[i+1]]; bSave(x); renderBuilder(); });
-  el.querySelectorAll('[data-brm]').forEach(bt=>bt.onclick=()=>withUndo(['builder'],()=>{ const x=bState(); x.pts.splice(Number(bt.dataset.brm),1); bSave(x); renderBuilder(); }));
-  el.querySelectorAll('[data-ldel]').forEach(bt=>bt.onclick=()=>withUndo(['builder'],()=>{ const x=bState(), L=bLegs(x)[Number(bt.dataset.ldel)]; const idx=x.pts.indexOf(x.pts.find(p=>p.id===L.to && x.pts.indexOf(p)>0)); if(idx>0) x.pts.splice(idx,1); bSave(x); renderBuilder(); }));
-  $('#b-go').onclick=async()=>{
-    const q=$('#b-q').value.trim(), c=parseCoord($('#b-coord').value), res=$('#b-res');
-    if(!q && !c){ res.textContent=tr('b_search_ph'); return; }
-    const known=knownByName(q);
-    if(known && !c){ const s=S[known]; addBuilderPoint({name:s[0], lat:s[1], lng:s[2], alt:s[3], c:ctryOf(known)}); return; }
-    if(c){ addBuilderPoint({name:q||`${c[0].toFixed(3)}, ${c[1].toFixed(3)}`, lat:c[0], lng:c[1], c:$('#b-c').value}); return; }
-    res.textContent='...';
-    try{ const list=await geoSearch(q);
-      if(!list.length){ res.textContent=tr('b_none_found'); return; }
-      res.innerHTML = `<div style="margin-bottom:4px">${tr('b_pick')}</div>`+list.map((x,i)=>`<button type="button" class="btn" style="margin:3px 4px 3px 0" data-gpick="${i}">${esc(x.name)}<span class="small">&nbsp;${esc(x.sub)}</span></button>`).join('');
-      res.querySelectorAll('[data-gpick]').forEach(bt=>bt.onclick=()=>addBuilderPoint(list[Number(bt.dataset.gpick)]));
-    }catch(e){ res.textContent=tr('b_offline_geo'); }
-  };
-  if(!legs.length) return;
+function wireLegs(el){
   // legs
   el.querySelectorAll('[data-lkm]').forEach(inp=>inp.onchange=()=>{ const x=bState(), L=bLegs(x)[Number(inp.dataset.lkm)]; const st=x.legs[L.key]=x.legs[L.key]||{}; st.km=Math.max(0,Math.round(Number(inp.value)||0)); st.src='user'; delete st.dur; bSave(x); renderBuilder(); });
   el.querySelectorAll('[data-lsurf]').forEach(bt=>bt.onclick=()=>{ const [k,s]=bt.dataset.lsurf.split(':'); const x=bState(), L=bLegs(x)[Number(k)]; const st=x.legs[L.key]=x.legs[L.key]||{}; const cur=new Set(st.surf||['asfalto']);
@@ -2035,7 +2045,7 @@ function generateRoute(){
   store.set('novaDays', out); store.set('novaMeta', {name:b.name||tr('name_default'), start:b.start, days:Number(b.days)||0, vehicle:v});
   store.set('vehicle', v);
   saveProject(true);
-  plan='nova'; store.set('plan2','nova'); renderAll(); location.hash='roteiro';
+  setPlan('nova'); renderAll(); location.hash='roteiro';
 }
 
 /* My vehicle: registered model drives range, fuel cost, tolls and fuel tips everywhere */
@@ -2185,7 +2195,7 @@ function saveProject(silent){
 function openProject(id){
   const p=projs().find(x=>x.id===id); if(!p) return;
   store.set('builder',p.builder); store.set('novaDays',p.days||[]); store.set('novaMeta',p.meta||null); store.set('projActive',id);
-  if(p.days&&p.days.length){ plan='nova'; store.set('plan2','nova'); } else if(plan==='nova'){ plan='meu'; store.set('plan2','meu'); }
+  if(p.days&&p.days.length){ setPlan('nova'); } else if(plan==='nova'){ plan='meu'; store.set('plan2','meu'); }
   renderAll(); location.hash='criar'; renderBuilder();
 }
 function newProject(){
@@ -2261,7 +2271,7 @@ async function fillMfc(root){
   if(diff<0||diff>15){ el.textContent=tr('fc_none'); return; }
   const f=await getFc(id,date);
   if(!f){ el.textContent=tr('fc_none'); return; }
-  const l=windLvl(f.g); el.innerHTML=`<b>${tr('fc_title')}</b>: ${tr('fc_line',{min:f.min,max:f.max,p:f.p,w:f.w,g:f.g})} <span class="wl ${l}">${tr('wl_'+l)}</span>`;
+  const l=windLvl(f.g); el.innerHTML=`${wIcon(wmoKind(f.code),22)} <b>${tr('fc_title')}</b>: ${tr(f.cl!=null?'fc_line2':'fc_line',{min:f.min,max:f.max,p:f.p,w:f.w,g:f.g,c:f.cl})} <span class="wl ${l}">${tr('wl_'+l)}</span>`;
 }
 function tilesOk(){ return new Promise(res=>{ const im=new Image(); const t=setTimeout(()=>res(false),4000); im.onload=()=>{clearTimeout(t);res(true);}; im.onerror=()=>{clearTimeout(t);res(false);}; im.src='https://tile.openstreetmap.org/2/1/2.png'; }); }
 function loadLeaflet(){ return new Promise((res,rej)=>{ if(window.L) return res(); const s=document.createElement('script'); s.src='https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js'; s.onload=()=>res(); s.onerror=rej; document.head.appendChild(s); }); }
@@ -2345,11 +2355,6 @@ function parseList(txt){
   return txt.split(/\n|;|→|->|,|\s+-\s+|\s+\/\s+/).map(s=>s.replace(/^[\s•\-\*\d\.\)]+/,'').trim()).filter(s=>s && !SKIP_WORDS.test(s))
     .filter((s,i,a)=>i===0 || s.toLowerCase()!==a[i-1].toLowerCase());
 }
-async function geoOne(name){
-  const k=knownByName(name); if(k){ const s=S[k]; return {name:s[0], lat:s[1], lng:s[2], alt:s[3], c:ctryOf(k)}; }
-  try{ const r=await geoSearch(name); if(r.length) return r[0]; }catch(e){}
-  return null;
-}
 async function geoBatchClaude(names){
   if(!SAMPLE || !names.length) return {};
   try{ const r=await SAMPLE.json(`Lugares de uma viagem por terra, na ordem (podem ser cidades, vilas, lagoas, passos, províncias): ${JSON.stringify(names)}. Para cada um, dê a localização mais provável considerando a sequência da viagem. Responda somente JSON: {"places":[{"q":string (igual à entrada),"name":string,"lat":number,"lng":number,"alt_m":number,"country":"BR"|"AR"|"BO"|"CL"|"PE"|"UY"|"PY"|"XX"}]} ; se não souber um lugar, omita.`, {modelTier:'default'});
@@ -2362,57 +2367,105 @@ function addPts(list, replace){
     b.pts.push({id, type:p.type||'sleep', nights:p.nights||1}); if(p.leg){ b._legNext=b._legNext||[]; } });
   store.set('cstops',CST); bSave(b); return b;
 }
-async function pasteRoute(){
-  const txt=$('#pl-txt').value, st=$('#pl-st'), names=parseList(txt); if(!names.length) return;
-  $('#pl-go').disabled=true; const found=[], miss=[];
-  const pre={}; names.forEach(n=>{ const k=knownByName(n); if(k) pre[n.toLowerCase()]={name:S[k][0],lat:S[k][1],lng:S[k][2],alt:S[k][3],c:ctryOf(k)}; });
-  const rest=names.filter(n=>!pre[n.toLowerCase()]);
-  let cl={}; if(SAMPLE && rest.length){ st.textContent=tr('b_claude_wait'); cl=await geoBatchClaude(rest); }
-  for(let i=0;i<names.length;i++){ const n=names[i]; st.textContent=tr('paste_wait',{i:i+1,n:names.length,x:n});
-    let p=pre[n.toLowerCase()]||cl[n.toLowerCase()]; if(!p) p=await geoOne(n); if(p) found.push(p); else miss.push(n); }
-  addPts(found, false); window._plOpen=true;
-  $('#pl-go').disabled=false; renderBuilder(); window._plOpen=false;
-  const s2=$('#pl-st'); if(s2) s2.innerHTML=tr('paste_done',{n:found.length})+(miss.length?' <b>'+tr('paste_miss',{x:esc(miss.join(', '))})+'</b>':'');
-}
 function pathKm(coords){ let s=0; for(let i=1;i<coords.length;i++){ const a=coords[i-1], c=coords[i]; const R=6371, r=Math.PI/180, dl=(c[0]-a[0])*r, dn=(c[1]-a[1])*r, x=Math.sin(dl/2)**2+Math.cos(a[0]*r)*Math.cos(c[0]*r)*Math.sin(dn/2)**2; s+=2*R*Math.asin(Math.sqrt(x)); } return s; }
 async function reverseName(lat,lng){
   try{ const r=await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}&zoom=10&accept-language=${LANG}`); if(!r.ok) throw 0; const j=await r.json(); const a=j.address||{};
     return {name:a.city||a.town||a.village||a.municipality||a.county||j.name||`${lat.toFixed(2)}, ${lng.toFixed(2)}`, c:(a.country_code||'').toUpperCase()}; }catch(e){ return null; }
 }
+/* Place autocomplete: local stops instantly, then Photon (cities, parks, neighbourhoods) or Open-Meteo */
+const AC_CACHE={};
+const fold=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+function acLocal(q){ const n=fold(q);
+  return Object.keys(S).filter(k=>{ if(/^v/.test(k)) return false; const s=fold(S[k][0]); return s.startsWith(n) || s.includes(' '+n) || s.includes('('+n); }).slice(0,4)
+    .map(k=>({name:S[k][0].split(' (')[0], sub:tr('c_'+ctryOf(k)), lat:S[k][1], lng:S[k][2], alt:S[k][3], c:ctryOf(k)})); }
+async function acRemote(q){
+  const key=LANG+'|'+q.toLowerCase(); if(AC_CACHE[key]) return AC_CACHE[key];
+  let out=[];
+  try{ const r=await fetch(`https://photon.komoot.io/api/?q=${encodeURIComponent(q)}&limit=8${['en','de','fr'].includes(LANG)?'&lang='+LANG:''}`); if(!r.ok) throw 0; const j=await r.json();
+    out=(j.features||[]).map(f=>{ const p=f.properties||{}, c=f.geometry.coordinates, cc=(p.countrycode||'').toUpperCase();
+      return {name:p.name||p.city||q, sub:[p.city&&p.city!==p.name?p.city:'', p.state, p.country].filter(Boolean).join(', '), lat:c[1], lng:c[0], alt:null, c:BCTRY.includes(cc)?cc:'XX'}; });
+  }catch(e){ try{ out=await geoSearch(q); }catch(e2){ out=[]; } }
+  const seen=new Set(); out=out.filter(x=>{ const k=x.name.toLowerCase()+'|'+x.lat.toFixed(1)+'|'+x.lng.toFixed(1); if(seen.has(k)) return false; seen.add(k); return true; });
+  AC_CACHE[key]=out; return out;
+}
+async function fetchAlt(p){ if(p.alt!=null) return p.alt;
+  try{ const r=await fetch(`https://api.open-meteo.com/v1/elevation?latitude=${p.lat}&longitude=${p.lng}`); const j=await r.json(); return Math.round(j.elevation[0]); }catch(e){ return nearestAlt(p.lat,p.lng); } }
+function attachAC(input, onPick){
+  if(!input || input._ac) return; input._ac=true;
+  input.removeAttribute('list'); input.setAttribute('autocomplete','off'); input.setAttribute('role','combobox'); input.setAttribute('aria-autocomplete','list'); input.setAttribute('aria-expanded','false');
+  const wrap=input.parentNode; wrap.style.position='relative';
+  const box=document.createElement('div'); box.className='acbox'; box.setAttribute('role','listbox'); box.hidden=true; input.after(box);
+  let items=[], sel=-1, tm=null, seq=0;
+  const close=()=>{ box.hidden=true; input.setAttribute('aria-expanded','false'); sel=-1; };
+  const draw=(loading)=>{ if(!items.length && !loading){ close(); return; }
+    box.innerHTML=items.map((x,i)=>`<button type="button" role="option" aria-selected="${i===sel}" class="acitem ${i===sel?'on':''}" data-i="${i}"><b>${esc(x.name)}</b>${x.sub?`<span>${esc(x.sub)}</span>`:''}</button>`).join('')+(loading?`<div class="acload">${tr('ac_load')}</div>`:'');
+    box.hidden=false; input.setAttribute('aria-expanded','true');
+    box.querySelectorAll('.acitem').forEach(b=>{ b.onmousedown=e=>e.preventDefault(); b.onclick=()=>pick(items[Number(b.dataset.i)]); }); };
+  const pick=async x=>{ close(); input.value=x.name; x.alt=await fetchAlt(x);
+    Object.assign(input.dataset,{lat:x.lat,lng:x.lng,c:x.c,alt:x.alt}); if(onPick) onPick({...x}); };
+  input.addEventListener('input',()=>{ ['lat','lng','c','alt'].forEach(k=>delete input.dataset[k]); const q=input.value.trim(); clearTimeout(tm);
+    if(q.length<2){ items=[]; close(); return; }
+    const loc=acLocal(q); items=loc; sel=-1; draw(true);
+    tm=setTimeout(async()=>{ const my=++seq; const rem=await acRemote(q); if(my!==seq || input.value.trim()!==q) return;
+      items=[...loc, ...rem.filter(x=>!loc.some(l=>l.name.toLowerCase()===x.name.toLowerCase() && Math.abs(l.lat-x.lat)<0.3))].slice(0,8); draw(false); },280); });
+  input.addEventListener('keydown',e=>{ if(box.hidden) return;
+    if(e.key==='ArrowDown'){ sel=Math.min(items.length-1,sel+1); draw(false); e.preventDefault(); }
+    else if(e.key==='ArrowUp'){ sel=Math.max(0,sel-1); draw(false); e.preventDefault(); }
+    else if(e.key==='Enter' && sel>=0){ e.preventDefault(); pick(items[sel]); }
+    else if(e.key==='Escape') close(); });
+  input.addEventListener('blur',()=>setTimeout(close,180));
+}
+
+/* Smart planner, rebuilt: picked places, fallbacks, undo instead of double tap */
+window._sp = window._sp || {from:null, to:null};
 async function smartPlan(){
-  const from=$('#sp-from').value.trim(), to=$('#sp-to').value.trim(), style=$('#sp-style').value, st=$('#sp-st');
-  if(!from||!to) return; st.textContent=tr('smart_wait'); $('#sp-go').disabled=true;
+  const st=$('#sp-st'), go=$('#sp-go'), style=$('#sp-style').value;
+  const fromTxt=$('#sp-from').value.trim(), toTxt=$('#sp-to').value.trim();
+  if(!fromTxt||!toTxt){ st.textContent=tr('smart_need'); return; }
+  const snap=(()=>{ try{ return localStorage.getItem(K+'builder'); }catch(e){ return null; } })();
+  go.disabled=true; st.textContent=tr('smart_wait');
   const v=myVeh(), max=VEH[v.type].max, b0=bState(), days=Number(b0.days)||0;
   try{
+    let A=(_sp.from&&_sp.from.name===fromTxt)?_sp.from:null, Z=(_sp.to&&_sp.to.name===toTxt)?_sp.to:null;
     if(SAMPLE){
-      const r=await SAMPLE.json(`Você é um planejador experiente de viagens por terra. Veículo: ${vehName(v)} (${tr('v_'+v.type)}), autonomia ~${Math.round(v.tank*v.kml*0.9)} km, limite confortável ${max} km por dia. Partida: "${from}". Destino final: "${to}". ${days?`Dias disponíveis: ${days}.`:''} Prioridade: ${style==='scenic'?'rota mais bonita, com paradas que valem a pena':'rota mais rápida e segura'}. Mês: ${new Intl.DateTimeFormat('pt-BR',{month:'long'}).format(new Date(b0.start+'T12:00:00Z'))}. Considere passos de montanha fechados no inverno e trechos sem combustível. Responda somente JSON: {"points":[{"name":string,"lat":number,"lng":number,"alt_m":number,"country":"BR"|"AR"|"BO"|"CL"|"PE"|"UY"|"PY"|"XX","nights":number (0 = só passagem)}],"legs":[{"km":number,"hours":number,"surfaces":["asfalto"|"ripio"|"pedras"|"areia"|"sal"|"off"],"needs_4x4":boolean,"notes":"até 20 palavras em português"}]} onde points começa na partida e termina no destino, e legs[i] liga o pernoite i ao próximo pernoite.`, {modelTier:'default'});
+      const r=await SAMPLE.json(`Você é um planejador experiente de viagens por terra. Veículo: ${vehName(v)} (${tr('v_'+v.type)}), autonomia ~${Math.round(v.tank*v.kml*0.9)} km, limite confortável ${max} km por dia. Partida: "${fromTxt}"${A?` (${A.lat}, ${A.lng})`:''}. Destino final: "${toTxt}"${Z?` (${Z.lat}, ${Z.lng})`:''}. ${days?`Dias disponíveis: ${days}.`:''} Prioridade: ${style==='scenic'?'rota mais bonita, com paradas que valem a pena':'rota mais rápida e segura'}. Mês: ${new Intl.DateTimeFormat('pt-BR',{month:'long'}).format(new Date(b0.start+'T12:00:00Z'))}. Considere passos de montanha fechados no inverno e trechos sem combustível. Responda somente JSON: {"points":[{"name":string,"lat":number,"lng":number,"alt_m":number,"country":"BR"|"AR"|"BO"|"CL"|"PE"|"UY"|"PY"|"XX","nights":number (0 = só passagem)}],"legs":[{"km":number,"hours":number,"surfaces":["asfalto"|"ripio"|"pedras"|"areia"|"sal"|"off"],"needs_4x4":boolean,"notes":"até 20 palavras em português"}]} onde points começa na partida e termina no destino, e legs[i] liga o pernoite i ao próximo pernoite.`, {modelTier:'default'});
       if(!r || !Array.isArray(r.points) || r.points.length<2) throw 0;
       const list=r.points.filter(p=>typeof p.lat==='number').map((p,i,a)=>({name:p.name,lat:p.lat,lng:p.lng,alt:Math.round(p.alt_m||0),c:BCTRY.includes(p.country)?p.country:'XX',type:(i>0&&i<a.length-1&&p.nights===0)?'via':'sleep',nights:Math.max(1,p.nights||1)}));
+      if(A) Object.assign(list[0],{lat:A.lat,lng:A.lng}); if(Z) Object.assign(list[list.length-1],{lat:Z.lat,lng:Z.lng});
       const b=addPts(list,true); const Ls=bLegs(b);
       (r.legs||[]).forEach((q,k)=>{ const L=Ls[k]; if(!L) return; b.legs[L.key]={km:Math.round(q.km||0)||undefined, src:'claude', dur:q.hours||undefined, surf:Array.isArray(q.surfaces)&&q.surfaces.length?SURF.filter(z=>q.surfaces.includes(z)):['asfalto'], x4:!!q.needs_4x4, notes:q.notes||''}; });
       bSave(b);
     } else {
-      const A=await geoOne(from), Z=await geoOne(to); if(!A||!Z) throw 0;
-      const r=await fetch(`https://router.project-osrm.org/route/v1/driving/${A.lng},${A.lat};${Z.lng},${Z.lat}?overview=full&geometries=geojson`); if(!r.ok) throw 0; const j=await r.json(); const R0=j.routes&&j.routes[0]; if(!R0) throw 0;
-      const km=R0.distance/1000, hrs=R0.duration/3600*1.25, geo=R0.geometry.coordinates.map(c=>[c[1],c[0]]);
-      const n=Math.max(1, days ? Math.max(Math.ceil(km/max), Math.min(days, Math.ceil(km/(max*0.6)))) : Math.ceil(km/max));
+      if(!A) A=await geoOne(fromTxt); if(!Z) Z=await geoOne(toTxt, A);
+      if(!A||!Z){ [['from',A,fromTxt],['to',Z,toTxt]].forEach(([k,p,txt])=>{ const e=$('#sp-'+k+'-err'); if(e){ e.hidden=!!p; e.textContent=tr('sp_err',{x:txt}); } }); st.textContent=''; go.disabled=false; return; }
+      let km, hrs, geo, src='osrm';
+      try{ const r=await fetch(`https://router.project-osrm.org/route/v1/driving/${A.lng},${A.lat};${Z.lng},${Z.lat}?overview=full&geometries=geojson`); if(!r.ok) throw 0; const j=await r.json(); const R0=j.routes&&j.routes[0]; if(!R0) throw 0;
+        km=R0.distance/1000; hrs=R0.duration/3600*1.25; geo=R0.geometry.coordinates.map(c=>[c[1],c[0]]);
+      }catch(e){ geo=[[A.lat,A.lng],[Z.lat,Z.lng]]; km=pathKm(geo)*1.3; hrs=km/70; src='est'; }
+      const n=Math.max(1, Math.ceil(km/max));
       const cum=[0]; for(let i=1;i<geo.length;i++) cum.push(cum[i-1]+pathKm([geo[i-1],geo[i]])); const tot=cum[cum.length-1]||1;
       const list=[{...A}];
-      for(let k=1;k<n;k++){ const target=tot*k/n; let i=cum.findIndex(x=>x>=target); if(i<0) i=geo.length-1; const [la,lo]=geo[i];
-        st.textContent=tr('smart_wait')+` ${k}/${n-1}`; const nm=await reverseName(la,lo); await new Promise(res=>setTimeout(res,1100));
-        list.push({name:nm?nm.name:`${la.toFixed(2)}, ${lo.toFixed(2)}`, lat:la, lng:lo, c:nm&&BCTRY.includes(nm.c)?nm.c:'XX'}); }
+      for(let k=1;k<n;k++){
+        let la, lo; if(geo.length>2){ let i=cum.findIndex(x=>x>=tot*k/n); if(i<0) i=geo.length-1; [la,lo]=geo[i]; } else { la=A.lat+(Z.lat-A.lat)*k/n; lo=A.lng+(Z.lng-A.lng)*k/n; }
+        st.textContent=tr('smart_wait')+` ${k}/${n-1}`;
+        const nm=await reverseName(la,lo); if(nm) await new Promise(res=>setTimeout(res,1100));
+        list.push({name:nm?nm.name:`${tr('to_define')} (km ${nf.format(Math.round(km*k/n))})`, lat:la, lng:lo, c:nm&&BCTRY.includes(nm.c)?nm.c:'XX'});
+      }
       list.push({...Z});
-      const b=addPts(list,true); const Ls=bLegs(b);
-      Ls.forEach(L=>{ b.legs[L.key]={km:Math.round(km/n), src:'osrm', dur:hrs/n, surf:['asfalto']}; }); bSave(b);
+      const b=addPts(list,true); bLegs(b).forEach(L=>{ b.legs[L.key]={km:Math.round(km/n), src, dur:src==='osrm'?hrs/n:undefined, surf:['asfalto']}; }); bSave(b);
     }
-    renderBuilder(); const b=bState(), Ls=bLegs(b); const k=Ls.reduce((s,L)=>s+legData(b,L).km,0), h=Ls.reduce((s,L)=>s+legHours(legData(b,L),v.type),0);
+    renderBuilder();
+    const b=bState(), Ls=bLegs(b), k=Ls.reduce((s,L)=>s+legData(b,L).km,0), h=Ls.reduce((s,L)=>s+legHours(legData(b,L),v.type),0);
     const s2=$('#sp-st'); if(s2) s2.textContent=tr('smart_done',{n:bDaysPreview(b),k:nf.format(k),h:nf.format(Math.round(h))});
+    toast(tr('smart_ready'), ()=>{ try{ snap===null?localStorage.removeItem(K+'builder'):localStorage.setItem(K+'builder',snap); }catch(e){} renderBuilder(); });
+    const pc=$('#b-pts'); if(pc) pc.closest('.card').scrollIntoView({behavior:'smooth', block:'start'});
   }catch(e){ const s2=$('#sp-st'); if(s2) s2.textContent=tr('smart_fail'); const g=$('#sp-go'); if(g) g.disabled=false; }
 }
 function smartCard(){
+  const f=_sp.from, t=_sp.to;
   return `<div class="card"><h3 class="sub" style="margin-top:0">${tr('smart_h')}</h3><p class="small" style="margin:0 0 8px">${tr('smart_lead')}</p>
-    <div class="grid2"><div class="field"><label for="sp-from">${tr('smart_from')}</label><input type="text" id="sp-from" class="tin" list="a-known"></div>
-    <div class="field"><label for="sp-to">${tr('smart_to')}</label><input type="text" id="sp-to" class="tin" list="a-known"></div></div>
+    <div class="field"><label for="sp-from">${tr('smart_from')}</label><input type="text" id="sp-from" class="tin" value="${f?esc(f.name):''}" placeholder="${tr('b_search_ph')}"></div>
+    <div class="field" style="margin-top:8px"><label for="sp-to">${tr('smart_to')}</label><input type="text" id="sp-to" class="tin" value="${t?esc(t.name):''}" placeholder="${tr('b_search_ph')}"></div>
     <div class="field" style="margin-top:8px"><label for="sp-style">${tr('smart_style')}</label><select id="sp-style"><option value="fast">${tr('st_fast')}</option><option value="scenic" ${SAMPLE?'':'disabled'}>${tr('st_scenic')}</option></select></div>
     <div class="actions"><button class="btn primary" type="button" id="sp-go">${tr('smart_go')}</button></div><p class="small" id="sp-st" style="margin:6px 0 0"></p>
     <details style="margin-top:12px;border-top:1px dashed var(--line);padding-top:10px" ${window._plOpen?'open':''}><summary class="sub" style="cursor:pointer;font:600 1.1rem var(--display)">${tr('paste_h')}</summary>
@@ -2421,7 +2474,10 @@ function smartCard(){
 }
 function wireSmart(){
   const go=$('#sp-go'); if(!go) return;
-  if(bState().pts.length) armTwice(go, tr('smart_replace'), smartPlan); else go.onclick=smartPlan;
+  go.onclick=smartPlan;
+  attachAC($('#sp-from'), x=>{ _sp.from=x; });
+  attachAC($('#sp-to'), x=>{ _sp.to=x; });
+  $('#sp-from').addEventListener('input',()=>{ _sp.from=null; }); $('#sp-to').addEventListener('input',()=>{ _sp.to=null; });
   $('#pl-go').onclick=pasteRoute;
 }
 
@@ -2433,6 +2489,288 @@ function tabsCard(){ const h=store.get('hiddenTabs',[])||[];
   return `<h3 class="sub">${tr('tabs_h')}</h3><div class="card"><p class="small" style="margin:0 0 6px">${tr('tabs_lead')}</p>${OPT_TABS.filter(t=>t!=='extra').map(t=>`<label class="check"><input type="checkbox" data-tabpref="${t}" ${h.includes(t)?'':'checked'}><span>${tr('tab_'+t)}</span></label>`).join('')}</div>`; }
 function wireTabs(){ document.querySelectorAll('[data-tabpref]').forEach(c=>c.onchange=()=>{ let h=store.get('hiddenTabs',[])||[]; const t=c.dataset.tabpref; h = c.checked ? h.filter(x=>x!==t) : [...new Set([...h,t])]; store.set('hiddenTabs',h); applyTabPrefs(); }); }
 
+/* Create tab: a guided flow in four steps, one open at a time */
+function addDaysIso(isoStr, n){ const d=new Date(isoStr+'T12:00:00Z'); d.setUTCDate(d.getUTCDate()+n); return d.toISOString().slice(0,10); }
+function daysBetween(a,b){ return Math.round((Date.parse(b+'T12:00:00Z')-Date.parse(a+'T12:00:00Z'))/864e5)+1; }
+function tripDates(b){
+  if(!b.start) return {n:0};
+  if(b.mode==='days'){ const n=Number(b.days)||0; return {n, ret:n?addDaysIso(b.start,n-1):''}; }
+  if(b.ret && b.ret>=b.start) return {n:daysBetween(b.start,b.ret), ret:b.ret};
+  return {n:Number(b.days)||0, ret:b.ret||''};
+}
+function stepsDone(b){ const td=tripDates(b); return {1: !!(b.name && b.start && td.n>0), 2: b.pts.length>=2, 3: !!(myVeh().tank && myVeh().kml), 4: !!(store.get('novaDays',[])||[]).length && !isDirty()}; }
+function fmtD(isoStr){ return isoStr?fmt(new Date(isoStr+'T12:00:00Z')):''; }
+function legsHtml(b,legs,v){
+  return legs.map((L,k)=>{ const ld=legData(b,L); const h=legHours(ld,v);
+    const srcT = ld.src==='osrm'?tr('b_km_src_osrm'):tr('src_'+ld.src);
+    return `<div class="bleg"><div class="prow" style="border:0;padding:0"><div><b>${esc(S[L.from][0])} ${tr('to')} ${esc(S[L.to][0])}</b>${L.vias.length?`<br><span class="small">${tr('passing')} ${L.vias.map(x=>esc(S[x][0])).join(', ')}</span>`:''}</div>${trashBtn(`data-ldel="${k}"`, tr('del_leg'))}</div>
+      <div class="bkm"><label class="kmedit">km <input type="number" min="0" step="10" data-lkm="${k}" value="${ld.km}"></label><span class="small">${srcT}, ${fmtH(h)}</span></div>
+      <div class="chips" role="group" aria-label="${tr('b_surface')}">${SURF.map(s=>`<button type="button" class="sf ${ld.surf.includes(s)?'on':''}" data-lsurf="${k}:${s}" aria-pressed="${ld.surf.includes(s)}">${tr('surf_'+s)}</button>`).join('')}
+      <label class="small" style="display:inline-flex;gap:4px;align-items:center;margin-left:4px"><input type="checkbox" data-lx4="${k}" ${ld.x4?'checked':''}> ${tr('b_x4')}</label></div>
+      ${ld.notes?`<p class="small" style="margin:6px 0 0">${esc(ld.notes)}</p>`:''}</div>`; }).join('');
+}
+function pointsHtml(b){
+  if(!b.pts.length) return `<p class="small" style="margin:0">${tr('b_empty')}</p>`;
+  return b.pts.map((p,i)=>{ const s=S[p.id]||['?',0,0,0]; const first=i===0, last=i===b.pts.length-1;
+    const role = first?tr('b_start_pt'):(last?tr('b_end_pt'):'');
+    const sel = first ? `<span class="small">${role}</span>` : `<select data-bnight="${i}" aria-label="${tr('b_nights')}">${last?'':`<option value="0" ${p.type==='via'?'selected':''}>${tr('b_pass')}</option>`}${[1,2,3,4,5].map(n=>`<option value="${n}" ${p.type==='sleep'&&(p.nights||1)===n?'selected':''}>${n} ${n===1?tr('b_night1'):tr('b_nights')}</option>`).join('')}</select>`;
+    return `<div class="bpt"><span class="bn">${i+1}</span><div class="bt"><b>${esc(s[0])}</b><br><span class="small">${nf.format(s[3])} m${last&&!first?', '+role:''}</span></div>
+      ${sel}<div class="bact"><button class="btn" type="button" data-bup="${i}" aria-label="${tr('b_up')}" ${first?'disabled':''}>↑</button><button class="btn" type="button" data-bdown="${i}" aria-label="${tr('b_down')}" ${last?'disabled':''}>↓</button>${trashBtn(`data-brm="${i}"`, tr('del_pt'))}</div></div>`; }).join('');
+}
+function missingHtml(b){
+  const m=b.missing||[]; if(!m.length) return '';
+  return `<div class="box alert miss"><b>${tr('miss_h')}</b><p class="small" style="margin:2px 0 8px">${tr('miss_lead')}</p>
+    ${m.map((x,i)=>`<div class="mrow"><div class="field" style="flex:1"><input type="text" class="tin" data-miss="${i}" value="${esc(x.name)}" aria-label="${esc(x.name)}"></div>${trashBtn(`data-missdel="${i}"`, tr('b_remove'))}</div>`).join('')}</div>`;
+}
+function stepHead(n, title, summary, done, open){
+  return `<button type="button" class="shead" data-go="${n}" aria-expanded="${open}"><span class="sn ${done?'ok':''}">${done?'✓':n}</span><span class="st"><b>${title}</b><span class="small">${summary}</span></span><span class="chev" aria-hidden="true">${open?'−':'+'}</span></button>`;
+}
+function renderBuilder(){
+  const b=bState(), el=$('#builder'), legs=bLegs(b), v=myVeh(), vt=v.type, done=stepsDone(b), td=tripDates(b);
+  let step=window._step; if(!step){ step = !done[1]?1:(!done[2]?2:(!done[3]?3:4)); window._step=step; }
+  const a=activeProj(), dirty=isDirty();
+  const stateChip = a ? (dirty?`<span class="wl strong">${tr('proj_unsaved')}</span>`:`<span class="wl calm">${tr('proj_saved',{t:fmtStamp(a.saved)})}</span>`) : (dirty?`<span class="wl strong">${tr('proj_never')}</span>`:'');
+  const nd=bDaysPreview(b), totKm=legs.reduce((s,L)=>s+legData(b,L).km,0), diff=td.n?nd-td.n:0;
+  const sum1 = done[1] ? tr('trip_len',{n:td.n,a:fmtD(b.start),b:fmtD(td.ret)}) : tr('sum_none');
+  const sum2 = b.pts.length>=2 ? `${esc(S[b.pts[0].id][0].split(' (')[0])} → ${esc(S[b.pts[b.pts.length-1].id][0].split(' (')[0])}, ${b.pts.length} ${tr('b_points').toLowerCase()}` : tr('sum_none');
+  const sum3 = esc(vehName(v));
+  const sum4 = legs.length ? `${tr('b_days_total',{n:nd})}, ${nf.format(totKm)} km` : tr('sum_none');
+  const sec=(n,title,summary,body)=>`<section class="step ${step===n?'open':''}">${stepHead(n,title,summary,done[n],step===n)}<div class="sbody" ${step===n?'':'hidden'}>${body}</div></section>`;
+  const next=n=>`<div class="actions"><button class="btn primary" type="button" data-go="${n}">${tr('next')}</button></div>`;
+  const body1=`<div class="field"><label for="b-name">${tr('b_name')}</label><input type="text" id="b-name" class="tin" value="${esc(b.name)}" placeholder="${tr('b_name_ph')}"></div>
+    <div class="field" style="margin-top:10px"><label for="b-start">${tr('b_start')}</label><input type="date" id="b-start" class="tin" value="${b.start}"></div>
+    <div class="segm" role="group" style="margin-top:12px"><button type="button" data-mode="ret" aria-pressed="${b.mode!=='days'}">${tr('mode_ret')}</button><button type="button" data-mode="days" aria-pressed="${b.mode==='days'}">${tr('mode_days')}</button></div>
+    ${b.mode==='days' ? `<div class="field" style="margin-top:10px"><label for="b-days">${tr('b_days_n')}</label><input type="number" id="b-days" min="1" max="365" value="${b.days||''}" placeholder="${tr('b_days_ph')}"></div>`
+      : `<div class="field" style="margin-top:10px"><label for="b-ret">${tr('b_ret')}</label><input type="date" id="b-ret" class="tin" min="${b.start}" value="${b.ret||''}"></div>`}
+    <p class="small" style="margin:8px 0 0">${td.n?tr('trip_len',{n:td.n,a:fmtD(b.start),b:fmtD(td.ret)}):tr('b_need_dates')}</p>${next(2)}`;
+  const body2=`<div class="field"><label for="sp-from">${tr('smart_from')}</label><input type="text" id="sp-from" class="tin" value="${_sp.from?esc(_sp.from.name):''}" placeholder="${tr('b_search_ph')}"><p class="ferr" id="sp-from-err" hidden></p></div>
+    <div class="field" style="margin-top:8px"><label for="sp-to">${tr('smart_to')}</label><input type="text" id="sp-to" class="tin" value="${_sp.to?esc(_sp.to.name):''}" placeholder="${tr('b_search_ph')}"><p class="ferr" id="sp-to-err" hidden></p></div>
+    <div class="actions"><button class="btn primary" type="button" id="sp-go">${tr('smart_go')}</button>${SAMPLE?`<select id="sp-style" aria-label="${tr('smart_style')}" style="width:auto"><option value="fast">${tr('st_fast')}</option><option value="scenic">${tr('st_scenic')}</option></select>`:'<input type="hidden" id="sp-style" value="fast">'}</div>
+    <p class="small" id="sp-st" style="margin:6px 0 0"></p>
+    <details class="paste" ${window._plOpen?'open':''}><summary>${tr('paste_h')}</summary>
+      <p class="small">${tr('paste_lead')}</p><textarea id="pl-txt" rows="6" placeholder="${esc(tr('paste_ph'))}"></textarea>
+      <div class="actions"><button class="btn primary" type="button" id="pl-go">${tr('paste_go')}</button></div><p class="small" id="pl-st" style="margin:6px 0 0"></p></details>
+    ${missingHtml(b)}
+    <h4 class="h4">${tr('my_route')}</h4><div id="b-pts">${pointsHtml(b)}</div>
+    <div class="field" style="margin-top:10px"><label for="b-q">${tr('add_stop')}</label><input type="text" id="b-q" class="tin" placeholder="${tr('b_search_ph')}"></div>
+    ${b.pts.length>1?`<div class="field" style="margin-top:8px"><label for="b-pos">${tr('ins_pos')}</label><select id="b-pos"><option value="">${tr('ins_end')}</option>${b.pts.slice(0,-1).map((p,i)=>`<option value="${i+1}">${tr('ins_after',{n:i+1,x:esc(S[p.id][0])})}</option>`).join('')}</select></div>`:''}
+    ${done[2]?next(3):''}`;
+  const body3=`${renderVehCard()}${next(4)}`;
+  const body4= legs.length ? `<p style="margin:0"><b>${tr('b_days_total',{n:nd})}</b>, ${nf.format(totKm)} km${td.n?`. ${diff>0?'<b>'+tr('b_over',{n:diff})+'</b>':tr('b_under',{n:-diff})}`:''}</p>
+    <label class="check" style="border:0"><input type="checkbox" id="b-split" ${b.split?'checked':''}><span>${tr('b_split')} (${nf.format(VEH[vt].max)} km)</span></label>
+    <details class="paste"><summary>${tr('adj_legs')}</summary>
+      <div class="actions" style="margin-bottom:8px"><button class="btn" type="button" id="b-calc">${tr('b_calc')}</button><button class="btn" type="button" id="b-ai" ${SAMPLE?'':'hidden'}>${tr('b_claude')}</button></div>
+      <div id="b-st" class="small"></div>${legsHtml(b,legs,vt)}</details>
+    <div class="actions"><button class="btn primary big" type="button" id="b-gen">${tr('b_gen')}</button></div>` : `<p class="small" style="margin:0">${tr('b_empty')}</p>`;
+  const ps=projs().filter(p=>p.status!=='done' || (a&&a.id===p.id));
+  const lib=`<details class="card lib"><summary>${tr('lib_h')}<span class="cnt">${ps.length+hist().length}</span></summary>
+    <h4 class="h4">${tr('proj_h')}</h4>${ps.length?ps.map(p=>`<div class="prow ${a&&a.id===p.id?'on':''}"><div><b>${esc(p.name)}</b><br><span class="small">${tr('st_'+p.status)}, ${tr('proj_days',{n:p.n||0,k:nf.format(p.km||0)})}, ${fmtStamp(p.saved)}${a&&a.id===p.id?', '+tr('proj_active'):''}</span></div>
+      <div class="bact">${a&&a.id===p.id?'':`<button class="btn" type="button" data-popen="${p.id}">${tr('proj_open')}</button>`}${trashBtn(`data-pdel="${p.id}"`, tr('proj_del'))}</div></div>`).join(''):`<p class="small">${tr('proj_empty')}</p>`}
+    ${historyCard().replace('<div class="card">','<div>').replace('<h3 class="sub" style="margin-top:0">','<h4 class="h4">').replace('</h3>','</h4>')}</details>`;
+  el.innerHTML = `<div class="bbar"><div class="bbar-t"><b>${esc(b.name||tr('name_default'))}</b>${stateChip}</div><div class="actions" style="margin:0"><button class="btn primary" type="button" id="p-save">${tr('proj_save')}</button><button class="btn" type="button" id="p-new">${tr('proj_new')}</button></div></div>
+    ${sec(1,tr('s1'),sum1,body1)}${sec(2,tr('s2'),sum2,body2)}${sec(3,tr('s3'),sum3,body3)}${sec(4,tr('s4'),sum4,body4)}${lib}`;
+  // navigation
+  el.querySelectorAll('[data-go]').forEach(x=>x.onclick=()=>{ const n=Number(x.dataset.go); window._step = (window._step===n && x.classList.contains('shead')) ? 0 : n; renderBuilder(); const s=el.querySelector('.step.open'); if(s) s.scrollIntoView({behavior:'smooth',block:'start'}); });
+  wireProjects(); wireHistory();
+  // step 1
+  if($('#b-name')) $('#b-name').oninput=()=>{ const x=bState(); x.name=$('#b-name').value; bSave(x); const t=el.querySelector('.bbar-t b'); if(t) t.textContent=x.name||tr('name_default'); const m=store.get('novaMeta',null); if(m){ m.name=x.name||tr('name_default'); store.set('novaMeta',m); renderSeg(); } };
+  if($('#b-start')) $('#b-start').onchange=()=>{ const x=bState(); x.start=$('#b-start').value; bSave(x); renderBuilder(); };
+  if($('#b-ret')) $('#b-ret').onchange=()=>{ const x=bState(); x.ret=$('#b-ret').value; x.days=tripDates(x).n||''; bSave(x); renderBuilder(); };
+  if($('#b-days')) $('#b-days').onchange=()=>{ const x=bState(); x.days=$('#b-days').value; x.ret=tripDates(x).ret; bSave(x); renderBuilder(); };
+  el.querySelectorAll('[data-mode]').forEach(x=>x.onclick=()=>{ const y=bState(); y.mode=x.dataset.mode; bSave(y); renderBuilder(); });
+  // step 2
+  if($('#sp-go')){ wireSmart(); attachAC($('#b-q'), x=>addBuilderPoint(x)); }
+  el.querySelectorAll('[data-bnight]').forEach(s=>s.onchange=()=>{ const x=bState(), p=x.pts[Number(s.dataset.bnight)], n=Number(s.value); if(n===0){p.type='via';} else {p.type='sleep'; p.nights=n;} bSave(x); renderBuilder(); });
+  el.querySelectorAll('[data-bup]').forEach(bt=>bt.onclick=()=>{ const x=bState(), i=Number(bt.dataset.bup); [x.pts[i-1],x.pts[i]]=[x.pts[i],x.pts[i-1]]; bSave(x); renderBuilder(); });
+  el.querySelectorAll('[data-bdown]').forEach(bt=>bt.onclick=()=>{ const x=bState(), i=Number(bt.dataset.bdown); [x.pts[i+1],x.pts[i]]=[x.pts[i],x.pts[i+1]]; bSave(x); renderBuilder(); });
+  el.querySelectorAll('[data-brm]').forEach(bt=>bt.onclick=()=>withUndo(['builder'],()=>{ const x=bState(); x.pts.splice(Number(bt.dataset.brm),1); bSave(x); renderBuilder(); }));
+  el.querySelectorAll('[data-miss]').forEach(inp=>attachAC(inp, p=>{ const x=bState(), i=Number(inp.dataset.miss), m=x.missing[i]; const pos=Math.min(m.pos, x.pts.length);
+    let id='b'+newUid(); S[id]=[p.name,p.lat,p.lng,p.alt||nearestAlt(p.lat,p.lng),'pernoite',p.c||'XX',null]; CST[id]=S[id]; store.set('cstops',CST);
+    x.pts.splice(pos,0,{id,type:'sleep',nights:1}); x.missing.splice(i,1); x.missing.forEach(o=>{ if(o.pos>=pos) o.pos++; }); bSave(x); renderBuilder(); }));
+  el.querySelectorAll('[data-missdel]').forEach(bt=>bt.onclick=()=>{ const x=bState(); x.missing.splice(Number(bt.dataset.missdel),1); bSave(x); renderBuilder(); });
+  // step 3
+  if($('#v-save')) wireVehCard();
+  // step 4
+  if($('#b-gen')) wireLegs(el);
+}
+async function geoOne(name, near){
+  const loc=acLocal(name); if(loc.length) return loc[0];
+  const variants=[name, name.replace(/\b(do|da|dos|das)\b/gi,'de'), name.split(/[(\-–,]/)[0].trim(), fold(name)].filter((x,i,a)=>x && a.indexOf(x)===i);
+  for(const q of variants){ let res=[]; try{ res=await acRemote(q); }catch(e){}
+    if(res.length){ if(near){ res.sort((p,q2)=>((p.lat-near.lat)**2+(p.lng-near.lng)**2)-((q2.lat-near.lat)**2+(q2.lng-near.lng)**2)); } return res[0]; } }
+  return null;
+}
+async function pasteRoute(){
+  const txt=$('#pl-txt').value, st=$('#pl-st'), names=parseList(txt); if(!names.length) return;
+  $('#pl-go').disabled=true; const found=[], miss=[];
+  let cl={}; const needRemote=names.filter(n=>!acLocal(n).length);
+  if(SAMPLE && needRemote.length){ st.textContent=tr('b_claude_wait'); cl=await geoBatchClaude(needRemote); }
+  const b0=bState(); let prev=b0.pts.length?{lat:S[b0.pts[b0.pts.length-1].id][1], lng:S[b0.pts[b0.pts.length-1].id][2]}:null;
+  for(let i=0;i<names.length;i++){ const n=names[i]; st.textContent=tr('paste_wait',{i:i+1,n:names.length,x:n});
+    let p=cl[n.toLowerCase()] || await geoOne(n, prev);
+    if(p){ found.push(p); prev=p; } else miss.push({name:n, pos:b0.pts.length+found.length}); }
+  const b=addPts(found,false); b.missing=[...(b.missing||[]), ...miss]; bSave(b);
+  window._plOpen=false; renderBuilder();
+  const s2=$('#pl-st'); if(s2) s2.innerHTML=tr('paste_done',{n:found.length});
+  toast(miss.length ? tr('paste_miss_n',{n:miss.length}) : tr('paste_done',{n:found.length}));
+}
+
+/* Weather symbols (universal) */
+function wIcon(kind, size){
+  const s=size||30, sun='<circle cx="12" cy="12" r="4.2" fill="#F2B233"/><g stroke="#F2B233" stroke-width="1.8" stroke-linecap="round"><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5.3 5.3l1.7 1.7M17 17l1.7 1.7M5.3 18.7L7 17M17 7l1.7-1.7"/></g>';
+  const cloud=(x,y,f)=>`<path transform="translate(${x} ${y})" d="M6.5 17.5h10a4 4 0 0 0 .4-8 5.5 5.5 0 0 0-10.6 1.4A3.3 3.3 0 0 0 6.5 17.5z" fill="${f||'#B9C2CC'}" stroke="#8A96A3" stroke-width="1"/>`;
+  const drops='<g stroke="#3B82C4" stroke-width="1.8" stroke-linecap="round"><path d="M9 19.5l-1 2.5M13 19.5l-1 2.5M17 19.5l-1 2.5"/></g>';
+  const flakes='<g fill="#7FB3E0"><circle cx="8.5" cy="21" r="1.2"/><circle cx="12.5" cy="22" r="1.2"/><circle cx="16.5" cy="21" r="1.2"/></g>';
+  const map={
+    sun: sun,
+    partly: `<g transform="translate(-3 -3) scale(.8)">${sun}</g>${cloud(1,2,'#D5DBE1')}`,
+    cloud: cloud(0,0),
+    rain: cloud(0,-2)+drops,
+    snow: cloud(0,-2)+flakes,
+    thunder: cloud(0,-2)+'<path d="M12.5 16l-2.5 4h2.5l-1.5 3.5 4-5h-2.5l1.5-2.5z" fill="#F2B233"/>',
+    fog: '<g stroke="#9AA6B2" stroke-width="2" stroke-linecap="round"><path d="M4 9h16M3 13h18M5 17h14"/></g>',
+    wind: '<g fill="none" stroke="#7C8A99" stroke-width="2" stroke-linecap="round"><path d="M3 9h11a3 3 0 1 0-3-3M3 14h15a3 3 0 1 1-3 3M3 19h8"/></g>'
+  };
+  return `<svg class="wic" viewBox="0 0 24 24" width="${s}" height="${s}" role="img" aria-label="${tr('sky_'+kind)}">${map[kind]||map.cloud}</svg>`;
+}
+function climCond(c){
+  const fog=/neblina|camanchaca|fog/i.test(c[5]||'');
+  let kind='sun', cl=15;
+  if(c[3]<=0 && c[1]>=2500 && c[4]>=5){ kind='snow'; cl=70; }
+  else if(c[4]>=35){ kind='rain'; cl=75; }
+  else if(c[4]>=15){ kind='partly'; cl=45; }
+  else if(fog){ kind='fog'; cl=55; }
+  return {kind, cl, windy:(c[10]||0)>=50};
+}
+function wmoKind(code){ if(code==null) return 'cloud'; if(code<=1) return 'sun'; if(code===2) return 'partly'; if(code===3) return 'cloud'; if(code===45||code===48) return 'fog';
+  if((code>=71&&code<=77)||code===85||code===86) return 'snow'; if(code>=95) return 'thunder'; if((code>=51&&code<=67)||(code>=80&&code<=82)) return 'rain'; return 'cloud'; }
+
+/* Route-aware helpers: every tab follows the itinerary on screen */
+function planCountries(){ const s=new Set(); planDays().forEach(d=>{ s.add(d.c); s.add(ctryOf(d.to)); s.add(ctryOf(d.from)); }); return s; }
+function isAndesPlan(){ return plan==='meu'||plan==='26'||plan==='20' || (plan==='hist' && ((histView()||{}).from==='meu')); }
+const GEN_DOCS = {
+  BR:[['Brasil: CNH física, CRLV do veículo e documento de identidade. Para sair do país, passaporte ou RG em bom estado.'],['Permissão Internacional para Dirigir (PID) se for a outros países.']],
+  AR:[['Argentina: passaporte ou RG físico e seguro médico de viagem, obrigatório.','https://www.argentina.gob.ar/migraciones/documentacion-para-ingresar-al-pais-como-turista'],['Argentina: admissão temporária do veículo na aduana e Carta Verde (seguro Mercosul).'],['Argentina: muitos pedágios não aceitam dinheiro; tenha TelePASE ou cartão.']],
+  BO:[['Bolívia: RG ou passaporte e certificado de febre amarela para quem vem do Brasil.'],['Bolívia: declaração de ingresso do veículo (SIVETUR), gratuita, e SOAT boliviano.','https://portal.aduana.gob.bo/aduana7/content/procedimiento-para-el-ingreso-y-salida-de-veh%C3%ADculos-de-uso-privado-para-turismo']],
+  CL:[['Chile: TITV do veículo na aduana e seguro SOAPEX comprado antes de entrar.','https://www.chileatiende.gob.cl/fichas/52-solicitar-permiso-para-el-ingreso-temporal-de-vehiculos'],['Chile: declaração SAG; não leve frutas, carnes, laticínios, mel ou folha de coca.']],
+  PE:[['Peru: passaporte ou documento de identidade aceito no país; confirme no consulado.'],['Peru: permissão de internação temporária do veículo na aduana (SUNAT) e SOAT peruano.']],
+  UY:[['Uruguai: documento de identidade aceito no Mercosul e Carta Verde do veículo.']],
+  PY:[['Paraguai: documento de identidade aceito no Mercosul, Carta Verde e permissão temporária do veículo.']],
+  XX:[['Outros países: confirme no consulado visto, documento de entrada, permissão do veículo (pode ser exigido Carnet de Passages) e seguro local obrigatório.']]
+};
+function planDocs(){
+  if(isAndesPlan()) return DOCS;
+  const cs=[...planCountries()], v=myVeh(), out=[];
+  const order=['BR','AR','BO','CL','PE','UY','PY','XX'];
+  order.filter(c=>cs.includes(c)).forEach(c=>out.push(['g'+c, tr('c_'+c), GEN_DOCS[c]]));
+  if(MOTO_TYPES.includes(v.type)) out.push(DOCS.find(x=>x[0]==='moto'));
+  out.push(DOCS.find(x=>x[0]==='saude'));
+  return out.filter(Boolean);
+}
+
+/* Autosave: the open saved route follows every change */
+let _autoT=null;
+const _origSet = store.set;
+store.set = function(k,v){ _origSet(k,v); if(['novaDays','novaMeta','builder'].includes(k) && store.get('projActive',null)){ clearTimeout(_autoT); _autoT=setTimeout(()=>{ try{ saveProject(true); }catch(e){} }, 700); } };
+function setPlan(p){ plan=p; store.set('plan2',p); store.del('city'); store.del('gday'); }
+
+/* Assistant (chat) */
+const CHAT_KEY='chat';
+function chatLog(){ return store.get(CHAT_KEY,[])||[]; }
+function chatPush(m){ const l=chatLog(); l.push(m); store.set(CHAT_KEY,l.slice(-40)); }
+function nominatimSearch(q){ return fetch(`https://nominatim.openstreetmap.org/search?format=jsonv2&q=${encodeURIComponent(q)}&limit=6&accept-language=${LANG}`).then(r=>{ if(!r.ok) throw 0; return r.json(); })
+  .then(j=>j.map(x=>({name:x.name||x.display_name.split(',')[0], addr:x.display_name.split(',').slice(1,4).join(',').trim(), lat:+x.lat, lng:+x.lon}))); }
+async function searchPOI(what, where){
+  const q=[what,where].filter(Boolean).join(' ');
+  let out=[]; try{ out=await nominatimSearch(q); }catch(e){}
+  if(!out.length){ try{ out=(await acRemote(q)).map(x=>({name:x.name, addr:x.sub, lat:x.lat, lng:x.lng})); }catch(e){} }
+  return out;
+}
+function mapsSearch(q){ return `https://www.google.com/maps/search/${encodeURIComponent(q)}`; }
+function todayIdx(){ const days=planDays(); const t=iso(new Date()); const i=days.findIndex((d,k)=>iso(dateOf(k))===t); return i; }
+function parseSearch(q){
+  let s=q.replace(/por favor|please|por fa/gi,'').replace(/\s+/g,' ').trim();
+  const m=s.match(/^(?:me\s+)?(?:busque|buscar|busca|busc[aá]|procure|procurar|procura|encontre|encontrar|ache|achar|mostre|mostrar|onde (?:tem|fica|há|ha)|tem|search(?: for)?|find|look for|where is|where are|d[oó]nde hay|d[oó]nde est[aá])\s+(?:por\s+)?(?:um|uma|uns|umas|o|a|os|as|un|una|unos|el|la|los|las|an?|the|some)?\s*(.+?)(?:\s+(?:em|na|no|nas|nos|en|in|near|perto de|perto do|perto da|cerca de|na cidade de|en la ciudad de|in the city of)\s+(.+))?$/i);
+  if(!m) return null;
+  const what=m[1].trim(); let where=(m[2]||'').replace(/^(?:cidade de|ciudad de|city of)\s+/i,'').replace(/\s*[-–]\s*/g,', ').trim();
+  return {what, where};
+}
+function tripContext(){
+  const days=planDays(), v=myVeh(); const km=days.reduce((s,d)=>s+(d.km||0),0); const spent=days.reduce((s,d)=>s+expTotal(dayKey(d)),0);
+  return {route:titleText(), start:iso(dateOf(0)), days:days.length, km, vehicle:vehName(v), fuel:v.fuel, tank:v.tank, kml:v.kml, spent_brl:Math.round(spent), tab:curTab(),
+    itinerary:days.slice(0,40).map((d,i)=>({n:i+1, date:iso(dateOf(i)), from:S[d.from][0].split(' (')[0], to:S[d.to][0].split(' (')[0], km:d.km, road:d.road}))};
+}
+const FAQ=[
+  {re:/criar|nova rota|planejar|montar|create|plan|crear|armar/i, tab:'criar', pt:'Na aba Criar, siga as 4 etapas: Viagem (nome e datas), Rota (partida e destino com Sugerir rota, ou cole sua lista de cidades), Veículo e Revisar e gerar.', en:'In Create, follow the 4 steps: Trip (name and dates), Route (departure and destination with Suggest route, or paste your list of places), Vehicle, and Review and build.', es:'En Crear, seguí las 4 etapas: Viaje (nombre y fechas), Ruta (salida y destino con Sugerir ruta, o pegá tu lista), Vehículo y Revisar y generar.'},
+  {re:/salv|save|guard/i, tab:'criar', pt:'Toque em Salvar no topo da aba Criar. Depois disso, toda alteração na rota aberta é salva sozinha, e você retoma em Minhas rotas e histórico.', en:'Tap Save at the top of Create. After that, every change to the open route is saved automatically; reopen it in My routes and history.', es:'Tocá Guardar arriba en Crear. Después, cada cambio de la ruta abierta se guarda solo; retomala en Mis rutas e historial.'},
+  {re:/ve[ií]culo|moto|carro|garag|vehicle|bike|car\b|veh[ií]culo|auto/i, tab:'roteiro', pt:'Troque o veículo no topo do Roteiro. O app recalcula autonomia, galão, combustível, pedágios e segurança. Para cadastrar outro, use Criar, etapa Veículo.', en:'Switch vehicle at the top of Route. The app recalculates range, spare fuel, fuel, tolls and safety. Add another in Create, Vehicle step.', es:'Cambiá el vehículo arriba en Ruta. La app recalcula autonomía, bidón, combustible, peajes y seguridad. Cargá otro en Crear, etapa Vehículo.'},
+  {re:/gast|despes|custo|spent|expense|cost|gasto/i, tab:'gastos', pt:'Na aba Gastos, escolha o trecho e lance o valor em qualquer moeda; o app converte para reais e mostra o total do trecho e o acumulado.', en:'In Costs, pick the leg and log the amount in any currency; the app converts to reais and shows leg and running totals.', es:'En Gastos, elegí el tramo y cargá el monto en cualquier moneda; la app convierte a reales y muestra totales.'},
+  {re:/hosped|hotel|dormir|pousada|camping|comer|restaurante|stay|lodging|eat|alojamiento/i, tab:'dormir', pt:'Na aba Estadia ficam as hospedagens mais bem avaliadas, onde comer e buscas com as datas de cada noite.', en:'Stay lists the best-rated lodging, where to eat and searches with each night’s dates.', es:'En Estadía están los alojamientos mejor puntuados, dónde comer y búsquedas con las fechas de cada noche.'},
+  {re:/document|fronteira|passaporte|border|passport|frontera/i, tab:'docs', pt:'A aba Docs mostra o que levar para cada país da rota em exibição, com caixas para marcar.', en:'Docs shows what you need for each country in the route on screen, with checkboxes.', es:'Docs muestra lo necesario para cada país de la ruta en pantalla, con casillas.'},
+  {re:/offline|sem sinal|instalar|install|sin señal/i, tab:'extra', pt:'Instale pelo Chrome (Instalar app) e abra uma vez com internet. Notas, gastos e rotas ficam no aparelho e funcionam sem sinal.', en:'Install from Chrome (Install app) and open once online. Notes, costs and routes stay on the device and work offline.', es:'Instalá desde Chrome (Instalar app) y abrí una vez con internet. Notas, gastos y rutas funcionan sin señal.'},
+  {re:/excluir|apagar|desfaz|delete|undo|borrar|deshacer/i, tab:null, pt:'Use o ícone de lixeira. Logo depois aparece Desfazer por alguns segundos.', en:'Use the trash icon. Undo appears for a few seconds right after.', es:'Usá el ícono de papelera. Enseguida aparece Deshacer por unos segundos.'}
+];
+function faqAnswer(q){ const f=FAQ.find(x=>x.re.test(q)); if(!f) return null; return {text:f[LANG]||f[LANG==='pt'?'pt':'en']||f.en, tab:f.tab}; }
+function dataAnswer(q){
+  const days=planDays(), ql=fold(q);
+  if(/quanto gastei|gastos|gastei|how much.*spent|cu[aá]nto gast/.test(ql)){ const tot=days.reduce((s,d)=>s+expTotal(dayKey(d)),0); return {text:`${tr('g_total')}: ${money(tot)}.`, tab:'gastos'}; }
+  if(/quantos km|quantos dias|how many (km|days)|cu[aá]ntos (km|d[ií]as)/.test(ql)){ const km=days.reduce((s,d)=>s+(d.km||0),0); return {text:`${titleText()}: ${days.length} ${tr('b_nights')==='noites'?'dias':'days'}, ${nf.format(km)} km.`, tab:'roteiro'}; }
+  const dm=ql.match(/\bdia\s+(\d{1,2})\b|\bday\s+(\d{1,2})\b|\bd[ií]a\s+(\d{1,2})\b/); if(dm){ const n=Number(dm[1]||dm[2]||dm[3]); const d=days[n-1]; if(d) return {text:`${dayLabel(n)}, ${fmt(dateOf(n-1))}: ${title(d)}, ${nf.format(d.km)} km, ${d.road}.`, day:n}; }
+  if(/hoje|today|hoy|amanh|tomorrow|ma[nñ]ana/.test(ql)){ let i=todayIdx(); if(/amanh|tomorrow|ma[nñ]ana/.test(ql)) i=i>=0?i+1:-1; if(i>=0 && days[i]) return {text:`${dayLabel(i+1)}: ${title(days[i])}, ${nf.format(days[i].km)} km.`, day:i+1}; }
+  if(/combust|posto|gasolina|autonomia|fuel|nafta|bencina/.test(ql)){ const v=myVeh(); let g=null; days.forEach((d,i)=>{ const x=dayGap(d); if(x && (!g||x.km>g.km)) g={...x,i}; });
+    return {text:`${vehName(v)}: ${tr('rng',{a:nf.format(Math.round(v.tank*v.kml*0.9)),b:''})}.${g?' '+tr('gap_ok',{g:nf.format(g.km),l:g.label?` (${g.label})`:'',s:''}).split(':')[0]+` (${dayLabel(g.i+1)}).`:''}`, tab:'estrada'}; }
+  return null;
+}
+function chatBubble(m){
+  if(m.role==='user') return `<div class="msg me">${esc(m.text)}</div>`;
+  let h=`<div class="msg bot">${esc(m.text)}`;
+  if(m.results&&m.results.length) h+=`<div class="res">${m.results.map(r=>`<a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${r.lat},${r.lng}"><b>${esc(r.name)}</b><span>${esc(r.addr||'')}</span></a>`).join('')}</div>`;
+  if(m.maps) h+=`<div class="actions" style="margin-top:6px"><a class="btn" target="_blank" rel="noopener" href="${m.maps}">${tr('chat_open_maps')}</a></div>`;
+  if(m.tab) h+=`<div class="actions" style="margin-top:6px"><a class="btn" href="#${m.tab}" data-chatgo>${tr('chat_go',{x:tr('tab_'+m.tab)})}</a></div>`;
+  if(m.day) h+=`<div class="actions" style="margin-top:6px"><a class="btn" href="#d-${m.day}" data-chatgo>${tr('see_day')} ${m.day}</a></div>`;
+  return h+`</div>`;
+}
+function renderChat(){
+  const l=chatLog(); const box=$('#chat-log');
+  box.innerHTML = (l.length?'':`<div class="msg bot">${esc(tr('chat_hi'))}</div>`) + l.map(chatBubble).join('');
+  box.scrollTop=box.scrollHeight;
+  box.querySelectorAll('[data-chatgo]').forEach(a=>a.onclick=()=>{ $('#chat').classList.remove('on'); });
+  $('#chat-sugg').innerHTML=[tr('chat_s1'),tr('chat_s2'),tr('chat_s3')].map(s=>`<button type="button" class="chip-b">${esc(s)}</button>`).join('');
+  $('#chat-sugg').querySelectorAll('button').forEach(b=>b.onclick=()=>{ $('#chat-in').value=b.textContent; sendChat(); });
+}
+async function sendChat(){
+  const inp=$('#chat-in'), q=inp.value.trim(); if(!q) return; inp.value='';
+  chatPush({role:'user', text:q}); renderChat();
+  const wait={role:'bot', text:'…'}; const box=$('#chat-log'); box.insertAdjacentHTML('beforeend', chatBubble(wait)); box.scrollTop=box.scrollHeight;
+  let reply=null;
+  try{
+    if(SAMPLE){
+      const ctx=tripContext();
+      const r=await SAMPLE.json(`Você é o assistente do app de viagens vialonga. Responda no idioma ${LOCALES[LANG]}, curto e prático (até 60 palavras). Funções do app: aba Criar (4 etapas: viagem, rota com sugestão por partida/destino ou lista colada, veículo, revisar e gerar; salvar rotas e histórico), Roteiro (dias, mapa, clima com ícones, vento, segurança e combustível por veículo, troca de veículo no topo), Estadia (hospedagem bem avaliada e onde comer), Gastos (lançar por trecho em várias moedas), Estrada (combustível, pedágios, comunicados), Docs (documentos por país), Extra (conversor, offline, emergência, personalizar abas). Contexto da viagem: ${JSON.stringify(ctx)}. Pergunta do usuário: "${q}". Responda somente JSON: {"answer":string,"action":null | {"type":"search_place","what":string,"where":string} | {"type":"open_tab","tab":"criar"|"roteiro"|"dormir"|"gastos"|"estrada"|"docs"|"extra"} | {"type":"open_day","n":number}}. Use search_place quando o usuário pedir para buscar/encontrar um lugar ou serviço (where = cidade e país; se não disser, use a cidade do dia atual ou do destino).`, {modelTier:'default'});
+      reply={text:r.answer||''};
+      const a=r.action||null;
+      if(a && a.type==='search_place'){ reply.results=await searchPOI(a.what, a.where); reply.maps=mapsSearch([a.what,a.where].filter(Boolean).join(' ')); if(!reply.results.length && !reply.text) reply.text=tr('chat_none'); }
+      if(a && a.type==='open_tab' && TABS.includes(a.tab)) reply.tab=a.tab;
+      if(a && a.type==='open_day' && a.n) reply.day=a.n;
+    } else {
+      const s=parseSearch(q);
+      if(s){ let where=s.where; if(!where){ const i=todayIdx(); const d=planDays()[i>=0?i:0]; where=d?S[d.to][0].split(' (')[0]:''; }
+        const res=await searchPOI(s.what, where);
+        reply={text: res.length?tr('chat_results'):tr('chat_none'), results:res, maps:mapsSearch(`${s.what} ${where}`.trim())}; }
+      else reply = dataAnswer(q) || faqAnswer(q) || {text:tr('chat_dunno')};
+    }
+  }catch(e){ const s=parseSearch(q); reply = s ? {text:tr('chat_none'), maps:mapsSearch(`${s.what} ${s.where}`.trim())} : (dataAnswer(q)||faqAnswer(q)||{text:tr('chat_dunno')}); }
+  chatPush({role:'bot', ...reply}); renderChat();
+}
+function wireChat(){
+  $('#chat-fab').onclick=()=>{ $('#chat').classList.add('on'); renderChat(); setTimeout(()=>$('#chat-in').focus(),50); };
+  $('#chat-x').onclick=()=>$('#chat').classList.remove('on');
+  $('#chat').onclick=e=>{ if(e.target.id==='chat') $('#chat').classList.remove('on'); };
+  $('#chat-send').onclick=sendChat;
+  $('#chat-in').onkeydown=e=>{ if(e.key==='Enter'){ e.preventDefault(); sendChat(); } };
+  $('#chat-clear').onclick=()=>withUndo([CHAT_KEY],()=>{ store.del(CHAT_KEY); renderChat(); });
+}
+
 /* Tabs and hash */
 const TABS = ['criar','roteiro','dormir','gastos','estrada','docs','extra'];
 function showTab(){
@@ -2440,6 +2778,7 @@ function showTab(){
   let t = TABS.includes(h)? h : (h.startsWith('d-')? 'roteiro' : 'roteiro');
   TABS.forEach(x=>{ $('#t-'+x).classList.toggle('on',x===t); });
   $('#profile').style.display = t==='roteiro'?'':'none'; $('#stats').style.display = t==='roteiro'?'':'none';
+  $('#sub').style.display = t==='criar'?'none':''; $('#seg').style.display = t==='criar'?'none':'';
   document.querySelectorAll('nav.tabs a').forEach(a=>a.setAttribute('aria-current', (a.dataset.t===t || (t==='clima'&&a.dataset.t==='extra'))?'page':'false'));
   if(t==='dormir') renderCitySel();
   if(t==='gastos') renderGastos();
@@ -2451,6 +2790,7 @@ function showTab(){
 }
 function renderAll(){ applyStatic(); renderSeg(); renderProfile(); renderStats(); renderDays(); renderRoad(); renderDocs(); renderExtra(); applyTabPrefs(); showTab(); renderMap(); }
 window.addEventListener('hashchange', showTab);
+wireChat();
 renderAll();
 (async()=>{ try{ if(window.claude && typeof window.claude.use==='function'){ SAMPLE = await window.claude.use('sample'); } }catch(e){ SAMPLE=null; } })();
 if('serviceWorker' in navigator){ window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{})); }
