@@ -189,6 +189,10 @@ input[type=date].tin{min-height:42px}
 .barrow .track{height:10px;border-radius:5px;background:var(--sunk);overflow:hidden}
 .barrow .fill{height:100%;border-radius:5px;background:var(--laguna)}
 .barrow .v{font-family:var(--display);font-weight:600;white-space:nowrap}
+.cvrow{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:end}
+.btn.swap{width:48px;height:42px;justify-content:center;padding:0;border-radius:50%}
+.cvout{margin-top:12px;padding:14px;border-radius:12px;background:var(--sunk);display:flex;flex-direction:column;gap:2px}
+.cvout b{font:600 2rem var(--display);line-height:1.1;overflow-wrap:anywhere}
 .totals{display:grid;grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr));gap:10px}
 .totals div{background:var(--sunk);border-radius:12px;padding:10px}
 .totals span{display:block;font-size:.8rem;color:var(--muted)}
@@ -444,6 +448,7 @@ Object.assign(I18N.it,{"tab_criar": "Crea", "h_criar": "Crea itinerario", "lead_
 Object.assign(I18N.de,{"tab_criar": "Planen", "h_criar": "Route erstellen", "lead_criar": "Von Null starten: Orte der Reihe nach hinzufügen, vom Start bis zum Ziel. Die App berechnet jede Etappe und baut die Reise mit Wetter, Kosten, Unterkünften und Sicherheit.", "b_trip": "Reise", "b_name": "Name der Route", "b_name_ph": "Z. B. Patagonien 2028", "b_start": "Abfahrtsdatum", "b_days": "Geplante Reisetage (optional)", "b_days_ph": "Z. B. 15", "b_vehicle": "Fahrzeug (optional)", "v_adv": "Reiseenduro", "v_trail": "Leichte oder mittlere Enduro", "v_street": "Straßenmaschine, Cruiser oder Roller", "v_car": "Pkw mit Zweiradantrieb", "v_x4": "4x4 oder SUV mit Untersetzung", "v_van": "Van oder Wohnmobil", "b_points": "Orte", "b_add": "Hinzufügen", "b_search": "Suchen", "b_search_ph": "Stadt, Dorf, Pass, Park...", "b_coord_ph": "Koordinaten, falls bekannt: -23.65, -70.40", "b_none_found": "Kein Ort mit diesem Namen gefunden.", "b_offline_geo": "Die automatische Suche hat hier nicht geantwortet. Wähle einen Ort aus der Liste, füge Koordinaten ein oder nutze Mit Claude ausfüllen.", "b_pick": "Wähle den richtigen Ort:", "b_pass": "nur Durchfahrt", "b_nights": "Nächte", "b_start_pt": "Start", "b_end_pt": "Ziel", "b_up": "Hoch", "b_down": "Runter", "b_remove": "Entfernen", "b_empty": "Füge mindestens Start und Ziel hinzu.", "b_legs": "Etappen", "b_calc": "Straßenentfernungen berechnen", "b_claude": "Mit Claude ausfüllen", "b_claude_wait": "Frage Claude zur Route...", "b_calc_wait": "Berechne...", "b_gen": "Reiseplan erstellen", "b_gen_confirm": "Zum Ersetzen der erstellten Route erneut tippen", "b_split": "Lange Etappen auf mehrere Tage verteilen", "b_summary": "Übersicht", "b_days_total": "{n} Reisetage", "b_over": "{n} Tage mehr als geplant", "b_under": "{n} Puffertage", "b_km_src_osrm": "Straßen-km", "src_claude": "von Claude geschätzt", "src_est": "Luftlinie geschätzt", "src_user": "von dir eingegeben", "b_surface": "Straßenbelag", "b_x4": "Meist 4x4 nötig", "b_generated": "Reiseplan erstellt. Siehe Tab Route.", "surf_asfalto": "Asphalt", "surf_ripio": "Schotter", "surf_pedras": "Steine", "surf_areia": "Sand", "surf_sal": "Salz", "surf_off": "Offroad", "safety": "Sicherheit", "safety_for": "für {v}", "s_areia": "Sand: braucht eine Enduro mit Erfahrung oder 4x4. Reifendruck auf dem Abschnitt senken und danach wieder aufpumpen.", "s_off": "Offroad: meist 4x4 oder Enduro nötig. Nicht allein ohne Routenmeldung fahren und ein Satelliten-Messenger mitnehmen.", "s_pedras": "Lose Steine: langsam fahren, Motorschutz und verstärkte Reifen nutzen.", "s_ripio": "Schotter: 40 bis 60 km/h, Vorsicht bei Wellblech, Kurven und Lkw-Staub; etwas weniger Druck als auf Asphalt.", "s_sal": "Salz: Rahmen, Kette und Bremsen danach waschen und nasse Salarränder meiden.", "s_alt": "Über 3.500 m: der Motor verliert Leistung und Höhenkrankheit droht.", "s_long": "Langer Tag für dieses Fahrzeug ({k} km). Teilen überlegen.", "s_kit": "Reifenset mitnehmen: Kompressor, digitaler Druckmesser und Reparaturset.", "s_not_ok": "Dein Fahrzeug passt nicht zu diesem Belag: andere Route oder lokalen Guide suchen.", "chip_4x4": "4x4 oder Enduro nötig", "chip_off": "Offroad-Abschnitte", "plan_nova": "{x}, {n} Tage", "warn_nova": "<b>Erstellte Route:</b> {n} Tage{t}. Fahrzeug: {v}. Geschätzte km und Zeiten lassen sich an jedem Tag korrigieren.", "edit_builder": "In Planen bearbeiten", "to_define": "Übernachtung offen", "no_clim": "Kein historisches Mittel für diesen Ort und Monat: nutze die Live-Vorhersage.", "clima_sub": "historisches Monatsmittel, Tief / Hoch", "fuel_other": "Andere Länder", "c_XX": "Anderes Land", "c_PE": "Peru", "c_UY": "Uruguay", "c_PY": "Paraguay"});
 Object.assign(I18N.zh,{"tab_criar": "创建", "h_criar": "创建路线", "lead_criar": "从零开始：按顺序添加地点，从出发地到目的地。应用会计算每段路程，并生成包含天气、费用、住宿和安全信息的行程。", "b_trip": "旅行", "b_name": "路线名称", "b_name_ph": "例如：巴塔哥尼亚 2028", "b_start": "出发日期", "b_days": "计划旅行天数（可选）", "b_days_ph": "例如：15", "b_vehicle": "交通工具（可选）", "v_adv": "大排量探险摩托", "v_trail": "轻中型越野摩托", "v_street": "街车、巡航车或踏板车", "v_car": "两驱汽车", "v_x4": "带低速四驱的 4x4 或 SUV", "v_van": "面包车或房车", "b_points": "地点", "b_add": "添加", "b_search": "搜索", "b_search_ph": "城市、村镇、山口、公园……", "b_coord_ph": "如已知坐标：-23.65, -70.40", "b_none_found": "没有找到这个名称的地点。", "b_offline_geo": "这里无法自动搜索。请从列表中选择地点、粘贴坐标，或使用“用 Claude 填写”。", "b_pick": "选择正确的地点：", "b_pass": "仅途经", "b_nights": "晚", "b_start_pt": "出发", "b_end_pt": "到达", "b_up": "上移", "b_down": "下移", "b_remove": "删除", "b_empty": "至少添加出发地和目的地。", "b_legs": "路段", "b_calc": "按公路计算距离", "b_claude": "用 Claude 填写", "b_claude_wait": "正在向 Claude 查询路线……", "b_calc_wait": "正在计算……", "b_gen": "生成行程", "b_gen_confirm": "再点一次以替换已创建的路线", "b_split": "把过长的路段拆成多天", "b_summary": "概要", "b_days_total": "共 {n} 天", "b_over": "比计划多 {n} 天", "b_under": "富余 {n} 天", "b_km_src_osrm": "公路里程", "src_claude": "Claude 估计", "src_est": "直线估计", "src_user": "你填写的", "b_surface": "路面", "b_x4": "通常需要四驱", "b_generated": "行程已生成，请查看“路线”页。", "surf_asfalto": "柏油", "surf_ripio": "碎石", "surf_pedras": "乱石", "surf_areia": "沙地", "surf_sal": "盐滩", "surf_off": "越野", "safety": "安全", "safety_for": "适用于 {v}", "s_areia": "沙地：需要有经验的越野摩托或四驱车。在该路段降低胎压，之后再充回。", "s_off": "越野：通常需要四驱或越野摩托。不要在未告知路线的情况下独行，并携带卫星通信器。", "s_pedras": "乱石：降低车速，加装护板，使用加强胎。", "s_ripio": "碎石路：时速 40–60 公里，注意搓板路、弯道和卡车扬尘；胎压略低于柏油路。", "s_sal": "盐滩：事后清洗车架、链条和刹车，避开湿软的盐滩边缘。", "s_alt": "海拔超过 3500 米：发动机功率下降，有高原反应风险。", "s_long": "对该车辆来说这一天太长（{k} 公里），建议拆分。", "s_kit": "携带补胎充气套件：便携气泵、数字胎压计和补胎工具。", "s_not_ok": "你的车辆不适合这种路面：请另找路线或当地向导。", "chip_4x4": "需四驱或越野车", "chip_off": "有越野路段", "plan_nova": "{x}，{n} 天", "warn_nova": "<b>已创建路线：</b>{n} 天{t}。车辆：{v}。估计的里程和时间可在每天中修改。", "edit_builder": "在“创建”中编辑", "to_define": "住宿待定", "no_clim": "此地此月没有历史平均值：请查看实时预报。", "clima_sub": "月历史平均，最低 / 最高", "fuel_other": "其他国家", "c_XX": "其他国家", "c_PE": "秘鲁", "c_UY": "乌拉圭", "c_PY": "巴拉圭"});
 I18N.pt.b_night1="noite";I18N.en.b_night1="night";I18N.es.b_night1="noche";I18N.it.b_night1="notte";I18N.de.b_night1="Nacht";I18N.zh.b_night1="晚";
+Object.assign(I18N.pt,{"cv_from": "De", "cv_to": "Para", "cv_swap": "Inverter moedas", "cur_BRL": "Real (BRL)", "cur_USD": "Dólar (USD)", "cur_ARS": "Peso argentino (ARS)", "cur_CLP": "Peso chileno (CLP)", "cur_BOB": "Boliviano (BOB)"});Object.assign(I18N.en,{"cv_from": "From", "cv_to": "To", "cv_swap": "Swap currencies", "cur_BRL": "Brazilian real (BRL)", "cur_USD": "US dollar (USD)", "cur_ARS": "Argentine peso (ARS)", "cur_CLP": "Chilean peso (CLP)", "cur_BOB": "Boliviano (BOB)"});Object.assign(I18N.es,{"cv_from": "De", "cv_to": "A", "cv_swap": "Invertir monedas", "cur_BRL": "Real (BRL)", "cur_USD": "Dólar (USD)", "cur_ARS": "Peso argentino (ARS)", "cur_CLP": "Peso chileno (CLP)", "cur_BOB": "Boliviano (BOB)"});Object.assign(I18N.it,{"cv_from": "Da", "cv_to": "A", "cv_swap": "Inverti valute", "cur_BRL": "Real (BRL)", "cur_USD": "Dollaro (USD)", "cur_ARS": "Peso argentino (ARS)", "cur_CLP": "Peso cileno (CLP)", "cur_BOB": "Boliviano (BOB)"});Object.assign(I18N.de,{"cv_from": "Von", "cv_to": "Nach", "cv_swap": "Währungen tauschen", "cur_BRL": "Real (BRL)", "cur_USD": "US-Dollar (USD)", "cur_ARS": "Argentinischer Peso (ARS)", "cur_CLP": "Chilenischer Peso (CLP)", "cur_BOB": "Boliviano (BOB)"});Object.assign(I18N.zh,{"cv_from": "从", "cv_to": "到", "cv_swap": "互换货币", "cur_BRL": "巴西雷亚尔 (BRL)", "cur_USD": "美元 (USD)", "cur_ARS": "阿根廷比索 (ARS)", "cur_CLP": "智利比索 (CLP)", "cur_BOB": "玻利维亚诺 (BOB)"});Object.assign(I18N.pt,{"cur_BRL": "BRL Real", "cur_USD": "USD Dólar", "cur_ARS": "ARS Peso", "cur_CLP": "CLP Peso", "cur_BOB": "BOB Boliviano"});Object.assign(I18N.en,{"cur_BRL": "BRL Real", "cur_USD": "USD Dollar", "cur_ARS": "ARS Peso", "cur_CLP": "CLP Peso", "cur_BOB": "BOB Boliviano"});Object.assign(I18N.es,{"cur_BRL": "BRL Real", "cur_USD": "USD Dólar", "cur_ARS": "ARS Peso", "cur_CLP": "CLP Peso", "cur_BOB": "BOB Boliviano"});Object.assign(I18N.it,{"cur_BRL": "BRL Real", "cur_USD": "USD Dollaro", "cur_ARS": "ARS Peso", "cur_CLP": "CLP Peso", "cur_BOB": "BOB Boliviano"});Object.assign(I18N.de,{"cur_BRL": "BRL Real", "cur_USD": "USD Dollar", "cur_ARS": "ARS Peso", "cur_CLP": "CLP Peso", "cur_BOB": "BOB Boliviano"});Object.assign(I18N.zh,{"cur_BRL": "BRL 雷亚尔", "cur_USD": "USD 美元", "cur_ARS": "ARS 比索", "cur_CLP": "CLP 比索", "cur_BOB": "BOB 玻利维亚诺"});I18N.pt.h_extra="Câmbio, offline e emergência";I18N.en.h_extra="Exchange, offline and emergency";I18N.es.h_extra="Cambio, offline y emergencia";I18N.it.h_extra="Cambio, offline ed emergenza";I18N.de.h_extra="Wechselkurs, offline und Notfall";I18N.zh.h_extra="汇率、离线与紧急电话";
 const LOCALES = {pt:'pt-BR',en:'en-GB',es:'es-AR',it:'it-IT',de:'de-DE',zh:'zh-CN'};
 const LANG_NAMES = {pt:'Português',en:'English',es:'Español',it:'Italiano',de:'Deutsch',zh:'中文'};
 
@@ -930,6 +935,7 @@ function renderClima(){
 
 /* Extra */
 function renderExtra(){
+  const CUR_OPTS = ['BRL','USD','ARS','CLP','BOB'].map(c=>`<option value="${c}">${tr('cur_'+c)}</option>`).join('');
   const rates = store.get('rates', D.rates);
   const names = [
     ['Carioca no Deserto','Junta o Rio com a DesertX e com o coração da viagem: Atacama e Uyuni.'],
@@ -955,11 +961,14 @@ function renderExtra(){
   $('#extra').innerHTML = `
   <h3 class="sub">Conversor</h3>
   <div class="card">
-    <div class="grid2">
-      <div class="field"><label for="cv-v">Valor</label><input id="cv-v" type="number" value="10000"></div>
-      <div class="field"><label for="cv-c">Moeda</label><select id="cv-c"><option value="ARS">Peso argentino</option><option value="CLP">Peso chileno</option><option value="BOB">Boliviano</option><option value="USD">Dólar</option><option value="BRL">Real</option></select></div>
+    <div class="cvrow">
+      <div class="field"><label for="cv-from">${tr('cv_from')}</label><select id="cv-from">${CUR_OPTS}</select></div>
+      <button class="btn swap" type="button" id="cv-swap" aria-label="${tr('cv_swap')}" title="${tr('cv_swap')}"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h14l-4-4M20 16H6l4 4"/></svg></button>
+      <div class="field"><label for="cv-to">${tr('cv_to')}</label><select id="cv-to">${CUR_OPTS}</select></div>
     </div>
-    <div class="result" id="cv-r"></div>
+    <div class="field" style="margin-top:10px"><label for="cv-v">${tr('g_val')}</label><input id="cv-v" type="number" inputmode="decimal" min="0" step="any" style="width:100%;font-size:1.3rem"></div>
+    <div class="cvout" id="cv-r" aria-live="polite"></div>
+    <p class="small" id="cv-rate" style="margin:4px 0 0"></p>
     <details style="margin-top:10px"><summary class="small">Ajustar taxas (1 real = ...)</summary>
       <div class="grid2" style="margin-top:8px">
         <div class="field"><label for="r-ARS">Pesos argentinos</label><input id="r-ARS" type="number" step="1" value="${rates.ARS}"></div>
@@ -969,9 +978,6 @@ function renderExtra(){
       </div>
       <p class="small">O boliviano passou a flutuar em 2026 e oscila bastante; atualize na véspera.</p></details>
   </div>
-  <h3 class="sub">Nome para o canal</h3>
-  <div class="card"><ul class="names" style="margin:0;padding-left:1.1em">${names.map(n=>`<li><b>${esc(n[0])}</b><br><span class="small">${esc(n[1])}</span></li>`).join('')}</ul>
-  <p class="small">Antes de decidir, confira se o @ está livre no YouTube e no Instagram.</p></div>
   <h3 class="sub">Usar sem sinal</h3>
   <div class="card"><ol style="margin:0;padding-left:1.2em">
     <li>No Google Maps, baixe áreas offline: Misiones e Corrientes, Salta e Jujuy, Potosí (Uyuni), Antofagasta, Atacama (Copiapó), Catamarca e La Rioja, San Juan e Mendoza.</li>
@@ -987,14 +993,22 @@ function renderExtra(){
     <tr><td>Chile</td><td>133</td><td>131</td><td>132</td></tr></tbody></table></div>
   <h3 class="sub">Fontes consultadas em outubro de 2026</h3>
   <div class="card linklist">${sources.map(s=>`<a href="${s[1]}" target="_blank" rel="noopener">${esc(s[0])}</a>`).join('')}</div>`;
+  const cv = store.get('cv', {from:'BRL', to:'USD', v:100});
+  $('#cv-from').value=cv.from; $('#cv-to').value=cv.to; $('#cv-v').value=cv.v;
+  const toB = (v,c)=> c==='BRL'? v : (c==='USD'? v*rates.USD : v/rates[c]);
+  const fromB = (v,c)=> c==='BRL'? v : (c==='USD'? v/rates.USD : v*rates[c]);
+  const SYM = {BRL:'R$',USD:'US$',ARS:'ARS',CLP:'CLP',BOB:'Bs'};
   const conv = ()=>{
     ['ARS','CLP','BOB','USD'].forEach(c=>rates[c]=Number($('#r-'+c).value)||rates[c]); store.set('rates',rates);
-    const v = Number($('#cv-v').value)||0, c = $('#cv-c').value;
-    const brl = c==='BRL'? v : c==='USD'? v*rates.USD : v/rates[c];
-    const f = (x,d=2)=>x.toLocaleString('pt-BR',{maximumFractionDigits:d});
-    $('#cv-r').innerHTML = `<b>R$ ${f(brl)}</b><br><span class="small">${f(brl*rates.ARS,0)} ARS, ${f(brl*rates.CLP,0)} CLP, ${f(brl*rates.BOB)} Bs, US$ ${f(brl/rates.USD)}</span>`;
+    const v = Number($('#cv-v').value)||0, a=$('#cv-from').value, b=$('#cv-to').value;
+    store.set('cv',{from:a,to:b,v});
+    const out = fromB(toB(v,a),b), one = fromB(toB(1,a),b);
+    const f = (x)=>x.toLocaleString(LOCALES[LANG],{maximumFractionDigits: Math.abs(x)>=100?0:(Math.abs(x)>=1?2:4)});
+    $('#cv-r').innerHTML = `<span class="small">${SYM[a]} ${f(v)} =</span><b>${SYM[b]} ${f(out)}</b>`;
+    $('#cv-rate').textContent = `1 ${a} = ${f(one)} ${b}`;
   };
-  ['cv-v','cv-c','r-ARS','r-CLP','r-BOB','r-USD'].forEach(id=>{ $('#'+id).oninput=conv; $('#'+id).onchange=conv; });
+  $('#cv-swap').onclick = ()=>{ const a=$('#cv-from').value; $('#cv-from').value=$('#cv-to').value; $('#cv-to').value=a; conv(); };
+  ['cv-v','cv-from','cv-to','r-ARS','r-CLP','r-BOB','r-USD'].forEach(id=>{ $('#'+id).oninput=conv; $('#'+id).onchange=conv; });
   conv();
 }
 
