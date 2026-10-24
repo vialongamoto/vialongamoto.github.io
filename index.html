@@ -1,0 +1,1318 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>vialonga, Expedição Andes 2027</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#6B4428">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F2ECE0; --surface:#FFFFFF; --sunk:#E7DDCA; --ink:#2A2119; --muted:#62533F; --line:#D9CCB2;
+  --flamingo:#8B4A22; --laguna:#2F5A37; --amber:#8A6414; --amberbg:#F4E8CC; --lagbg:#E0EAD9; --flbg:#F1E1CF;
+  --display:"Barlow Condensed","Arial Narrow","Roboto Condensed",sans-serif;
+  --text:"Barlow","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  color-scheme: light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#18130E; --surface:#221B14; --sunk:#2D241B; --ink:#EFE6D6; --muted:#B8A88F; --line:#3E3227;
+    --flamingo:#E0A46A; --laguna:#93C48C; --amber:#E2B65A; --amberbg:#3A2E17; --lagbg:#1F2D20; --flbg:#3B2818;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#18130E; --surface:#221B14; --sunk:#2D241B; --ink:#EFE6D6; --muted:#B8A88F; --line:#3E3227;
+  --flamingo:#E0A46A; --laguna:#93C48C; --amber:#E2B65A; --amberbg:#3A2E17; --lagbg:#1F2D20; --flbg:#3B2818;
+  color-scheme: dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+[hidden]{display:none!important}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--text);font-size:16px;line-height:1.5;-webkit-text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+a{color:var(--laguna)}
+h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.1;margin:0}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px}
+header.top{padding:18px 0 6px}
+header.top h1{font-size:2.4rem;font-weight:700;letter-spacing:-.01em}
+header.top p{margin:2px 0 0;color:var(--muted)}
+.seg{display:flex;gap:6px;margin-top:14px;background:var(--sunk);padding:4px;border-radius:12px}
+.seg{flex-wrap:wrap}
+.seg button{flex:1 1 40%;border:0;background:transparent;color:var(--muted);font:600 .95rem var(--display);padding:9px 6px;border-radius:9px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 0 var(--line)}
+/* Altitude profile, the one bold element */
+.profile{margin:14px 0 4px;position:relative}
+.profile svg{display:block;width:100%;height:auto;overflow:visible}
+.profile .cap{display:flex;justify-content:space-between;font-size:.8rem;color:var(--muted);margin-top:2px}
+.stats{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.9rem;color:var(--muted);margin:10px 0 4px}
+.stats b{color:var(--ink);font-weight:600}
+.warn{background:var(--amberbg);border-left:3px solid var(--amber);padding:10px 12px;border-radius:0 10px 10px 0;margin:12px 0;font-size:.95rem}
+main{padding-bottom:calc(90px + env(safe-area-inset-bottom,0px))}
+section.tab{display:none}
+section.tab.on{display:block}
+h2.sec{font-size:1.7rem;margin:22px 0 8px}
+h3.sub{font-size:1.25rem;margin:22px 0 8px}
+p.lead{color:var(--muted);margin:0 0 12px}
+/* Day cards */
+.day{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0;position:relative}
+.day.done{opacity:.72}
+.day.today{border-color:var(--flamingo);box-shadow:0 0 0 2px var(--flbg)}
+.dhead{display:flex;gap:12px;align-items:flex-start}
+.dnum{font:700 2rem/1 var(--display);color:var(--flamingo);min-width:2.2ch;text-align:right}
+.dhead h3{font-size:1.35rem}
+.date{color:var(--muted);font-size:.9rem}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 0}
+.chip{font-size:.8rem;padding:2px 8px;border-radius:999px;background:var(--sunk);color:var(--ink)}
+.chip.alt{background:var(--flbg);color:var(--flamingo);font-weight:600}
+.chip.dirt{background:var(--amberbg);color:var(--amber);font-weight:600}
+.day ul{margin:10px 0 0;padding-left:1.1em}
+.day li{margin:2px 0}
+.box{margin-top:10px;padding:9px 11px;border-radius:10px;font-size:.93rem}
+.box b{font-family:var(--display);font-weight:600;font-size:1rem;margin-right:4px}
+.box.border{background:var(--lagbg)}
+.box.fuel{background:var(--sunk)}
+.box.alert{background:var(--amberbg)}
+.box.cbox{background:var(--surface);border:1px solid var(--line)}
+.box.cbox .cl{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-top:1px dashed var(--line)}
+.box.cbox .cl:first-of-type{border-top:0}
+.box.cbox .tt{font:600 1.05rem var(--display);white-space:nowrap}
+.box.cbox .tt .lo{color:var(--laguna)} .box.cbox .tt .hi{color:var(--flamingo)}
+.edit{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}
+.edit .btn{padding:6px 10px;font-size:.85rem}
+.kmedit{display:inline-flex;align-items:center;gap:6px;font-size:.85rem;color:var(--muted)}
+.kmedit input{width:84px;padding:5px 8px}
+.via{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;font-size:.85rem;color:var(--muted);align-items:center}
+.via button{border:1px solid var(--line);background:var(--sunk);color:var(--ink);border-radius:999px;padding:2px 9px;font:inherit;cursor:pointer}
+.overlay{position:fixed;inset:0;background:rgba(8,14,26,.55);z-index:40;display:none;align-items:flex-end;justify-content:center}
+.overlay.on{display:flex}
+.sheet{background:var(--surface);color:var(--ink);width:100%;max-width:560px;max-height:92vh;overflow:auto;border-radius:18px 18px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px))}
+.sheet h3{font-size:1.5rem;margin-bottom:10px}
+.sheet .field{margin-top:10px}
+.sheet input[type=text]{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+.radio{display:flex;gap:8px;align-items:flex-start;margin-top:8px;font-size:.95rem}
+.status{font-size:.9rem;margin-top:10px;color:var(--muted);min-height:1.2em}
+.box.inca{background:var(--flbg)}
+.box.inca ul{margin:6px 0 0}
+.rain{display:inline-block;font:600 .78rem var(--display);padding:1px 7px;border-radius:6px;margin-left:4px}
+.rain.baixa{background:var(--lagbg);color:var(--laguna)} .rain.moderada{background:var(--amberbg);color:var(--amber)} .rain.alta{background:var(--flbg);color:var(--flamingo)}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:8px 12px;border-radius:10px;font:600 .9rem var(--text);text-decoration:none;cursor:pointer}
+.btn.primary{background:var(--laguna);border-color:var(--laguna);color:#fff}
+:root[data-theme="dark"] .btn.primary{color:#13200F}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn.primary{color:#13200F}}
+label.done{display:inline-flex;gap:6px;align-items:center;font-size:.9rem;margin-left:auto;cursor:pointer}
+textarea{width:100%;margin-top:10px;min-height:44px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:inherit;padding:8px 10px;resize:vertical}
+/* Lists, tables */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;margin:10px 0}
+.opt{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;padding:10px 0;border-top:1px solid var(--line)}
+.opt:first-of-type{border-top:0}
+.tag{font:600 .78rem var(--display);padding:3px 8px;border-radius:6px;align-self:start;text-align:center;min-width:64px}
+.tag.hotel{background:var(--sunk)} .tag.pousada{background:var(--lagbg);color:var(--laguna)}
+.tag.hostel{background:var(--amberbg);color:var(--amber)} .tag.camping{background:var(--flbg);color:var(--flamingo)}
+.opt h4{margin:0;font-size:1rem}
+.opt p{margin:0;color:var(--muted);font-size:.9rem}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:.9rem;min-width:520px}
+th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--display);font-weight:600;font-size:.95rem}
+td.num{white-space:nowrap}
+select,input[type=number]{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+select{width:100%}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.field label{display:block;font-size:.85rem;color:var(--muted);margin-bottom:3px}
+.field input{width:100%}
+.result{font-size:1rem;margin-top:10px}
+.result b{font-family:var(--display);font-size:1.25rem}
+.check{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-top:1px solid var(--line)}
+.check:first-of-type{border-top:0}
+.check input{margin-top:4px;width:18px;height:18px;flex:none;accent-color:var(--laguna)}
+.check span{font-size:.95rem}
+details.card summary{cursor:pointer;font:600 1.15rem var(--display);list-style:none;display:flex;justify-content:space-between;gap:8px}
+details.card summary::-webkit-details-marker{display:none}
+details.card summary .cnt{font:500 .85rem var(--text);color:var(--muted)}
+.clima{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:10px 0;border-top:1px solid var(--line)}
+.clima:first-of-type{border-top:0}
+.clima h4{margin:0;font-size:1rem}
+.clima .t{font:600 1.1rem var(--display);text-align:right;white-space:nowrap}
+.clima .t .lo{color:var(--laguna)} .clima .t .hi{color:var(--flamingo)}
+.clima p{margin:0;font-size:.88rem;color:var(--muted)}
+.bar{grid-column:1/-1;height:6px;border-radius:4px;background:var(--sunk);position:relative;margin-top:4px}
+.bar i{position:absolute;top:0;bottom:0;border-radius:4px;background:linear-gradient(90deg,var(--laguna),var(--flamingo))}
+.names li{margin:8px 0}
+.names b{font-family:var(--display);font-size:1.15rem;font-weight:600}
+.small{font-size:.85rem;color:var(--muted)}
+.linklist a{display:block;padding:7px 0;border-top:1px solid var(--line);text-decoration:none}
+.linklist a:first-child{border-top:0}
+.linklist a span{display:block;font-size:.85rem;color:var(--muted)}
+/* Bottom nav */
+nav.tabs{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px);z-index:20}
+nav.tabs .in{max-width:760px;margin:0 auto;display:grid;grid-template-columns:repeat(7,1fr)}
+.hrow{display:flex;align-items:center;gap:12px}
+.hrow .mark{flex:none;width:52px;height:52px}
+.hrow h1{flex:1;min-width:0;font-size:1.9rem}
+.hrow h1 .brand{display:block;font:600 .95rem var(--text);letter-spacing:.02em;color:var(--laguna);margin-top:4px}
+.wv{font:500 .8rem var(--text);color:var(--muted);text-align:right;margin-top:2px}
+.wind{margin-top:3px;font-size:.88rem}
+.wl{display:inline-block;font:600 .78rem var(--display);padding:1px 7px;border-radius:6px;margin-left:4px}
+.wl.calm{background:var(--lagbg);color:var(--laguna)} .wl.mod{background:var(--sunk);color:var(--ink)} .wl.strong{background:var(--amberbg);color:var(--amber)} .wl.danger{background:var(--flbg);color:var(--flamingo)}
+.box.safe{background:var(--surface);border:1px solid var(--amber)}
+.box.safe ul{margin:6px 0 0;padding-left:1.1em}
+.tin{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+input[type=date].tin{min-height:42px}
+.bpt{display:grid;grid-template-columns:auto 1fr;gap:6px 10px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.bpt:first-child{border-top:0}
+.bpt .bn{font:700 1.4rem var(--display);color:var(--flamingo);min-width:1.6ch;text-align:right}
+.bpt select,.bpt>.small{grid-column:2;width:auto;justify-self:start}
+.bact{grid-column:2;display:flex;gap:6px}
+.bact .btn{padding:4px 12px;min-width:44px;justify-content:center}
+.bact .btn[disabled]{opacity:.35}
+.badd{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}
+.bleg{padding:10px 0;border-top:1px solid var(--line)}
+.bkm{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:6px}
+.sf{border:1px solid var(--line);background:var(--bg);color:var(--muted);border-radius:999px;padding:4px 10px;font:600 .82rem var(--text);cursor:pointer}
+.sf.on{background:var(--laguna);border-color:var(--laguna);color:var(--surface)}
+.fc{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:.9rem}
+.fc:empty{display:none}
+@media (min-width:640px){ .hrow h1{font-size:2.6rem} }
+#langsel{width:auto;flex:none;font-size:.9rem;padding:6px 8px}
+.bars{display:flex;flex-direction:column;gap:8px}
+.barrow{display:grid;grid-template-columns:7.5em 1fr auto;gap:8px;align-items:center;font-size:.9rem}
+.barrow .track{height:10px;border-radius:5px;background:var(--sunk);overflow:hidden}
+.barrow .fill{height:100%;border-radius:5px;background:var(--laguna)}
+.barrow .v{font-family:var(--display);font-weight:600;white-space:nowrap}
+.totals{display:grid;grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr));gap:10px}
+.totals div{background:var(--sunk);border-radius:12px;padding:10px}
+.totals span{display:block;font-size:.8rem;color:var(--muted)}
+.totals b{font-family:var(--display);font-size:1.2rem;font-weight:600;overflow-wrap:anywhere}
+.entry{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;padding:8px 0;border-top:1px solid var(--line);font-size:.93rem}
+.entry:first-child{border-top:0}
+.entry .x{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:8px;padding:4px 8px;cursor:pointer;font:inherit;font-size:.8rem}
+@media (max-width:380px){ .totals{grid-template-columns:1fr} }
+nav.tabs a{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 1px 9px;color:var(--muted);text-decoration:none;font:600 .78rem var(--display);text-align:center;line-height:1.1}
+nav.tabs a svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+nav.tabs a[aria-current="page"]{color:var(--flamingo)}
+:focus-visible{outline:3px solid var(--flamingo);outline-offset:2px}
+@media (prefers-reduced-motion: no-preference){
+  .profile path.line{stroke-dasharray:3000;stroke-dashoffset:3000;animation:draw 1.6s ease-out .2s forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+}
+@media (min-width:640px){ header.top h1{font-size:3rem} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div class="hrow"><svg class="mark" viewBox="0 0 200 200" role="img" aria-label="vialonga"><path d="M44 58 L100 150 L156 58" fill="none" stroke="var(--flamingo)" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/><path d="M44 58 L100 150 L156 58" fill="none" stroke="var(--bg)" stroke-width="3.5" stroke-dasharray="9 9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="44" cy="58" r="15" fill="var(--bg)" stroke="var(--laguna)" stroke-width="7"/><circle cx="156" cy="58" r="15" fill="var(--laguna)"/></svg><h1>Expedição Andes 2027<span class="brand">vialonga</span></h1><select id="langsel" aria-label="Idioma"></select></div>
+  <p id="sub">Gustavo, saída do Rio em 30 de junho</p>
+  <div class="seg" id="seg"></div>
+</header>
+<div class="profile" id="profile" aria-label="Perfil de altitude da rota"></div>
+<div class="stats" id="stats"></div>
+
+<main>
+<section class="tab" id="t-criar">
+  <h2 class="sec" data-i="h_criar">Criar rota</h2>
+  <p class="lead" data-i="lead_criar"></p>
+  <div id="builder"></div>
+</section>
+
+<section class="tab" id="t-roteiro">
+  <div class="warn" id="planwarn"></div>
+  <div id="days"></div>
+</section>
+
+<section class="tab" id="t-dormir">
+  <h2 class="sec" data-i="h_dormir">Onde dormir</h2>
+  <p class="lead" data-i="lead_dormir">Ordenado por hotel, pousada, hostel e camping. Notas e número de avaliações do Google; preços são faixas estimadas para julho de 2027.</p>
+  <select id="citysel" aria-label="Escolha o pernoite"></select>
+  <div id="lodging"></div>
+</section>
+
+<section class="tab" id="t-gastos">
+  <h2 class="sec" data-i="h_gastos">Controle de gastos</h2>
+  <p class="lead" data-i="lead_gastos"></p>
+  <div class="field"><label for="g-day" data-i="g_day">Trecho</label><select id="g-day"></select></div>
+  <div class="card">
+    <div class="grid2">
+      <div class="field"><label for="g-cat" data-i="g_cat">Categoria</label><select id="g-cat"></select></div>
+      <div class="field"><label for="g-pay" data-i="g_pay">Pagamento</label><select id="g-pay"></select></div>
+    </div>
+    <div class="field" style="margin-top:10px"><label for="g-desc" data-i="g_desc">Descrição</label><input type="text" id="g-desc" data-iph="g_desc_ph" style="width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 10px"></div>
+    <div class="grid2" style="margin-top:10px">
+      <div class="field"><label for="g-val" data-i="g_val">Valor</label><input type="number" id="g-val" min="0" step="0.01" inputmode="decimal"></div>
+      <div class="field"><label for="g-cur" data-i="g_cur">Moeda</label><select id="g-cur"><option value="BRL">R$ BRL</option><option value="ARS">$ ARS</option><option value="CLP">$ CLP</option><option value="BOB">Bs BOB</option><option value="USD">US$ USD</option></select></div>
+    </div>
+    <div class="actions"><button class="btn primary" type="button" id="g-add" data-i="g_add">Adicionar gasto</button><span class="small" id="g-st"></span></div>
+  </div>
+  <div class="card" id="g-list"></div>
+  <div id="g-res"></div>
+</section>
+
+<section class="tab" id="t-estrada">
+  <h2 class="sec" data-i="h_estrada">Estrada</h2>
+  <p class="lead langnote" data-i="content_pt"></p>
+  <div id="road"></div>
+</section>
+
+<section class="tab" id="t-docs">
+  <h2 class="sec" data-i="h_docs">Documentos e fronteiras</h2>
+  <p class="lead langnote" data-i="content_pt"></p>
+  <p class="lead" data-i="lead_docs">Marque cada item. Fica salvo neste aparelho.</p>
+  <div id="docs"></div>
+</section>
+
+<section class="tab" id="t-clima">
+  <h2 class="sec" data-i="h_clima">Clima de julho</h2>
+  <p class="lead" data-i="lead_clima">Médias históricas de julho, não previsão. Previsão confiável só existe cerca de 10 dias antes; use os links de cada ponto.</p>
+  <div id="clima"></div>
+</section>
+
+<section class="tab" id="t-extra">
+  <div class="actions" style="margin-top:14px"><a class="btn" href="#clima" data-i="h_clima">Clima de julho</a></div>
+  <h2 class="sec" data-i="h_extra">Câmbio, canal e offline</h2>
+  <p class="lead langnote" data-i="content_pt"></p>
+  <div id="extra"></div>
+</section>
+</main>
+</div>
+
+<div class="overlay" id="ov" role="dialog" aria-modal="true" aria-labelledby="ovt">
+  <div class="sheet">
+    <h3 id="ovt" data-i="s_title">Adicionar localidade</h3>
+    <div class="field"><label for="a-day" data-i="s_day">Em qual dia</label><select id="a-day"></select></div>
+    <div class="field"><label for="a-name" data-i="s_name">Nome da localidade</label><input type="text" id="a-name" list="a-known" placeholder="Ex.: Purmamarca, Tilcara, Humberstone"><datalist id="a-known"></datalist></div>
+    <div class="field"><label for="a-coord" data-i="s_coord">Coordenadas ou link do Google Maps</label><input type="text" id="a-coord" placeholder="-23.745, -65.499 ou cole o link"></div>
+    <div class="grid2">
+      <div class="field"><label for="a-alt" data-i="s_alt">Altitude (m)</label><input type="number" id="a-alt" placeholder="opcional"></div>
+      <div class="field"><label for="a-c" data-i="s_c">País</label><select id="a-c"><option value="AR" data-i="c_AR">Argentina</option><option value="BO" data-i="c_BO">Bolívia</option><option value="CL" data-i="c_CL">Chile</option><option value="BR" data-i="c_BR">Brasil</option></select></div>
+    </div>
+    <label class="radio"><input type="radio" name="a-mode" value="via" checked><span data-i="s_via">Passar por aqui neste dia. Recalcula km e tempo do dia.</span></label>
+    <label class="radio"><input type="radio" name="a-mode" value="sleep"><span data-i="s_sleep">Dormir aqui. Divide o dia em dois e empurra os seguintes.</span></label>
+    <div class="actions">
+      <button class="btn" type="button" id="a-ai" data-i="s_ai" hidden>Preencher com Claude</button>
+      <button class="btn primary" type="button" id="a-ok" data-i="s_ok">Adicionar ao roteiro</button>
+      <button class="btn" type="button" id="a-x" data-i="s_x">Cancelar</button>
+    </div>
+    <div class="status" id="a-st"></div>
+  </div>
+</div>
+
+<nav class="tabs" aria-label="Seções">
+  <div class="in">
+    <a href="#criar" data-t="criar"><svg viewBox="0 0 24 24"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8 16.5C12 14 9 9.5 15.5 7.5"/><path d="M18 14v6M15 17h6"/></svg><span data-i="tab_criar">Criar</span></a>
+    <a href="#roteiro" data-t="roteiro"><svg viewBox="0 0 24 24"><path d="M3 20l5-14 4 8 3-5 6 11z"/></svg><span data-i="tab_roteiro">Roteiro</span></a>
+    <a href="#dormir" data-t="dormir"><svg viewBox="0 0 24 24"><path d="M3 19V9l9-5 9 5v10M8 19v-6h8v6"/></svg><span data-i="tab_dormir">Dormir</span></a>
+    <a href="#gastos" data-t="gastos"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M15 15h3"/></svg><span data-i="tab_gastos">Gastos</span></a>
+    <a href="#estrada" data-t="estrada"><svg viewBox="0 0 24 24"><path d="M6 3l-3 18M18 3l3 18M12 4v3M12 11v3M12 18v2"/></svg><span data-i="tab_estrada">Estrada</span></a>
+    <a href="#docs" data-t="docs"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6zM9 12h7M9 16h7"/></svg><span data-i="tab_docs">Docs</span></a>
+    <a href="#extra" data-t="extra"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M9 10h6M9 14h6"/></svg><span data-i="tab_extra">Extra</span></a>
+  </div>
+</nav>
+
+<script>
+const I18N = {
+pt:{tab_roteiro:'Roteiro',tab_dormir:'Dormir',tab_gastos:'Gastos',tab_estrada:'Estrada',tab_docs:'Docs',tab_clima:'Clima',tab_extra:'Extra',
+ h_dormir:'Onde dormir',lead_dormir:'Ordenado por hotel, pousada, hostel e camping. Notas e número de avaliações do Google; preços são faixas estimadas para julho de 2027.',
+ h_estrada:'Estrada',h_docs:'Documentos e fronteiras',lead_docs:'Marque cada item. Fica salvo neste aparelho.',h_clima:'Clima de julho',lead_clima:'Médias históricas de julho, não previsão. Previsão confiável só existe cerca de 10 dias antes; use os links de cada ponto.',h_extra:'Câmbio, canal e offline',
+ sub:'Gustavo, de {a} a {b}',km_total:'no total',km_day:'por dia',days_high:'dias acima de 3.500 m',days_dirt:'dias com rípio, areia ou sal',nights_ata:'noites no Atacama',
+ plan_meu:'Meu roteiro, {n} dias',plan_26:'Completa, 26 dias',plan_20:'Enxuta, 20 dias',
+ warn_meu:'<b>Seu roteiro:</b> {n} dias ({okd} do limite de 22) e {a} noites no Atacama ({oka} do limite de 4). Km e horas marcados como estimados foram recalculados a partir das suas alterações.',inside:'dentro',above:'<b>acima</b>',
+ warn_26:'<b>Versão completa:</b> todos os pontos sugeridos, cerca de 26 dias. Serve de referência.',warn_20:'<b>Versão de 20 dias:</b> sem San Juan e Mendoza e sem folga. Serve de referência.',
+ add_loc:'Adicionar localidade',reset22:'Restaurar 22 dias',confirm_reset:'Toque de novo para restaurar',use_plan:'Usar esta versão como Meu roteiro',confirm_use:'Toque de novo para substituir o seu',
+ cap1:'Altitude máxima por dia',cap2:'toque num ponto para abrir o dia',peak:'{a} m no dia {d}',
+ maps:'Abrir rota no Maps',sleep:'Onde dormir',done:'Feito',notes_ph:'Notas do dia: km real, consumo, contatos',plus_loc:'+ Localidade',plus_rest:'+ Dia livre depois',merge:'Juntar com o próximo',confirm_merge:'Confirmar: juntar',del_day:'Remover dia',confirm_del:'Confirmar remoção',
+ estimated:'estimado',max:'máx.',free_day:'dia livre',passing:'Passando por:',today:'hoje',to:'até',free_in:'Dia livre em {x}',tour_in:'Passeio em {x}',spent:'Gastos do dia',add_exp:'Lançar gasto',
+ clima:'Clima',clima_sub:'média de julho, mínima / máxima',dest:'Destino',highest:'Ponto mais alto',rain:'chuva',rainsnow:'chuva ou neve',low:'baixa',mod:'moderada',high:'alta',live:'Previsão ao vivo',border:'Fronteira',fuel:'Combustível',alert:'Atenção',
+ t_hotel:'Hotel',t_pousada:'Pousada',t_hostel:'Hostel',t_camping:'Camping',night:'Noite',price_band:'Faixa de preço por noite',payment:'Pagamento:',search_dates:'Buscar com as datas desta noite',mh:'Hotéis no Maps',mp:'Pousadas no Maps',mhs:'Hostels no Maps',mc:'Campings no Maps',io_tip:'No iOverlander, abra o mapa nesta região e filtre por camping estabelecido ou selvagem; prefira lugares com check-in recente.',
+ s_title:'Adicionar localidade',s_day:'Em qual dia',s_name:'Nome da localidade',s_coord:'Coordenadas ou link do Google Maps',s_alt:'Altitude (m)',s_c:'País',s_via:'Passar por aqui neste dia. Recalcula km e tempo do dia.',s_sleep:'Dormir aqui. Divide o dia em dois e empurra os seguintes.',s_ai:'Preencher com Claude',s_ok:'Adicionar ao roteiro',s_x:'Cancelar',day:'Dia',
+ c_AR:'Argentina',c_BO:'Bolívia',c_CL:'Chile',c_BR:'Brasil',
+ h_gastos:'Controle de gastos',lead_gastos:'Lance cada gasto no trecho do dia, em qualquer moeda. O app converte para reais com o câmbio do dia do lançamento.',g_day:'Trecho',g_cat:'Categoria',g_desc:'Descrição',g_desc_ph:'Ex.: hostal em Uyuni',g_val:'Valor',g_cur:'Moeda',g_pay:'Pagamento',g_add:'Adicionar gasto',g_none:'Nenhum gasto neste trecho ainda.',
+ cat_hosp:'Hospedagem',cat_comb:'Combustível',cat_ped:'Pedágio',cat_ali:'Alimentação',cat_pas:'Passeios',cat_out:'Outros',pay_card:'Cartão',pay_cash:'Dinheiro',pay_pix:'Pix',
+ g_trecho:'Total do trecho',g_acum:'Acumulado até este dia',g_total:'Total da viagem',g_bycat:'Por categoria',g_byday:'Por dia',g_avg:'Média por dia com gastos',g_remove:'Remover',g_need:'Informe um valor maior que zero.',content_pt:'Descrições, documentos e tabelas estão em português por enquanto.',lang:'Idioma'},
+en:{tab_roteiro:'Route',tab_dormir:'Stay',tab_gastos:'Costs',tab_estrada:'Road',tab_docs:'Docs',tab_clima:'Weather',tab_extra:'Extra',
+ h_dormir:'Where to stay',lead_dormir:'Sorted by hotel, guesthouse, hostel and camping. Google ratings and review counts; prices are estimated ranges for July 2027.',
+ h_estrada:'Road',h_docs:'Documents and borders',lead_docs:'Tick each item. Saved on this device.',h_clima:'July weather',lead_clima:'Historical July averages, not a forecast. A reliable forecast exists only about 10 days ahead; use each point’s links.',h_extra:'Exchange, channel and offline',
+ sub:'Gustavo, {a} to {b}',km_total:'in total',km_day:'per day',days_high:'days above 3,500 m',days_dirt:'days on gravel, sand or salt',nights_ata:'nights in the Atacama',
+ plan_meu:'My route, {n} days',plan_26:'Full, 26 days',plan_20:'Short, 20 days',
+ warn_meu:'<b>Your route:</b> {n} days ({okd} the 22-day limit) and {a} nights in the Atacama ({oka} the 4-night limit). Km and hours marked as estimated were recalculated from your changes.',inside:'within',above:'<b>over</b>',
+ warn_26:'<b>Full version:</b> every suggested stop, about 26 days. For reference.',warn_20:'<b>20-day version:</b> no San Juan or Mendoza and no spare day. For reference.',
+ add_loc:'Add a place',reset22:'Restore 22 days',confirm_reset:'Tap again to restore',use_plan:'Use this version as My route',confirm_use:'Tap again to replace yours',
+ cap1:'Highest altitude per day',cap2:'tap a point to open that day',peak:'{a} m on day {d}',
+ maps:'Open route in Maps',sleep:'Where to stay',done:'Done',notes_ph:'Day notes: real km, fuel use, contacts',plus_loc:'+ Place',plus_rest:'+ Rest day after',merge:'Merge with next',confirm_merge:'Confirm merge',del_day:'Remove day',confirm_del:'Confirm removal',
+ estimated:'estimated',max:'max',free_day:'rest day',passing:'Passing through:',today:'today',to:'to',free_in:'Rest day in {x}',tour_in:'Day trip in {x}',spent:'Spent today',add_exp:'Add expense',
+ clima:'Weather',clima_sub:'July average, low / high',dest:'Destination',highest:'Highest point',rain:'rain',rainsnow:'rain or snow',low:'low',mod:'moderate',high:'high',live:'Live forecast',border:'Border',fuel:'Fuel',alert:'Heads up',
+ t_hotel:'Hotel',t_pousada:'Guesthouse',t_hostel:'Hostel',t_camping:'Camping',night:'Night',price_band:'Price range per night',payment:'Payment:',search_dates:'Search with this night’s dates',mh:'Hotels in Maps',mp:'Guesthouses in Maps',mhs:'Hostels in Maps',mc:'Campsites in Maps',io_tip:'In iOverlander, open the map in this area and filter by established or wild camping; prefer places with recent check-ins.',
+ s_title:'Add a place',s_day:'Which day',s_name:'Place name',s_coord:'Coordinates or Google Maps link',s_alt:'Altitude (m)',s_c:'Country',s_via:'Pass through on this day. Recalculates km and time.',s_sleep:'Sleep here. Splits the day in two and pushes the rest.',s_ai:'Fill in with Claude',s_ok:'Add to route',s_x:'Cancel',day:'Day',
+ c_AR:'Argentina',c_BO:'Bolivia',c_CL:'Chile',c_BR:'Brazil',
+ h_gastos:'Expense tracker',lead_gastos:'Log each expense on that day’s leg, in any currency. The app converts to reais at the rate on the day you log it.',g_day:'Leg',g_cat:'Category',g_desc:'Description',g_desc_ph:'E.g. hostel in Uyuni',g_val:'Amount',g_cur:'Currency',g_pay:'Payment',g_add:'Add expense',g_none:'No expenses on this leg yet.',
+ cat_hosp:'Lodging',cat_comb:'Fuel',cat_ped:'Tolls',cat_ali:'Food',cat_pas:'Tours',cat_out:'Other',pay_card:'Card',pay_cash:'Cash',pay_pix:'Pix',
+ g_trecho:'Leg total',g_acum:'Running total to this day',g_total:'Trip total',g_bycat:'By category',g_byday:'By day',g_avg:'Average per day with expenses',g_remove:'Remove',g_need:'Enter an amount above zero.',content_pt:'Descriptions, documents and tables are in Portuguese for now.',lang:'Language'},
+es:{tab_roteiro:'Ruta',tab_dormir:'Dormir',tab_gastos:'Gastos',tab_estrada:'Ruta y peajes',tab_docs:'Docs',tab_clima:'Clima',tab_extra:'Extra',
+ h_dormir:'Dónde dormir',lead_dormir:'Ordenado por hotel, hostería, hostel y camping. Puntuación y reseñas de Google; los precios son rangos estimados para julio de 2027.',
+ h_estrada:'Ruta',h_docs:'Documentos y fronteras',lead_docs:'Marcá cada ítem. Queda guardado en este dispositivo.',h_clima:'Clima de julio',lead_clima:'Promedios históricos de julio, no pronóstico. El pronóstico confiable existe solo unos 10 días antes; usá los enlaces de cada punto.',h_extra:'Cambio, canal y offline',
+ sub:'Gustavo, del {a} al {b}',km_total:'en total',km_day:'por día',days_high:'días sobre 3.500 m',days_dirt:'días con ripio, arena o sal',nights_ata:'noches en Atacama',
+ plan_meu:'Mi ruta, {n} días',plan_26:'Completa, 26 días',plan_20:'Corta, 20 días',
+ warn_meu:'<b>Tu ruta:</b> {n} días ({okd} del límite de 22) y {a} noches en Atacama ({oka} del límite de 4). Los km y horas marcados como estimados se recalcularon con tus cambios.',inside:'dentro',above:'<b>por encima</b>',
+ warn_26:'<b>Versión completa:</b> todos los puntos sugeridos, unos 26 días. Sirve de referencia.',warn_20:'<b>Versión de 20 días:</b> sin San Juan ni Mendoza y sin día libre. Sirve de referencia.',
+ add_loc:'Agregar lugar',reset22:'Restaurar 22 días',confirm_reset:'Tocá de nuevo para restaurar',use_plan:'Usar esta versión como Mi ruta',confirm_use:'Tocá de nuevo para reemplazar la tuya',
+ cap1:'Altitud máxima por día',cap2:'tocá un punto para abrir el día',peak:'{a} m el día {d}',
+ maps:'Abrir ruta en Maps',sleep:'Dónde dormir',done:'Hecho',notes_ph:'Notas del día: km reales, consumo, contactos',plus_loc:'+ Lugar',plus_rest:'+ Día libre después',merge:'Unir con el siguiente',confirm_merge:'Confirmar unión',del_day:'Quitar día',confirm_del:'Confirmar',
+ estimated:'estimado',max:'máx.',free_day:'día libre',passing:'Pasando por:',today:'hoy',to:'a',free_in:'Día libre en {x}',tour_in:'Paseo en {x}',spent:'Gastos del día',add_exp:'Cargar gasto',
+ clima:'Clima',clima_sub:'promedio de julio, mínima / máxima',dest:'Destino',highest:'Punto más alto',rain:'lluvia',rainsnow:'lluvia o nieve',low:'baja',mod:'moderada',high:'alta',live:'Pronóstico en vivo',border:'Frontera',fuel:'Combustible',alert:'Atención',
+ t_hotel:'Hotel',t_pousada:'Hostería',t_hostel:'Hostel',t_camping:'Camping',night:'Noche',price_band:'Rango de precio por noche',payment:'Pago:',search_dates:'Buscar con las fechas de esta noche',mh:'Hoteles en Maps',mp:'Hosterías en Maps',mhs:'Hostels en Maps',mc:'Campings en Maps',io_tip:'En iOverlander, abrí el mapa en esta zona y filtrá por camping establecido o agreste; preferí lugares con check-in reciente.',
+ s_title:'Agregar lugar',s_day:'En qué día',s_name:'Nombre del lugar',s_coord:'Coordenadas o enlace de Google Maps',s_alt:'Altitud (m)',s_c:'País',s_via:'Pasar por aquí ese día. Recalcula km y tiempo.',s_sleep:'Dormir aquí. Divide el día en dos y corre los siguientes.',s_ai:'Completar con Claude',s_ok:'Agregar a la ruta',s_x:'Cancelar',day:'Día',
+ c_AR:'Argentina',c_BO:'Bolivia',c_CL:'Chile',c_BR:'Brasil',
+ h_gastos:'Control de gastos',lead_gastos:'Cargá cada gasto en el tramo del día, en cualquier moneda. La app convierte a reales con el cambio del día de la carga.',g_day:'Tramo',g_cat:'Categoría',g_desc:'Descripción',g_desc_ph:'Ej.: hostal en Uyuni',g_val:'Monto',g_cur:'Moneda',g_pay:'Pago',g_add:'Agregar gasto',g_none:'Todavía no hay gastos en este tramo.',
+ cat_hosp:'Alojamiento',cat_comb:'Combustible',cat_ped:'Peajes',cat_ali:'Comida',cat_pas:'Paseos',cat_out:'Otros',pay_card:'Tarjeta',pay_cash:'Efectivo',pay_pix:'Pix',
+ g_trecho:'Total del tramo',g_acum:'Acumulado hasta este día',g_total:'Total del viaje',g_bycat:'Por categoría',g_byday:'Por día',g_avg:'Promedio por día con gastos',g_remove:'Quitar',g_need:'Ingresá un monto mayor a cero.',content_pt:'Las descripciones, documentos y tablas están en portugués por ahora.',lang:'Idioma'},
+it:{tab_roteiro:'Itinerario',tab_dormir:'Dormire',tab_gastos:'Spese',tab_estrada:'Strada',tab_docs:'Doc',tab_clima:'Meteo',tab_extra:'Extra',
+ h_dormir:'Dove dormire',lead_dormir:'Ordinato per hotel, pensione, ostello e campeggio. Voti e recensioni Google; i prezzi sono fasce stimate per luglio 2027.',
+ h_estrada:'Strada',h_docs:'Documenti e frontiere',lead_docs:'Spunta ogni voce. Resta salvato su questo dispositivo.',h_clima:'Meteo di luglio',lead_clima:'Medie storiche di luglio, non previsioni. Una previsione affidabile esiste solo circa 10 giorni prima; usa i link di ogni punto.',h_extra:'Cambio, canale e offline',
+ sub:'Gustavo, dal {a} al {b}',km_total:'in totale',km_day:'al giorno',days_high:'giorni sopra i 3.500 m',days_dirt:'giorni su sterrato, sabbia o sale',nights_ata:'notti in Atacama',
+ plan_meu:'Il mio itinerario, {n} giorni',plan_26:'Completo, 26 giorni',plan_20:'Breve, 20 giorni',
+ warn_meu:'<b>Il tuo itinerario:</b> {n} giorni ({okd} il limite di 22) e {a} notti in Atacama ({oka} il limite di 4). Km e ore segnati come stimati sono stati ricalcolati dalle tue modifiche.',inside:'entro',above:'<b>oltre</b>',
+ warn_26:'<b>Versione completa:</b> tutte le tappe suggerite, circa 26 giorni. Come riferimento.',warn_20:'<b>Versione da 20 giorni:</b> senza San Juan e Mendoza e senza giorni liberi. Come riferimento.',
+ add_loc:'Aggiungi località',reset22:'Ripristina 22 giorni',confirm_reset:'Tocca di nuovo per ripristinare',use_plan:'Usa questa versione come il mio itinerario',confirm_use:'Tocca di nuovo per sostituire il tuo',
+ cap1:'Altitudine massima al giorno',cap2:'tocca un punto per aprire il giorno',peak:'{a} m il giorno {d}',
+ maps:'Apri percorso in Maps',sleep:'Dove dormire',done:'Fatto',notes_ph:'Note del giorno: km reali, consumi, contatti',plus_loc:'+ Località',plus_rest:'+ Giorno libero dopo',merge:'Unisci al successivo',confirm_merge:'Conferma unione',del_day:'Rimuovi giorno',confirm_del:'Conferma',
+ estimated:'stimato',max:'max',free_day:'giorno libero',passing:'Passando per:',today:'oggi',to:'a',free_in:'Giorno libero a {x}',tour_in:'Gita a {x}',spent:'Spese del giorno',add_exp:'Registra spesa',
+ clima:'Meteo',clima_sub:'media di luglio, minima / massima',dest:'Destinazione',highest:'Punto più alto',rain:'pioggia',rainsnow:'pioggia o neve',low:'bassa',mod:'moderata',high:'alta',live:'Previsione dal vivo',border:'Frontiera',fuel:'Carburante',alert:'Attenzione',
+ t_hotel:'Hotel',t_pousada:'Pensione',t_hostel:'Ostello',t_camping:'Campeggio',night:'Notte',price_band:'Fascia di prezzo a notte',payment:'Pagamento:',search_dates:'Cerca con le date di questa notte',mh:'Hotel in Maps',mp:'Pensioni in Maps',mhs:'Ostelli in Maps',mc:'Campeggi in Maps',io_tip:'Su iOverlander apri la mappa in questa zona e filtra per campeggio attrezzato o libero; preferisci posti con check-in recenti.',
+ s_title:'Aggiungi località',s_day:'In quale giorno',s_name:'Nome della località',s_coord:'Coordinate o link di Google Maps',s_alt:'Altitudine (m)',s_c:'Paese',s_via:'Passa di qui quel giorno. Ricalcola km e tempi.',s_sleep:'Dormi qui. Divide il giorno in due e sposta i successivi.',s_ai:'Compila con Claude',s_ok:'Aggiungi all’itinerario',s_x:'Annulla',day:'Giorno',
+ c_AR:'Argentina',c_BO:'Bolivia',c_CL:'Cile',c_BR:'Brasile',
+ h_gastos:'Controllo spese',lead_gastos:'Registra ogni spesa sulla tappa del giorno, in qualsiasi valuta. L’app converte in reais al cambio del giorno di registrazione.',g_day:'Tappa',g_cat:'Categoria',g_desc:'Descrizione',g_desc_ph:'Es.: ostello a Uyuni',g_val:'Importo',g_cur:'Valuta',g_pay:'Pagamento',g_add:'Aggiungi spesa',g_none:'Ancora nessuna spesa su questa tappa.',
+ cat_hosp:'Alloggio',cat_comb:'Carburante',cat_ped:'Pedaggi',cat_ali:'Cibo',cat_pas:'Escursioni',cat_out:'Altro',pay_card:'Carta',pay_cash:'Contanti',pay_pix:'Pix',
+ g_trecho:'Totale della tappa',g_acum:'Cumulato fino a questo giorno',g_total:'Totale del viaggio',g_bycat:'Per categoria',g_byday:'Per giorno',g_avg:'Media per giorno con spese',g_remove:'Rimuovi',g_need:'Inserisci un importo maggiore di zero.',content_pt:'Descrizioni, documenti e tabelle sono per ora in portoghese.',lang:'Lingua'},
+de:{tab_roteiro:'Route',tab_dormir:'Schlafen',tab_gastos:'Kosten',tab_estrada:'Straße',tab_docs:'Doks',tab_clima:'Wetter',tab_extra:'Extra',
+ h_dormir:'Übernachten',lead_dormir:'Sortiert nach Hotel, Pension, Hostel und Camping. Google-Bewertungen und Anzahl; Preise sind geschätzte Spannen für Juli 2027.',
+ h_estrada:'Straße',h_docs:'Dokumente und Grenzen',lead_docs:'Jeden Punkt abhaken. Wird auf diesem Gerät gespeichert.',h_clima:'Wetter im Juli',lead_clima:'Historische Juli-Mittelwerte, keine Vorhersage. Eine verlässliche Vorhersage gibt es erst etwa 10 Tage vorher; nutze die Links jedes Punkts.',h_extra:'Wechselkurs, Kanal und offline',
+ sub:'Gustavo, {a} bis {b}',km_total:'insgesamt',km_day:'pro Tag',days_high:'Tage über 3.500 m',days_dirt:'Tage auf Schotter, Sand oder Salz',nights_ata:'Nächte in der Atacama',
+ plan_meu:'Meine Route, {n} Tage',plan_26:'Komplett, 26 Tage',plan_20:'Kurz, 20 Tage',
+ warn_meu:'<b>Deine Route:</b> {n} Tage ({okd} des Limits von 22) und {a} Nächte in der Atacama ({oka} des Limits von 4). Als geschätzt markierte km und Stunden wurden aus deinen Änderungen neu berechnet.',inside:'innerhalb',above:'<b>über</b>',
+ warn_26:'<b>Komplette Version:</b> alle vorgeschlagenen Stopps, etwa 26 Tage. Zur Orientierung.',warn_20:'<b>20-Tage-Version:</b> ohne San Juan und Mendoza und ohne Puffertag. Zur Orientierung.',
+ add_loc:'Ort hinzufügen',reset22:'22 Tage wiederherstellen',confirm_reset:'Zum Wiederherstellen erneut tippen',use_plan:'Diese Version als meine Route nutzen',confirm_use:'Zum Ersetzen erneut tippen',
+ cap1:'Maximale Höhe pro Tag',cap2:'Punkt antippen, um den Tag zu öffnen',peak:'{a} m an Tag {d}',
+ maps:'Route in Maps öffnen',sleep:'Übernachten',done:'Erledigt',notes_ph:'Tagesnotizen: echte km, Verbrauch, Kontakte',plus_loc:'+ Ort',plus_rest:'+ Ruhetag danach',merge:'Mit nächstem zusammenlegen',confirm_merge:'Zusammenlegen bestätigen',del_day:'Tag entfernen',confirm_del:'Entfernen bestätigen',
+ estimated:'geschätzt',max:'max.',free_day:'Ruhetag',passing:'Über:',today:'heute',to:'nach',free_in:'Ruhetag in {x}',tour_in:'Ausflug in {x}',spent:'Ausgaben des Tages',add_exp:'Ausgabe erfassen',
+ clima:'Wetter',clima_sub:'Juli-Mittel, Tief / Hoch',dest:'Ziel',highest:'Höchster Punkt',rain:'Regen',rainsnow:'Regen oder Schnee',low:'gering',mod:'mittel',high:'hoch',live:'Live-Vorhersage',border:'Grenze',fuel:'Treibstoff',alert:'Achtung',
+ t_hotel:'Hotel',t_pousada:'Pension',t_hostel:'Hostel',t_camping:'Camping',night:'Nacht',price_band:'Preisspanne pro Nacht',payment:'Zahlung:',search_dates:'Mit den Daten dieser Nacht suchen',mh:'Hotels in Maps',mp:'Pensionen in Maps',mhs:'Hostels in Maps',mc:'Campingplätze in Maps',io_tip:'In iOverlander die Karte in dieser Gegend öffnen und nach Camping- oder Wildcampingplätzen filtern; Orte mit aktuellen Check-ins bevorzugen.',
+ s_title:'Ort hinzufügen',s_day:'An welchem Tag',s_name:'Name des Orts',s_coord:'Koordinaten oder Google-Maps-Link',s_alt:'Höhe (m)',s_c:'Land',s_via:'An diesem Tag durchfahren. Berechnet km und Zeit neu.',s_sleep:'Hier übernachten. Teilt den Tag und verschiebt die folgenden.',s_ai:'Mit Claude ausfüllen',s_ok:'Zur Route hinzufügen',s_x:'Abbrechen',day:'Tag',
+ c_AR:'Argentinien',c_BO:'Bolivien',c_CL:'Chile',c_BR:'Brasilien',
+ h_gastos:'Ausgabenkontrolle',lead_gastos:'Erfasse jede Ausgabe auf der Etappe des Tages, in jeder Währung. Die App rechnet zum Kurs des Erfassungstags in Real um.',g_day:'Etappe',g_cat:'Kategorie',g_desc:'Beschreibung',g_desc_ph:'Z. B. Hostel in Uyuni',g_val:'Betrag',g_cur:'Währung',g_pay:'Zahlung',g_add:'Ausgabe hinzufügen',g_none:'Noch keine Ausgaben auf dieser Etappe.',
+ cat_hosp:'Unterkunft',cat_comb:'Treibstoff',cat_ped:'Maut',cat_ali:'Essen',cat_pas:'Ausflüge',cat_out:'Sonstiges',pay_card:'Karte',pay_cash:'Bar',pay_pix:'Pix',
+ g_trecho:'Summe der Etappe',g_acum:'Kumuliert bis zu diesem Tag',g_total:'Summe der Reise',g_bycat:'Nach Kategorie',g_byday:'Nach Tag',g_avg:'Durchschnitt pro Tag mit Ausgaben',g_remove:'Entfernen',g_need:'Bitte einen Betrag über null eingeben.',content_pt:'Beschreibungen, Dokumente und Tabellen sind vorerst auf Portugiesisch.',lang:'Sprache'},
+zh:{tab_roteiro:'路线',tab_dormir:'住宿',tab_gastos:'花费',tab_estrada:'道路',tab_docs:'证件',tab_clima:'天气',tab_extra:'更多',
+ h_dormir:'住在哪里',lead_dormir:'按酒店、民宿、青旅和露营排序。谷歌评分和评论数；价格为 2027 年 7 月的估计范围。',
+ h_estrada:'道路',h_docs:'证件与边境',lead_docs:'逐项勾选，保存在本设备上。',h_clima:'七月天气',lead_clima:'七月历史平均值，不是预报。可靠的预报只在出发前约 10 天才有；请使用各地点的链接。',h_extra:'汇率、频道与离线',
+ sub:'Gustavo，{a} 至 {b}',km_total:'总里程',km_day:'每天',days_high:'天海拔超过 3500 米',days_dirt:'天走碎石、沙地或盐滩',nights_ata:'晚在阿塔卡马',
+ plan_meu:'我的路线，{n} 天',plan_26:'完整版，26 天',plan_20:'精简版，20 天',
+ warn_meu:'<b>你的路线：</b>{n} 天（{okd} 22 天上限），阿塔卡马 {a} 晚（{oka} 4 晚上限）。标为估计的里程和时间已根据你的修改重新计算。',inside:'未超过',above:'<b>超过</b>',
+ warn_26:'<b>完整版：</b>包含所有建议地点，约 26 天，供参考。',warn_20:'<b>20 天版：</b>不含圣胡安和门多萨，没有机动日，供参考。',
+ add_loc:'添加地点',reset22:'恢复 22 天',confirm_reset:'再点一次以恢复',use_plan:'将此版本设为我的路线',confirm_use:'再点一次以替换',
+ cap1:'每天最高海拔',cap2:'点击某点打开当天',peak:'第 {d} 天 {a} 米',
+ maps:'在地图中打开路线',sleep:'住在哪里',done:'完成',notes_ph:'当天笔记：实际里程、油耗、联系人',plus_loc:'+ 地点',plus_rest:'+ 之后休息一天',merge:'与下一天合并',confirm_merge:'确认合并',del_day:'删除这一天',confirm_del:'确认删除',
+ estimated:'估计',max:'最高',free_day:'休息日',passing:'途经：',today:'今天',to:'至',free_in:'{x} 休息日',tour_in:'{x} 一日游',spent:'当天花费',add_exp:'记一笔',
+ clima:'天气',clima_sub:'七月平均，最低 / 最高',dest:'目的地',highest:'最高点',rain:'降雨',rainsnow:'雨或雪',low:'低',mod:'中',high:'高',live:'实时预报',border:'边境',fuel:'燃油',alert:'注意',
+ t_hotel:'酒店',t_pousada:'民宿',t_hostel:'青旅',t_camping:'露营',night:'第 晚',price_band:'每晚价格范围',payment:'支付：',search_dates:'按当晚日期搜索',mh:'地图上的酒店',mp:'地图上的民宿',mhs:'地图上的青旅',mc:'地图上的营地',io_tip:'在 iOverlander 中打开该地区地图，筛选营地或野营点；优先选择近期有签到的地点。',
+ s_title:'添加地点',s_day:'哪一天',s_name:'地点名称',s_coord:'坐标或谷歌地图链接',s_alt:'海拔（米）',s_c:'国家',s_via:'当天途经此地，重新计算里程和时间。',s_sleep:'在此过夜，把这一天拆成两天，后面的日期顺延。',s_ai:'用 Claude 填写',s_ok:'加入路线',s_x:'取消',day:'第',
+ c_AR:'阿根廷',c_BO:'玻利维亚',c_CL:'智利',c_BR:'巴西',
+ h_gastos:'花费记录',lead_gastos:'把每笔花费记在当天的路段上，任何货币都可以。应用按记录当天的汇率换算成雷亚尔。',g_day:'路段',g_cat:'类别',g_desc:'说明',g_desc_ph:'例如：乌尤尼的旅馆',g_val:'金额',g_cur:'货币',g_pay:'支付方式',g_add:'添加花费',g_none:'这个路段还没有花费。',
+ cat_hosp:'住宿',cat_comb:'燃油',cat_ped:'过路费',cat_ali:'餐饮',cat_pas:'游览',cat_out:'其他',pay_card:'银行卡',pay_cash:'现金',pay_pix:'Pix',
+ g_trecho:'路段合计',g_acum:'截至当天累计',g_total:'全程合计',g_bycat:'按类别',g_byday:'按天',g_avg:'有花费日的日均',g_remove:'删除',g_need:'请输入大于零的金额。',content_pt:'说明、证件和表格目前仍为葡萄牙语。',lang:'语言'}
+};
+
+Object.assign(I18N.pt,{"wind": "Vento", "wind_line": "média {a} km/h, rajadas à tarde até ~{g} km/h", "gusts": "rajadas ~{g} km/h", "wl_calm": "calmo", "wl_mod": "moderado", "wl_strong": "forte", "wl_danger": "perigoso para moto", "wind_am": "Pilote de manhã: o vento sobe depois das 13h.", "src_m": "média de julho em sites meteorológicos", "src_e": "estimativa regional para julho", "fc_title": "Previsão real", "fc_line": "{min}° / {max}°, chuva {p}%, vento até {w} km/h, rajadas {g} km/h", "fc_upd": "Open-Meteo, atualizada {h}", "fc_old": "sem sinal: última previsão salva"});
+Object.assign(I18N.en,{"wind": "Wind", "wind_line": "average {a} km/h, afternoon gusts up to ~{g} km/h", "gusts": "gusts ~{g} km/h", "wl_calm": "calm", "wl_mod": "moderate", "wl_strong": "strong", "wl_danger": "dangerous on a bike", "wind_am": "Ride in the morning: wind picks up after 1 pm.", "src_m": "July average from weather sites", "src_e": "regional July estimate", "fc_title": "Live forecast", "fc_line": "{min}° / {max}°, rain {p}%, wind up to {w} km/h, gusts {g} km/h", "fc_upd": "Open-Meteo, updated {h}", "fc_old": "offline: last saved forecast"});
+Object.assign(I18N.es,{"wind": "Viento", "wind_line": "promedio {a} km/h, ráfagas por la tarde hasta ~{g} km/h", "gusts": "ráfagas ~{g} km/h", "wl_calm": "calmo", "wl_mod": "moderado", "wl_strong": "fuerte", "wl_danger": "peligroso en moto", "wind_am": "Manejá a la mañana: el viento sube después de las 13 h.", "src_m": "promedio de julio en sitios meteorológicos", "src_e": "estimación regional para julio", "fc_title": "Pronóstico real", "fc_line": "{min}° / {max}°, lluvia {p}%, viento hasta {w} km/h, ráfagas {g} km/h", "fc_upd": "Open-Meteo, actualizado {h}", "fc_old": "sin señal: último pronóstico guardado"});
+Object.assign(I18N.it,{"wind": "Vento", "wind_line": "media {a} km/h, raffiche pomeridiane fino a ~{g} km/h", "gusts": "raffiche ~{g} km/h", "wl_calm": "calmo", "wl_mod": "moderato", "wl_strong": "forte", "wl_danger": "pericoloso in moto", "wind_am": "Guida al mattino: il vento cresce dopo le 13.", "src_m": "media di luglio dai siti meteo", "src_e": "stima regionale per luglio", "fc_title": "Previsione reale", "fc_line": "{min}° / {max}°, pioggia {p}%, vento fino a {w} km/h, raffiche {g} km/h", "fc_upd": "Open-Meteo, aggiornata {h}", "fc_old": "offline: ultima previsione salvata"});
+Object.assign(I18N.de,{"wind": "Wind", "wind_line": "Mittel {a} km/h, nachmittags Böen bis ~{g} km/h", "gusts": "Böen ~{g} km/h", "wl_calm": "ruhig", "wl_mod": "mäßig", "wl_strong": "stark", "wl_danger": "gefährlich fürs Motorrad", "wind_am": "Morgens fahren: der Wind nimmt ab 13 Uhr zu.", "src_m": "Juli-Mittel von Wetterseiten", "src_e": "regionale Juli-Schätzung", "fc_title": "Echte Vorhersage", "fc_line": "{min}° / {max}°, Regen {p} %, Wind bis {w} km/h, Böen {g} km/h", "fc_upd": "Open-Meteo, aktualisiert {h}", "fc_old": "offline: zuletzt gespeicherte Vorhersage"});
+Object.assign(I18N.zh,{"wind": "风", "wind_line": "平均 {a} 公里/时，午后阵风可达约 {g} 公里/时", "gusts": "阵风约 {g} 公里/时", "wl_calm": "平静", "wl_mod": "中等", "wl_strong": "强", "wl_danger": "对摩托车危险", "wind_am": "尽量上午骑行：下午 1 点后风力增强。", "src_m": "气象网站的七月平均值", "src_e": "七月区域估计", "fc_title": "实时预报", "fc_line": "{min}° / {max}°，降雨 {p}%，风速最高 {w} 公里/时，阵风 {g} 公里/时", "fc_upd": "Open-Meteo，更新于 {h}", "fc_old": "离线：上次保存的预报"});
+
+Object.assign(I18N.pt,{"tab_criar": "Criar", "h_criar": "Criar rota", "lead_criar": "Comece do zero: adicione as localidades na ordem, de onde parte até onde chega. O app calcula os trechos e monta o roteiro com clima, custos, hospedagem e segurança.", "b_trip": "Viagem", "b_name": "Nome da rota", "b_name_ph": "Ex.: Patagônia 2028", "b_start": "Data de saída", "b_days": "Dias que pretende viajar (opcional)", "b_days_ph": "Ex.: 15", "b_vehicle": "Veículo (opcional)", "v_adv": "Moto big trail", "v_trail": "Moto trail leve ou média", "v_street": "Moto street, custom ou scooter", "v_car": "Carro 4x2", "v_x4": "4x4 ou SUV com reduzida", "v_van": "Van ou motorhome", "b_points": "Localidades", "b_add": "Adicionar", "b_search": "Buscar", "b_search_ph": "Cidade, vila, passo, parque...", "b_coord_ph": "Coordenadas, se souber: -23.65, -70.40", "b_none_found": "Nenhum lugar encontrado com esse nome.", "b_offline_geo": "A busca automática não respondeu aqui. Escolha um lugar da lista, cole as coordenadas ou use Preencher com Claude.", "b_pick": "Escolha o lugar certo:", "b_pass": "só passagem", "b_nights": "noites", "b_start_pt": "Partida", "b_end_pt": "Chegada", "b_up": "Subir", "b_down": "Descer", "b_remove": "Remover", "b_empty": "Adicione pelo menos a partida e a chegada.", "b_legs": "Trechos", "b_calc": "Calcular distâncias pela estrada", "b_claude": "Preencher com Claude", "b_claude_wait": "Consultando Claude sobre a rota...", "b_calc_wait": "Calculando...", "b_gen": "Gerar roteiro", "b_gen_confirm": "Toque de novo para substituir a rota criada", "b_split": "Dividir trechos longos em mais de um dia", "b_summary": "Resumo", "b_days_total": "{n} dias de viagem", "b_over": "{n} dias a mais que o planejado", "b_under": "{n} dias de folga", "b_km_src_osrm": "km pela estrada", "src_claude": "estimado por Claude", "src_est": "estimado em linha reta", "src_user": "informado por você", "b_surface": "Piso do trecho", "b_x4": "Costuma exigir 4x4", "b_generated": "Roteiro gerado. Veja na aba Roteiro.", "surf_asfalto": "asfalto", "surf_ripio": "rípio", "surf_pedras": "pedras", "surf_areia": "areia", "surf_sal": "sal", "surf_off": "off-road", "safety": "Segurança", "safety_for": "para {v}", "s_areia": "Areia: exige moto trail com experiência ou 4x4. Reduza a pressão dos pneus no trecho e recalibre depois.", "s_off": "Off-road: costuma exigir 4x4 ou moto trail. Não vá sozinho sem avisar o trajeto e leve comunicador satelital.", "s_pedras": "Pedras soltas: reduza a velocidade, use protetor de cárter e pneus de carcaça reforçada.", "s_ripio": "Rípio: 40 a 60 km/h, cuidado com costelas, curvas e poeira de caminhões; pressão um pouco abaixo da do asfalto.", "s_sal": "Sal: lave chassi, corrente e freios depois e evite as bordas úmidas do salar.", "s_alt": "Altitude acima de 3.500 m: o motor perde potência e há risco de mal de altitude.", "s_long": "Dia longo para este veículo ({k} km). Considere dividir.", "s_kit": "Leve kit de calibragem: compressor portátil, calibrador digital e reparo de pneu.", "s_not_ok": "Seu veículo não é indicado para este piso: procure rota alternativa ou um guia local.", "chip_4x4": "exige 4x4 ou trail", "chip_off": "trechos off-road", "plan_nova": "{x}, {n} dias", "warn_nova": "<b>Rota criada:</b> {n} dias{t}. Veículo: {v}. Km e tempos estimados podem ser corrigidos em cada dia.", "edit_builder": "Editar em Criar rota", "to_define": "Pernoite a definir", "no_clim": "Sem média histórica para este lugar neste mês: use a previsão ao vivo.", "clima_sub": "média histórica do mês, mínima / máxima", "fuel_other": "Outros países", "c_XX": "Outro país", "c_PE": "Peru", "c_UY": "Uruguai", "c_PY": "Paraguai"});
+Object.assign(I18N.en,{"tab_criar": "Create", "h_criar": "Create a route", "lead_criar": "Start from scratch: add places in order, from departure to arrival. The app works out each leg and builds the itinerary with weather, costs, lodging and safety.", "b_trip": "Trip", "b_name": "Route name", "b_name_ph": "E.g. Patagonia 2028", "b_start": "Departure date", "b_days": "Days you plan to travel (optional)", "b_days_ph": "E.g. 15", "b_vehicle": "Vehicle (optional)", "v_adv": "Adventure bike", "v_trail": "Light or mid trail bike", "v_street": "Street, cruiser or scooter", "v_car": "2WD car", "v_x4": "4x4 or SUV with low range", "v_van": "Van or motorhome", "b_points": "Places", "b_add": "Add", "b_search": "Search", "b_search_ph": "City, village, pass, park...", "b_coord_ph": "Coordinates, if you know them: -23.65, -70.40", "b_none_found": "No place found with that name.", "b_offline_geo": "Automatic search did not answer here. Pick a place from the list, paste coordinates or use Fill in with Claude.", "b_pick": "Pick the right place:", "b_pass": "pass through", "b_nights": "nights", "b_start_pt": "Departure", "b_end_pt": "Arrival", "b_up": "Up", "b_down": "Down", "b_remove": "Remove", "b_empty": "Add at least a departure and an arrival.", "b_legs": "Legs", "b_calc": "Calculate road distances", "b_claude": "Fill in with Claude", "b_claude_wait": "Asking Claude about the route...", "b_calc_wait": "Calculating...", "b_gen": "Build itinerary", "b_gen_confirm": "Tap again to replace the created route", "b_split": "Split long legs into more than one day", "b_summary": "Summary", "b_days_total": "{n} travel days", "b_over": "{n} days over plan", "b_under": "{n} spare days", "b_km_src_osrm": "road km", "src_claude": "estimated by Claude", "src_est": "straight-line estimate", "src_user": "entered by you", "b_surface": "Road surface", "b_x4": "Usually needs 4x4", "b_generated": "Itinerary built. See the Route tab.", "surf_asfalto": "asphalt", "surf_ripio": "gravel", "surf_pedras": "rocks", "surf_areia": "sand", "surf_sal": "salt", "surf_off": "off-road", "safety": "Safety", "safety_for": "for {v}", "s_areia": "Sand: needs a trail bike and experience, or 4x4. Lower tyre pressure for the section and reinflate afterwards.", "s_off": "Off-road: usually needs 4x4 or a trail bike. Don’t go alone without sharing your route, and carry a satellite messenger.", "s_pedras": "Loose rocks: slow down, fit a skid plate and use reinforced tyres.", "s_ripio": "Gravel: 40 to 60 km/h, watch for washboard, bends and truck dust; run slightly lower pressure than on asphalt.", "s_sal": "Salt: wash frame, chain and brakes afterwards and avoid wet salt-flat edges.", "s_alt": "Above 3,500 m: the engine loses power and altitude sickness is a risk.", "s_long": "Long day for this vehicle ({k} km). Consider splitting it.", "s_kit": "Bring a tyre kit: portable compressor, digital gauge and puncture repair.", "s_not_ok": "Your vehicle is not suited to this surface: look for another route or a local guide.", "chip_4x4": "needs 4x4 or trail", "chip_off": "off-road sections", "plan_nova": "{x}, {n} days", "warn_nova": "<b>Created route:</b> {n} days{t}. Vehicle: {v}. Estimated km and times can be corrected on each day.", "edit_builder": "Edit in Create", "to_define": "Overnight to be decided", "no_clim": "No historical average for this place and month: use the live forecast.", "clima_sub": "historical monthly average, low / high", "fuel_other": "Other countries", "c_XX": "Other country", "c_PE": "Peru", "c_UY": "Uruguay", "c_PY": "Paraguay"});
+Object.assign(I18N.es,{"tab_criar": "Crear", "h_criar": "Crear ruta", "lead_criar": "Empezá de cero: agregá los lugares en orden, desde la salida hasta la llegada. La app calcula cada tramo y arma el itinerario con clima, costos, alojamiento y seguridad.", "b_trip": "Viaje", "b_name": "Nombre de la ruta", "b_name_ph": "Ej.: Patagonia 2028", "b_start": "Fecha de salida", "b_days": "Días que pensás viajar (opcional)", "b_days_ph": "Ej.: 15", "b_vehicle": "Vehículo (opcional)", "v_adv": "Moto maxitrail", "v_trail": "Moto trail liviana o media", "v_street": "Moto calle, custom o scooter", "v_car": "Auto 4x2", "v_x4": "4x4 o SUV con reductora", "v_van": "Van o motorhome", "b_points": "Lugares", "b_add": "Agregar", "b_search": "Buscar", "b_search_ph": "Ciudad, pueblo, paso, parque...", "b_coord_ph": "Coordenadas, si las sabés: -23.65, -70.40", "b_none_found": "No se encontró ningún lugar con ese nombre.", "b_offline_geo": "La búsqueda automática no respondió aquí. Elegí un lugar de la lista, pegá coordenadas o usá Completar con Claude.", "b_pick": "Elegí el lugar correcto:", "b_pass": "solo paso", "b_nights": "noches", "b_start_pt": "Salida", "b_end_pt": "Llegada", "b_up": "Subir", "b_down": "Bajar", "b_remove": "Quitar", "b_empty": "Agregá al menos la salida y la llegada.", "b_legs": "Tramos", "b_calc": "Calcular distancias por ruta", "b_claude": "Completar con Claude", "b_claude_wait": "Consultando a Claude sobre la ruta...", "b_calc_wait": "Calculando...", "b_gen": "Generar itinerario", "b_gen_confirm": "Tocá de nuevo para reemplazar la ruta creada", "b_split": "Dividir tramos largos en más de un día", "b_summary": "Resumen", "b_days_total": "{n} días de viaje", "b_over": "{n} días más de lo planeado", "b_under": "{n} días libres", "b_km_src_osrm": "km por ruta", "src_claude": "estimado por Claude", "src_est": "estimado en línea recta", "src_user": "cargado por vos", "b_surface": "Calzada del tramo", "b_x4": "Suele exigir 4x4", "b_generated": "Itinerario generado. Miralo en la pestaña Ruta.", "surf_asfalto": "asfalto", "surf_ripio": "ripio", "surf_pedras": "piedras", "surf_areia": "arena", "surf_sal": "sal", "surf_off": "off-road", "safety": "Seguridad", "safety_for": "para {v}", "s_areia": "Arena: exige moto trail con experiencia o 4x4. Bajá la presión de las cubiertas en el tramo y volvé a inflar después.", "s_off": "Off-road: suele exigir 4x4 o moto trail. No vayas solo sin avisar el recorrido y llevá comunicador satelital.", "s_pedras": "Piedras sueltas: bajá la velocidad, usá cubrecárter y cubiertas reforzadas.", "s_ripio": "Ripio: 40 a 60 km/h, cuidado con serrucho, curvas y polvo de camiones; presión algo menor que en asfalto.", "s_sal": "Sal: lavá chasis, cadena y frenos después y evitá los bordes húmedos del salar.", "s_alt": "Sobre 3.500 m: el motor pierde potencia y hay riesgo de apunamiento.", "s_long": "Día largo para este vehículo ({k} km). Pensá en dividirlo.", "s_kit": "Llevá kit de inflado: compresor portátil, medidor digital y kit antipinchazos.", "s_not_ok": "Tu vehículo no es apto para esta calzada: buscá otra ruta o un guía local.", "chip_4x4": "exige 4x4 o trail", "chip_off": "tramos off-road", "plan_nova": "{x}, {n} días", "warn_nova": "<b>Ruta creada:</b> {n} días{t}. Vehículo: {v}. Los km y tiempos estimados se pueden corregir en cada día.", "edit_builder": "Editar en Crear", "to_define": "Pernocte a definir", "no_clim": "Sin promedio histórico para este lugar y mes: usá el pronóstico en vivo.", "clima_sub": "promedio histórico del mes, mínima / máxima", "fuel_other": "Otros países", "c_XX": "Otro país", "c_PE": "Perú", "c_UY": "Uruguay", "c_PY": "Paraguay"});
+Object.assign(I18N.it,{"tab_criar": "Crea", "h_criar": "Crea itinerario", "lead_criar": "Parti da zero: aggiungi le località in ordine, dalla partenza all’arrivo. L’app calcola le tappe e costruisce l’itinerario con meteo, costi, alloggi e sicurezza.", "b_trip": "Viaggio", "b_name": "Nome dell’itinerario", "b_name_ph": "Es.: Patagonia 2028", "b_start": "Data di partenza", "b_days": "Giorni di viaggio previsti (facoltativo)", "b_days_ph": "Es.: 15", "b_vehicle": "Veicolo (facoltativo)", "v_adv": "Moto maxi enduro", "v_trail": "Moto enduro leggera o media", "v_street": "Moto stradale, custom o scooter", "v_car": "Auto 2RM", "v_x4": "4x4 o SUV con ridotte", "v_van": "Van o camper", "b_points": "Località", "b_add": "Aggiungi", "b_search": "Cerca", "b_search_ph": "Città, paese, passo, parco...", "b_coord_ph": "Coordinate, se le conosci: -23.65, -70.40", "b_none_found": "Nessun luogo trovato con questo nome.", "b_offline_geo": "La ricerca automatica non ha risposto qui. Scegli un luogo dall’elenco, incolla le coordinate o usa Compila con Claude.", "b_pick": "Scegli il luogo giusto:", "b_pass": "solo passaggio", "b_nights": "notti", "b_start_pt": "Partenza", "b_end_pt": "Arrivo", "b_up": "Su", "b_down": "Giù", "b_remove": "Rimuovi", "b_empty": "Aggiungi almeno partenza e arrivo.", "b_legs": "Tappe", "b_calc": "Calcola le distanze su strada", "b_claude": "Compila con Claude", "b_claude_wait": "Sto chiedendo a Claude...", "b_calc_wait": "Calcolo in corso...", "b_gen": "Genera itinerario", "b_gen_confirm": "Tocca di nuovo per sostituire l’itinerario creato", "b_split": "Dividi le tappe lunghe in più giorni", "b_summary": "Riepilogo", "b_days_total": "{n} giorni di viaggio", "b_over": "{n} giorni oltre il previsto", "b_under": "{n} giorni di margine", "b_km_src_osrm": "km su strada", "src_claude": "stimato da Claude", "src_est": "stima in linea d’aria", "src_user": "inserito da te", "b_surface": "Fondo stradale", "b_x4": "Di solito richiede 4x4", "b_generated": "Itinerario generato. Guardalo nella scheda Itinerario.", "surf_asfalto": "asfalto", "surf_ripio": "sterrato", "surf_pedras": "pietre", "surf_areia": "sabbia", "surf_sal": "sale", "surf_off": "fuoristrada", "safety": "Sicurezza", "safety_for": "per {v}", "s_areia": "Sabbia: serve una moto enduro con esperienza o un 4x4. Abbassa la pressione delle gomme nel tratto e rigonfia dopo.", "s_off": "Fuoristrada: di solito richiede 4x4 o moto enduro. Non andare da solo senza comunicare il percorso e porta un comunicatore satellitare.", "s_pedras": "Pietre smosse: rallenta, usa paracoppa e gomme rinforzate.", "s_ripio": "Sterrato: 40–60 km/h, attenzione a ondulazioni, curve e polvere dei camion; pressione un po’ più bassa che su asfalto.", "s_sal": "Sale: lava telaio, catena e freni dopo ed evita i bordi umidi del salar.", "s_alt": "Sopra i 3.500 m: il motore perde potenza e c’è rischio di mal di montagna.", "s_long": "Giornata lunga per questo veicolo ({k} km). Valuta di dividerla.", "s_kit": "Porta un kit gomme: compressore portatile, manometro digitale e kit riparazione.", "s_not_ok": "Il tuo veicolo non è adatto a questo fondo: cerca un’altra strada o una guida locale.", "chip_4x4": "richiede 4x4 o enduro", "chip_off": "tratti fuoristrada", "plan_nova": "{x}, {n} giorni", "warn_nova": "<b>Itinerario creato:</b> {n} giorni{t}. Veicolo: {v}. Km e tempi stimati si possono correggere in ogni giorno.", "edit_builder": "Modifica in Crea", "to_define": "Pernottamento da decidere", "no_clim": "Nessuna media storica per questo luogo e mese: usa la previsione dal vivo.", "clima_sub": "media storica del mese, minima / massima", "fuel_other": "Altri paesi", "c_XX": "Altro paese", "c_PE": "Perù", "c_UY": "Uruguay", "c_PY": "Paraguay"});
+Object.assign(I18N.de,{"tab_criar": "Planen", "h_criar": "Route erstellen", "lead_criar": "Von Null starten: Orte der Reihe nach hinzufügen, vom Start bis zum Ziel. Die App berechnet jede Etappe und baut die Reise mit Wetter, Kosten, Unterkünften und Sicherheit.", "b_trip": "Reise", "b_name": "Name der Route", "b_name_ph": "Z. B. Patagonien 2028", "b_start": "Abfahrtsdatum", "b_days": "Geplante Reisetage (optional)", "b_days_ph": "Z. B. 15", "b_vehicle": "Fahrzeug (optional)", "v_adv": "Reiseenduro", "v_trail": "Leichte oder mittlere Enduro", "v_street": "Straßenmaschine, Cruiser oder Roller", "v_car": "Pkw mit Zweiradantrieb", "v_x4": "4x4 oder SUV mit Untersetzung", "v_van": "Van oder Wohnmobil", "b_points": "Orte", "b_add": "Hinzufügen", "b_search": "Suchen", "b_search_ph": "Stadt, Dorf, Pass, Park...", "b_coord_ph": "Koordinaten, falls bekannt: -23.65, -70.40", "b_none_found": "Kein Ort mit diesem Namen gefunden.", "b_offline_geo": "Die automatische Suche hat hier nicht geantwortet. Wähle einen Ort aus der Liste, füge Koordinaten ein oder nutze Mit Claude ausfüllen.", "b_pick": "Wähle den richtigen Ort:", "b_pass": "nur Durchfahrt", "b_nights": "Nächte", "b_start_pt": "Start", "b_end_pt": "Ziel", "b_up": "Hoch", "b_down": "Runter", "b_remove": "Entfernen", "b_empty": "Füge mindestens Start und Ziel hinzu.", "b_legs": "Etappen", "b_calc": "Straßenentfernungen berechnen", "b_claude": "Mit Claude ausfüllen", "b_claude_wait": "Frage Claude zur Route...", "b_calc_wait": "Berechne...", "b_gen": "Reiseplan erstellen", "b_gen_confirm": "Zum Ersetzen der erstellten Route erneut tippen", "b_split": "Lange Etappen auf mehrere Tage verteilen", "b_summary": "Übersicht", "b_days_total": "{n} Reisetage", "b_over": "{n} Tage mehr als geplant", "b_under": "{n} Puffertage", "b_km_src_osrm": "Straßen-km", "src_claude": "von Claude geschätzt", "src_est": "Luftlinie geschätzt", "src_user": "von dir eingegeben", "b_surface": "Straßenbelag", "b_x4": "Meist 4x4 nötig", "b_generated": "Reiseplan erstellt. Siehe Tab Route.", "surf_asfalto": "Asphalt", "surf_ripio": "Schotter", "surf_pedras": "Steine", "surf_areia": "Sand", "surf_sal": "Salz", "surf_off": "Offroad", "safety": "Sicherheit", "safety_for": "für {v}", "s_areia": "Sand: braucht eine Enduro mit Erfahrung oder 4x4. Reifendruck auf dem Abschnitt senken und danach wieder aufpumpen.", "s_off": "Offroad: meist 4x4 oder Enduro nötig. Nicht allein ohne Routenmeldung fahren und ein Satelliten-Messenger mitnehmen.", "s_pedras": "Lose Steine: langsam fahren, Motorschutz und verstärkte Reifen nutzen.", "s_ripio": "Schotter: 40 bis 60 km/h, Vorsicht bei Wellblech, Kurven und Lkw-Staub; etwas weniger Druck als auf Asphalt.", "s_sal": "Salz: Rahmen, Kette und Bremsen danach waschen und nasse Salarränder meiden.", "s_alt": "Über 3.500 m: der Motor verliert Leistung und Höhenkrankheit droht.", "s_long": "Langer Tag für dieses Fahrzeug ({k} km). Teilen überlegen.", "s_kit": "Reifenset mitnehmen: Kompressor, digitaler Druckmesser und Reparaturset.", "s_not_ok": "Dein Fahrzeug passt nicht zu diesem Belag: andere Route oder lokalen Guide suchen.", "chip_4x4": "4x4 oder Enduro nötig", "chip_off": "Offroad-Abschnitte", "plan_nova": "{x}, {n} Tage", "warn_nova": "<b>Erstellte Route:</b> {n} Tage{t}. Fahrzeug: {v}. Geschätzte km und Zeiten lassen sich an jedem Tag korrigieren.", "edit_builder": "In Planen bearbeiten", "to_define": "Übernachtung offen", "no_clim": "Kein historisches Mittel für diesen Ort und Monat: nutze die Live-Vorhersage.", "clima_sub": "historisches Monatsmittel, Tief / Hoch", "fuel_other": "Andere Länder", "c_XX": "Anderes Land", "c_PE": "Peru", "c_UY": "Uruguay", "c_PY": "Paraguay"});
+Object.assign(I18N.zh,{"tab_criar": "创建", "h_criar": "创建路线", "lead_criar": "从零开始：按顺序添加地点，从出发地到目的地。应用会计算每段路程，并生成包含天气、费用、住宿和安全信息的行程。", "b_trip": "旅行", "b_name": "路线名称", "b_name_ph": "例如：巴塔哥尼亚 2028", "b_start": "出发日期", "b_days": "计划旅行天数（可选）", "b_days_ph": "例如：15", "b_vehicle": "交通工具（可选）", "v_adv": "大排量探险摩托", "v_trail": "轻中型越野摩托", "v_street": "街车、巡航车或踏板车", "v_car": "两驱汽车", "v_x4": "带低速四驱的 4x4 或 SUV", "v_van": "面包车或房车", "b_points": "地点", "b_add": "添加", "b_search": "搜索", "b_search_ph": "城市、村镇、山口、公园……", "b_coord_ph": "如已知坐标：-23.65, -70.40", "b_none_found": "没有找到这个名称的地点。", "b_offline_geo": "这里无法自动搜索。请从列表中选择地点、粘贴坐标，或使用“用 Claude 填写”。", "b_pick": "选择正确的地点：", "b_pass": "仅途经", "b_nights": "晚", "b_start_pt": "出发", "b_end_pt": "到达", "b_up": "上移", "b_down": "下移", "b_remove": "删除", "b_empty": "至少添加出发地和目的地。", "b_legs": "路段", "b_calc": "按公路计算距离", "b_claude": "用 Claude 填写", "b_claude_wait": "正在向 Claude 查询路线……", "b_calc_wait": "正在计算……", "b_gen": "生成行程", "b_gen_confirm": "再点一次以替换已创建的路线", "b_split": "把过长的路段拆成多天", "b_summary": "概要", "b_days_total": "共 {n} 天", "b_over": "比计划多 {n} 天", "b_under": "富余 {n} 天", "b_km_src_osrm": "公路里程", "src_claude": "Claude 估计", "src_est": "直线估计", "src_user": "你填写的", "b_surface": "路面", "b_x4": "通常需要四驱", "b_generated": "行程已生成，请查看“路线”页。", "surf_asfalto": "柏油", "surf_ripio": "碎石", "surf_pedras": "乱石", "surf_areia": "沙地", "surf_sal": "盐滩", "surf_off": "越野", "safety": "安全", "safety_for": "适用于 {v}", "s_areia": "沙地：需要有经验的越野摩托或四驱车。在该路段降低胎压，之后再充回。", "s_off": "越野：通常需要四驱或越野摩托。不要在未告知路线的情况下独行，并携带卫星通信器。", "s_pedras": "乱石：降低车速，加装护板，使用加强胎。", "s_ripio": "碎石路：时速 40–60 公里，注意搓板路、弯道和卡车扬尘；胎压略低于柏油路。", "s_sal": "盐滩：事后清洗车架、链条和刹车，避开湿软的盐滩边缘。", "s_alt": "海拔超过 3500 米：发动机功率下降，有高原反应风险。", "s_long": "对该车辆来说这一天太长（{k} 公里），建议拆分。", "s_kit": "携带补胎充气套件：便携气泵、数字胎压计和补胎工具。", "s_not_ok": "你的车辆不适合这种路面：请另找路线或当地向导。", "chip_4x4": "需四驱或越野车", "chip_off": "有越野路段", "plan_nova": "{x}，{n} 天", "warn_nova": "<b>已创建路线：</b>{n} 天{t}。车辆：{v}。估计的里程和时间可在每天中修改。", "edit_builder": "在“创建”中编辑", "to_define": "住宿待定", "no_clim": "此地此月没有历史平均值：请查看实时预报。", "clima_sub": "月历史平均，最低 / 最高", "fuel_other": "其他国家", "c_XX": "其他国家", "c_PE": "秘鲁", "c_UY": "乌拉圭", "c_PY": "巴拉圭"});
+I18N.pt.b_night1="noite";I18N.en.b_night1="night";I18N.es.b_night1="noche";I18N.it.b_night1="notte";I18N.de.b_night1="Nacht";I18N.zh.b_night1="晚";
+const LOCALES = {pt:'pt-BR',en:'en-GB',es:'es-AR',it:'it-IT',de:'de-DE',zh:'zh-CN'};
+const LANG_NAMES = {pt:'Português',en:'English',es:'Español',it:'Italiano',de:'Deutsch',zh:'中文'};
+
+const D = {"start": "2027-06-30", "rates": {"USD": 5.08, "ARS": 299, "CLP": 194, "BOB": 2.3}, "stops": {"rio": ["Rio de Janeiro", -22.9068, -43.1729, 10, "pernoite"], "sp": ["São Paulo (Rodoanel)", -23.5505, -46.6333, 760, "via"], "reg": ["Registro (Régis Bittencourt)", -24.487, -47.843, 25, "via"], "cur": ["Curitiba", -25.4284, -49.2733, 935, "pernoite"], "gua": ["Guarapuava", -25.39, -51.462, 1100, "via"], "foz": ["Foz do Iguaçu", -25.5469, -54.5882, 170, "pernoite"], "catbr": ["Cataratas do Iguaçu (lado BR)", -25.6953, -54.4367, 180, "atracao"], "puiz": ["Fronteira Foz / Puerto Iguazú", -25.5972, -54.5786, 150, "fronteira"], "sig": ["Ruínas de San Ignacio Miní", -27.2556, -55.5322, 130, "atracao"], "pos": ["Posadas", -27.3671, -55.8961, 120, "pernoite"], "itu": ["Ituzaingó (pedágio RN12)", -27.59, -56.688, 70, "pedagio"], "ctes": ["Corrientes", -27.4692, -58.8306, 60, "pernoite"], "res": ["Resistencia", -27.4512, -58.9866, 50, "via"], "sde": ["Santiago del Estero", -27.7951, -64.2615, 190, "pernoite"], "trh": ["Termas de Río Hondo", -27.4936, -64.8597, 270, "pernoite"], "tafi": ["Tafí del Valle", -26.852, -65.709, 2000, "atracao"], "infi": ["Abra del Infiernillo (3.042 m)", -26.735, -65.785, 3042, "atracao"], "quil": ["Ruínas de Quilmes", -26.47, -66.035, 1900, "atracao"], "caf": ["Cafayate", -26.073, -65.976, 1683, "pernoite"], "conchas": ["Quebrada de las Conchas (Garganta del Diablo)", -25.83, -65.8, 1500, "atracao"], "sal": ["Salta", -24.7821, -65.4232, 1187, "pernoite"], "purm": ["Purmamarca (Cerro de 7 Colores)", -23.745, -65.499, 2324, "atracao"], "huma": ["Humahuaca", -23.205, -65.35, 2939, "atracao"], "lqui": ["Fronteira La Quiaca / Villazón", -22.1, -65.594, 3442, "fronteira"], "tup": ["Tupiza", -21.442, -65.719, 2950, "pernoite"], "uyu": ["Uyuni", -20.4597, -66.825, 3656, "pernoite"], "trenes": ["Cementerio de Trenes", -20.4813, -66.834, 3660, "atracao"], "colch": ["Colchani / Palacio de Sal", -20.3054, -66.9739, 3660, "atracao"], "inca": ["Isla Incahuasi (Salar)", -20.242, -67.625, 3656, "camping"], "scris": ["San Cristóbal (combustível)", -21.089, -67.215, 3750, "combustivel"], "olla": ["Ollagüe (fronteira BO/CL)", -21.224, -68.253, 3700, "fronteira"], "cal": ["Calama", -22.4544, -68.9294, 2260, "via"], "spa": ["San Pedro de Atacama", -22.9087, -68.1997, 2407, "pernoite"], "luna": ["Valle de la Luna", -22.93, -68.26, 2500, "atracao"], "cejar": ["Laguna Cejar", -23.06, -68.216, 2300, "atracao"], "soca": ["Socaire", -23.588, -67.89, 3200, "via"], "misc": ["Laguna Miscanti e Miñiques", -23.732, -67.769, 4140, "atracao"], "tuya": ["Laguna Tuyajto (Ruta 23-CH)", -23.95, -67.585, 4300, "atracao"], "anto": ["Antofagasta", -23.6509, -70.3975, 40, "pernoite"], "port": ["La Portada", -23.5, -70.425, 30, "atracao"], "mano": ["Mano del Desierto", -24.158, -70.156, 1100, "atracao"], "talt": ["Taltal", -25.404, -70.483, 20, "via"], "chan": ["Chañaral / Pan de Azúcar", -26.347, -70.622, 20, "atracao"], "cop": ["Copiapó", -27.3668, -70.3323, 390, "pernoite"], "lverde": ["Laguna Verde (Chile)", -26.89, -68.47, 4350, "atracao"], "psf": ["Paso San Francisco (4.726 m)", -26.878, -68.303, 4726, "fronteira"], "fiam": ["Fiambalá", -27.687, -67.615, 1500, "pernoite"], "tino": ["Tinogasta", -28.064, -67.565, 1200, "via"], "chil": ["Chilecito", -29.163, -67.498, 1080, "via"], "mir": ["Cuesta de Miranda", -29.33, -67.67, 2020, "atracao"], "vu": ["Villa Unión", -29.315, -68.225, 1100, "pernoite"], "tala": ["Parque Talampaya", -29.8, -67.85, 1300, "atracao"], "isch": ["Ischigualasto (Valle de la Luna AR)", -30.163, -67.842, 1300, "atracao"], "sju": ["San Juan", -31.5375, -68.5364, 640, "pernoite"], "mza": ["Mendoza", -32.8895, -68.8458, 750, "pernoite"], "lrj": ["La Rioja", -29.4131, -66.8558, 500, "pernoite"], "cat": ["Catamarca", -28.4696, -65.7852, 520, "via"], "ober": ["Oberá", -27.487, -55.12, 330, "via"], "dc": ["Dionísio Cerqueira / B. de Irigoyen", -26.255, -53.64, 800, "fronteira"], "pb": ["Pato Branco", -26.228, -52.671, 760, "via"], "chuv": ["Saída sul do salar (Chuvica, aprox.)", -20.55, -67.7, 3660, "via"]}, "days": {"rio-cur": {"from": "rio", "to": "cur", "route": ["sp", "reg"], "km": 850, "h": "10–11 h", "road": "asfalto", "c": "BR", "sleep": "cur", "see": ["Serra das Araras e Vale do Paraíba (Via Dutra)", "Serra do Cafezal na Régis Bittencourt"], "alert": "Dia mais longo de asfalto. Saia às 5h para passar por São Paulo fora do pico. Evite a pista expressa com free flow ou pague pelo app em até 30 dias."}, "cur-foz": {"from": "cur", "to": "foz", "route": ["gua"], "km": 640, "h": "8 h", "road": "asfalto", "c": "BR", "sleep": "foz", "see": ["Escarpa Devoniana perto de Ponta Grossa", "Pôr do sol no Marco das Três Fronteiras"], "alert": "BR-277 com muitos caminhões; frio e neblina de manhã em julho."}, "foz-pos": {"from": "foz", "to": "pos", "route": ["catbr", "puiz", "sig"], "km": 320, "h": "5 h + visitas", "road": "asfalto", "c": "AR", "sleep": "pos", "see": ["Cataratas lado brasileiro (abre 9h, 2 h de visita)", "Ruínas jesuíticas de San Ignacio Miní (Patrimônio UNESCO)"], "border": "Brasil → Argentina na ponte Tancredo Neves: migração, admissão temporária da moto, Carta Verde e seguro médico.", "alert": "Pedágios da RN12 não aceitam dinheiro: tenha cartão ou QR."}, "pos-ctes": {"from": "pos", "to": "ctes", "route": ["itu"], "km": 320, "h": "4 h", "road": "asfalto", "c": "AR", "sleep": "ctes", "see": ["Costanera de Corrientes e a ponte General Belgrano", "Opcional: Represa Yacyretá em Ituzaingó"], "alert": "Dia curto de folga para ajustar a moto e trocar dinheiro."}, "ctes-trh": {"from": "ctes", "to": "trh", "route": ["res", "sde"], "km": 720, "h": "9 h", "road": "asfalto", "c": "AR", "sleep": "trh", "see": ["Travessia do Chaco pela RN16 e RN89", "Banho termal à noite em Termas de Río Hondo"], "fuel": "Postos a cada 100–150 km; abasteça sempre que passar da metade do tanque.", "alert": "Retas longas, vento lateral e animais na pista no fim de tarde. Não pilote à noite no Chaco."}, "trh-caf": {"from": "trh", "to": "caf", "route": ["tafi", "infi", "quil"], "km": 330, "h": "6 h + visitas", "road": "asfalto", "c": "AR", "sleep": "caf", "see": ["Selva das Yungas na subida para Tafí", "Abra del Infiernillo, primeiro contato com 3.000 m", "Ruínas de Quilmes", "Bodegas e vinho torrontés em Cafayate"], "alert": "Possível gelo no Infiernillo de manhã cedo. Saia depois das 9h."}, "caf-sal": {"from": "caf", "to": "sal", "route": ["conchas"], "km": 190, "h": "3 h + paradas", "road": "asfalto", "c": "AR", "sleep": "sal", "see": ["Quebrada de las Conchas: Garganta del Diablo, Anfiteatro, Los Castillos", "Centro histórico de Salta e Cerro San Bernardo"], "alert": "Dia de câmbio e compras: dólares limpos para a Bolívia, aditivo de octanagem, galão extra."}, "sal-tup": {"from": "sal", "to": "tup", "route": ["purm", "huma", "lqui"], "km": 560, "h": "9 h + fronteira", "road": "asfalto", "c": "AR", "sleep": "tup", "see": ["Cerro de 7 Colores em Purmamarca", "Quebrada de Humahuaca (UNESCO)", "Planalto da Puna acima de 3.400 m"], "border": "Argentina → Bolívia em La Quiaca / Villazón: dê baixa na admissão temporária argentina, faça migração boliviana e o formulário SIVETUR da moto. Compre o SOAT.", "fuel": "Abasteça em La Quiaca (preço argentino). Na Bolívia, estrangeiro paga preço internacional.", "alert": "Fila na fronteira pode passar de 2 h. Chegue a Villazón antes das 15h."}, "tup-uyu": {"from": "tup", "to": "uyu", "route": ["trenes"], "km": 200, "h": "3 h 30", "road": "asfalto", "c": "BO", "sleep": "uyu", "see": ["Cânions vermelhos de Tupiza", "Cementerio de Trenes", "Primeiro pôr do sol na borda do salar"], "fuel": "Encha o tanque e o galão em Uyuni. Leve impresso o comunicado da ANH sobre venda a placas estrangeiras.", "alert": "Madrugada abaixo de −10 °C. Hidrate-se e coma leve por causa da altitude."}, "salar": {"from": "uyu", "to": "inca", "route": ["colch"], "km": 180, "h": "dia inteiro", "road": "sal", "c": "BO", "sleep": "salar", "see": ["Ojos de Sal e Plaza de las Banderas", "Isla Incahuasi com cactos gigantes", "Fotos de perspectiva no sal", "Céu estrelado no salar"], "fuel": "Ida e volta a Incahuasi ≈ 180 km sem posto.", "alert": "Julho é seco (sem espelho d’água), ótimo para pilotar. À noite chega a −15 °C ou menos: acampe só com saco para −15 °C e isolante R ≥ 5; se não, durma no hotel de sal em Colchani."}, "uyu-olla": {"from": "uyu", "to": "olla", "route": ["scris"], "km": 230, "h": "6–7 h", "road": "rípio e areia", "c": "BO", "sleep": "olla", "see": ["Vulcão Ollagüe ativo", "Salares de Chiguana e Carcote"], "border": "Bolívia → Chile em Avaroa / Ollagüe: devolva o SIVETUR; no Chile faça TITV da moto, declaração SAG e apresente o SOAPEX.", "fuel": "Último posto: San Cristóbal (~95 km de Uyuni). Ollagüe não tem posto confiável; o próximo é Calama, ~200 km.", "alert": "Costelas e areia solta. Não leve folha de coca para o Chile. Confirme o horário do posto fronteiriço."}, "olla-spa": {"from": "olla", "to": "spa", "route": ["cal"], "km": 300, "h": "6 h", "road": "rípio + asfalto", "c": "CL", "sleep": "spa", "see": ["Salar de Ascotán", "Chegada ao oásis de San Pedro", "Valle de la Luna no pôr do sol, se chegar até 15h"], "fuel": "Abasteça em Calama (Copec)."}, "spa-dia": {"from": "spa", "to": "spa", "route": ["luna", "cejar"], "km": 80, "h": "meio dia", "road": "rípio leve", "c": "CL", "sleep": "spa", "see": ["Valle de la Luna no fim da tarde", "Laguna Cejar e Ojos del Salar", "Tour astronômico à noite"], "alert": "Dia de descanso e aclimatação antes dos 4.300 m."}, "lagunas": {"from": "spa", "to": "spa", "route": ["soca", "misc", "tuya"], "km": 310, "h": "8 h", "road": "asfalto + rípio", "c": "CL", "sleep": "spa", "see": ["Lagunas Miscanti e Miñiques (Reserva Los Flamencos)", "Piedras Rojas e Salar de Aguas Calientes", "Laguna Tuyajto"], "fuel": "Sem posto depois de San Pedro: saia de tanque cheio.", "alert": "Entrada paga nas lagunas e acampar é proibido na reserva. Vento forte e frio intenso a 4.300 m; volte antes de escurecer."}, "spa-anto": {"from": "spa", "to": "anto", "route": ["cal", "port"], "km": 315, "h": "4 h 30", "road": "asfalto", "c": "CL", "sleep": "anto", "see": ["Deserto absoluto entre Calama e a costa", "Arco natural La Portada"], "alert": "Descida de 2.400 m para o nível do mar: ótima para recuperar."}, "anto-cop": {"from": "anto", "to": "cop", "route": ["mano", "talt", "chan"], "km": 540, "h": "7 h", "road": "asfalto", "c": "CL", "sleep": "cop", "see": ["Mano del Desierto (Ruta 5, km 1.309)", "Costa de Taltal", "Parque Nacional Pan de Azúcar"], "fuel": "Abasteça e encha o galão em Copiapó: amanhã são ~480 km sem posto.", "alert": "Neblina costeira (camanchaca) de manhã."}, "cop-fiam": {"from": "cop", "to": "fiam", "route": ["lverde", "psf"], "km": 480, "h": "8–9 h", "road": "asfalto + rípio", "c": "CL", "sleep": "fiam", "see": ["Salar de Maricunga", "Laguna Verde aos pés do Ojos del Salado", "Paso San Francisco a 4.726 m", "Descida para as dunas de Fiambalá"], "border": "Chile → Argentina: saída chilena no complexo de Maricunga (longe da divisa). Na Argentina, nova admissão temporária da moto.", "fuel": "~480 km SEM combustível e subida a 4.726 m. Galão de 5–10 L obrigatório na DesertX.", "alert": "Passo com horário de inverno (8h–18h30, hora do Chile) e fechamentos por neve. Consulte o status na véspera. Plano B: Paso de Jama ou Sico a partir de San Pedro."}, "fiam-vu": {"from": "fiam", "to": "vu", "route": ["tino", "chil", "mir"], "km": 400, "h": "6 h", "road": "asfalto", "c": "AR", "sleep": "vu", "see": ["Termas de Fiambalá logo cedo", "Ruta 40 de Tinogasta a Chilecito", "Cuesta de Miranda"]}, "vu-sju": {"from": "vu", "to": "sju", "route": ["tala", "isch"], "km": 330, "h": "5 h + visitas", "road": "asfalto", "c": "AR", "sleep": "sju", "see": ["Parque Nacional Talampaya", "Ischigualasto, o Valle de la Luna argentino"], "alert": "Os circuitos dos parques são guiados e têm horário de saída: chegue cedo."}, "sju-mza": {"from": "sju", "to": "mza", "route": [], "km": 170, "h": "2 h", "road": "asfalto", "c": "AR", "sleep": "mza", "see": ["Bodegas de Luján de Cuyo e Maipú", "Parque General San Martín"], "alert": "Vento Zonda pode soprar forte no inverno."}, "mza-lrj": {"from": "mza", "to": "lrj", "route": ["sju"], "km": 620, "h": "8 h", "road": "asfalto", "c": "AR", "sleep": "lrj", "see": ["Travessia de San Juan para La Rioja pelas RN141 e RN79"], "fuel": "Trecho Chepes–La Rioja com postos espaçados."}, "lrj-sde": {"from": "lrj", "to": "sde", "route": ["cat"], "km": 430, "h": "6 h", "road": "asfalto", "c": "AR", "sleep": "sde", "see": ["Cuesta del Portezuelo em Catamarca"]}, "sde-ctes": {"from": "sde", "to": "ctes", "route": ["res"], "km": 640, "h": "8 h", "road": "asfalto", "c": "AR", "sleep": "ctes", "see": ["Volta pelo Chaco"], "alert": "Pedágio da ponte Chaco–Corrientes: tenha TelePASE ou cartão."}, "ctes-dc": {"from": "ctes", "to": "dc", "route": ["pos", "ober"], "km": 640, "h": "9 h", "road": "asfalto", "c": "AR", "sleep": "dc", "see": ["Serra misioneira entre Oberá e San Pedro", "Terra vermelha e matas de araucária"], "border": "Argentina → Brasil em Bernardo de Irigoyen / Dionísio Cerqueira: dê baixa na admissão temporária argentina.", "alert": "Neblina e chuva frequentes na serra de Misiones em julho."}, "dc-cur": {"from": "dc", "to": "cur", "route": ["pb", "gua"], "km": 600, "h": "8 h", "road": "asfalto", "c": "BR", "sleep": "cur", "see": ["Sudoeste do Paraná e Campos Gerais"]}, "cur-rio": {"from": "cur", "to": "rio", "route": ["reg", "sp"], "km": 850, "h": "10–11 h", "road": "asfalto", "c": "BR", "sleep": "rio", "see": ["Chegada em casa"], "alert": "Último dia longo: descanse bem na véspera."}, "foz-ctes": {"from": "foz", "to": "ctes", "route": ["puiz", "sig", "pos"], "km": 640, "h": "9 h + fronteira", "road": "asfalto", "c": "AR", "sleep": "ctes", "see": ["San Ignacio Miní (parada de 1 h)", "Posadas na hora do almoço"], "border": "Brasil → Argentina na ponte Tancredo Neves: migração, admissão temporária, Carta Verde e seguro médico.", "alert": "Nesta versão as Cataratas só cabem se você chegar a Foz até 15h no dia anterior."}, "fiam-sde": {"from": "fiam", "to": "sde", "route": ["tino", "cat"], "km": 560, "h": "8 h", "road": "asfalto", "c": "AR", "sleep": "sde", "see": ["Ruta de los Seismiles saindo de Fiambalá", "Cuesta del Portezuelo"]}, "tup-inca": {"from": "tup", "to": "inca", "route": ["uyu", "trenes", "colch"], "km": 300, "h": "≈ 6 h + paradas", "road": "asfalto + sal", "c": "BO", "sleep": "salar", "see": ["Cementerio de Trenes na entrada de Uyuni", "Almoço, combustível e água em Uyuni", "Ojos de Sal e Plaza de las Banderas", "Pôr do sol e noite de camping em Isla Incahuasi"], "fuel": "Uyuni é o último posto confiável até Calama (~510 km saindo pelo sul do salar). Encha tanque e galão de 10 L.", "alert": "Saia de Tupiza às 8h para entrar no sal até 13h e chegar a Incahuasi antes das 16h. Monte a barraca com luz: a madrugada passa de −13 °C."}, "inca-olla": {"from": "inca", "to": "olla", "route": ["chuv"], "km": 210, "h": "≈ 6–7 h", "road": "sal, areia e rípio", "c": "BO", "sleep": "olla", "see": ["Nascer do sol no salar", "Saída sul do salar", "Salar de Chiguana", "Vulcão Ollagüe ativo"], "border": "Bolívia → Chile em Avaroa / Ollagüe: devolva o SIVETUR; no Chile faça TITV da moto, declaração SAG e apresente o SOAPEX.", "fuel": "Sem posto confiável de Incahuasi até Calama (~410 km). Venda em bidões nos povoados não é garantida. Alternativa segura: voltar por Uyuni e San Cristóbal (+120 km).", "alert": "Trilhas sem sinalização: leve o trajeto baixado no GPS. Não pilote no sal depois do pôr do sol. Não leve folha de coca para o Chile."}, "fiam-sju": {"from": "fiam", "to": "sju", "route": ["chil", "mir", "vu"], "km": 640, "h": "≈ 9 h", "road": "asfalto", "c": "AR", "sleep": "sju", "see": ["Termas de Fiambalá ao amanhecer (opcional)", "Ruta 40 de Tinogasta a Chilecito", "Cuesta de Miranda", "Villa Unión e Jáchal (Talampaya fica para outra viagem)"], "alert": "Dia longo de asfalto: saia às 8h e evite pilotar à noite."}}, "plans": {"26": {"label": "Completa, 26 dias", "days": ["rio-cur", "cur-foz", "foz-pos", "pos-ctes", "ctes-trh", "trh-caf", "caf-sal", "sal-tup", "tup-uyu", "salar", "uyu-olla", "olla-spa", "spa-dia", "lagunas", "spa-anto", "anto-cop", "cop-fiam", "fiam-vu", "vu-sju", "sju-mza", "mza-lrj", "lrj-sde", "sde-ctes", "ctes-dc", "dc-cur", "cur-rio"]}, "20": {"label": "Enxuta, 20 dias", "days": ["rio-cur", "cur-foz", "foz-ctes", "ctes-trh", "trh-caf", "caf-sal", "sal-tup", "tup-uyu", "salar", "uyu-olla", "olla-spa", "lagunas", "spa-anto", "anto-cop", "cop-fiam", "fiam-sde", "sde-ctes", "ctes-dc", "dc-cur", "cur-rio"]}, "22": {"label": "22 dias", "days": ["rio-cur", "cur-foz", "foz-ctes", "ctes-trh", "trh-caf", "caf-sal", "sal-tup", "tup-inca", "inca-olla", "olla-spa", "lagunas", "spa-anto", "anto-cop", "cop-fiam", "fiam-sju", "sju-mza", "mza-lrj", "lrj-sde", "sde-ctes", "ctes-dc", "dc-cur", "cur-rio"]}}, "priceBands": {"BR": {"cur": "R$", "hotel": "R$ 250–450", "pousada": "R$ 180–320", "hostel": "R$ 70–120", "camping": "R$ 40–70", "pay": "Cartão de crédito/débito e Pix em quase tudo."}, "AR": {"cur": "ARS", "hotel": "ARS 70–130 mil (R$ 235–435)", "pousada": "ARS 45–80 mil (R$ 150–270)", "hostel": "ARS 15–28 mil (R$ 50–95)", "camping": "ARS 6–12 mil por pessoa (R$ 20–40)", "pay": "Cartão aceito em hotéis e postos; cartão estrangeiro já converte pelo dólar MEP. Dinheiro em pesos ajuda em campings e cidades pequenas."}, "BO": {"cur": "Bs", "hotel": "Bs 350–900 (R$ 150–390); hotel de sal Bs 900–2.500", "pousada": "Bs 150–350 (R$ 65–150)", "hostel": "Bs 60–120 (R$ 26–52)", "camping": "Grátis no salar ou Bs 20–50", "pay": "Prefira dinheiro (bolivianos ou dólares novos). Cartão costuma ter acréscimo e caixas eletrônicos em Uyuni são poucos."}, "CL": {"cur": "CLP", "hotel": "CLP 60–130 mil (R$ 310–670)", "pousada": "CLP 35–60 mil (R$ 180–310)", "hostel": "CLP 13–22 mil (R$ 67–115)", "camping": "CLP 9–13 mil por pessoa (R$ 46–67)", "pay": "Cartão aceito em praticamente tudo. Hotéis podem isentar o IVA de 19% se você pagar em dólar ou com cartão estrangeiro como turista: pergunte no check-in."}}, "lodging": {"cur": {"c": "BR", "tip": "Fique perto da saída para a BR-277 (Campo Comprido ou CIC) para ganhar tempo.", "items": []}, "foz": {"c": "BR", "tip": "Pousadas com garagem são a regra em Foz; confirme vaga coberta para a moto.", "items": [["pousada", "Pousada Rio das Águas", "4,8 (193). Família anfitriã, piscina, café caprichado.", "ChIJpWB9VBCR9pQRHqYQKTbG9Ao"], ["pousada", "Pousada das Orquídeas Foz", "4,7 (87). Café caseiro, ambiente de casa.", "ChIJWcNCN2WR9pQRlPBZ-_bSul0"], ["pousada", "Pousada Caroline", "4,3 (1.020). Simples e barata, piscina, restaurante ao lado.", "ChIJiU_ura-R9pQR7gw4yJ7nbiU"], ["hostel", "Pousada Natureza Foz", "4,2 (1.523). Estilo hostel-resort, perto da rodoviária.", "ChIJFbRJJT-Q9pQRXT16skB6-qg"]]}, "pos": {"c": "AR", "tip": "Posadas tem hospedagens feitas para motociclistas.", "items": [["hotel", "Hotel Los Chow Chow", "3,9 (143). Tranquilo, preço justo.", "ChIJF-yTQMu9V5QRhGKIFpkoHdM"], ["pousada", "Moto_Posadas Alojamiento", "5,0. Feito para moteiros, a poucos metros do centro.", "ChIJK320H_i_V5QRNM-D64Mi-Y4"], ["camping", "Motoposada, Alojamiento al Motero", "4,6. Casa de apoio ao motociclista; contribuição voluntária.", "ChIJXSXT8xC-V5QRulvejjaFIKk"]]}, "ctes": {"c": "AR", "tip": "Procure perto da Costanera; muitos hotéis têm cochera (garagem).", "items": []}, "trh": {"c": "AR", "tip": "Prefira hotel com piscina termal coberta: em julho as noites são frias.", "items": [["hotel", "Hotel Termal Río Hondo", "4,3 (1.589). Piscinas termais, restaurante com bom preço.", "ChIJhcRlFWJuI5QRys6Lk-y_ub4"]]}, "caf": {"c": "AR", "tip": "Férias de inverno argentinas lotam Cafayate em julho: reserve com antecedência.", "items": [["hostel", "Road Runner", "4,0 (522). Hostel com área de camping e redes no pátio.", "ChIJOXvYTWsxH5QRmouwKYT00WQ"], ["camping", "Camping y Alojamiento Estela", "5,0. Quintal a 3 quadras da praça; relatos de ARS 5–10 mil por pessoa e moto sem custo.", "ChIJ594JEAAxH5QRJ1xxZATbkI8"], ["camping", "Camping Luz y Fuerza", "4,2 (1.150). Perto do centro, estrutura simples.", "ChIJXeE6Dj8xH5QR17mfGf4Nj-M"]]}, "sal": {"c": "AR", "tip": "Peça cochera fechada; o Nubes Apart tem garagem pequena.", "items": [["hotel", "Hotel Colonial Salta", "4,4 (997). Na praça principal, charmoso.", "ChIJWx_tTaPDG5QRxKnzA1kFgDw"], ["hotel", "Wilson Hotel", "4,2 (1.585). Antigo, amplo e limpo.", "ChIJk2s2_DDchJURtlggYFYRZw8"], ["pousada", "Nubes Apart Hotel", "4,2 (597). Apartamento com cozinha, garagem apertada.", "ChIJBZIwPrDDG5QRtBODTyYimiM"], ["hostel", "Hotel Posada del Sol", "4,1 (1.897). Básico e barato, bem localizado.", "ChIJZcMbzbHDG5QRSVpN8EotmMU"]]}, "tup": {"c": "BO", "tip": "Hostais simples perto da praça; confirme aquecimento e pátio para a moto.", "items": []}, "uyu": {"c": "BO", "tip": "Confirme horário do aquecimento: há hostais que só ligam das 16h30 às 11h.", "items": [["hotel", "Hotel Palacio de Sal", "4,5 (1.158). Hotel de sal na borda do salar, em Colchani.", "ChIJu_uq0J6Bn5URmKptVkGZvS4"], ["hotel", "Hotel Luna Salada", "4,4 (1.403). Vista do salar; relato recente de ~US$ 280 por noite.", "ChIJYw8q9UO1_5MRGscmX6ywAuY"], ["pousada", "Hostal Cagnapa Restobar", "4,7 (84). Limpo, familiar, quartos com aquecimento.", "ChIJcdeKTmi7_5MRevUQSOEYlNE"], ["pousada", "Hostal La Magia de Uyuni", "4,1 (278). Café farto; prefere pagamento em dólar em espécie.", "ChIJj707bNm6_5MR0-aejOMZi0s"]]}, "salar": {"c": "BO", "tip": "Acampamento selvagem no salar, avaliado no iOverlander. Só com equipamento para −15 °C.", "items": [["camping", "Isla Pescado / Salar (iOverlander #14)", "Relatos de noite inteira sem ninguém; monte a barraca do lado oposto ao vento.", "io:14-uyuni-salt-flats"], ["camping", "Vulcão Tunupa (iOverlander #3068)", "Borda norte do salar; confirme permissão local.", "io:3068-salar-de-uyuni-volcano-tunupa"], ["hotel", "Hotel Palacio de Sal (plano B quente)", "Em Colchani, a 25 km de Uyuni.", "ChIJu_uq0J6Bn5URmKptVkGZvS4"]]}, "olla": {"c": "CL", "tip": "Ollagüe tem poucas hospedagens básicas; ligue antes. Plano B: seguir até Calama.", "items": []}, "spa": {"c": "CL", "tip": "San Pedro tem as melhores opções de camping da rota.", "items": [["hotel", "Hotel-Camping Takha Takha", "Hotel com área de camping, piscina e estacionamento grátis.", "q:Hotel Camping Takha Takha San Pedro de Atacama"], ["pousada", "Hostal Copart", "4,7 (128). Equipe elogiada, café da manhã ótimo.", "ChIJv5v9V7t1qZYRdE6n6d1ZlNg"], ["pousada", "Hostal San Pedro", "4,2. Muito limpo, cozinha equipada.", "ChIJy57FRf50qZYREqPrJr-wFLA"], ["hostel", "Casa Voyage Hostel", "4,7 (288). Social, com piscina; há relato recente de percevejos.", "ChIJ0XyF2cZ1qZYRvz150dBxmjA"], ["camping", "Camping Quilarcay", "4,3. CLP 8–9 mil por pessoa (relatos de 2024); sem água quente.", "ChIJM9fCu_50qZYRwZbtvwM0haE"], ["camping", "Puritama Hostal Camping (iOverlander #1745)", "CLP 12 mil para barraca, segundo o iOverlander.", "io:1745-puritama-hostal-camping"], ["camping", "Atacama Valley Look Out (iOverlander #18582)", "Selvagem, 15 km de San Pedro, vista 360° do Licancabur; caminhões cedo.", "io:18582-atacama-valley-look-out"]]}, "anto": {"c": "CL", "tip": "Fique no centro ou na costanera sul; use estacionamento fechado.", "items": []}, "cop": {"c": "CL", "tip": "Escolha hotel com saída fácil para a Ruta 31 rumo ao Paso San Francisco.", "items": []}, "fiam": {"c": "AR", "tip": "Visite as termas de Fiambalá ao amanhecer, antes de seguir.", "items": [["hotel", "Abaucan Hotel y Spa", "4,4 (314). Vista para a cordilheira e boa comida.", "ChIJY2xFOZgxnpYR09NgjaJAqDk"], ["pousada", "Casona del Pino", "4,7 (587). Casa de 1830, café caseiro.", "ChIJ5-7eCPYwnpYR5-zLnSlIOek"], ["pousada", "Cabañas Dunas de Fiambalá", "3,8. Relatos de cobrança acima do combinado: confirme o preço antes.", "ChIJCQiuw10wnpYRy5Ka1Wnd014"]]}, "vu": {"c": "AR", "tip": "Base para Talampaya; hosterías simples com pátio.", "items": []}, "sju": {"c": "AR", "tip": "Centro de San Juan tem boa oferta com cochera.", "items": []}, "mza": {"c": "AR", "tip": "Julho é alta temporada (férias e neve): reserve cedo.", "items": [["hotel", "Diplomatic Hotel", "4,7 (5.205). Central, concierge elogiado.", "ChIJK_neiQQJfpYRiZaCqEqo8Ik"], ["hotel", "Urbana Class Hotel", "4,2. Perto da avenida principal.", "ChIJDy9eJR0JfpYR6vMXL35Xa1U"], ["pousada", "Alexander Hotel", "4,2. Simples, donos simpáticos.", "ChIJ9Y2Kzx0JfpYRDoy5FI9h7a0"], ["pousada", "Soltigua Apart Hotel", "4,1. Apartamento com cozinha; quarto frio no inverno.", "ChIJPwEq9_8IfpYRZo09Nc_JLU4"]]}, "lrj": {"c": "AR", "tip": "Pernoite de passagem; procure perto da praça 25 de Mayo.", "items": []}, "sde": {"c": "AR", "tip": "Hotéis no centro com estacionamento.", "items": [["hotel", "Hotel Libertador", "4,3 (2.026). Piscina e atendimento elogiado.", "ChIJtd-adg9SO5QR5hbFDcfl5J0"], ["hotel", "Hotel Altos del Estero", "4,1 (3.097). Avaliações divididas.", "ChIJtw1ZhhRSO5QR_RWVGua7Ph4"], ["pousada", "Nuevo Hotel", "3,7. Estacionamento pequeno.", "ChIJm5rglg1SO5QRENLyHproARc"]]}, "dc": {"c": "BR", "tip": "Durma do lado brasileiro depois da fronteira para sair cedo.", "items": []}, "rio": {"c": "BR", "tip": "Casa.", "items": []}}, "climate": [["Rio de Janeiro", 10, 26, 19, 15, "Seco e ameno", "BR", -22.9, -43.17, 11, 30, "e"], ["Curitiba", 935, 19, 8, 25, "Geada possível de manhã", "BR", -25.43, -49.27, 12, 35, "e"], ["Foz do Iguaçu", 170, 22, 11, 25, "Frentes frias trazem chuva", "BR", -25.55, -54.59, 9, 35, "e"], ["Posadas / Corrientes", 90, 22, 11, 22, "Úmido; neblina cedo", "AR", -27.37, -55.9, 12, 40, "e"], ["Termas de Río Hondo", 270, 21, 6, 8, "Seco", "AR", -27.49, -64.86, 10, 35, "e"], ["Abra del Infiernillo", 3042, 9, -4, 5, "Gelo e neve possíveis", "AR", -26.73, -65.78, 20, 60, "e"], ["Cafayate", 1683, 18, 0, 3, "Seco, noites frias", "AR", -26.07, -65.98, 12, 45, "e"], ["Salta", 1187, 20, 3, 3, "Seco e ensolarado", "AR", -24.78, -65.42, 8, 35, "e"], ["La Quiaca / Villazón", 3442, 15, -12, 2, "Muito frio à noite", "AR", -22.1, -65.59, 15, 55, "e"], ["Tupiza", 2950, 19, -1, 2, "Seco", "BO", -21.44, -65.72, 12, 45, "e"], ["Uyuni e Salar", 3656, 12, -13, 2, "Vento forte à tarde; até −20 °C no salar", "BO", -20.46, -66.83, 14, 65, "m"], ["Ollagüe", 3700, 10, -14, 3, "Frio extremo, vento", "CL", -21.22, -68.25, 18, 65, "e"], ["Calama", 2260, 21, 1, 1, "Seco", "CL", -22.45, -68.93, 15, 55, "e"], ["San Pedro de Atacama", 2407, 22, -2, 1, "Dias quentes, noites geladas", "CL", -22.91, -68.2, 13, 60, "m"], ["Lagunas Miscanti / Tuyajto", 4300, 6, -14, 5, "Neve e vento possíveis", "CL", -23.73, -67.77, 25, 80, "e"], ["Antofagasta", 40, 17, 12, 2, "Neblina costeira de manhã", "CL", -23.65, -70.4, 13, 35, "e"], ["Copiapó", 390, 21, 7, 3, "Seco", "CL", -27.37, -70.33, 10, 35, "e"], ["Paso San Francisco", 4726, 0, -20, 10, "Tormentas de neve fecham o passo", "CL", -26.88, -68.3, 35, 100, "e"], ["Fiambalá", 1500, 19, 1, 3, "Seco", "AR", -27.69, -67.62, 12, 50, "e"], ["Villa Unión / Talampaya", 1100, 18, 0, 3, "Seco", "AR", -29.32, -68.23, 12, 50, "e"], ["San Juan", 640, 17, 1, 5, "Seco; vento Zonda", "AR", -31.54, -68.54, 12, 60, "e"], ["Mendoza", 750, 15, 2, 6, "Frio seco; Zonda", "AR", -32.89, -68.85, 9, 60, "e"], ["La Rioja / Catamarca", 500, 20, 5, 5, "Seco", "AR", -29.41, -66.86, 10, 45, "e"], ["Santiago del Estero", 190, 21, 6, 8, "Seco", "AR", -27.8, -64.26, 11, 40, "e"], ["Dionísio Cerqueira", 800, 18, 6, 35, "Chuva, neblina e geada", "BR", -26.26, -53.64, 12, 40, "e"]]};
+const K = 'andes27:';
+const store = {
+  get(k, d){ try{ const v = localStorage.getItem(K+k); return v===null? d : JSON.parse(v); }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem(K+k, JSON.stringify(v)); }catch(e){} }
+};
+const S = D.stops;
+let plan = store.get('plan2','meu'); if(!['meu','nova','26','20'].includes(plan) || (plan==='nova' && !(store.get('novaDays',[])||[]).length)) plan='meu';
+let CST = store.get('cstops',{}); Object.assign(D.stops, CST);
+let SAMPLE = null;
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let LANG = 'pt';
+function tr(k,v){ let s=(I18N[LANG]&&I18N[LANG][k]!=null)?I18N[LANG][k]:(I18N.pt[k]!=null?I18N.pt[k]:k); if(v) for(const x in v) s=s.split('{'+x+'}').join(v[x]); return s; }
+function dayLabel(n){ return LANG==='zh'?`第 ${n} 天`:`${tr('day')} ${n}`; }
+function nightLabel(n){ return LANG==='zh'?`第 ${n} 晚`:`${tr('night')} ${n}`; }
+let nf = new Intl.NumberFormat('pt-BR');
+{ const sl = store.get('lang', null); const nav=(navigator.language||'pt').slice(0,2).toLowerCase(); LANG = I18N[sl]?sl:(I18N[nav]?nav:'pt'); nf = new Intl.NumberFormat(LOCALES[LANG]); }
+function money(v){ return new Intl.NumberFormat(LOCALES[LANG],{style:'currency',currency:'BRL',maximumFractionDigits:v>=1000?0:2}).format(v); }
+const WD = ['dom','seg','ter','qua','qui','sex','sáb'], MO = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+function planStart(){ if(typeof plan!=='undefined' && plan==='nova'){ const m=store.get('novaMeta',null); if(m&&m.start) return m.start; } return D.start; }
+function dateOf(i){ const d = new Date(planStart()+'T12:00:00Z'); d.setUTCDate(d.getUTCDate()+i); return d; }
+function fmt(d){ return new Intl.DateTimeFormat(LOCALES[LANG],{weekday:'short',day:'numeric',month:'short',timeZone:'UTC'}).format(d); }
+function fmtLong(d){ return new Intl.DateTimeFormat(LOCALES[LANG],{day:'numeric',month:'long',timeZone:'UTC'}).format(d); }
+function iso(d){ return d.toISOString().slice(0,10); }
+function ll(id){ return S[id][1]+','+S[id][2]; }
+function gmPoint(id){ return `https://www.google.com/maps/search/?api=1&query=${ll(id)}`; }
+function gmDir(day){
+  const pts = day.route.slice();
+  let dest = day.to;
+  if(day.to===day.from){ dest = day.from; }
+  else if(day.to==='inca'){ dest='inca'; }
+  const wp = pts.filter(p=>p!==day.from && p!==dest).slice(0,3).map(ll).join('|');
+  return `https://www.google.com/maps/dir/?api=1&origin=${ll(day.from)}&destination=${ll(dest)}${wp?'&waypoints='+encodeURIComponent(wp):''}&travelmode=driving`;
+}
+function maxAlt(day){ return Math.max(...[day.from,day.to,...day.route].map(id=>S[id][3])); }
+function nearestClim(id){ const s=S[id]; if(s[6]){ const c=s[6]; if(c[9]==null){ let b=null,bd=1e9; D.climate.forEach(x=>{ const dd=(x[7]-s[1])**2+(x[8]-s[2])**2; if(dd<bd){bd=dd;b=x;} }); c[9]=b[9]; c[10]=b[10]; c[11]='e'; } return c; } let best=null,bd=1e9; D.climate.forEach(c=>{ const dd=(c[7]-s[1])**2+(c[8]-s[2])**2; if(dd<bd){bd=dd;best=c;} });
+  if(bd>9) return null;
+  if(!CST[id]) return best;
+  const adj = -6.5*(s[3]-best[1])/1000;
+  return [s[0], s[3], Math.round(best[2]+adj), Math.round(best[3]+adj), best[4], 'Estimado a partir de '+best[0]+' corrigindo a altitude', best[6], s[1], s[2], best[9], best[10], 'e']; }
+const CTRY = {BR:['rio','sp','reg','cur','gua','foz','catbr','dc','pb'],BO:['tup','uyu','trenes','colch','inca','scris','chuv'],CL:['olla','cal','spa','luna','cejar','soca','misc','tuya','anto','port','mano','talt','chan','cop','lverde','psf']};
+function ctryOf(id){ if(id==='salar') return 'BO'; if(S[id] && S[id][5]) return S[id][5]; for(const c in CTRY) if(CTRY[c].includes(id)) return c; return 'AR'; }
+function hav(a,b){ const R=6371,r=Math.PI/180,A=S[a],B=S[b]; const dl=(B[1]-A[1])*r, dn=(B[2]-A[2])*r; const x=Math.sin(dl/2)**2+Math.cos(A[1]*r)*Math.cos(B[1]*r)*Math.sin(dn/2)**2; return 2*R*Math.asin(Math.sqrt(x)); }
+function pathLen(ids){ let s=0; for(let i=1;i<ids.length;i++) s+=hav(ids[i-1],ids[i]); return s; }
+function legIds(d){ return [d.from,...d.route,d.to]; }
+function speedOf(road){ if(/off|pedra/.test(road)) return 28; if(/sal|areia/.test(road)) return 38; if(/rípio/.test(road)) return /asfalto/.test(road)?55:42; return 72; }
+function hoursFor(d){ if(!d.km) return 'dia livre'; const h=d.km/speedOf(d.road)+(d.border?1.5:0); return `≈ ${Math.max(1,Math.floor(h))}–${Math.ceil(h+0.5)} h`; }
+function mergeRoad(a,b){ const tok=['asfalto','rípio','areia','sal'].filter(x=>(a+' '+b).includes(x)); return tok.join(' + ')||a; }
+function windLvl(g){ return g>=70?'danger':(g>=50?'strong':(g>=30?'mod':'calm')); }
+function windHtml(c){ if(c[9]==null) return ''; const l=windLvl(c[10]);
+  return `<div class="wind">${tr('wind')}: <span class="wl ${l}">${tr('wl_'+l)}</span> ${tr('wind_line',{a:c[9],g:c[10]})}<br><span class="small">${tr(c[11]==='m'?'src_m':'src_e')}${c[10]>=50?'. '+tr('wind_am'):''}</span></div>`; }
+function rainLvl(p){ return p>=25?'alta':(p>=10?'moderada':'baixa'); }
+function climaBox(d,i){
+  const pts=[d.from,...d.route,d.to];
+  const hi=pts.reduce((a,b)=>S[b][3]>S[a][3]?b:a);
+  const dest = d.to===d.from ? hi : d.to;
+  const mo=dateOf(i).getUTCMonth();
+  const okC=c=>c && (c[12]!=null ? true : mo===6);
+  const c1=nearestClim(dest), c2=nearestClim(hi);
+  const list=[]; if(okC(c1)) list.push([c1,tr('dest')]); if(okC(c2) && (!list.length || c2[0]!==list[0][0][0])) list.push([c2,tr('highest')]);
+  if(!list.length){ const s=S[dest]; return `<div class="box cbox"><b>${tr('clima')}</b><p class="small" style="margin:4px 0 0">${tr('no_clim')} <a href="https://www.windy.com/${s[1]}/${s[2]}?${s[1]},${s[2]},9" target="_blank" rel="noopener">${tr('live')}</a></p><div class="fc" data-fc="${i}"></div></div>`; }
+  const rows=list.map(([c,lab])=>{ const lvl=rainLvl(c[4]); const what=c[3]<=0&&c[1]>=2500?tr('rainsnow'):tr('rain'); const lvlT=tr({baixa:'low',moderada:'mod',alta:'high'}[lvl]);
+    return `<div class="cl"><div><span class="small">${lab}:</span> ${esc(c[0])}<br><span class="small">${what}</span><span class="rain ${lvl}">${lvlT}, ${c[4]}%</span><br><span class="small">${esc(c[5])}. <a href="https://www.windy.com/${c[7]}/${c[8]}?${c[7]},${c[8]},9" target="_blank" rel="noopener">${tr('live')}</a></span>${windHtml(c)}</div><div class="tt"><span class="lo">${c[3]}°</span> / <span class="hi">${c[2]}°</span>${c[10]!=null?`<div class="wv">${tr('gusts',{g:c[10]})}</div>`:''}</div></div>`; }).join('');
+  return `<div class="box cbox"><b>${tr('clima')}</b><span class="small">${tr('clima_sub')}</span>${rows}<div class="fc" data-fc="${i}"></div></div>`;
+}
+function fromTemplate(k){ return D.plans[k].days.map((id,i)=>({...JSON.parse(JSON.stringify(D.days[id])), id, uid:id})); }
+function customDays(){ if(plan==='nova') return store.get('novaDays',[]); let c=store.get('custom',null); if(!Array.isArray(c)||!c.length){ c=fromTemplate('22'); store.set('custom',c); } return c; }
+function saveCustom(c){ store.set(plan==='nova'?'novaDays':'custom',c); }
+function planDays(){ if(plan==='meu'||plan==='nova') return customDays(); return D.plans[plan].days.map(id=>({id,uid:id,...D.days[id]})); }
+let uidN = Date.now();
+function newUid(){ return 'u'+(uidN++).toString(36); }
+function title(day){
+  if(day.id==='salar') return 'Salar de Uyuni';
+  if(day.id==='spa-dia') return 'San Pedro de Atacama';
+  if(day.id==='lagunas') return 'Lagunas altiplânicas';
+  if(day.to==='inca') return `${S[day.from][0].split(' (')[0]} ${tr('to')} Isla Incahuasi`;
+  if(day.from===day.to) return tr(day.km?'tour_in':'free_in',{x:S[day.to][0].split(' (')[0]});
+  return `${S[day.from][0].split(' (')[0]} ${tr('to')} ${S[day.to][0].split(' (')[0]}`;
+}
+const PRICE_FUEL = Object.assign({XX:7.00}, store.get('fuelp', {BR:6.50, AR:7.10, BO:3.77, CL:8.35}));
+
+/* Header and plan switch */
+function renderSeg(){
+  const nova=store.get('novaDays',[])||[], nm=store.get('novaMeta',{})||{};
+  const lab = {meu:tr('plan_meu',{n:(store.get('custom',[])||[]).length||22}), nova:tr('plan_nova',{x:nm.name||tr('h_criar'),n:nova.length}), '26':tr('plan_26'), '20':tr('plan_20')};
+  $('#seg').innerHTML = (nova.length?['meu','nova','26','20']:['meu','26','20']).map(k=>`<button type="button" aria-pressed="${k===plan}" data-p="${k}">${esc(lab[k])}</button>`).join('');
+  $('#seg').querySelectorAll('button').forEach(b=>b.onclick=()=>{ plan=b.dataset.p; store.set('plan2',plan); renderAll(); });
+}
+function renderProfile(){
+  const days = planDays(), n = days.length, W = 420, H = 210, top = 34, bot = 30;
+  if(n<2){ $('#profile').innerHTML=''; return; }
+  const maxA = 4800, x = i => 8 + i*(W-16)/(n-1), y = a => top + (1 - a/maxA)*(H-top-bot);
+  const pts = days.map((d,i)=>[x(i), y(maxAlt(d))]);
+  const line = 'M'+pts.map(p=>p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' L');
+  const area = line + ` L${pts[n-1][0].toFixed(1)} ${H-bot} L${pts[0][0].toFixed(1)} ${H-bot} Z`;
+  let peak = 0; days.forEach((d,i)=>{ if(maxAlt(d)>maxAlt(days[peak])) peak=i; });
+  const grid = [1000,2000,3000,4000].map(a=>`<line x1="0" x2="${W}" y1="${y(a)}" y2="${y(a)}" stroke="var(--line)" stroke-dasharray="2 4"/><text x="${W}" y="${y(a)-3}" text-anchor="end" font-size="12" fill="var(--muted)">${nf.format(a)} m</text>`).join('');
+  const dots = pts.map((p,i)=>`<a href="#d-${i+1}" aria-label="${dayLabel(i+1)}"><circle cx="${p[0]}" cy="${p[1]}" r="${i===peak?6:3.6}" fill="${i===peak?'var(--flamingo)':'var(--surface)'}" stroke="var(--flamingo)" stroke-width="1.6"/><rect x="${p[0]-7}" y="0" width="14" height="${H}" fill="transparent"/></a>`).join('');
+  const ticks = days.map((d,i)=> ((i%5===0 && n-1-i>=2)||i===n-1)?`<text x="${x(i)}" y="${H-8}" text-anchor="middle" font-size="13" fill="var(--muted)">${i+1}</text>`:'').join('');
+  const pk = pts[peak];
+  $('#profile').innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Altitude máxima de cada dia">
+    ${grid}
+    <path d="${area}" fill="var(--flbg)" opacity=".8"/>
+    <path class="line" d="${line}" fill="none" stroke="var(--flamingo)" stroke-width="2.4" stroke-linejoin="round"/>
+    ${dots}${ticks}
+    <text x="${Math.min(Math.max(pk[0]-60,0), W-140)}" y="${pk[1]-12}" font-size="16" font-weight="600" fill="var(--ink)" font-family="Barlow Condensed, sans-serif">${tr('peak',{a:nf.format(maxAlt(days[peak])),d:peak+1})}</text>
+  </svg><div class="cap"><span>${tr('cap1')}</span><span>${tr('cap2')}</span></div>`;
+}
+function renderStats(){
+  const days = planDays(); const km = days.reduce((s,d)=>s+d.km,0);
+  const high = days.filter(d=>maxAlt(d)>=3500).length;
+  const dirt = days.filter(d=>d.road!=='asfalto').length;
+  const end = dateOf(days.length-1);
+  $('#sub').textContent = tr('sub',{a:fmtLong(dateOf(0)),b:new Intl.DateTimeFormat(LOCALES[LANG],{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'}).format(end)});
+  $('#stats').innerHTML = `<span><b>${nf.format(km)} km</b> ${tr('km_total')}</span><span><b>${nf.format(Math.round(km/days.length))} km</b> ${tr('km_day')}</span><span><b>${high}</b> ${tr('days_high')}</span><span><b>${dirt}</b> ${tr('days_dirt')}</span>`;
+  const ata = days.filter(d=>d.sleep!=='olla' && ctryOf(d.sleep)==='CL').length;
+  if(plan!=='nova') $('#stats').innerHTML += `<span><b>${ata}</b> ${tr('nights_ata')}</span>`;
+  if(plan==='nova'){
+    const m=store.get('novaMeta',{})||{}, tgt=m.days||0, diff=days.length-tgt;
+    $('#planwarn').innerHTML = tr('warn_nova',{n:days.length, t: tgt?` (${diff>0?tr('b_over',{n:diff}):tr('b_under',{n:-diff})})`:'', v:tr('v_'+vehicle())})+`
+      <div class="actions"><button class="btn primary" type="button" id="w-add">${tr('add_loc')}</button><a class="btn" href="#criar">${tr('edit_builder')}</a></div>`;
+    $('#w-add').onclick = ()=>openAdd(0);
+  } else if(plan==='meu'){
+    const okD = days.length<=22, okA = ata<=4;
+    $('#planwarn').innerHTML = tr('warn_meu',{n:days.length,okd:tr(okD?'inside':'above'),a:ata,oka:tr(okA?'inside':'above')})+`
+      <div class="actions"><button class="btn primary" type="button" id="w-add">${tr('add_loc')}</button><button class="btn" type="button" id="w-reset">${tr('reset22')}</button></div>`;
+    $('#w-add').onclick = ()=>openAdd(0);
+    armTwice($('#w-reset'), tr('confirm_reset'), ()=>{ store.set('custom', fromTemplate('22')); renderAll(); });
+  } else {
+    $('#planwarn').innerHTML = tr(plan==='20'?'warn_20':'warn_26')
+      + `<div class="actions"><button class="btn" type="button" id="w-copy">${tr('use_plan')}</button></div>`;
+    armTwice($('#w-copy'), tr('confirm_use'), ()=>{ store.set('custom', fromTemplate(plan)); plan='meu'; store.set('plan2',plan); renderAll(); });
+  }
+}
+
+/* Roteiro */
+function renderDays(){
+  const days = planDays(); const done = store.get('done',{}); const notes = store.get('notes',{});
+  const todayIso = iso(new Date());
+  $('#days').innerHTML = days.map((d,i)=>{
+    const dt = dateOf(i), key = plan+':'+(d.uid||d.id), isToday = iso(dt)===todayIso, ed = plan==='meu'||plan==='nova';
+    const chips = [`<span class="chip">${nf.format(d.km)} km${d.kmEst?' '+tr('estimated'):''}</span>`,`<span class="chip">${esc(d.h==='dia livre'?tr('free_day'):d.h)}</span>`,
+      `<span class="chip ${d.road==='asfalto'?'':'dirt'}">${esc(d.road)}</span>`,
+      `<span class="chip ${maxAlt(d)>=3500?'alt':''}">${tr('max')} ${nf.format(maxAlt(d))} m</span>`, expTotal(key)?`<span class="chip">${tr('spent')}: ${money(expTotal(key))}</span>`:''].join('');
+    return `<article class="day ${done[key]?'done':''} ${isToday?'today':''}" id="d-${i+1}">
+      <div class="dhead"><span class="dnum">${i+1}</span><div><h3>${esc(title(d))}</h3><div class="date">${fmt(dt)}${isToday?', '+tr('today'):''}</div></div></div>
+      <div class="chips">${chips}</div>
+      ${climaBox(d,i)}
+      ${safetyBox(d)}
+      ${d.sleep==='salar'?incaBox(dt):''}
+      ${ed && d.route.length ? `<div class="via">${tr('passing')} ${d.route.map(r=>`<button type="button" data-unvia="${i}:${r}" aria-label="Remover ${esc(S[r][0])}">${esc(S[r][0].split(' (')[0])} ×</button>`).join('')}</div>`:''}
+      <ul>${d.see.map(s=>`<li>${esc(s)}</li>`).join('')}</ul>
+      ${d.border?`<div class="box border"><b>${tr('border')}</b>${esc(d.border)}</div>`:''}
+      ${d.fuel?`<div class="box fuel"><b>${tr('fuel')}</b>${esc(d.fuel)}</div>`:''}
+      ${d.alert?`<div class="box alert"><b>${tr('alert')}</b>${esc(d.alert)}</div>`:''}
+      <div class="actions">
+        ${d.km?`<a class="btn primary" href="${gmDir(d)}" target="_blank" rel="noopener">${tr('maps')}</a>`:''}
+        <a class="btn" href="#dormir" data-city="${d.sleep}" data-day="${i}">${tr('sleep')}</a>
+        <a class="btn" href="#gastos" data-gday="${i}">${tr('add_exp')}</a>
+        <label class="done"><input type="checkbox" data-done="${key}" ${done[key]?'checked':''}> ${tr('done')}</label>
+      </div>
+      ${ed?`<div class="edit">
+        <button class="btn" type="button" data-add="${i}">${tr('plus_loc')}</button>
+        <button class="btn" type="button" data-rest="${i}">${tr('plus_rest')}</button>
+        ${d.km===0?`<button class="btn" type="button" data-del="${i}">${tr('del_day')}</button>`:(i<days.length-1?`<button class="btn" type="button" data-merge="${i}">${tr('merge')}</button>`:'')}
+        ${d.km?`<label class="kmedit">km <input type="number" min="0" step="10" data-km="${i}" value="${d.km}"></label>`:''}
+      </div>`:''}
+      <textarea data-note="${key}" placeholder="${tr('notes_ph')}">${esc(notes[key]||'')}</textarea>
+    </article>`;
+  }).join('');
+  $('#days').querySelectorAll('[data-done]').forEach(c=>c.onchange=()=>{ const o=store.get('done',{}); o[c.dataset.done]=c.checked; store.set('done',o); c.closest('.day').classList.toggle('done',c.checked); });
+  $('#days').querySelectorAll('[data-note]').forEach(t=>t.oninput=()=>{ const o=store.get('notes',{}); o[t.dataset.note]=t.value; store.set('notes',o); });
+  $('#days').querySelectorAll('[data-city]').forEach(a=>a.onclick=()=>{ store.set('city', a.dataset.day); });
+  loadForecasts();
+  $('#days').querySelectorAll('[data-gday]').forEach(a=>a.onclick=()=>{ store.set('gday', Number(a.dataset.gday)); });
+  if(plan!=='meu'&&plan!=='nova') return;
+  const W = $('#days');
+  W.querySelectorAll('[data-add]').forEach(b=>b.onclick=()=>openAdd(Number(b.dataset.add)));
+  W.querySelectorAll('[data-rest]').forEach(b=>b.onclick=()=>{ const c=customDays(), i=Number(b.dataset.rest), d=c[i];
+    c.splice(i+1,0,{from:d.to,to:d.to,route:[],km:0,h:'dia livre',road:'asfalto',c:ctryOf(d.to),sleep:d.sleep,see:['Descanso, manutenção ou passeio a pé'],id:'custom',uid:newUid()}); saveCustom(c); renderAll(); });
+  W.querySelectorAll('[data-del]').forEach(b=>armTwice(b,tr('confirm_del'),()=>{ const c=customDays(); c.splice(Number(b.dataset.del),1); saveCustom(c); renderAll(); }));
+  W.querySelectorAll('[data-merge]').forEach(b=>armTwice(b,tr('confirm_merge'),()=>{ mergeNext(Number(b.dataset.merge)); renderAll(); }));
+  W.querySelectorAll('[data-km]').forEach(inp=>inp.onchange=()=>{ const c=customDays(), d=c[Number(inp.dataset.km)]; d.km=Math.max(0,Math.round(Number(inp.value)||0)); d.kmEst=false; d.h=hoursFor(d); saveCustom(c); renderAll(); });
+  W.querySelectorAll('[data-unvia]').forEach(b=>b.onclick=()=>{ const [i,id]=b.dataset.unvia.split(':'); const c=customDays(), d=c[Number(i)];
+    const old=pathLen(legIds(d)); d.route=d.route.filter(x=>x!==id); rescale(d, old, pathLen(legIds(d))); saveCustom(c); renderAll(); });
+}
+function armTwice(btn, label, fn){ const orig=btn.textContent; let armed=false, tm;
+  btn.onclick=()=>{ if(armed){ clearTimeout(tm); fn(); return; } armed=true; btn.textContent=label; tm=setTimeout(()=>{ armed=false; btn.textContent=orig; },4000); }; }
+function rescale(d, oldL, newL){ d.km = oldL>1 ? Math.round(d.km*newL/oldL) : Math.round(newL*1.3); d.kmEst=true; d.h=hoursFor(d); }
+function bestInsert(ids,x){ let best=1,bl=Infinity; for(let p=1;p<ids.length;p++){ const t=ids.slice(); t.splice(p,0,x); const L=pathLen(t); if(L<bl){bl=L;best=p;} } const t=ids.slice(); t.splice(best,0,x); return [t,best]; }
+function addVia(i,x){ const c=customDays(), d=c[i], ids=legIds(d), old=pathLen(ids); const [t]=bestInsert(ids,x); d.route=t.slice(1,-1); rescale(d,old,pathLen(t)); saveCustom(c); }
+function splitAt(i,x){ const c=customDays(), d=c[i], ids=legIds(d), old=pathLen(ids); const [t,p]=bestInsert(ids,x);
+  const total = old>1 ? d.km*pathLen(t)/old : pathLen(t)*1.3; const a=t.slice(0,p+1), b=t.slice(p), la=pathLen(a)||1, lb=pathLen(b)||1;
+  const d1={...d, to:x, route:a.slice(1,-1), sleep:x, km:Math.round(total*la/(la+lb)), kmEst:true, id:'custom'};
+  const d2={from:x, to:d.to, route:b.slice(1,-1), km:Math.round(total*lb/(la+lb)), kmEst:true, road:d.road, c:d.c, sleep:d.sleep, see:['Trecho criado por você'], id:'custom', uid:newUid()};
+  d1.h=hoursFor(d1); d2.h=hoursFor(d2); c.splice(i,1,d1,d2); saveCustom(c); }
+function mergeNext(i){ const c=customDays(), a=c[i], b=c[i+1];
+  const r=[...a.route, a.to, ...b.route].filter((x,k,arr)=>x!==a.from && x!==b.to && arr.indexOf(x)===k);
+  const j=(x,y)=>[x,y].filter(Boolean).join(' ');
+  const m={...a, to:b.to, sleep:b.sleep, route:r, km:a.km+b.km, kmEst:!!(a.kmEst||b.kmEst), road:mergeRoad(a.road,b.road), see:[...a.see,...b.see], border:j(a.border,b.border), fuel:j(a.fuel,b.fuel), alert:j(a.alert,b.alert), id:'custom'};
+  m.h=hoursFor(m); c.splice(i,2,m); saveCustom(c); }
+
+/* Add-locality sheet */
+function openAdd(i){
+  const days=customDays();
+  $('#a-day').innerHTML = days.map((d,k)=>`<option value="${k}" ${k===i?'selected':''}>${dayLabel(k+1)}: ${esc(title(d))}</option>`).join('');
+  $('#a-known').innerHTML = Object.values(S).map(s=>`<option value="${esc(s[0])}">`).join('');
+  ['a-name','a-coord','a-alt'].forEach(id=>$('#'+id).value=''); $('#a-st').textContent='';
+  $('#a-c').value = days[i].c || 'AR'; pendingClim=null;
+  $('#a-ai').hidden = !SAMPLE;
+  $('#ov').classList.add('on'); $('#a-name').focus();
+}
+let pendingClim=null;
+function closeAdd(){ $('#ov').classList.remove('on'); }
+function parseCoord(s){ const m = s.match(/@?(-?\d{1,2}\.\d+)\s*,\s*(-?\d{1,3}\.\d+)/); return m?[Number(m[1]),Number(m[2])]:null; }
+function knownByName(n){ n=n.trim().toLowerCase(); return Object.keys(S).find(k=>S[k][0].toLowerCase()===n || S[k][0].split(' (')[0].toLowerCase()===n); }
+function nearestAlt(lat,lng){ let b=null,bd=Infinity; Object.values(S).forEach(s=>{ const dd=(s[1]-lat)**2+(s[2]-lng)**2; if(dd<bd){bd=dd;b=s;} }); return b?b[3]:500; }
+$('#a-x').onclick = closeAdd;
+$('#ov').onclick = e=>{ if(e.target.id==='ov') closeAdd(); };
+$('#a-ok').onclick = ()=>{
+  const name=$('#a-name').value.trim(), i=Number($('#a-day').value), mode=document.querySelector('input[name="a-mode"]:checked').value;
+  if(!name){ $('#a-st').textContent='Escreva o nome da localidade.'; return; }
+  let id = knownByName(name);
+  if(!id){
+    const c = parseCoord($('#a-coord').value);
+    if(!c){ $('#a-st').textContent = SAMPLE ? 'Cole as coordenadas ou o link do Google Maps, ou toque em Preencher com Claude.' : 'Cole as coordenadas ou o link do Google Maps (no app do Maps: toque e segure no local, depois copie as coordenadas).'; return; }
+    const alt = Number($('#a-alt').value) || nearestAlt(c[0],c[1]);
+    id = 'c'+newUid();
+    S[id] = [name, c[0], c[1], alt, mode==='sleep'?'pernoite':'via', $('#a-c').value, pendingClim && pendingClim[0]===name ? pendingClim : null];
+    CST[id] = S[id]; store.set('cstops', CST);
+  }
+  const d = customDays()[i];
+  if(id===d.from || id===d.to || d.route.includes(id)){ $('#a-st').textContent='Essa localidade já está neste dia.'; return; }
+  if(mode==='sleep') splitAt(i,id); else addVia(i,id);
+  closeAdd(); renderAll(); location.hash = 'd-'+(i+1);
+};
+$('#a-ai').onclick = async ()=>{
+  const name=$('#a-name').value.trim(); if(!name){ $('#a-st').textContent='Escreva o nome primeiro.'; return; }
+  const d=customDays()[Number($('#a-day').value)];
+  $('#a-st').textContent='Consultando Claude...'; $('#a-ai').disabled=true;
+  try{
+    const r = await SAMPLE.json(`Planejamento de viagem de moto na América do Sul. Localidade pedida: "${name}". Ela deve ficar perto do trecho entre ${S[d.from][0]} (${S[d.from][1]}, ${S[d.from][2]}) e ${S[d.to][0]} (${S[d.to][1]}, ${S[d.to][2]}). Responda somente com JSON neste formato: {"name": string, "lat": number, "lng": number, "alt_m": number, "country": "AR"|"BO"|"CL"|"BR", "july_min_c": number, "july_max_c": number, "rain_day_pct": number, "note": string com até 12 palavras em português sobre clima ou estrada em julho}. Valores de clima são médias históricas de julho. Se não reconhecer a localidade, responda {"lat": null}.`, {modelTier:'default'});
+    if(!r || typeof r.lat!=='number'){ $('#a-st').textContent='Claude não reconheceu esse nome. Cole as coordenadas do Google Maps.'; return; }
+    $('#a-name').value = r.name || name; $('#a-coord').value = `${r.lat}, ${r.lng}`; if(r.alt_m) $('#a-alt').value = Math.round(r.alt_m);
+    if(['AR','BO','CL','BR'].includes(r.country)) $('#a-c').value = r.country;
+    pendingClim = [r.name||name, Math.round(r.alt_m||0), Math.round(r.july_max_c), Math.round(r.july_min_c), Math.round(r.rain_day_pct||0), (r.note||'Estimativa de Claude')+' (estimativa de Claude)', r.country||'AR', r.lat, r.lng];
+    $('#a-st').textContent='Dados preenchidos. Confira e toque em Adicionar ao roteiro.';
+  }catch(e){ $('#a-st').textContent = e && e.code==='not_granted' ? 'Sem permissão para consultar Claude. Preencha as coordenadas.' : 'Não foi possível consultar agora. Preencha as coordenadas.'; }
+  finally{ $('#a-ai').disabled=false; }
+};
+
+/* Camping night at Incahuasi */
+function sunTimes(dt, lat, lng, tz){ const r=Math.PI/180; const n=Math.floor((dt-Date.UTC(dt.getUTCFullYear(),0,0))/864e5); const g=2*Math.PI/365*(n-1);
+  const eq=229.18*(0.000075+0.001868*Math.cos(g)-0.032077*Math.sin(g)-0.014615*Math.cos(2*g)-0.040849*Math.sin(2*g));
+  const de=0.006918-0.399912*Math.cos(g)+0.070257*Math.sin(g)-0.006758*Math.cos(2*g)+0.000907*Math.sin(2*g)-0.002697*Math.cos(3*g)+0.00148*Math.sin(3*g);
+  const ha=Math.acos(Math.cos(90.833*r)/(Math.cos(lat*r)*Math.cos(de))-Math.tan(lat*r)*Math.tan(de))/r;
+  const f=m=>{ m=Math.round((m%1440+1440)%1440); return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0'); };
+  return [f(720-4*(lng+ha)-eq+tz*60), f(720-4*(lng-ha)-eq+tz*60)]; }
+function moonAt(ms){ const syn=29.530588853, age=(((ms-Date.UTC(2000,0,6,18,14))/864e5)%syn+syn)%syn;
+  const ill=Math.round((1-Math.cos(2*Math.PI*age/syn))/2*100);
+  const names=['lua nova','lua crescente','quarto crescente','crescente gibosa','lua cheia','minguante gibosa','quarto minguante','lua minguante'];
+  return {ill, name:names[Math.floor(age/syn*8+0.5)%8]}; }
+function incaBox(dt){
+  const I=S.inca, [, set]=sunTimes(dt,I[1],I[2],-4), next=new Date(dt.getTime()+864e5), [rise]=sunTimes(next,I[1],I[2],-4);
+  const m=moonAt(dt.getTime()+14*36e5);
+  const stars = m.ill<30 ? 'céu escuro, ótimo para estrelas e Via Láctea' : (m.ill<70 ? 'lua no meio do caminho, estrelas ainda boas' : 'lua forte, menos estrelas, mas o salar fica iluminado');
+  return `<div class="box inca"><b>Noite em Incahuasi</b>
+    <ul>
+      <li>Pôr do sol às ${set} e nascer às ${rise} (hora da Bolívia).</li>
+      <li>${m.name[0].toUpperCase()+m.name.slice(1)}, ${m.ill}% iluminada: ${stars}.</li>
+      <li>Média de julho: −13 °C de madrugada, 12 °C à tarde, vento forte depois das 14h. O sal fica seco e firme, sem espelho d’água.</li>
+      <li>A ilha cobra entrada; acampe no sal, longe das trilhas dos 4×4, com luz ou refletivo na barraca.</li>
+      <li>Decisão na manhã do dia, ainda com sinal em Uyuni: se a previsão passar de 40 km/h de vento ou −18 °C, durma em Colchani e faça o pôr do sol no salar.</li>
+    </ul>
+    <div class="actions" style="margin-top:6px">
+      <a class="btn" target="_blank" rel="noopener" href="https://www.windy.com/${I[1]}/${I[2]}?${I[1]},${I[2]},10">Vento e frio (Windy)</a>
+      <a class="btn" target="_blank" rel="noopener" href="https://www.meteoblue.com/pt/tempo/semana/20.242S67.625W">Meteoblue</a>
+      <a class="btn" target="_blank" rel="noopener" href="https://senamhi.gob.bo/">SENAMHI</a>
+      <a class="btn" target="_blank" rel="noopener" href="https://app.ioverlander.com/places/14-uyuni-salt-flats">Relatos recentes</a>
+    </div></div>`;
+}
+
+/* Dormir */
+const TYPE_ORDER = {hotel:0,pousada:1,hostel:2,camping:3};
+const TYPE_LABEL = new Proxy({}, {get:(_,k)=>tr('t_'+String(k))});
+function linkFor(item, cityName){
+  const ref = item[3];
+  if(ref.startsWith('ChIJ')) return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item[1]+' '+cityName)}&query_place_id=${ref}`;
+  if(ref.startsWith('io:')) return `https://app.ioverlander.com/places/${ref.slice(3)}`;
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ref.slice(2))}`;
+}
+function renderCitySel(){
+  const days = planDays();
+  const opts = days.map((d,i)=>({i,d})).filter(o=>o.d.sleep!=='rio');
+  let sel = Number(store.get('city', 0)); if(!opts.find(o=>o.i===sel)) sel = opts[0].i;
+  $('#citysel').innerHTML = opts.map(o=>`<option value="${o.i}" ${o.i===sel?'selected':''}>${nightLabel(o.i+1)}, ${fmt(dateOf(o.i))}: ${esc(S[o.d.sleep]?S[o.d.sleep][0]:'Salar de Uyuni')}</option>`).join('');
+  $('#citysel').onchange = ()=>{ store.set('city',$('#citysel').value); renderLodging(); };
+  renderLodging();
+}
+function renderLodging(){
+  const i = Number($('#citysel').value), d = planDays()[i], key = d.sleep, L = D.lodging[key] || {c:ctryOf(key), tip:'Localidade adicionada por você: use as buscas abaixo.', items:[]};
+  const cityName = key==='salar'?'Uyuni':S[key][0].split(' (')[0].split(' /')[0];
+  const pb = D.priceBands[L.c] || {hotel:'–',pousada:'–',hostel:'–',camping:'–',pay:'–'};
+  const items = L.items.slice().sort((a,b)=>TYPE_ORDER[a[0]]-TYPE_ORDER[b[0]]);
+  const ci = iso(dateOf(i)), co = iso(dateOf(i+1));
+  const c = key==='salar' ? S.inca : S[key];
+  const g = q => `https://www.google.com/maps/search/${encodeURIComponent(q)}/@${c[1]},${c[2]},13z`;
+  $('#lodging').innerHTML = `
+    <div class="card"><p style="margin:0">${esc(L.tip)}</p></div>
+    ${items.length?`<div class="card">${items.map(it=>`<div class="opt"><span class="tag ${it[0]}">${TYPE_LABEL[it[0]]}</span><div><h4><a href="${linkFor(it,cityName)}" target="_blank" rel="noopener">${esc(it[1])}</a></h4><p>${esc(it[2])}</p></div></div>`).join('')}</div>`:''}
+    <div class="card"><h3 class="sub" style="margin-top:0">${tr('price_band')}</h3>
+      <div class="opt"><span class="tag hotel">${TYPE_LABEL.hotel}</span><p>${esc(pb.hotel)}</p></div>
+      <div class="opt"><span class="tag pousada">${TYPE_LABEL.pousada}</span><p>${esc(pb.pousada)}</p></div>
+      <div class="opt"><span class="tag hostel">${TYPE_LABEL.hostel}</span><p>${esc(pb.hostel)}</p></div>
+      <div class="opt"><span class="tag camping">${TYPE_LABEL.camping}</span><p>${esc(pb.camping)}</p></div>
+      <p class="small" style="margin-top:8px"><b>${tr('payment')}</b> ${esc(pb.pay)}</p></div>
+    <div class="card"><h3 class="sub" style="margin-top:0">${tr('search_dates')}</h3>
+      <div class="actions" style="margin-top:0">
+        <a class="btn" target="_blank" rel="noopener" href="https://www.booking.com/searchresults.pt-br.html?ss=${encodeURIComponent(cityName)}&checkin=${ci}&checkout=${co}&group_adults=1">Booking</a>
+        <a class="btn" target="_blank" rel="noopener" href="https://www.airbnb.com.br/s/${encodeURIComponent(cityName)}/homes?checkin=${ci}&checkout=${co}&adults=1">Airbnb</a>
+        <a class="btn" target="_blank" rel="noopener" href="${g('hotel')}">${tr('mh')}</a>
+        <a class="btn" target="_blank" rel="noopener" href="${g(L.c==='BR'?'pousada':(L.c==='AR'?'hostería':'hostal'))}">${tr('mp')}</a>
+        <a class="btn" target="_blank" rel="noopener" href="${g('hostel')}">${tr('mhs')}</a>
+        <a class="btn" target="_blank" rel="noopener" href="${g('camping')}">${tr('mc')}</a>
+        <a class="btn" target="_blank" rel="noopener" href="https://app.ioverlander.com/">iOverlander</a>
+      </div>
+      <p class="small" style="margin-bottom:0">${tr('io_tip')}</p></div>`;
+}
+
+/* Estrada */
+function renderRoad(){
+  const days = planDays();
+  const kmBy = {BR:0,AR:0,BO:0,CL:0,XX:0}; days.forEach(d=>kmBy[kmBy[d.c]!=null?d.c:'XX']+=d.km);
+  const bikes = store.get('bikes',{desertx:{n:'Ducati DesertX',tank:21,kml:18},hima:{n:'Royal Enfield Himalayan 450',tank:17,kml:27}});
+  const fuelRows = [
+    ['Brasil','Gasolina comum/aditivada','R$ 6,30–6,80 (estimado)','≈ R$ 6,50','Cartão, Pix, dinheiro'],
+    ['Argentina','Nafta Súper / Infinia 95+','ARS 2.050–2.240 (YPF Mendoza)','R$ 6,85–7,50','Cartão e app YPF; dinheiro'],
+    ['Bolívia','Gasolina Especial, preço para placa estrangeira','Bs 8,68 (ANH, jan/2026)','≈ R$ 3,77','Quase só dinheiro em bolivianos'],
+    ['Chile','Bencina 95','CLP 1.600–1.650 (Antofagasta, abr/2026)','R$ 8,25–8,50','Cartão em todos os postos Copec e Shell']
+  ];
+  const crit = [
+    ['Uyuni','Último posto confiável antes do salar. Encha tanque e galão. Estrangeiro paga o preço internacional; leve impresso o comunicado da ANH de 17/01/2026.'],
+    ['San Cristóbal','Único ponto entre Uyuni e Ollagüe (~95 km de Uyuni). Depois, ~330 km até Calama.'],
+    ['San Pedro de Atacama','Saia de tanque cheio para as lagunas: 310 km ida e volta sem posto.'],
+    ['Copiapó → Fiambalá','~480 km sem combustível com subida a 4.726 m. Na DesertX, leve 5–10 L extras.'],
+    ['Bolívia, octanagem','A Especial comum tem octanagem baixa. A DesertX pede no mínimo 95 RON pelo manual: use Super 91 ou Premium quando houver e leve aditivo. A Himalayan 450 aceita 91 RON.']
+  ];
+  const tolls = [
+    ['Brasil, Via Dutra','Itatiaia, Moreira César, Jacareí e Arujá','Carro R$ 4,60–17,10 desde 01/09/2026; moto paga metade','≈ R$ 25 por sentido','Dinheiro, cartão e tag; trechos free flow em SP pagos pelo app em até 30 dias'],
+    ['Brasil, Régis Bittencourt','6 praças','Carro R$ 4,30; moto R$ 2,15','R$ 12,90 por sentido','Dinheiro, cartão e tag'],
+    ['Brasil, Paraná (novas concessões)','BR-277 e BR-373','Novos lotes têm moto isenta (ex.: Imbituva, São José dos Pinhais)','R$ 0 a confirmar','Conferir praças da BR-277 até Foz'],
+    ['Argentina, RN12 Misiones e Corrientes','Santa Ana, Colonia Victoria, Fachinal, Ituzaingó','Carro ARS 1.850 desde 09/10/2026; motos pagam 50% nas rotas privatizadas','≈ ARS 925 (R$ 3,10) por praça','Sem dinheiro: TelePASE, débito, crédito ou QR'],
+    ['Argentina, ponte Chaco–Corrientes','1 praça','Carro ARS 1.800 com TelePASE; +50% sem','≈ ARS 900 (R$ 3,00) estimado','TelePASE ou meio eletrônico'],
+    ['Argentina, demais rotas','RN16, RN9, RN40, RN38','Em geral sem pedágio hoje; concessões novas em andamento','–','Verificar antes da viagem'],
+    ['Bolívia','Peajes da ABC nos tramos','Valores baixos por tramo (estimado)','Bs 3–10 (R$ 1,30–4,30)','Só dinheiro em bolivianos; tenha notas pequenas'],
+    ['Chile, Ruta 5 Norte','Região de Antofagasta e trecho Vallenar–Caldera','Moto paga fração da tarifa de carro','≈ CLP 600–1.400 (R$ 3–7) por praça','Dinheiro e cartão nas cabines'],
+    ['Chile, rotas de montanha','23-CH, 27-CH, 21-CH, 31-CH','Sem pedágio','–','–']
+  ];
+  const links = [
+    ['Passos Chile–Argentina, status em tempo real','https://www.pasosfronterizos.gob.cl/','Jama, Sico, San Francisco e Ollagüe'],
+    ['Passos internacionais da Argentina','https://www.argentina.gob.ar/seguridad/pasosinternacionales','Gendarmería e horários'],
+    ['Paso de Jama no TodoJujuy','https://www.todojujuy.com/paso-jama-a988/1','Fechamentos por neve, atualizado diariamente'],
+    ['Vialidad Chile (MOP)','https://vialidad.mop.gob.cl/','Estado das rotas chilenas'],
+    ['ABC Bolívia, transitabilidade','https://www.abc.gob.bo/','Bloqueios e obras nas rodovias'],
+    ['ANH Bolívia, preços e comunicados','https://www.anh.gob.bo/','Combustível para placa estrangeira'],
+    ['PRF, condições das rodovias federais','https://www.gov.br/prf/','Brasil'],
+    ['Bencina en Línea (CNE)','https://www.bencinaenlinea.cl/','Preço por posto no Chile']
+  ];
+  const opt = Object.entries(bikes).map(([k,b])=>`<option value="${k}">${esc(b.n)}</option>`).join('');
+  $('#road').innerHTML = `
+  <h3 class="sub">Combustível</h3>
+  <div class="card scroll"><table><thead><tr><th>País</th><th>Produto</th><th>Preço local</th><th>Em reais/L</th><th>Pagamento</th></tr></thead>
+  <tbody>${fuelRows.map(r=>`<tr>${r.map((c,j)=>`<td class="${j===3?'num':''}">${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table>
+  <p class="small">Câmbio usado: 1 real = ${D.rates.ARS} pesos argentinos, ${D.rates.CLP} pesos chilenos e ${D.rates.BOB.toFixed(2).replace('.',',')} bolivianos (Banco Central de Bolivia, 17 a 19/10/2026).</p></div>
+  <div class="card">${crit.map(c=>`<div class="opt"><span class="tag hostel">Crítico</span><div><h4>${esc(c[0])}</h4><p>${esc(c[1])}</p></div></div>`).join('')}</div>
+  <div class="card"><h3 class="sub" style="margin-top:0">Autonomia e custo do plano</h3>
+    <div class="field"><label for="bike">Moto</label><select id="bike">${opt}</select></div>
+    <div class="grid2" style="margin-top:10px">
+      <div class="field"><label for="tank">Tanque (L)</label><input id="tank" type="number" step="0.5" min="5"></div>
+      <div class="field"><label for="kml">Consumo real (km/L)</label><input id="kml" type="number" step="0.5" min="5"></div>
+    </div>
+    <div class="grid2" style="margin-top:10px">${['BR','AR','BO','CL','XX'].map(c=>`<div class="field"><label for="fp${c}">R$/L ${({BR:'Brasil',AR:'Argentina',BO:'Bolívia',CL:'Chile',XX:tr('fuel_other')})[c]}</label><input id="fp${c}" type="number" step="0.05" value="${PRICE_FUEL[c]}"></div>`).join('')}</div>
+    <div class="result" id="fuelres"></div>
+  </div>
+  <h3 class="sub">Pedágios para moto</h3>
+  <div class="card scroll"><table><thead><tr><th>Trecho</th><th>Praças</th><th>Tarifa</th><th>Moto</th><th>Pagamento</th></tr></thead>
+  <tbody>${tolls.map(r=>`<tr>${r.map((c,j)=>`<td class="${j===3?'num':''}">${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table>
+  <p class="small">Bolívia e o percentual chileno são estimativas sem tabela oficial consultada. Leve sempre cartão de débito e algum dinheiro local.</p></div>
+  <h3 class="sub">Plano B se um passo fechar</h3>
+  <div class="card"><p style="margin:0">Em julho de 2026 o Paso de Jama fechou por neve nos dias 3 a 7, 17 e 22. Se o Paso San Francisco fechar, saia de San Pedro por Jama (até Purmamarca) ou Sico (até San Antonio de los Cobres) e desça por Salta. Isso troca Antofagasta e Copiapó por mais Puna argentina. O Paso Agua Negra, que levaria direto a San Juan, só abre no verão.</p></div>
+  <h3 class="sub">Comunicados e status das rotas</h3>
+  <div class="card linklist">${links.map(l=>`<a href="${l[1]}" target="_blank" rel="noopener">${esc(l[0])}<span>${esc(l[2])}</span></a>`).join('')}</div>`;
+  const kmTotal = Object.values(kmBy).reduce((a,b)=>a+b,0);
+  const calc = ()=>{
+    const k = $('#bike').value, b = bikes[k];
+    b.tank = Number($('#tank').value)||b.tank; b.kml = Number($('#kml').value)||b.kml;
+    ['BR','AR','BO','CL','XX'].forEach(c=>PRICE_FUEL[c]=Number($('#fp'+c).value)||0);
+    store.set('bikes',bikes); store.set('fuelp',PRICE_FUEL); store.set('bike',k);
+    const range = Math.round(b.tank*b.kml*0.9);
+    const cost = Object.entries(kmBy).reduce((s,[c,km])=>s + km/b.kml*PRICE_FUEL[c],0);
+    const ok = range>=480;
+    $('#fuelres').innerHTML = `Autonomia segura (90%): <b>${nf.format(range)} km</b>. ${ok?'Cobre o trecho Copiapó–Fiambalá, mas leve reserva pela altitude.':'Não cobre os ~480 km de Copiapó a Fiambalá: leve galão extra.'}<br>Combustível do plano (${nf.format(kmTotal)} km): <b>R$ ${nf.format(Math.round(cost))}</b>`;
+  };
+  const sel = store.get('bike','hima'); $('#bike').value = bikes[sel]?sel:'hima';
+  const fill = ()=>{ const b = bikes[$('#bike').value]; $('#tank').value=b.tank; $('#kml').value=b.kml; calc(); };
+  $('#bike').onchange = fill; ['tank','kml','fpBR','fpAR','fpBO','fpCL','fpXX'].forEach(id=>$('#'+id).oninput=calc);
+  fill();
+}
+
+/* Docs */
+const DOCS = [
+ ['br','Antes de sair do Brasil',[
+  ['Passaporte válido (recomendado) ou RG físico em bom estado. Na Argentina, CNH e RG digital não valem como identidade.','https://www.argentina.gob.ar/migraciones/documentacion-para-ingresar-al-pais-como-turista'],
+  ['CNH física válida e Permissão Internacional para Dirigir (PID) emitida pelo Detran, útil em Bolívia e Chile.'],
+  ['CRLV impresso, moto no seu nome. Se não estiver, autorização do proprietário com firma reconhecida.'],
+  ['Carta Verde (seguro de responsabilidade civil Mercosul), obrigatória na Argentina. Pergunte se a apólice estende a Chile e Bolívia.'],
+  ['Seguro viagem médico, obrigatório na Argentina. Exija cobertura para pilotar moto, altitude acima de 4.000 m, resgate e repatriação.'],
+  ['Vacina de febre amarela há pelo menos 10 dias e Certificado Internacional (CIVP) digital pela Anvisa ou ConecteSUS. A Bolívia exige de quem vem do Brasil.','https://www.gov.br/anvisa/pt-br/assuntos/paf/certificado-internacional-de-vacinacao-ou-profilaxia'],
+  ['Dois cartões internacionais de bandeiras diferentes e dólares em espécie, notas novas, para a Bolívia.'],
+  ['Três cópias impressas de tudo e PDFs salvos offline no celular.'],
+  ['Pedir o TITV chileno online e comprar o SOAPEX antes de chegar a Ollagüe.','https://www.chileatiende.gob.cl/fichas/52-solicitar-permiso-para-el-ingreso-temporal-de-vehiculos']]],
+ ['ar1','Argentina, entrada em Puerto Iguazú',[
+  ['Migração: passaporte ou RG físico e comprovante do seguro médico.'],
+  ['Aduana: admissão temporária da moto com CRLV, CNH e Carta Verde. Guarde o comprovante.','https://www.afip.gob.ar/viajeros/ayuda/otros-paises.asp'],
+  ['Ativar TelePASE ou ter cartão de débito: pedágios da RN12 não aceitam dinheiro.']]],
+ ['bo','Bolívia, entrada em Villazón',[
+  ['Saída da Argentina: carimbo e baixa da admissão temporária da moto.'],
+  ['Migração boliviana: RG ou passaporte (até 90 dias) e certificado de febre amarela.'],
+  ['Aduana: Declaração de ingresso de veículo de turismo (Formulário 249 / SIVETUR), gratuita. Imprima.','https://portal.aduana.gob.bo/aduana7/content/procedimiento-para-el-ingreso-y-salida-de-veh%C3%ADculos-de-uso-privado-para-turismo'],
+  ['SOAT boliviano: a polícia cobra nos controles; compre na fronteira.'],
+  ['Formulário 250 de bagagem e divisas, se solicitado.'],
+  ['Na saída em Avaroa, devolver o documento da moto.']]],
+ ['cl','Chile, entrada em Ollagüe',[
+  ['Migração com RG ou passaporte. Guarde o comprovante de entrada: serve para a isenção de IVA em hotéis.'],
+  ['Aduana: TITV da moto, gratuito, pelo prazo da sua permanência.','https://www.aduana.cl/solicitud-de-permiso-para-el-ingreso-temporal-de-vehiculos/aduana/2019-08-20/151037.html'],
+  ['SOAPEX vigente: seguro obrigatório para veículo estrangeiro, comprado antes de entrar.'],
+  ['Declaração SAG: nada de frutas, carnes, queijos, mel ou folha de coca. Multas altas.']]],
+ ['ar2','Argentina, entrada pelo Paso San Francisco',[
+  ['Saída do Chile no complexo de Maricunga: entregar o TITV.'],
+  ['Nova admissão temporária argentina com Carta Verde e seguro médico ainda vigentes.'],
+  ['Horário de inverno do passo: 8h às 18h30, hora do Chile. Saia de Copiapó ao amanhecer.']]],
+ ['brv','Brasil, retorno por Dionísio Cerqueira',[
+  ['Baixa da admissão temporária argentina em Bernardo de Irigoyen.'],
+  ['Entrada no Brasil. Cota de compras por via terrestre: confirme o valor vigente na Receita Federal.']]],
+ ['moto','Moto e equipamento',[
+  ['Pneus mistos novos para ~11 mil km (ou um par reserva enviado a Salta).'],
+  ['Revisão completa: óleo, filtros, relação, pastilhas e um filtro de ar extra para a poeira.'],
+  ['Kit de reparo de pneu, câmara ou plugs, compressor, fusíveis e ferramentas da moto.'],
+  ['Galão de 5–10 L para Copiapó–Fiambalá e o trecho Uyuni–Calama.'],
+  ['Roupa para −15 °C: segunda pele, forro térmico, luvas de inverno, balaclava; aquecimento elétrico ajuda muito.'],
+  ['Para acampar no salar: saco de dormir conforto −15 °C e isolante R ≥ 5.']]],
+ ['saude','Saúde e altitude',[
+  ['Consulta médica sobre o mal da altitude (o médico pode indicar acetazolamida).'],
+  ['Subir aos poucos: 3.000 m no dia 6, 3.650 m no dia 9 e acima de 4.000 m só depois de San Pedro.'],
+  ['Protetor solar alto, labial, óculos com proteção UV e muita água.'],
+  ['Vacinas em dia: tétano, hepatites A e B, influenza.']]]
+];
+function renderDocs(){
+  const st = store.get('docs',{});
+  $('#docs').innerHTML = DOCS.map(([id,t,items])=>{
+    const n = items.filter((_,j)=>st[id+j]).length;
+    return `<details class="card" ${id==='br'?'open':''}><summary>${esc(t)}<span class="cnt">${n} de ${items.length}</span></summary>
+      ${items.map((it,j)=>`<label class="check"><input type="checkbox" data-doc="${id+j}" ${st[id+j]?'checked':''}><span>${esc(it[0])}${it[1]?` <a href="${it[1]}" target="_blank" rel="noopener">fonte oficial</a>`:''}</span></label>`).join('')}</details>`;
+  }).join('');
+  $('#docs').querySelectorAll('[data-doc]').forEach(c=>c.onchange=()=>{ const o=store.get('docs',{}); o[c.dataset.doc]=c.checked; store.set('docs',o);
+    const det=c.closest('details'); const all=det.querySelectorAll('input'); det.querySelector('.cnt').textContent=`${[...all].filter(x=>x.checked).length} de ${all.length}`; });
+}
+
+/* Clima */
+function renderClima(){
+  const off = {BR:['INMET','https://portal.inmet.gov.br/'],AR:['SMN Argentina','https://www.smn.gob.ar/'],BO:['SENAMHI Bolívia','https://senamhi.gob.bo/'],CL:['MeteoChile','https://www.meteochile.gob.cl/']};
+  const lo=-22, hi=28, pct=v=>((v-lo)/(hi-lo)*100).toFixed(1);
+  $('#clima').innerHTML = `<div class="card">${D.climate.map(c=>`<div class="clima">
+    <div><h4>${esc(c[0])}</h4><p>${nf.format(c[1])} m. ${esc(c[5])}. Chance de chuva ou neve num dia: ${c[4]}%.</p>${windHtml(c)}
+      <p><a href="https://www.windy.com/${c[7]}/${c[8]}?${c[7]},${c[8]},9" target="_blank" rel="noopener">Windy</a> e <a href="${off[c[6]][1]}" target="_blank" rel="noopener">${off[c[6]][0]}</a></p></div>
+    <div class="t"><span class="lo">${c[3]}°</span> / <span class="hi">${c[2]}°</span></div>
+    <div class="bar"><i style="left:${pct(c[3])}%;right:${100-pct(c[2])}%"></i></div></div>`).join('')}</div>
+  <p class="small">Valores aproximados a partir de normais climatológicas de julho. Em julho de 2026 o Paso de Jama fechou várias vezes por neve; trate fechamento de passo como provável, não como exceção.</p>`;
+}
+
+/* Extra */
+function renderExtra(){
+  const rates = store.get('rates', D.rates);
+  const names = [
+    ['Carioca no Deserto','Junta o Rio com a DesertX e com o coração da viagem: Atacama e Uyuni.'],
+    ['Gustavo Sem Fronteiras','Nome pessoal, serve para qualquer viagem futura.'],
+    ['Do Rio aos Andes','Diz o roteiro em quatro palavras; ótimo como nome desta série.'],
+    ['Altitude Carioca','Brinca com sair do nível do mar e chegar a 4.726 m.'],
+    ['Sal, Areia e Asfalto','Os três pisos da expedição.'],
+    ['Gu na Estrada','Curto, fácil de lembrar e de virar arroba.'],
+    ['Himalaia Carioca','Se a Himalayan 450 for a escolhida.'],
+    ['Rota Gustavo','Neutro e flexível para outros destinos.']
+  ];
+  const sources = [
+    ['Aduana Nacional de Bolivia, veículos de turismo','https://portal.aduana.gob.bo/aduana7/content/procedimiento-para-el-ingreso-y-salida-de-veh%C3%ADculos-de-uso-privado-para-turismo'],
+    ['ANH Bolívia, preço para placa estrangeira (jan/2026)','https://lapatria.bo/enfoque-nacional/vehiculos-extranjeros-pueden-comprar-gasolina-a-precio-internacional-afirma-anh/'],
+    ['Visit Argentina, documentos para brasileiros (jul/2026)','https://argentina.travel/pt/novidades/requisitos-para-entrar-na-argentina-documentos-necessarios'],
+    ['ChileAtiende, TITV','https://www.chileatiende.gob.cl/fichas/52-solicitar-permiso-para-el-ingreso-temporal-de-vehiculos'],
+    ['Peajes Misiones sem dinheiro (out/2026)','https://misionesonline.net/2026/10/09/misiones-desde-hoy-rigen-nuevas-tarifas-del-peaje-no-se-puede-pagar-en-efectivo-y-en-posadas-se-agotaron-las-obleas-de-telepase/'],
+    ['Motos passam a pagar 50% nas rotas privatizadas','https://www.iprofesional.com/economia/439181-avalancha-de-peajes-cuanto-costara-pasar-por-rutas-privatizadas-por-gobierno-javier-milei'],
+    ['Tarifas Via Dutra desde 01/09/2026','https://rodovias.motiva.com.br/riosp/noticias/2026/agosto/pedagios-da-via-dutra-e-da-rio-santos-terao-novos-valores-a-part/'],
+    ['Banco Central de Bolivia, cotações','https://www.bcb.gob.bo/librerias/indicadores/otras/anteriores.php?qdd=1&qmm=12'],
+    ['Fechamentos do Paso de Jama em julho/2026','https://www.todojujuy.com/paso-jama-a988/1']
+  ];
+  $('#extra').innerHTML = `
+  <h3 class="sub">Conversor</h3>
+  <div class="card">
+    <div class="grid2">
+      <div class="field"><label for="cv-v">Valor</label><input id="cv-v" type="number" value="10000"></div>
+      <div class="field"><label for="cv-c">Moeda</label><select id="cv-c"><option value="ARS">Peso argentino</option><option value="CLP">Peso chileno</option><option value="BOB">Boliviano</option><option value="USD">Dólar</option><option value="BRL">Real</option></select></div>
+    </div>
+    <div class="result" id="cv-r"></div>
+    <details style="margin-top:10px"><summary class="small">Ajustar taxas (1 real = ...)</summary>
+      <div class="grid2" style="margin-top:8px">
+        <div class="field"><label for="r-ARS">Pesos argentinos</label><input id="r-ARS" type="number" step="1" value="${rates.ARS}"></div>
+        <div class="field"><label for="r-CLP">Pesos chilenos</label><input id="r-CLP" type="number" step="1" value="${rates.CLP}"></div>
+        <div class="field"><label for="r-BOB">Bolivianos</label><input id="r-BOB" type="number" step="0.01" value="${rates.BOB}"></div>
+        <div class="field"><label for="r-USD">Reais por dólar</label><input id="r-USD" type="number" step="0.01" value="${rates.USD}"></div>
+      </div>
+      <p class="small">O boliviano passou a flutuar em 2026 e oscila bastante; atualize na véspera.</p></details>
+  </div>
+  <h3 class="sub">Nome para o canal</h3>
+  <div class="card"><ul class="names" style="margin:0;padding-left:1.1em">${names.map(n=>`<li><b>${esc(n[0])}</b><br><span class="small">${esc(n[1])}</span></li>`).join('')}</ul>
+  <p class="small">Antes de decidir, confira se o @ está livre no YouTube e no Instagram.</p></div>
+  <h3 class="sub">Usar sem sinal</h3>
+  <div class="card"><ol style="margin:0;padding-left:1.2em">
+    <li>No Google Maps, baixe áreas offline: Misiones e Corrientes, Salta e Jujuy, Potosí (Uyuni), Antofagasta, Atacama (Copiapó), Catamarca e La Rioja, San Juan e Mendoza.</li>
+    <li>Importe o arquivo KML que acompanha este app no Google My Maps (mymaps.google.com): pernoites, atrações, campings, fronteiras e postos críticos aparecem no seu mapa.</li>
+    <li>No iOverlander, baixe os países Argentina, Bolívia e Chile para consultar campings offline.</li>
+    <li>Adicione esta página à tela inicial e abra uma vez com internet antes de cada trecho sem sinal. Notas e checklists ficam salvos no aparelho.</li>
+    <li>Guarde os PDFs dos seguros e documentos em uma pasta offline.</li></ol></div>
+  <h3 class="sub">Emergência</h3>
+  <div class="card scroll"><table><thead><tr><th>País</th><th>Polícia</th><th>Ambulância</th><th>Bombeiros / rodovia</th></tr></thead><tbody>
+    <tr><td>Brasil</td><td>190</td><td>192</td><td>193 / PRF 191</td></tr>
+    <tr><td>Argentina</td><td>911</td><td>107</td><td>100</td></tr>
+    <tr><td>Bolívia</td><td>110</td><td>118</td><td>119</td></tr>
+    <tr><td>Chile</td><td>133</td><td>131</td><td>132</td></tr></tbody></table></div>
+  <h3 class="sub">Fontes consultadas em outubro de 2026</h3>
+  <div class="card linklist">${sources.map(s=>`<a href="${s[1]}" target="_blank" rel="noopener">${esc(s[0])}</a>`).join('')}</div>`;
+  const conv = ()=>{
+    ['ARS','CLP','BOB','USD'].forEach(c=>rates[c]=Number($('#r-'+c).value)||rates[c]); store.set('rates',rates);
+    const v = Number($('#cv-v').value)||0, c = $('#cv-c').value;
+    const brl = c==='BRL'? v : c==='USD'? v*rates.USD : v/rates[c];
+    const f = (x,d=2)=>x.toLocaleString('pt-BR',{maximumFractionDigits:d});
+    $('#cv-r').innerHTML = `<b>R$ ${f(brl)}</b><br><span class="small">${f(brl*rates.ARS,0)} ARS, ${f(brl*rates.CLP,0)} CLP, ${f(brl*rates.BOB)} Bs, US$ ${f(brl/rates.USD)}</span>`;
+  };
+  ['cv-v','cv-c','r-ARS','r-CLP','r-BOB','r-USD'].forEach(id=>{ $('#'+id).oninput=conv; $('#'+id).onchange=conv; });
+  conv();
+}
+
+/* Live forecast (Open-Meteo): works where the page may reach the internet, e.g. the installed app */
+function fcPoints(d){ const pts=[d.from,...d.route,d.to]; const hi=pts.reduce((a,b)=>S[b][3]>S[a][3]?b:a); const dest=d.to===d.from?hi:d.to; return dest===hi?[dest]:[dest,hi]; }
+async function getFc(id, date){
+  const s=S[id], key='fc:'+s[1].toFixed(2)+','+s[2].toFixed(2)+':'+date, cached=store.get(key,null);
+  if(cached && Date.now()-cached.t < 3*36e5) return {...cached, old:false};
+  const u=`https://api.open-meteo.com/v1/forecast?latitude=${s[1]}&longitude=${s[2]}&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,wind_speed_10m_max,wind_gusts_10m_max&wind_speed_unit=kmh&timezone=auto&start_date=${date}&end_date=${date}`;
+  try{ const r=await fetch(u); if(!r.ok) throw 0; const j=await r.json(); const dd=j.daily;
+    const v={t:Date.now(), max:Math.round(dd.temperature_2m_max[0]), min:Math.round(dd.temperature_2m_min[0]), p:dd.precipitation_probability_max[0]??0, w:Math.round(dd.wind_speed_10m_max[0]), g:Math.round(dd.wind_gusts_10m_max[0])};
+    store.set(key,v); return {...v, old:false};
+  }catch(e){ return cached?{...cached, old:true}:null; }
+}
+async function loadForecasts(){
+  const days=planDays(), now=new Date(); const t0=Date.UTC(now.getFullYear(),now.getMonth(),now.getDate());
+  for(let i=0;i<days.length;i++){
+    const dt=dateOf(i), diff=Math.round((Date.UTC(dt.getUTCFullYear(),dt.getUTCMonth(),dt.getUTCDate())-t0)/864e5);
+    if(diff<0||diff>15) continue;
+    const el=document.querySelector(`[data-fc="${i}"]`); if(!el) continue;
+    const date=iso(dt), out=[];
+    for(const id of fcPoints(days[i])){ const f=await getFc(id,date); if(f) out.push([id,f]); }
+    if(!out.length) continue;
+    el.innerHTML = `<b>${tr('fc_title')}</b>`+out.map(([id,f])=>{ const l=windLvl(f.g); const h=new Intl.DateTimeFormat(LOCALES[LANG],{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}).format(new Date(f.t));
+      return `<div class="wind">${esc(S[id][0].split(' (')[0])}: ${tr('fc_line',{min:f.min,max:f.max,p:f.p,w:f.w,g:f.g})} <span class="wl ${l}">${tr('wl_'+l)}</span><br><span class="small">${f.old?tr('fc_old')+', ':''}${tr('fc_upd',{h})}</span></div>`; }).join('');
+  }
+}
+
+/* Expenses */
+const CATS = ['hosp','comb','ped','ali','pas','out'];
+const CUR_OF = {BR:'BRL',AR:'ARS',CL:'CLP',BO:'BOB'};
+function expStore(){ return store.get('exp',{}); }
+function expTotal(key){ return (expStore()[key]||[]).reduce((s,e)=>s+e.brl,0); }
+function toBRL(v,c){ const r=store.get('rates', D.rates); return c==='BRL'?v:(c==='USD'?v*r.USD:v/r[c]); }
+function dayKey(d){ return plan+':'+(d.uid||d.id); }
+function renderGastos(){
+  const days=planDays(), ex=expStore();
+  let sel=Number(store.get('gday', -1));
+  if(!(sel>=0 && sel<days.length)){ const ti=days.findIndex((d,i)=>iso(dateOf(i))===iso(new Date())); sel = ti>=0?ti:0; }
+  $('#g-day').innerHTML = days.map((d,i)=>`<option value="${i}" ${i===sel?'selected':''}>${dayLabel(i+1)}, ${fmt(dateOf(i))}: ${esc(title(d))}</option>`).join('');
+  $('#g-cat').innerHTML = CATS.map(c=>`<option value="${c}">${tr('cat_'+c)}</option>`).join('');
+  const curSel = store.get('gcur_'+sel, CUR_OF[days[sel].c]||'USD');
+  $('#g-cur').value = curSel;
+  $('#g-pay').innerHTML = ['card','cash','pix'].map(p=>`<option value="${p}">${tr('pay_'+p)}</option>`).join('');
+  $('#g-day').onchange=()=>{ store.set('gday',Number($('#g-day').value)); renderGastos(); };
+  $('#g-cur').onchange=()=>store.set('gcur_'+sel,$('#g-cur').value);
+  $('#g-add').onclick=()=>{
+    const v=Number($('#g-val').value);
+    if(!(v>0)){ $('#g-st').textContent=tr('g_need'); return; }
+    const cur=$('#g-cur').value, e={cat:$('#g-cat').value, desc:$('#g-desc').value.trim(), v, cur, pay:$('#g-pay').value, brl:toBRL(v,cur), t:Date.now()};
+    const all=expStore(), k=dayKey(days[sel]); (all[k]=all[k]||[]).push(e); store.set('exp',all);
+    $('#g-val').value=''; $('#g-desc').value=''; $('#g-st').textContent=''; renderGastos();
+  };
+  const k=dayKey(days[sel]), list=ex[k]||[];
+  const sym={BRL:'R$',ARS:'ARS',CLP:'CLP',BOB:'Bs',USD:'US$'};
+  $('#g-list').innerHTML = list.length ? list.map((e,j)=>`<div class="entry"><div><b>${tr('cat_'+e.cat)}</b>${e.desc?': '+esc(e.desc):''}<br><span class="small">${sym[e.cur]} ${nf.format(e.v)}, ${tr('pay_'+e.pay)}</span></div><div><b>${money(e.brl)}</b></div><button class="x" type="button" data-rm="${j}">${tr('g_remove')}</button></div>`).join('')
+    : `<p class="small" style="margin:0">${tr('g_none')}</p>`;
+  $('#g-list').querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>{ const all=expStore(); (all[k]||[]).splice(Number(b.dataset.rm),1); store.set('exp',all); renderGastos(); });
+  const dayTot = days.map(d=>expTotal(dayKey(d)));
+  const trecho=dayTot[sel], acum=dayTot.slice(0,sel+1).reduce((a,b)=>a+b,0), total=dayTot.reduce((a,b)=>a+b,0);
+  const byCat=(entries)=>{ const o={}; CATS.forEach(c=>o[c]=0); entries.forEach(e=>o[e.cat]+=e.brl); return o; };
+  const allEntries = days.flatMap(d=>ex[dayKey(d)]||[]);
+  const catDay=byCat(list), catAll=byCat(allEntries);
+  const bars=(o)=>{ const mx=Math.max(1,...Object.values(o)); return `<div class="bars">${CATS.map(c=>`<div class="barrow"><span>${tr('cat_'+c)}</span><div class="track"><div class="fill" style="width:${(o[c]/mx*100).toFixed(1)}%"></div></div><span class="v">${money(o[c])}</span></div>`).join('')}</div>`; };
+  const withExp = dayTot.filter(v=>v>0).length;
+  const mxd=Math.max(1,...dayTot);
+  $('#g-res').innerHTML = `
+    <div class="card"><div class="totals">
+      <div><span>${tr('g_trecho')}</span><b>${money(trecho)}</b></div>
+      <div><span>${tr('g_acum')}</span><b>${money(acum)}</b></div>
+      <div><span>${tr('g_total')}</span><b>${money(total)}</b></div></div>
+      ${withExp?`<p class="small" style="margin:10px 0 0">${tr('g_avg')}: <b>${money(total/withExp)}</b></p>`:''}</div>
+    <div class="card"><h3 class="sub" style="margin-top:0">${tr('g_trecho')}</h3>${bars(catDay)}</div>
+    <div class="card"><h3 class="sub" style="margin-top:0">${tr('g_bycat')}, ${tr('g_total').toLowerCase()}</h3>${bars(catAll)}</div>
+    <div class="card"><h3 class="sub" style="margin-top:0">${tr('g_byday')}</h3><div class="bars">${dayTot.map((v,i)=>v?`<div class="barrow"><span>${dayLabel(i+1)}</span><div class="track"><div class="fill" style="width:${(v/mxd*100).toFixed(1)}%;background:var(--flamingo)"></div></div><span class="v">${money(v)}</span></div>`:'').join('') || `<p class="small" style="margin:0">${tr('g_none')}</p>`}</div></div>`;
+}
+
+/* Language */
+function applyStatic(){
+  document.documentElement.lang = LOCALES[LANG];
+  document.querySelectorAll('[data-i]').forEach(el=>{ el.textContent = tr(el.dataset.i); });
+  document.querySelectorAll('[data-iph]').forEach(el=>{ el.placeholder = tr(el.dataset.iph); });
+  document.querySelectorAll('.langnote').forEach(el=>{ el.hidden = LANG==='pt'; });
+  const ls=$('#langsel'); ls.setAttribute('aria-label', tr('lang'));
+  ls.innerHTML = Object.keys(I18N).map(l=>`<option value="${l}" ${l===LANG?'selected':''}>${LANG_NAMES[l]}</option>`).join('');
+  ls.onchange = ()=>{ LANG=ls.value; store.set('lang',LANG); nf=new Intl.NumberFormat(LOCALES[LANG]); renderAll(); };
+}
+
+/* Vehicles and safety */
+const VEH = {
+  adv:{max:550, off:true, sand:true}, trail:{max:450, off:true, sand:true}, street:{max:500, off:false, sand:false},
+  car:{max:650, off:false, sand:false}, x4:{max:600, off:true, sand:true}, van:{max:450, off:false, sand:false}
+};
+const SURF = ['asfalto','ripio','pedras','areia','sal','off'];
+const SURF_PT = {asfalto:'asfalto', ripio:'rípio', pedras:'pedras', areia:'areia', sal:'sal', off:'off-road'};
+function vehicle(){ const v=store.get('vehicle','adv'); return VEH[v]?v:'adv'; }
+function surfOf(d){
+  if(Array.isArray(d.surf) && d.surf.length) return d.surf;
+  const r=(d.road||'').toLowerCase(), s=[];
+  if(r.includes('asfalto')) s.push('asfalto'); if(r.includes('rípio')||r.includes('ripio')) s.push('ripio');
+  if(r.includes('pedra')) s.push('pedras'); if(r.includes('areia')) s.push('areia'); if(r.includes('sal')) s.push('sal'); if(r.includes('off')) s.push('off');
+  return s.length?s:['asfalto'];
+}
+function roadText(surf){ return surf.map(s=>SURF_PT[s]).join(' + '); }
+function safetyBox(d){
+  const s=surfOf(d), v=vehicle(), V=VEH[v], items=[], chips=[];
+  if(s.includes('areia')){ items.push(tr('s_areia')); chips.push(['danger',tr('chip_4x4')]); }
+  if(s.includes('off')){ items.push(tr('s_off')); chips.push(['danger',tr('chip_off')]); }
+  if((s.includes('areia')||s.includes('off')) && !V.sand) items.push('<b>'+tr('s_not_ok')+'</b>');
+  if(s.includes('pedras')) items.push(tr('s_pedras'));
+  if(s.includes('ripio')){ items.push(tr('s_ripio')); if(v==='street') items.push('<b>'+tr('s_not_ok')+'</b>'); }
+  if(s.includes('sal')) items.push(tr('s_sal'));
+  if(maxAlt(d)>=3500) items.push(tr('s_alt'));
+  if(d.km > V.max*1.1) items.push(tr('s_long',{k:nf.format(d.km)}));
+  if(s.includes('areia')||s.includes('off')||s.includes('sal')) items.push('<b>'+tr('s_kit')+'</b>');
+  if(!items.length) return '';
+  return `<div class="box safe"><b>${tr('safety')}</b><span class="small">${tr('safety_for',{v:tr('v_'+v)})}</span>
+    ${chips.length?`<div class="chips">${chips.map(c=>`<span class="wl ${c[0]}">${esc(c[1])}</span>`).join('')}</div>`:''}
+    <ul>${items.map(x=>`<li>${x}</li>`).join('')}</ul></div>`;
+}
+
+/* Route builder */
+const BCTRY = ['BR','AR','BO','CL','PE','UY','PY','XX'];
+function bState(){ const t=new Date(); t.setDate(t.getDate()+30);
+  return store.get('builder',{name:'', start:t.toISOString().slice(0,10), days:'', vehicle:store.get('vehicle','adv'), split:true, pts:[], legs:{}}); }
+function bSave(b){ store.set('builder',b); }
+function bLegs(b){
+  const pts=b.pts; if(pts.length<2) return [];
+  const idx=pts.map((p,i)=>(i===0||i===pts.length-1||p.type==='sleep')?i:-1).filter(i=>i>=0), legs=[];
+  for(let k=0;k<idx.length-1;k++){ const a=idx[k], z=idx[k+1]; const vias=pts.slice(a+1,z).map(p=>p.id);
+    const key=[pts[a].id,...vias,pts[z].id].join('>'); legs.push({key, from:pts[a].id, to:pts[z].id, vias, toPt:pts[z]}); }
+  return legs;
+}
+function legData(b,L){
+  const st=b.legs[L.key]||{};
+  const path=[L.from,...L.vias,L.to];
+  const km = st.km ?? Math.round(pathLen(path)*1.3);
+  return {km, src: st.km!=null ? (st.src||'user') : 'est', dur: st.dur, surf: st.surf||['asfalto'], x4: !!st.x4, notes: st.notes||''};
+}
+function fmtH(h){ return `≈ ${Math.max(1,Math.floor(h))}–${Math.ceil(h+0.5)} h`; }
+function legHours(ld, v){
+  if(ld.dur) return ld.dur;
+  const sps = ld.surf.map(s=>({asfalto:75, ripio:45, pedras:30, areia:28, sal:45, off:25})[s]||60); const sp = sps.reduce((x,y)=>x+y,0)/sps.length;
+  const vf = (v==='van'||v==='street') ? 0.9 : 1;
+  return ld.km/(sp*vf);
+}
+function bDaysPreview(b){
+  const v=b.vehicle||'adv', max=VEH[v].max; let n=0;
+  bLegs(b).forEach(L=>{ const ld=legData(b,L); n += (b.split && ld.km>max*1.15) ? Math.ceil(ld.km/max) : 1; n += Math.max(0,(L.toPt.nights||1)-1); });
+  return n;
+}
+async function geoSearch(q){
+  const u=`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(q)}&count=6&language=${LANG==='zh'?'zh':LANG}&format=json`;
+  const r=await fetch(u); if(!r.ok) throw 0; const j=await r.json(); return (j.results||[]).map(x=>({name:x.name, sub:[x.admin1,x.country].filter(Boolean).join(', '), lat:x.latitude, lng:x.longitude, alt:Math.round(x.elevation||0), c:BCTRY.includes(x.country_code)?x.country_code:'XX'}));
+}
+function addBuilderPoint(p){
+  const b=bState(); let id = knownByName(p.name);
+  if(!id || (p.lat!=null && Math.abs(S[id][1]-p.lat)+Math.abs(S[id][2]-p.lng)>0.5)){
+    id='b'+newUid(); S[id]=[p.name, p.lat, p.lng, p.alt||nearestAlt(p.lat,p.lng), 'pernoite', p.c||'XX', p.clim||null]; CST[id]=S[id]; store.set('cstops',CST);
+  }
+  b.pts.push({id, type:'sleep', nights:1}); bSave(b); renderBuilder();
+}
+function renderBuilder(){
+  const b=bState(), legs=bLegs(b), v=b.vehicle||'adv';
+  const el=$('#builder');
+  const vOpts=Object.keys(VEH).map(k=>`<option value="${k}" ${k===v?'selected':''}>${tr('v_'+k)}</option>`).join('');
+  const cOpts=BCTRY.map(c=>`<option value="${c}">${tr('c_'+c)}</option>`).join('');
+  const ptsHtml = b.pts.length ? b.pts.map((p,i)=>{ const s=S[p.id]||['?',0,0,0]; const first=i===0, last=i===b.pts.length-1;
+    const role = first?tr('b_start_pt'):(last?tr('b_end_pt'):'');
+    const sel = first ? `<span class="small">${role}</span>` : `<select data-bnight="${i}" aria-label="${tr('b_nights')}">${last?'':`<option value="0" ${p.type==='via'?'selected':''}>${tr('b_pass')}</option>`}${[1,2,3,4,5].map(n=>`<option value="${n}" ${p.type==='sleep'&&(p.nights||1)===n?'selected':''}>${n} ${n===1?tr('b_night1'):tr('b_nights')}</option>`).join('')}</select>`;
+    return `<div class="bpt"><span class="bn">${i+1}</span><div class="bt"><b>${esc(s[0])}</b><br><span class="small">${s[1].toFixed(3)}, ${s[2].toFixed(3)}, ${nf.format(s[3])} m${last&&!first?', '+role:''}</span></div>
+      ${sel}<div class="bact"><button class="btn" type="button" data-bup="${i}" aria-label="${tr('b_up')}" ${first?'disabled':''}>↑</button><button class="btn" type="button" data-bdown="${i}" aria-label="${tr('b_down')}" ${last?'disabled':''}>↓</button><button class="btn" type="button" data-brm="${i}" aria-label="${tr('b_remove')}">×</button></div></div>`; }).join('')
+    : `<p class="small" style="margin:0">${tr('b_empty')}</p>`;
+  const legsHtml = legs.map((L,k)=>{ const ld=legData(b,L); const h=legHours(ld,v);
+    const srcT = ld.src==='osrm'?tr('b_km_src_osrm'):tr('src_'+ld.src);
+    return `<div class="bleg"><div><b>${esc(S[L.from][0])} ${tr('to')} ${esc(S[L.to][0])}</b>${L.vias.length?`<br><span class="small">${tr('passing')} ${L.vias.map(x=>esc(S[x][0])).join(', ')}</span>`:''}</div>
+      <div class="bkm"><label class="kmedit">km <input type="number" min="0" step="10" data-lkm="${k}" value="${ld.km}"></label><span class="small">${srcT}, ${fmtH(h)}</span></div>
+      <div class="chips" role="group" aria-label="${tr('b_surface')}">${SURF.map(s=>`<button type="button" class="sf ${ld.surf.includes(s)?'on':''}" data-lsurf="${k}:${s}" aria-pressed="${ld.surf.includes(s)}">${tr('surf_'+s)}</button>`).join('')}
+      <label class="small" style="display:inline-flex;gap:4px;align-items:center;margin-left:4px"><input type="checkbox" data-lx4="${k}" ${ld.x4?'checked':''}> ${tr('b_x4')}</label></div>
+      ${ld.notes?`<p class="small" style="margin:6px 0 0">${esc(ld.notes)}</p>`:''}</div>`; }).join('');
+  const nd=bDaysPreview(b), target=Number(b.days)||0, totKm=legs.reduce((s,L)=>s+legData(b,L).km,0);
+  const diff = target ? nd-target : 0;
+  el.innerHTML = `
+  <div class="card"><h3 class="sub" style="margin-top:0">${tr('b_trip')}</h3>
+    <div class="field"><label for="b-name">${tr('b_name')}</label><input type="text" id="b-name" class="tin" value="${esc(b.name)}" placeholder="${tr('b_name_ph')}"></div>
+    <div class="grid2" style="margin-top:10px">
+      <div class="field"><label for="b-start">${tr('b_start')}</label><input type="date" id="b-start" class="tin" value="${b.start}"></div>
+      <div class="field"><label for="b-days">${tr('b_days')}</label><input type="number" id="b-days" min="1" max="365" value="${b.days}" placeholder="${tr('b_days_ph')}"></div>
+    </div>
+    <div class="field" style="margin-top:10px"><label for="b-veh">${tr('b_vehicle')}</label><select id="b-veh">${vOpts}</select></div>
+  </div>
+  <div class="card"><h3 class="sub" style="margin-top:0">${tr('b_points')}</h3>
+    <div id="b-pts">${ptsHtml}</div>
+    <div class="badd">
+      <div class="field"><label for="b-q">${tr('b_search')}</label><input type="text" id="b-q" class="tin" list="a-known" placeholder="${tr('b_search_ph')}"></div>
+      <div class="field" style="margin-top:8px"><input type="text" id="b-coord" class="tin" placeholder="${tr('b_coord_ph')}" aria-label="${tr('s_coord')}"></div>
+      <div class="grid2" style="margin-top:8px"><div class="field"><select id="b-c" aria-label="${tr('s_c')}">${cOpts}</select></div>
+      <div class="actions" style="margin-top:0"><button class="btn primary" type="button" id="b-go">${tr('b_add')}</button></div></div>
+      <div id="b-res" class="small" style="margin-top:8px"></div>
+    </div>
+  </div>
+  ${legs.length?`<div class="card"><h3 class="sub" style="margin-top:0">${tr('b_legs')}</h3>
+    <div class="actions" style="margin-top:0;margin-bottom:8px"><button class="btn" type="button" id="b-calc">${tr('b_calc')}</button><button class="btn" type="button" id="b-ai" ${SAMPLE?'':'hidden'}>${tr('b_claude')}</button></div>
+    <div id="b-st" class="small"></div>${legsHtml}</div>
+  <div class="card"><h3 class="sub" style="margin-top:0">${tr('b_summary')}</h3>
+    <p style="margin:0"><b>${tr('b_days_total',{n:nd})}</b>, ${nf.format(totKm)} km${target?`. ${diff>0?'<b>'+tr('b_over',{n:diff})+'</b>':tr('b_under',{n:-diff})}`:''}</p>
+    <label class="check" style="border:0"><input type="checkbox" id="b-split" ${b.split?'checked':''}><span>${tr('b_split')} (${nf.format(VEH[v].max)} km)</span></label>
+    <div class="actions"><button class="btn primary" type="button" id="b-gen">${tr('b_gen')}</button></div><div id="b-done" class="small"></div></div>`:''}`;
+  // trip fields
+  $('#b-name').oninput=()=>{ const x=bState(); x.name=$('#b-name').value; bSave(x); };
+  $('#b-start').onchange=()=>{ const x=bState(); x.start=$('#b-start').value; bSave(x); };
+  $('#b-days').onchange=()=>{ const x=bState(); x.days=$('#b-days').value; bSave(x); renderBuilder(); };
+  $('#b-veh').onchange=()=>{ const x=bState(); x.vehicle=$('#b-veh').value; store.set('vehicle',x.vehicle); bSave(x); renderBuilder(); };
+  // points
+  el.querySelectorAll('[data-bnight]').forEach(s=>s.onchange=()=>{ const x=bState(), p=x.pts[Number(s.dataset.bnight)], n=Number(s.value); if(n===0){p.type='via';} else {p.type='sleep'; p.nights=n;} bSave(x); renderBuilder(); });
+  el.querySelectorAll('[data-bup]').forEach(bt=>bt.onclick=()=>{ const x=bState(), i=Number(bt.dataset.bup); [x.pts[i-1],x.pts[i]]=[x.pts[i],x.pts[i-1]]; bSave(x); renderBuilder(); });
+  el.querySelectorAll('[data-bdown]').forEach(bt=>bt.onclick=()=>{ const x=bState(), i=Number(bt.dataset.bdown); [x.pts[i+1],x.pts[i]]=[x.pts[i],x.pts[i+1]]; bSave(x); renderBuilder(); });
+  el.querySelectorAll('[data-brm]').forEach(bt=>bt.onclick=()=>{ const x=bState(); x.pts.splice(Number(bt.dataset.brm),1); bSave(x); renderBuilder(); });
+  $('#b-go').onclick=async()=>{
+    const q=$('#b-q').value.trim(), c=parseCoord($('#b-coord').value), res=$('#b-res');
+    if(!q && !c){ res.textContent=tr('b_search_ph'); return; }
+    const known=knownByName(q);
+    if(known && !c){ const s=S[known]; addBuilderPoint({name:s[0], lat:s[1], lng:s[2], alt:s[3], c:ctryOf(known)}); return; }
+    if(c){ addBuilderPoint({name:q||`${c[0].toFixed(3)}, ${c[1].toFixed(3)}`, lat:c[0], lng:c[1], c:$('#b-c').value}); return; }
+    res.textContent='...';
+    try{ const list=await geoSearch(q);
+      if(!list.length){ res.textContent=tr('b_none_found'); return; }
+      res.innerHTML = `<div style="margin-bottom:4px">${tr('b_pick')}</div>`+list.map((x,i)=>`<button type="button" class="btn" style="margin:3px 4px 3px 0" data-gpick="${i}">${esc(x.name)}<span class="small">&nbsp;${esc(x.sub)}</span></button>`).join('');
+      res.querySelectorAll('[data-gpick]').forEach(bt=>bt.onclick=()=>addBuilderPoint(list[Number(bt.dataset.gpick)]));
+    }catch(e){ res.textContent=tr('b_offline_geo'); }
+  };
+  if(!legs.length) return;
+  // legs
+  el.querySelectorAll('[data-lkm]').forEach(inp=>inp.onchange=()=>{ const x=bState(), L=bLegs(x)[Number(inp.dataset.lkm)]; const st=x.legs[L.key]=x.legs[L.key]||{}; st.km=Math.max(0,Math.round(Number(inp.value)||0)); st.src='user'; delete st.dur; bSave(x); renderBuilder(); });
+  el.querySelectorAll('[data-lsurf]').forEach(bt=>bt.onclick=()=>{ const [k,s]=bt.dataset.lsurf.split(':'); const x=bState(), L=bLegs(x)[Number(k)]; const st=x.legs[L.key]=x.legs[L.key]||{}; const cur=new Set(st.surf||['asfalto']);
+    cur.has(s)?cur.delete(s):cur.add(s); if(!cur.size) cur.add('asfalto'); st.surf=SURF.filter(z=>cur.has(z)); bSave(x); renderBuilder(); });
+  el.querySelectorAll('[data-lx4]').forEach(cb=>cb.onchange=()=>{ const x=bState(), L=bLegs(x)[Number(cb.dataset.lx4)]; const st=x.legs[L.key]=x.legs[L.key]||{}; st.x4=cb.checked; if(cb.checked){ const sset=new Set(st.surf||['asfalto']); sset.add('off'); st.surf=SURF.filter(z=>sset.has(z)); } bSave(x); renderBuilder(); });
+  $('#b-split').onchange=()=>{ const x=bState(); x.split=$('#b-split').checked; bSave(x); renderBuilder(); };
+  $('#b-calc').onclick=async()=>{
+    const x=bState(), st=$('#b-st'); st.textContent=tr('b_calc_wait'); let ok=0;
+    for(const L of bLegs(x)){
+      const coords=[L.from,...L.vias,L.to].map(id=>`${S[id][2]},${S[id][1]}`).join(';');
+      try{ const r=await fetch(`https://router.project-osrm.org/route/v1/driving/${coords}?overview=false`); if(!r.ok) throw 0; const j=await r.json();
+        if(j.routes && j.routes[0]){ const s0=x.legs[L.key]=x.legs[L.key]||{}; s0.km=Math.round(j.routes[0].distance/1000); s0.dur=j.routes[0].duration/3600*1.25; s0.src='osrm';
+          const avg=s0.km/(j.routes[0].duration/3600); if(avg<45 && !(s0.surf||[]).includes('ripio')){ s0.notes=(s0.notes?s0.notes+' ':'')+'Velocidade média baixa na rota: pode haver rípio ou serra. Confira o piso.'; } ok++; }
+      }catch(e){}
+    }
+    bSave(x); renderBuilder(); $('#b-st').textContent = ok?'':tr('b_offline_geo');
+  };
+  if($('#b-ai')) $('#b-ai').onclick=async()=>{
+    const x=bState(), Ls=bLegs(x), st=$('#b-st'); st.textContent=tr('b_claude_wait'); $('#b-ai').disabled=true;
+    const month=new Intl.DateTimeFormat('pt-BR',{month:'long'}).format(new Date(x.start+'T12:00:00Z'));
+    const pts=x.pts.map((p,i)=>({i, name:S[p.id][0], lat:S[p.id][1], lng:S[p.id][2]}));
+    const legsIn=Ls.map((L,k)=>({k, from:S[L.from][0], to:S[L.to][0], via:L.vias.map(v=>S[v][0])}));
+    try{
+      const r=await SAMPLE.json(`Você planeja viagens por terra (veículo: ${tr('v_'+(x.vehicle||'adv'))}). Mês da viagem: ${month}. Pontos (coordenadas aproximadas, corrija se estiverem erradas): ${JSON.stringify(pts)}. Trechos: ${JSON.stringify(legsIn)}. Responda somente JSON: {"points":[{"i":number,"lat":number,"lng":number,"alt_m":number,"country":"BR"|"AR"|"BO"|"CL"|"PE"|"UY"|"PY"|"XX","min_c":number,"max_c":number,"rain_pct":number,"wind_kmh":number,"gust_kmh":number}],"legs":[{"k":number,"km":number,"hours":number,"surfaces":["asfalto"|"ripio"|"pedras"|"areia"|"sal"|"off"],"needs_4x4":boolean,"notes":"até 20 palavras em português sobre segurança, combustível ou fronteira"}]}. Clima = médias históricas do mês da viagem. Km e horas pela estrada mais usada.`, {modelTier:'default'});
+      (r.points||[]).forEach(q=>{ const p=x.pts[q.i]; if(!p||typeof q.lat!=='number') return; const s=S[p.id];
+        if(CST[p.id]){ s[1]=q.lat; s[2]=q.lng; if(q.alt_m) s[3]=Math.round(q.alt_m); if(BCTRY.includes(q.country)) s[5]=q.country;
+          s[6]=[s[0], s[3], Math.round(q.max_c), Math.round(q.min_c), Math.round(q.rain_pct||0), 'Estimativa de Claude para '+month, s[5]||'XX', s[1], s[2], Math.round(q.wind_kmh||0), Math.round(q.gust_kmh||0), 'c', new Date(x.start+'T12:00:00Z').getUTCMonth()]; CST[p.id]=s; } });
+      store.set('cstops',CST);
+      (r.legs||[]).forEach(q=>{ const L=Ls[q.k]; if(!L) return; const s0=x.legs[L.key]=x.legs[L.key]||{};
+        if(s0.src!=='user' && q.km){ s0.km=Math.round(q.km); s0.src=s0.src==='osrm'?'osrm':'claude'; if(q.hours && s0.src==='claude') s0.dur=q.hours; }
+        if(Array.isArray(q.surfaces)&&q.surfaces.length) s0.surf=SURF.filter(z=>q.surfaces.includes(z));
+        s0.x4=!!q.needs_4x4; if(s0.x4 && !s0.surf.includes('off')) s0.surf.push('off'); if(q.notes) s0.notes=q.notes; });
+      bSave(x); renderBuilder();
+    }catch(e){ st.textContent = e&&e.code==='not_granted' ? 'Sem permissão para consultar Claude.' : 'Não foi possível consultar Claude agora.'; $('#b-ai').disabled=false; }
+  };
+  armTwice($('#b-gen'), store.get('novaDays',null)?tr('b_gen_confirm'):tr('b_gen'), generateRoute);
+  if(!store.get('novaDays',null)) $('#b-gen').onclick=generateRoute;
+}
+function interpAt(path, f){
+  const seg=[]; let tot=0; for(let i=1;i<path.length;i++){ const d=hav(path[i-1],path[i]); seg.push(d); tot+=d; }
+  let need=f*tot; for(let i=0;i<seg.length;i++){ if(need<=seg[i]||i===seg.length-1){ const a=S[path[i]], z=S[path[i+1]], t=seg[i]?Math.min(1,need/seg[i]):0;
+      return {lat:a[1]+(z[1]-a[1])*t, lng:a[2]+(z[2]-a[2])*t, alt:Math.round(a[3]+(z[3]-a[3])*t), c: t<0.5?ctryOf(path[i]):ctryOf(path[i+1])}; } need-=seg[i]; }
+  const z=S[path[path.length-1]]; return {lat:z[1],lng:z[2],alt:z[3],c:ctryOf(path[path.length-1])};
+}
+function generateRoute(){
+  const b=bState(), v=b.vehicle||'adv', max=VEH[v].max, out=[];
+  bLegs(b).forEach(L=>{
+    const ld=legData(b,L), path=[L.from,...L.vias,L.to];
+    const n=(b.split && ld.km>max*1.15)?Math.ceil(ld.km/max):1;
+    const hTot=legHours(ld,v);
+    let prev=L.from;
+    for(let j=1;j<=n;j++){
+      let to=L.to;
+      if(j<n){ const p=interpAt(path,j/n); to='v'+newUid(); S[to]=[`${tr('to_define')} (${S[L.from][0].split(' (')[0]} → ${S[L.to][0].split(' (')[0]}, km ${nf.format(Math.round(ld.km*j/n))})`, p.lat, p.lng, p.alt, 'pernoite', p.c, null]; CST[to]=S[to]; }
+      const day={from:prev, to, route: n===1?L.vias.slice():[], km:Math.round(ld.km/n), kmEst: ld.src!=='osrm'&&ld.src!=='user', h:fmtH(hTot/n), road:roadText(ld.surf), surf:ld.surf.slice(), c:ctryOf(to), sleep:to,
+        see: ld.notes&&j===1?[ld.notes]:[], id:'custom', uid:newUid()};
+      if(ld.x4) day.alert=tr('s_off');
+      out.push(day); prev=to;
+    }
+    for(let r=1;r<(L.toPt.nights||1);r++) out.push({from:L.to,to:L.to,route:[],km:0,h:'dia livre',road:'asfalto',surf:['asfalto'],c:ctryOf(L.to),sleep:L.to,see:[],id:'custom',uid:newUid()});
+  });
+  store.set('cstops',CST);
+  store.set('novaDays', out); store.set('novaMeta', {name:b.name||tr('h_criar'), start:b.start, days:Number(b.days)||0, vehicle:v});
+  store.set('vehicle', v);
+  plan='nova'; store.set('plan2','nova'); renderAll(); location.hash='roteiro';
+}
+
+/* Tabs and hash */
+const TABS = ['criar','roteiro','dormir','gastos','estrada','docs','clima','extra'];
+function showTab(){
+  let h = (location.hash||'').slice(1);
+  let t = TABS.includes(h)? h : (h.startsWith('d-')? 'roteiro' : 'roteiro');
+  TABS.forEach(x=>{ $('#t-'+x).classList.toggle('on',x===t); });
+  $('#profile').style.display = t==='roteiro'?'':'none'; $('#stats').style.display = t==='roteiro'?'':'none';
+  document.querySelectorAll('nav.tabs a').forEach(a=>a.setAttribute('aria-current', (a.dataset.t===t || (t==='clima'&&a.dataset.t==='extra'))?'page':'false'));
+  if(t==='dormir') renderCitySel();
+  if(t==='gastos') renderGastos();
+  if(t==='criar') renderBuilder();
+  if(h.startsWith('d-')){ const el=document.getElementById(h); if(el) el.scrollIntoView({block:'start'}); }
+  else window.scrollTo(0,0);
+}
+function renderAll(){ applyStatic(); renderSeg(); renderProfile(); renderStats(); renderDays(); renderRoad(); renderDocs(); renderClima(); renderExtra(); showTab(); }
+window.addEventListener('hashchange', showTab);
+renderAll();
+(async()=>{ try{ if(window.claude && typeof window.claude.use==='function'){ SAMPLE = await window.claude.use('sample'); } }catch(e){ SAMPLE=null; } })();
+if('serviceWorker' in navigator){ window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{})); }
+</script>
+</body>
+</html>
