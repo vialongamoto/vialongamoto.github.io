@@ -994,7 +994,7 @@ details.lib summary{cursor:pointer;font:600 1.15rem var(--display);display:flex;
 .dtr .btn.trash{padding:4px 7px}
 .crit summary{cursor:pointer;display:flex;justify-content:space-between;align-items:center;font:600 1.15rem var(--display)}
 .crit .cnt{font:600 .8rem var(--text);color:var(--amber);background:var(--amberbg);padding:2px 8px;border-radius:999px}
-.cprow{display:grid;grid-template-columns:auto auto 1fr;gap:8px;align-items:start;padding:9px 0;border-top:1px solid var(--line);font-size:.92rem}
+.cprow{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:start;padding:9px 0;border-top:1px solid var(--line);font-size:.92rem}
 .cprow:first-of-type{border-top:0}
 .cprow.cp-warn .cpday{background:var(--amberbg);color:var(--amber)}
 .cpmore{margin-top:4px;border-top:1px solid var(--line);padding-top:8px}
@@ -1022,6 +1022,16 @@ details.conv[open] summary{margin-bottom:10px}
 .prod{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;text-decoration:none;color:var(--ink);background:var(--bg)}
 .prod b{grid-column:1} .prod span{grid-column:1;font-size:.85rem;color:var(--muted)} .prod em{grid-column:2;grid-row:1 / 3;align-self:center;font-style:normal;font:600 .85rem var(--text);color:var(--laguna)}
 .tipdose{font-size:.88rem;background:var(--amberbg);color:var(--ink);padding:8px 10px;border-radius:10px}
+.alerts{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:10px;padding:8px 10px;border-radius:12px;background:var(--amberbg)}
+.ali{font-size:1.1rem;color:var(--amber)}
+.alc{border:1px solid color-mix(in srgb,var(--amber) 45%,transparent);background:var(--surface);color:var(--ink);border-radius:999px;padding:3px 10px;font:600 .82rem var(--text);cursor:pointer}
+.wsign{color:var(--amber)}
+.tip.tipwarn{border-left:4px solid var(--amber)}
+.tip.flash{box-shadow:0 0 0 3px var(--flamingo)}
+.tipdays{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px}
+.tipctx.col{flex-direction:column;align-items:stretch}
+.tip .linklist a{padding:8px 0}
+.msg.bot{white-space:pre-line}
 #toast{position:fixed;left:50%;transform:translateX(-50%) translateY(20px);bottom:calc(78px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);border-radius:12px;padding:10px 14px;display:flex;gap:14px;align-items:center;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:50;max-width:calc(100% - 32px);font-size:.95rem}
 #toast.on{opacity:1;transform:translateX(-50%);pointer-events:auto}
 #toast button{background:none;border:0;color:var(--bg);font:700 .95rem var(--text);text-decoration:underline;cursor:pointer;padding:4px}
@@ -1364,6 +1374,12 @@ Object.assign(I18N.es,{"tab_dicas": "Consejos", "h_dicas": "Consejos para tu via
 Object.assign(I18N.it,{"tab_dicas": "Consigli", "h_dicas": "Consigli per il tuo viaggio", "lead_dicas": "Costruiti dal tuo itinerario e dal tuo veicolo: prodotti, come e quando usarli. Cambi percorso o veicolo, cambiano i consigli.", "h_extra": "Impostazioni e altro", "conv_h": "Convertitore di valuta", "t_day": "giorno", "t_days": "giorni", "t_dose": "Per il tuo serbatoio da {t} L: i flaconi per auto trattano circa {l} L, quindi usa circa il {p}% del flacone. Controlla sempre l’etichetta e non esagerare.", "t_dose_label": "Segui la dose in etichetta per il tuo serbatoio; troppo additivo peggiora la combustione.", "t_oct_t": "Carburante e ottani per la {v}", "t_oct_why_bo": "Il tuo percorso passa in Bolivia ({d}) e il motore chiede {r} RON.", "t_oct_why": "Il manuale chiede almeno {r} RON.", "t_when_days": "Nei {d}.", "t_when_low": "Quando c’è solo benzina sotto quanto chiede il manuale.", "t_clean_t": "Pulizia dell’impianto ed etanolo", "t_clean_why": "La {v} parte dal Brasile, dove la benzina ha molto etanolo.", "t_clean_when": "Prima del viaggio e poi ogni 2 o 3 pieni; non a ogni rifornimento.", "t_bo_t": "Fare benzina in Bolivia", "t_bo_why": "Il percorso entra in Bolivia nei {d}.", "t_gap_t": "Autonomia e tanica", "t_gap_why": "Ci sono tratti senza distributori nei {d}; il più lungo è di {k} km.", "t_gap_body": "Con la {v}, l’autonomia sicura su asfalto è di circa {r} km e la tua tanica è da {e} L. I punti critici dell’Itinerario mostrano i litri extra di ogni tappa.", "t_alt_t": "Quota: motore e corpo", "t_alt_why": "Superi i 3.500 m nei {d}.", "t_salt_t": "Sale e corrosione", "t_salt_why": "Il percorso attraversa il sale nei {d}.", "t_tyre_t": "Gomme su sterrato e sabbia", "t_tyre_why": "C’è sterrato o sabbia nei {d}.", "t_cold_t": "Freddo intenso", "t_cold_why": "Temperature sotto zero previste nei {d}.", "t_wind_t": "Vento forte", "t_wind_why": "Raffiche da 60 km/h in su nei {d}.", "t_diesel_t": "Diesel al freddo", "t_diesel_why": "Il tuo veicolo è diesel e il percorso ha quota e freddo.", "t_flex_t": "Flex fuori dal Brasile", "t_flex_why": "Il tuo veicolo è flex e il viaggio esce dal Brasile.", "t_border_t": "Frontiere", "t_border_why": "Attraversi frontiere nei {d}.", "t_how": "Come usare", "t_when": "Quando:", "t_prod": "Prodotti di riferimento", "t_buy": "Cerca", "t_ctx": "Consigli per {r} con {v}.", "t_none": "Nessun consiglio speciale per questo percorso e veicolo.", "t_ai_h": "Consigli extra di Claude", "t_ai_btn": "Genera consigli personalizzati con Claude", "t_disclaimer": "I prodotti sono esempi per facilitare la ricerca, senza sponsorizzazioni. Segui sempre il manuale del costruttore."});
 Object.assign(I18N.de,{"tab_dicas": "Tipps", "h_dicas": "Tipps für deine Reise", "lead_dicas": "Aus deiner Route und deinem Fahrzeug erstellt: Produkte, Anwendung und Zeitpunkt. Ändern sich Route oder Fahrzeug, ändern sich die Tipps.", "h_extra": "Einstellungen und mehr", "conv_h": "Währungsrechner", "t_day": "Tag", "t_days": "Tage", "t_dose": "Für deinen {t}-L-Tank: Pkw-Flaschen reichen meist für etwa {l} L, nimm also rund {p} % der Flasche. Immer das Etikett prüfen und nicht überdosieren.", "t_dose_label": "Dosis laut Etikett für deine Tankgröße; zu viel Additiv stört die Verbrennung.", "t_oct_t": "Kraftstoff und Oktan für die {v}", "t_oct_why_bo": "Deine Route führt durch Bolivien ({d}) und dein Motor braucht {r} ROZ.", "t_oct_why": "Das Handbuch verlangt mindestens {r} ROZ.", "t_when_days": "An {d}.", "t_when_low": "Wenn nur Benzin unter der Vorgabe des Handbuchs verfügbar ist.", "t_clean_t": "Reinigung und Ethanol", "t_clean_why": "Die {v} startet in Brasilien, wo Benzin viel Ethanol enthält.", "t_clean_when": "Vor der Reise und dann alle 2 bis 3 Tankfüllungen; nicht bei jedem Tanken.", "t_bo_t": "Tanken in Bolivien", "t_bo_why": "Deine Route führt an {d} nach Bolivien.", "t_gap_t": "Reichweite und Kanister", "t_gap_why": "An {d} gibt es Abschnitte ohne Tankstelle; der längste hat {k} km.", "t_gap_body": "Mit der {v} liegt die sichere Reichweite auf Asphalt bei etwa {r} km, dein Kanister fasst {e} L. Die kritischen Punkte im Tab Route zeigen die Extraliter je Etappe.", "t_alt_t": "Höhe: Motor und Körper", "t_alt_why": "Du bist an {d} über 3.500 m.", "t_salt_t": "Salz und Korrosion", "t_salt_why": "Deine Route quert Salz an {d}.", "t_tyre_t": "Reifen auf Schotter und Sand", "t_tyre_why": "Schotter oder Sand an {d}.", "t_cold_t": "Starke Kälte", "t_cold_why": "Minusgrade erwartet an {d}.", "t_wind_t": "Starker Wind", "t_wind_why": "Böen ab 60 km/h an {d}.", "t_diesel_t": "Diesel in der Kälte", "t_diesel_why": "Dein Fahrzeug fährt Diesel und die Route hat Höhe und Kälte.", "t_flex_t": "Flex außerhalb Brasiliens", "t_flex_why": "Dein Fahrzeug ist flex und die Reise verlässt Brasilien.", "t_border_t": "Grenzen", "t_border_why": "Du überquerst Grenzen an {d}.", "t_how": "Anwendung", "t_when": "Wann:", "t_prod": "Referenzprodukte", "t_buy": "Suchen", "t_ctx": "Tipps für {r} mit {v}.", "t_none": "Keine besonderen Tipps für diese Route und dieses Fahrzeug.", "t_ai_h": "Zusätzliche Tipps von Claude", "t_ai_btn": "Persönliche Tipps mit Claude erstellen", "t_disclaimer": "Die Produkte sind Beispiele zur Suche, ohne Sponsoring. Folge immer dem Handbuch des Herstellers."});
 Object.assign(I18N.zh,{"tab_dicas": "建议", "h_dicas": "旅行建议", "lead_dicas": "根据你的行程和车辆生成：产品、用法和时机。路线或车辆一变，建议也会更新。", "h_extra": "设置与更多", "conv_h": "货币换算", "t_day": "第", "t_days": "第", "t_dose": "你的油箱为 {t} 升：汽车用瓶装通常可处理约 {l} 升，因此约用一瓶的 {p}%。请务必查看标签，不要过量。", "t_dose_label": "按标签剂量和油箱容量使用；添加剂过量会影响燃烧。", "t_oct_t": "{v} 的燃油与辛烷值", "t_oct_why_bo": "你的路线经过玻利维亚（{d} 天），发动机需要 {r} RON。", "t_oct_why": "说明书要求至少 {r} RON。", "t_when_days": "在{d} 天。", "t_when_low": "只有低于说明书要求的汽油时。", "t_clean_t": "燃油系统清洁与乙醇", "t_clean_why": "{v} 从巴西出发，那里的汽油乙醇含量高。", "t_clean_when": "出发前使用，之后每 2 到 3 箱一次；不必每次加油都用。", "t_bo_t": "在玻利维亚加油", "t_bo_why": "你的路线在{d} 天进入玻利维亚。", "t_gap_t": "续航与备用油桶", "t_gap_why": "{d} 天有无加油站路段；最长 {k} 公里。", "t_gap_body": "使用 {v}，柏油路上的安全续航约 {r} 公里，油桶为 {e} 升。“路线”页的关键点列出每段需额外携带的升数。", "t_alt_t": "海拔：发动机与身体", "t_alt_why": "你在{d} 天超过 3500 米。", "t_salt_t": "盐与腐蚀", "t_salt_why": "你的路线在{d} 天经过盐滩。", "t_tyre_t": "碎石与沙地轮胎", "t_tyre_why": "{d} 天有碎石或沙地。", "t_cold_t": "严寒", "t_cold_why": "{d} 天预计零度以下。", "t_wind_t": "大风", "t_wind_why": "{d} 天阵风达 60 公里/时以上。", "t_diesel_t": "低温下的柴油", "t_diesel_why": "你的车辆用柴油，路线有高海拔和寒冷。", "t_flex_t": "巴西境外的灵活燃料车", "t_flex_why": "你的车辆是灵活燃料车，行程会离开巴西。", "t_border_t": "边境", "t_border_why": "你在{d} 天过境。", "t_how": "用法", "t_when": "时机：", "t_prod": "参考产品", "t_buy": "搜索", "t_ctx": "{r} 搭配 {v} 的建议。", "t_none": "此路线和车辆没有特别建议。", "t_ai_h": "Claude 的补充建议", "t_ai_btn": "用 Claude 生成个性化建议", "t_disclaimer": "产品仅为便于搜索的示例，无赞助。请始终遵循车辆制造商的说明书。"});
+Object.assign(I18N.pt,{"d_alerts": "Atenção", "see_tip": "Ver dica", "t_problem": "Problema", "t_solution": "O que fazer", "t_help": "Ajuda e onde resolver", "t_route": "Roteiro analisado", "t_countries": "Países", "t_summary": "{a} pontos de atenção em {d} dias", "t_auto": "Analisado automaticamente a partir da rota, do clima, do piso e do seu veículo."});
+Object.assign(I18N.en,{"d_alerts": "Heads up", "see_tip": "See tip", "t_problem": "Problem", "t_solution": "What to do", "t_help": "Help and where to sort it", "t_route": "Itinerary analysed", "t_countries": "Countries", "t_summary": "{a} points of attention over {d} days", "t_auto": "Analysed automatically from the route, weather, road surface and your vehicle."});
+Object.assign(I18N.es,{"d_alerts": "Atención", "see_tip": "Ver consejo", "t_problem": "Problema", "t_solution": "Qué hacer", "t_help": "Ayuda y dónde resolverlo", "t_route": "Itinerario analizado", "t_countries": "Países", "t_summary": "{a} puntos de atención en {d} días", "t_auto": "Analizado automáticamente a partir de la ruta, el clima, la calzada y tu vehículo."});
+Object.assign(I18N.it,{"d_alerts": "Attenzione", "see_tip": "Vedi consiglio", "t_problem": "Problema", "t_solution": "Cosa fare", "t_help": "Aiuto e dove risolvere", "t_route": "Itinerario analizzato", "t_countries": "Paesi", "t_summary": "{a} punti di attenzione in {d} giorni", "t_auto": "Analizzato automaticamente da percorso, meteo, fondo stradale e veicolo."});
+Object.assign(I18N.de,{"d_alerts": "Achtung", "see_tip": "Tipp ansehen", "t_problem": "Problem", "t_solution": "Was tun", "t_help": "Hilfe und Lösungen", "t_route": "Analysierte Route", "t_countries": "Länder", "t_summary": "{a} Achtungspunkte an {d} Tagen", "t_auto": "Automatisch aus Route, Wetter, Belag und Fahrzeug analysiert."});
+Object.assign(I18N.zh,{"d_alerts": "注意", "see_tip": "查看建议", "t_problem": "问题", "t_solution": "怎么做", "t_help": "帮助与解决途径", "t_route": "分析的行程", "t_countries": "国家", "t_summary": "{d} 天中有 {a} 个注意点", "t_auto": "根据路线、天气、路面和车辆自动分析。"});
 const LOCALES = {pt:'pt-BR',en:'en-GB',es:'es-AR',it:'it-IT',de:'de-DE',zh:'zh-CN'};
 const LANG_NAMES = {pt:'Português',en:'English',es:'Español',it:'Italiano',de:'Deutsch',zh:'中文'};
 
@@ -1519,6 +1535,7 @@ function renderStats(){
 function renderDays(){
   const days = planDays(); const done = store.get('done',{}); const notes = store.get('notes',{});
   const todayIso = iso(new Date());
+  _anCache=null;
   $('#wsum').innerHTML = weatherSummary(); $('#mleg').innerHTML = legendHtml(); $('#crit').innerHTML = criticalCard(true);
   $('#days').innerHTML = days.map((d,i)=>{
     const dt = dateOf(i), key = plan+':'+(d.uid||d.id), isToday = iso(dt)===todayIso, ed = plan==='meu'||plan==='nova';
@@ -1530,9 +1547,10 @@ function renderDays(){
     return `<article class="day tl ${done[key]?'done':''} ${isToday?'today':''}" id="d-${i+1}">
       <span class="tldot" style="border-color:${statusColor(w.status)}"></span>
       <div class="dcard">
-      <div class="dtop"><div class="dtt"><span class="dno">${dayLabel(i+1)}, ${fmt(dt)}${isToday?', '+tr('today'):''}</span><h3>${esc(title(d))}</h3></div>
+      <div class="dtop"><div class="dtt"><span class="dno">${dayLabel(i+1)}, ${fmt(dt)}${isToday?', '+tr('today'):''}</span><h3>${dayIssues(i+1).some(x=>x.sev==='warn')?'<span class="wsign" title="'+tr('d_alerts')+'">⚠</span> ':''}${esc(title(d))}</h3></div>
         <div class="dright"><div class="dtr"><span class="dtemp">${w.tmax!=null?w.tmax+'°':''}</span>${ed&&days.length>1?trashBtn(`data-del="${i}"`, tr('del_day_any')):''}</div><span class="dchip">${d.km?nf.format(d.km)+' km':esc(tr('free_day'))}</span></div></div>
       ${weatherPart(d,i)}
+      ${alertRow(i+1)}
       <div class="chips">${chips}${flags}</div>
       <details class="dmore" ${isToday?'open':''}><summary>${tr('d_more')}</summary>
       <ul>${d.see.map(s=>`<li>${esc(s)}</li>`).join('')}</ul>
@@ -2846,6 +2864,7 @@ function dataAnswer(q){
   if(/quantos km|quantos dias|how many (km|days)|cu[aá]ntos (km|d[ií]as)/.test(ql)){ const km=days.reduce((s,d)=>s+(d.km||0),0); return {text:`${titleText()}: ${days.length} ${tr('b_nights')==='noites'?'dias':'days'}, ${nf.format(km)} km.`, tab:'roteiro'}; }
   const dm=ql.match(/\bdia\s+(\d{1,2})\b|\bday\s+(\d{1,2})\b|\bd[ií]a\s+(\d{1,2})\b/); if(dm){ const n=Number(dm[1]||dm[2]||dm[3]); const d=days[n-1]; if(d) return {text:`${dayLabel(n)}, ${fmt(dateOf(n-1))}: ${title(d)}, ${nf.format(d.km)} km, ${d.road}.`, day:n}; }
   if(/hoje|today|hoy|amanh|tomorrow|ma[nñ]ana/.test(ql)){ let i=todayIdx(); if(/amanh|tomorrow|ma[nñ]ana/.test(ql)) i=i>=0?i+1:-1; if(i>=0 && days[i]) return {text:`${dayLabel(i+1)}: ${title(days[i])}, ${nf.format(days[i].km)} km.`, day:i+1}; }
+  if(/alerta|atenc|critic|risco|perigo|alert|risk|danger/.test(ql)){ const is=analyzeRoute().filter(x=>x.sev==='warn'); return {text: is.length? is.map(x=>`${x.icon} ${x.title} (${fmtDayList(x.days)})`).join('\n') : tr('cp_none'), tab:'dicas'}; }
   if(/combust|posto|gasolina|autonomia|fuel|nafta|bencina/.test(ql)){ const v=myVeh(); let g=null; days.forEach((d,i)=>{ const x=dayGap(d); if(x && (!g||x.km>g.km)) g={...x,i}; });
     return {text:`${vehName(v)}: ${tr('rng',{a:nf.format(Math.round(v.tank*v.kml*0.9)),b:''})}.${g?' '+tr('gap_ok',{g:nf.format(g.km),l:g.label?` (${g.label})`:'',s:''}).split(':')[0]+` (${dayLabel(g.i+1)}).`:''}`, tab:'estrada'}; }
   return null;
@@ -3007,13 +3026,14 @@ async function loadHistClim(){
     let got=false; for(const id of need){ if(await fetchClimHist(id, iso(dt))) got=true; }
     if(got) refreshCard(i);
   }
-  $('#wsum').innerHTML=weatherSummary();
+  $('#wsum').innerHTML=weatherSummary(); const cr=$('#crit'); if(cr) cr.innerHTML=criticalCard(true);
 }
 function refreshCard(i){
   const days=planDays(), d=days[i], card=document.getElementById('d-'+(i+1)); if(!card||!d) return;
   const wp=card.querySelector('.wpart'); if(wp) wp.outerHTML=weatherPart(d,i);
   const w=dayWeather(d,i), dot=card.querySelector('.tldot'); if(dot) dot.style.borderColor=statusColor(w.status);
   const tp=card.querySelector('.dtemp'); if(tp) tp.textContent = w.tmax!=null ? w.tmax+'°' : '';
+  _anCache=null; const ar=card.querySelector('.alerts'), nr=alertRow(i+1); if(ar) ar.outerHTML=nr||''; else if(nr){ const wp2=card.querySelector('.wpart'); if(wp2) wp2.insertAdjacentHTML('afterend', nr); }
   const cb=card.querySelector('.cbox'); if(cb){ const open=card.querySelector('.dmore')?.open; cb.outerHTML=climaBox(d,i); }
 }
 
@@ -3269,6 +3289,138 @@ function renderDicas(){
     <p class="small" style="margin-top:14px">${tr('t_disclaimer')}</p>`;
   if($('#tip-ai')) $('#tip-ai').onclick=aiTips;
 }
+
+/* Route intelligence: one engine reads every day (weather, road, vehicle, altitude, borders, lodging)
+   and returns issues with problem, solution, products and links. Dicas, critical points and day alerts all use it. */
+const gSearch=q=>'https://www.google.com/search?q='+encodeURIComponent(q);
+const ytSearch=q=>'https://www.youtube.com/results?search_query='+encodeURIComponent(q);
+function mapsNear(q,id){ const s=S[id]; return s?`https://www.google.com/maps/search/${encodeURIComponent(q)}/@${s[1]},${s[2]},12z`:mapsSearch(q); }
+function placeName(id){ return S[id]?S[id][0].split(' (')[0].split(' /')[0]:''; }
+let _anCache=null;
+function analyzeRoute(){
+  const days=planDays(), v=myVeh(), V=VEH[v.type]||VEH.adv, moto=MOTO_TYPES.includes(v.type), gas=v.fuel!=='diesel';
+  const key=JSON.stringify([plan, planStart(), v.id, v.type, v.fuel, v.ron, v.tank, v.kml, v.extra, days.map(d=>[d.from,d.to,d.km,d.road,d.c])]);
+  if(_anCache && _anCache.key===key && !_anCache.dirty) return _anCache.res;
+  const map={}; // key -> issue
+  const add=(k,i,base)=>{ if(!map[k]) map[k]={key:k, days:[], places:[], froms:[], ...base}; if(!map[k].days.includes(i+1)){ map[k].days.push(i+1); map[k].places.push(days[i].to); map[k].froms.push(days[i].from); } };
+  days.forEach((d,i)=>{
+    const w=dayWeather(d,i), s=surfOf(d), alt=maxAlt(d), g=dayGap(d), c=d.c, dest=d.to;
+    // fuel autonomy
+    if(g && v.tank && v.kml){ const f=terrainFactor(d), need=g.km/(v.kml/f), use=v.tank*0.9;
+      if(need>use){ const x=Math.ceil(need-use+1);
+        add('gap',i,{cat:'fuel', sev:'warn', icon:'⛽', short:'Autonomia', title:`Autonomia: trechos sem posto maiores que o tanque da ${vehName(v)}`,
+          problem:`Há trechos sem posto confiável; no pior deles a ${vehName(v)} precisa de ${x} L além do tanque. Seu galão hoje é de ${v.extra||0} L.`,
+          solution:['Saia de cada trecho remoto com tanque e galão cheios.', `Leve galões que somem pelo menos ${x} L, presos longe do escapamento.`, 'Areia, rípio e altitude aumentam o consumo de 10% a 30%: conte com isso.', 'Leve água (2 a 3 L) e comida para o trecho sem apoio.'],
+          products:[['Galão de combustível 5 L para moto','Reserva para trechos sem posto'],['Galão de combustível 10 L','Mais autonomia em carros e motos grandes']],
+          links:[['Como transportar galão na moto com segurança', ytSearch('como transportar galão de gasolina na moto viagem')]], near:'posto de combustível'}); } }
+    // fuel quality
+    if(c==='BO'){
+      if(gas) add('fuelq_bo',i,{cat:'fuel', sev:'warn', icon:'⛽', short:'Combustível ruim', title:'Combustível de baixa octanagem e com sujeira na Bolívia',
+        problem:`A gasolina comum boliviana (Especial) tem octanagem baixa${v.ron>=95?` para a ${vehName(v)}, que pede ${v.ron} RON`:''} e pode vir com água e sedimentos, principalmente em galões vendidos nos povoados. Veículo de placa estrangeira paga preço internacional e alguns postos recusam a venda.`,
+        solution:['Abasteça com Super 91 ou Premium nas cidades sempre que houver.', 'Passe toda gasolina de galão por um funil com filtro, que separa água e detritos.', `Leve aditivo elevador de octanagem compatível com catalisador para usar quando só houver gasolina fraca${v.tank?` (tanque de ${v.tank} L: frascos de carro tratam cerca de 60 L, use perto de ${Math.round(v.tank/60*100)}% do frasco)`:''}.`, 'Na volta ao Brasil, use um limpador do sistema de injeção para tirar resíduos.', 'Leve bolivianos em dinheiro e o comunicado da ANH impresso.'],
+        products:[['Funil com filtro de combustível Mr. Funnel','Separa água e sujeira'],['Motul Octane Booster','Elevador de octanagem'],['Liqui Moly Octane Plus','Elevador de octanagem concentrado'],['Liqui Moly Motorbike 4T Shooter','Limpeza do sistema de injeção']],
+        links:[['Como usar aditivo de octanagem na moto', ytSearch('como usar octane booster moto viagem')],['Preço da gasolina para estrangeiros na Bolívia', gSearch('ANH Bolívia gasolina precio vehículos extranjeros')]], near:'gasolinera'});
+      else add('fuelq_bo_d',i,{cat:'fuel', sev:'warn', icon:'⛽', short:'Diesel', title:'Diesel boliviano: enxofre e parafinação no frio',
+        problem:'O diesel pode ter mais enxofre e parafinar nas madrugadas abaixo de −10 °C do altiplano.',
+        solution:['Coloque aditivo antigel antes de abastecer na última cidade antes do frio.', 'Leve filtro de combustível reserva.', 'Abasteça em postos de cidade.'],
+        products:[['Aditivo antigel para diesel','Evita parafinação'],['Filtro de combustível diesel reserva','Troca se entupir']], links:[['Diesel congelado: o que fazer', ytSearch('diesel parafinado frio o que fazer')]], near:'gasolinera'});
+    } else if(gas && v.ron>=95 && c!=='BR'){
+      add('oct_'+c,i,{cat:'fuel', sev:'info', icon:'⛽', short:'Octanagem', title:`Gasolina certa para a ${vehName(v)} em ${tr('c_'+c)}`,
+        problem:`O motor pede ${v.ron} RON.`, solution:[fuelTip(c)], products:[], links:[], near:'posto de gasolina'});
+    }
+    if(v.fuel==='flex' && c!=='BR') add('flex',i,{cat:'fuel', sev:'info', icon:'⛽', short:'Flex', title:'Carro flex fora do Brasil', problem:'Fora do Brasil não há etanol na bomba.', solution:[tr('q_flex_out'), 'Na última parada no Brasil, abasteça só com gasolina.'], products:[], links:[]});
+    if(v.fuel==='diesel' && alt>=3500 && c!=='BO') add('diesel_cold',i,{cat:'fuel', sev:'warn', icon:'🧊', short:'Diesel no frio', title:'Diesel pode parafinar na altitude', problem:'Com madrugadas abaixo de −10 °C o diesel comum pode parafinar e entupir o filtro.', solution:['Use aditivo antigel antes de subir.', 'Prefira diesel de inverno quando houver.'], products:[['Aditivo antigel para diesel','Evita parafinação']], links:[['Diesel parafinado: como evitar', ytSearch('como evitar diesel parafinar frio')]]});
+    // altitude
+    if(alt>=3500) add('alt',i,{cat:'health', sev:'warn', icon:'⛰', short:'Altitude', title:'Altitude acima de 3.500 m',
+      problem:`O motor perde potência e o corpo sente o ar rarefeito: dor de cabeça, cansaço e falta de ar são sinais de mal de altitude.`,
+      solution:['Suba aos poucos e durma mais baixo quando puder.', 'Beba bastante água, coma leve à noite e evite álcool no primeiro dia.', 'Converse com um médico antes da viagem sobre remédio para altitude.', moto?'Se a moto falhar em subida, use um modo de pilotagem mais suave e giro mais alto.':'Em subidas longas, reduza marcha e evite giro baixo.'],
+      products:[['Oxímetro de dedo','Acompanha a oxigenação no altiplano']], links:[['Como prevenir o mal de altitude', gSearch('como prevenir mal de altitude viagem andes')]], near:'farmacia'});
+    // weather
+    if(w.status==='snow') add('snow',i,{cat:'weather', sev:'warn', icon:'❄', short:'Neve', title:'Neve possível e passos fechados',
+      problem:'Neve pode fechar passos de montanha e deixar a pista escorregadia.', solution:['Confira o status do passo na véspera e na manhã do dia.', 'Tenha um plano B de rota e um dia de folga.', 'Roupa impermeável e luvas de inverno.'],
+      products:[['Luva de inverno impermeável para moto','Mãos secas e quentes']], links:[['Status dos passos Chile e Argentina', 'https://www.pasosfronterizos.gob.cl/'],['Passos internacionais da Argentina','https://www.argentina.gob.ar/seguridad/pasosinternacionales']]});
+    if(w.tmin!=null && w.tmin<=0) add('cold',i,{cat:'weather', sev:'warn', icon:'🥶', short:'Frio', title:'Frio intenso: proteção do corpo',
+      problem:`Temperaturas de até ${Math.min(w.tmin)} °C. O frio cansa, tira a concentração e reduz a força da bateria.`,
+      solution:['Vista em camadas: segunda pele, forro térmico e jaqueta com membrana.', moto?'Luvas aquecidas ou de inverno, balaclava e protetor de pescoço.':'Cobertor e roupa térmica no carro.', 'Saia depois que o sol aquecer a pista em trechos de serra.', 'Para acampar: saco de dormir para −15 °C e isolante térmico.'],
+      products: moto?[['Segunda pele térmica','Base das camadas'],['Luva aquecida para moto','Mãos quentes'],['Balaclava térmica','Protege rosto e pescoço']]:[['Segunda pele térmica','Base das camadas'],['Saco de dormir −15 graus','Pernoite ou camping no frio']],
+      links:[['Como se vestir para viajar de moto no frio', ytSearch('como se vestir viagem de moto frio intenso')]], near:moto?'loja de motos':'loja de roupas térmicas'});
+    if(w.status==='light' || w.status==='heavy') add(moto?'rain_moto':'rain',i,{cat:'weather', sev:'warn', icon:'🌧', short:'Chuva', title: moto?'Chuva no caminho: equipe-se para pilotar molhado':'Chuva no caminho',
+      problem:`Chance de chuva de ${w.rain}% nestes dias. Pista molhada aumenta a distância de frenagem${moto?' e a moto perde aderência nas faixas pintadas':''}.`,
+      solution: moto?['Leve capa de chuva de duas peças e polainas ou botas impermeáveis.', 'Luvas impermeáveis e capa para a bagagem.', 'Antiembaçante na viseira.', 'Aumente a distância e evite as faixas pintadas e tampas de bueiro.']:['Confira palhetas do limpador e pneus.', 'Reduza a velocidade e aumente a distância.'],
+      products: moto?[['Capa de chuva motociclista duas peças','Corpo seco'],['Polaina impermeável para moto','Pés secos'],['Luva impermeável para moto','Mãos secas'],['Capa de chuva para bolsa de moto','Bagagem seca']]:[['Palheta limpador de para-brisa','Visibilidade na chuva']],
+      links:[['Como pilotar moto na chuva com segurança', ytSearch('como pilotar moto na chuva dicas')]], near:moto?'loja de motos':'auto peças'});
+    if((w.gust||0)>=60) add('wind',i,{cat:'weather', sev:'warn', icon:'💨', short:'Vento', title:'Vento forte',
+      problem:`Rajadas de até ${w.gust} km/h, mais fortes à tarde.`, solution:['Saia cedo e chegue antes das 14h.', moto?'Reduza a velocidade, relaxe os ombros e incline levemente contra o vento.':'Segure firme o volante e cuidado com bagagem no teto.', 'Cuidado ao cruzar caminhões.'],
+      products:[], links:[['Como pilotar com vento lateral forte', ytSearch('como pilotar moto vento lateral forte')]]});
+    if(w.tmax!=null && w.tmax>=32) add('heat',i,{cat:'weather', sev:'warn', icon:'🥵', short:'Calor', title:'Calor forte', problem:`Máximas de ${w.tmax} °C: desidratação e cansaço.`,
+      solution:['Beba água a cada parada e leve 2 L.', moto?'Use jaqueta ventilada e colete de resfriamento.':'Confira o ar-condicionado e o arrefecimento do motor.', 'Faça os trechos longos de manhã cedo.'],
+      products: moto?[['Colete de resfriamento para moto','Refresca no calor'],['Mochila de hidratação','Água à mão']]:[], links:[]});
+    if(w.kind==='fog') add('fog',i,{cat:'weather', sev:'info', icon:'🌫', short:'Neblina', title:'Neblina de manhã', problem:'Visibilidade baixa nas primeiras horas.', solution:['Saia um pouco mais tarde.', 'Luz baixa ligada e roupa refletiva.'], products:[['Colete refletivo','Ser visto na neblina']], links:[]});
+    // road
+    if(s.includes('areia')||s.includes('off')) add('sand',i,{cat:'road', sev:'warn', icon:'⚠', short:'Areia/off-road', title: V.sand?'Areia e trechos off-road':'Piso inadequado para o seu veículo',
+      problem: V.sand?'Areia e off-road exigem pressão de pneu menor e pilotagem específica.':`A ${vehName(v)} não é indicada para areia ou off-road.`,
+      solution: V.sand?['Reduza a pressão dos pneus só no trecho e recalibre ao voltar ao asfalto.', moto?'Em pé nas pedaleiras, olhar longe e acelerador constante.':'Use tração e reduzida; não freie em cima da areia.', 'Não vá sozinho: avise o trajeto e leve comunicador satelital.']:['Procure rota alternativa por asfalto.', 'Ou contrate um transfer ou guia local 4x4 para o trecho.'],
+      products:[['Compressor de ar portátil para moto','Recalibrar depois do trecho'],['Calibrador digital de pneus','Pressão certa'],['Kit reparo de pneu sem câmara','Furo no meio do nada']],
+      links:[['Como pilotar moto na areia', ytSearch('como pilotar moto big trail na areia')]], near:'borracharia'});
+    else if(s.includes('ripio')||s.includes('pedras')) add('gravel',i,{cat:'road', sev:'warn', icon:'⚠', short:'Rípio', title:'Rípio e pedras soltas',
+      problem:'Costelas, pedras e poeira de caminhões; furos são mais comuns.', solution:['Velocidade de 40 a 60 km/h.', 'Pressão um pouco abaixo da do asfalto.', 'Protetor de cárter e kit de reparo de pneu.'],
+      products:[['Kit reparo de pneu sem câmara','Furo no rípio'],['Calibrador digital de pneus','Pressão certa']], links:[['Como pilotar no cascalho', ytSearch('como pilotar moto no rípio cascalho')]], near:'borracharia'});
+    if(s.includes('sal')) add('salt',i,{cat:'road', sev:'warn', icon:'🧂', short:'Sal', title:'Sal e corrosão',
+      problem:'O sal gruda no chassi, na corrente, nos freios e nos conectores elétricos e acelera a corrosão.', solution:['Antes de entrar, proteja os conectores com spray dielétrico e lubrifique a corrente.', 'Evite as bordas úmidas do salar.', 'Lave com água doce assim que possível e relubrifique.'],
+      products:[['Spray dielétrico para conectores','Protege a parte elétrica'],['Lubrificante de corrente para moto','Depois da lavagem']], links:[['Como proteger a moto no Salar de Uyuni', ytSearch('proteger moto salar de uyuni sal')]], near:'lava jato'});
+    if(d.km > V.max*1.1) add('long',i,{cat:'road', sev:'warn', icon:'⏱', short:'Dia longo', title:'Dias longos ao volante',
+      problem:`Dias acima de ${nf.format(V.max)} km cansam e aumentam o risco, principalmente no fim da tarde.`, solution:['Saia cedo e pare a cada 2 horas.', 'Não pilote à noite em estradas com animais na pista.', 'Se puder, divida o dia na aba Criar.'], products:[], links:[], go:'criar'});
+    if(d.border) add('border',i,{cat:'docs', sev:'info', icon:'🛂', short:'Fronteira', title:'Fronteiras', problem:'Filas podem passar de duas horas e cada país pede documentos do viajante e do veículo.', solution:['Chegue cedo, com documentos numa pasta.', 'Confira a aba Docs.', 'Guarde os comprovantes de entrada do veículo.'], products:[], links:[], go:'docs'});
+    // lodging and food in small places
+    if(d.km && !D.lodging[d.sleep] && /^v/.test(d.to)) add('stay',i,{cat:'stay', sev:'info', icon:'🛏', short:'Pernoite', title:'Pernoites em cidades pequenas', problem:'Nesses pernoites há pouca oferta de hospedagem e restaurantes.', solution:['Reserve antes, ainda com sinal.', 'Tenha um plano B de camping.', 'Peça o jantar ao chegar: cozinhas fecham cedo.'], products:[], links:[], near:'hotel', go:'dormir'});
+  });
+  const res=Object.values(map).sort((a,b)=>(a.sev==='warn'?0:1)-(b.sev==='warn'?0:1) || a.days[0]-b.days[0]);
+  _anCache={key, res}; return res;
+}
+function dayIssues(n){ return analyzeRoute().filter(x=>x.days.includes(n)); }
+function goTip(k){ store.set('tipFocus',k); if(location.hash==='#dicas') focusTip(); else location.hash='dicas'; }
+function focusTip(){ const k=store.get('tipFocus',null); if(!k) return; store.del('tipFocus'); setTimeout(()=>{ const el=document.getElementById('tip-'+k); if(el){ el.scrollIntoView({behavior:'smooth',block:'start'}); el.classList.add('flash'); setTimeout(()=>el.classList.remove('flash'),1600); } },120); }
+function alertRow(n){
+  const is=dayIssues(n).filter(x=>x.sev==='warn'); if(!is.length) return '';
+  return `<div class="alerts"><span class="ali" aria-hidden="true">⚠</span><span class="small">${tr('d_alerts')}</span>${is.map(x=>`<button type="button" class="alc" data-tip="${x.key}">${x.icon} ${esc(x.short)}</button>`).join('')}</div>`;
+}
+/* Critical points now come from the same engine */
+criticalPoints = function(){ const out=[]; analyzeRoute().forEach(x=>x.days.forEach(n=>out.push({i:n-1, kind:x.key, sev:x.sev, text:x.title, key:x.key, icon:x.icon}))); return out.sort((a,b)=>a.i-b.i); };
+criticalCard = function(open){
+  const is=analyzeRoute(), w=is.filter(x=>x.sev==='warn'), o=is.filter(x=>x.sev!=='warn');
+  const row=x=>`<div class="cprow cp-${x.sev}"><span class="cpi" aria-hidden="true">${x.icon}</span><span><b>${esc(x.title)}</b><br><span class="small">${fmtDayList(x.days)}</span></span><button type="button" class="btn" data-tip="${x.key}">${tr('see_tip')}</button></div>`;
+  return `<details class="card crit" ${open?'open':''}><summary><span>${tr('cp_h')}</span><span class="cnt">${w.length} ${tr('cp_warn')}</span></summary>
+    ${is.length? w.map(row).join('') + (o.length?`<details class="cpmore"><summary>${tr('cp_more',{n:o.length})}</summary>${o.map(row).join('')}</details>`:'') : `<p class="small" style="margin:8px 0 0">${tr('cp_none')}</p>`}</details>`;
+};
+function issueCard(x){
+  const first=x.places[0];
+  const near = x.near ? [...new Set(x.cat==='fuel'?x.froms:x.places)].slice(0,3).map(id=>[`${x.near}, ${placeName(id)}`, mapsNear(x.near, id)]) : [];
+  return `<article class="tip ${x.sev==='warn'?'tipwarn':''}" id="tip-${x.key}"><div class="tiphead"><span class="tipi" aria-hidden="true">${x.icon}</span><h3>${esc(x.title)}</h3></div>
+    <div class="tipdays">${x.days.map(n=>`<a class="cpday" href="#d-${n}">${n}</a>`).join('')}<span class="small">${fmtDayList(x.days)}</span></div>
+    <h4>${tr('t_problem')}</h4><p>${esc(x.problem)}</p>
+    <h4>${tr('t_solution')}</h4><ul>${x.solution.map(s=>`<li>${esc(s)}</li>`).join('')}</ul>
+    ${x.products&&x.products.length?`<h4>${tr('t_prod')}</h4><div class="prods">${x.products.map(p=>`<a class="prod" target="_blank" rel="noopener" href="${mlSearch(p[0])}"><b>${esc(p[0])}</b><span>${esc(p[1])}</span><em>${tr('t_buy')}</em></a>`).join('')}</div>`:''}
+    ${(x.links&&x.links.length)||near.length?`<h4>${tr('t_help')}</h4><div class="linklist">${(x.links||[]).map(l=>`<a target="_blank" rel="noopener" href="${l[1]}">${esc(l[0])}</a>`).join('')}${near.map(l=>`<a target="_blank" rel="noopener" href="${l[1]}">📍 ${esc(l[0])}</a>`).join('')}</div>`:''}
+    ${x.go?`<div class="actions"><a class="btn" href="#${x.go}">${tr('chat_go',{x:tr('tab_'+x.go)})}</a></div>`:''}</article>`;
+}
+renderDicas = function(){
+  const el=$('#dicas'); if(!el) return; const v=myVeh(), is=analyzeRoute(), ai=store.get('aitips:'+plan+':'+v.id,[])||[];
+  const cs=[...planCountries()].map(c=>tr('c_'+c)).join(', '), w=is.filter(x=>x.sev==='warn'), wd=new Set(w.flatMap(x=>x.days)).size;
+  const lab={meu:tr('plan_meu',{n:(store.get('custom',[])||[]).length||22}), nova:(store.get('novaMeta',{})||{}).name||tr('h_criar'), '26':tr('plan_26'), '20':tr('plan_20'), hist:tr('hist_plan',{x:(histView()||{}).name||''})};
+  const opts=['meu'].concat((store.get('novaDays',[])||[]).length?['nova']:[]).concat(plan==='hist'?['hist']:[]).concat(['26','20']);
+  el.innerHTML = `<div class="tipctx col"><label for="dplan" class="small">${tr('t_route')}</label><select id="dplan">${opts.map(k=>`<option value="${k}" ${k===plan?'selected':''}>${esc(lab[k])}</option>`).join('')}</select>
+      <span class="small">${tr('t_countries')}: ${esc(cs)}. ${tr('veh_bar')}: ${esc(vehName(v))}.</span></div>
+    <div class="wsum ${w.length?'warn':'ok'}"><span class="wsi">${w.length?'!':'✓'}</span><div><b>${w.length?tr('t_summary',{a:w.length,d:wd}):tr('cp_none')}</b><span>${tr('t_auto')}</span></div></div>
+    ${is.map(issueCard).join('')}
+    ${ai.length?`<h3 class="sub">${tr('t_ai_h')}</h3>${ai.map(tipCard).join('')}`:''}
+    ${SAMPLE?`<div class="actions"><button class="btn primary" type="button" id="tip-ai">${tr('t_ai_btn')}</button><span class="small" id="tip-st"></span></div>`:''}
+    <p class="small" style="margin-top:14px">${tr('t_disclaimer')}</p>`;
+  $('#dplan').onchange=()=>{ setPlan($('#dplan').value); renderAll(); location.hash='dicas'; };
+  if($('#tip-ai')) $('#tip-ai').onclick=aiTips;
+  el.querySelectorAll('[data-tip]').forEach(b=>b.onclick=()=>goTip(b.dataset.tip));
+  focusTip();
+};
+document.addEventListener('click', e=>{ const b=e.target.closest('[data-tip]'); if(b && !b.closest('#dicas')){ e.preventDefault(); goTip(b.dataset.tip); } });
 
 /* Tabs and hash */
 const TABS = ['criar','roteiro','dormir','gastos','estrada','docs','dicas','extra'];
