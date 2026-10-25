@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>vialonga</title>
 <link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#6B4428">
+<meta name="theme-color" content="#FFFFFF">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,8 +13,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#F2ECE0; --surface:#FFFFFF; --sunk:#E7DDCA; --ink:#2A2119; --muted:#62533F; --line:#D9CCB2;
-  --flamingo:#8B4A22; --laguna:#2F5A37; --amber:#8A6414; --amberbg:#F4E8CC; --lagbg:#E0EAD9; --flbg:#F1E1CF;
+  --bg:#F4F6F9; --surface:#FFFFFF; --sunk:#EDF1F6; --ink:#16202C; --muted:#5A6676; --line:#DCE3EB;
+  --flamingo:#3B5BDB; --laguna:#1E7A55; --amber:#A16207; --amberbg:#FFF4DB; --lagbg:#E2F4EB; --flbg:#E7ECFF;
   --display:"Barlow Condensed","Arial Narrow","Roboto Condensed",sans-serif;
   --text:"Barlow","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   color-scheme: light;
@@ -24,14 +24,14 @@
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#18130E; --surface:#221B14; --sunk:#2D241B; --ink:#EFE6D6; --muted:#B8A88F; --line:#3E3227;
-    --flamingo:#E0A46A; --laguna:#93C48C; --amber:#E2B65A; --amberbg:#3A2E17; --lagbg:#1F2D20; --flbg:#3B2818;
+    --bg:#0B1220; --surface:#121B2C; --sunk:#1A2538; --ink:#E8EDF4; --muted:#97A4B8; --line:#25324A;
+    --flamingo:#8EA0FF; --laguna:#3CCB8F; --amber:#F2B233; --amberbg:#2B2412; --lagbg:#10302A; --flbg:#1C2550;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#18130E; --surface:#221B14; --sunk:#2D241B; --ink:#EFE6D6; --muted:#B8A88F; --line:#3E3227;
-  --flamingo:#E0A46A; --laguna:#93C48C; --amber:#E2B65A; --amberbg:#3A2E17; --lagbg:#1F2D20; --flbg:#3B2818;
+  --bg:#0B1220; --surface:#121B2C; --sunk:#1A2538; --ink:#E8EDF4; --muted:#97A4B8; --line:#25324A;
+    --flamingo:#8EA0FF; --laguna:#3CCB8F; --amber:#F2B233; --amberbg:#2B2412; --lagbg:#10302A; --flbg:#1C2550;
   color-scheme: dark;
 }
 *,*::before,*::after{box-sizing:inherit}
@@ -108,8 +108,8 @@ p.lead{color:var(--muted);margin:0 0 12px}
 .actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;align-items:center}
 .btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:8px 12px;border-radius:10px;font:600 .9rem var(--text);text-decoration:none;cursor:pointer}
 .btn.primary{background:var(--laguna);border-color:var(--laguna);color:#fff}
-:root[data-theme="dark"] .btn.primary{color:#13200F}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn.primary{color:#13200F}}
+:root[data-theme="dark"] .btn.primary{color:#062417}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn.primary{color:#062417}}
 label.done{display:inline-flex;gap:6px;align-items:center;font-size:.9rem;margin-left:auto;cursor:pointer}
 textarea{width:100%;margin-top:10px;min-height:44px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:inherit;padding:8px 10px;resize:vertical}
 /* Lists, tables */
@@ -987,6 +987,9 @@ details.lib summary{cursor:pointer;font:600 1.15rem var(--display);display:flex;
 .mleg i.st-dry{background:var(--st-dry)} .mleg i.st-drizzle{background:var(--st-drizzle)} .mleg i.st-light{background:var(--st-light)} .mleg i.st-heavy{background:var(--st-heavy)} .mleg i.st-snow{background:var(--st-snow)}
 .mleg i.route{width:18px;height:4px;border-radius:2px;background:#6C7BE0}
 @media (min-width:560px){ .metrics{grid-template-columns:repeat(4,minmax(0,1fr))} }
+.tbtn{flex:none;width:40px;height:40px;padding:0;justify-content:center;font-size:1.1rem;border-radius:50%}
+.leaflet-marker-icon.mk{background:transparent;border:0;box-shadow:none}
+.mk span{display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;color:#fff;font:700 12px var(--text);border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.35)}
 #toast{position:fixed;left:50%;transform:translateX(-50%) translateY(20px);bottom:calc(78px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);border-radius:12px;padding:10px 14px;display:flex;gap:14px;align-items:center;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:50;max-width:calc(100% - 32px);font-size:.95rem}
 #toast.on{opacity:1;transform:translateX(-50%);pointer-events:auto}
 #toast button{background:none;border:0;color:var(--bg);font:700 .95rem var(--text);text-decoration:underline;cursor:pointer;padding:4px}
@@ -1006,7 +1009,7 @@ details.lib summary{cursor:pointer;font:600 1.15rem var(--display);display:flex;
 <body>
 <div class="wrap">
 <header class="top">
-  <div class="hrow"><svg class="mark" viewBox="0 0 200 200" role="img" aria-label="vialonga"><path d="M44 58 L100 150 L156 58" fill="none" stroke="var(--flamingo)" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/><path d="M44 58 L100 150 L156 58" fill="none" stroke="var(--bg)" stroke-width="3.5" stroke-dasharray="9 9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="44" cy="58" r="15" fill="var(--bg)" stroke="var(--laguna)" stroke-width="7"/><circle cx="156" cy="58" r="15" fill="var(--laguna)"/></svg><h1><span id="ttl">Expedição Andes 2027</span><span class="brand">vialonga</span></h1><select id="langsel" aria-label="Idioma"></select></div>
+  <div class="hrow"><svg class="mark" viewBox="0 0 200 200" role="img" aria-label="vialonga"><path d="M44 58 L100 150 L156 58" fill="none" stroke="var(--flamingo)" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/><path d="M44 58 L100 150 L156 58" fill="none" stroke="var(--bg)" stroke-width="3.5" stroke-dasharray="9 9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="44" cy="58" r="15" fill="var(--bg)" stroke="var(--laguna)" stroke-width="7"/><circle cx="156" cy="58" r="15" fill="var(--laguna)"/></svg><h1><span id="ttl">Expedição Andes 2027</span><span class="brand">vialonga</span></h1><button type="button" id="themebtn" class="btn tbtn">☀</button><select id="langsel" aria-label="Idioma"></select></div>
   <p id="sub">Gustavo, saída do Rio em 30 de junho</p>
   <div class="seg" id="seg"></div>
 </header>
@@ -1302,6 +1305,12 @@ Object.assign(I18N.it,{"st_dry": "Asciutto", "st_drizzle": "Pioviggine", "st_lig
 Object.assign(I18N.de,{"st_dry": "Trocken", "st_drizzle": "Niesel", "st_light": "Leichter Regen", "st_heavy": "Starker Regen", "st_snow": "Schnee", "st_na": "Keine Daten", "m_rain": "Regenwahrscheinlichkeit", "m_mm": "Niederschlag, {p} % Wahrscheinlichkeit", "m_temp": "Tief / Hoch", "m_gust": "Böen", "m_live": "echte Vorhersage", "m_hist": "historisches Mittel", "bars_rain": "Regenwahrscheinlichkeit nach Uhrzeit", "bars_alt": "Höhe entlang der Etappe", "ws_ok": "Entspannte Reise: meist trockenes Wetter", "ws_mid": "Achtung, einige Tage mit leichtem Regen", "ws_warn": "Achtung: Tage mit Starkregen, Schnee oder gefährlichem Wind", "ws_dry": "trockene oder Nieseltage", "ws_wind": "mit Böen über 70 km/h", "leg_route": "Route", "d_more": "Tagesdetails: Plan, Wetter, Sicherheit und Kraftstoff", "f_gap": "{k} km ohne Tankstelle"});
 Object.assign(I18N.zh,{"st_dry": "干燥", "st_drizzle": "毛毛雨", "st_light": "小雨", "st_heavy": "大雨", "st_snow": "雪", "st_na": "无数据", "m_rain": "降雨概率", "m_mm": "降水量，概率 {p}%", "m_temp": "最低 / 最高", "m_gust": "阵风", "m_live": "实时预报", "m_hist": "历史平均", "bars_rain": "各时段降雨概率", "bars_alt": "路段海拔", "ws_ok": "旅途顺利：大部分天气干燥", "ws_mid": "注意几天小雨", "ws_warn": "注意：有大雨、降雪或危险大风的日子", "ws_dry": "干燥或毛毛雨的天数", "ws_wind": "阵风超过 70 公里/时", "leg_route": "路线", "d_more": "当天详情：行程、天气、安全与燃油", "f_gap": "{k} 公里无加油站"});
 I18N.pt.clouds_s="nuvens ~{c}%";I18N.en.clouds_s="clouds ~{c}%";I18N.es.clouds_s="nubes ~{c}%";I18N.it.clouds_s="nuvole ~{c}%";I18N.de.clouds_s="Wolken ~{c} %";I18N.zh.clouds_s="云量约 {c}%";
+Object.assign(I18N.pt,{"hist_src": "Média dos últimos 3 anos nesta data", "src_h": "média dos últimos 3 anos nesta data (Open-Meteo)", "theme_h": "Aparência", "theme_light": "Claro", "theme_dark": "Escuro", "theme_auto": "Automático"});
+Object.assign(I18N.en,{"hist_src": "Average of the last 3 years on this date", "src_h": "average of the last 3 years on this date (Open-Meteo)", "theme_h": "Appearance", "theme_light": "Light", "theme_dark": "Dark", "theme_auto": "Automatic"});
+Object.assign(I18N.es,{"hist_src": "Promedio de los últimos 3 años en esta fecha", "src_h": "promedio de los últimos 3 años en esta fecha (Open-Meteo)", "theme_h": "Apariencia", "theme_light": "Claro", "theme_dark": "Oscuro", "theme_auto": "Automático"});
+Object.assign(I18N.it,{"hist_src": "Media degli ultimi 3 anni in questa data", "src_h": "media degli ultimi 3 anni in questa data (Open-Meteo)", "theme_h": "Aspetto", "theme_light": "Chiaro", "theme_dark": "Scuro", "theme_auto": "Automatico"});
+Object.assign(I18N.de,{"hist_src": "Mittel der letzten 3 Jahre an diesem Datum", "src_h": "Mittel der letzten 3 Jahre an diesem Datum (Open-Meteo)", "theme_h": "Darstellung", "theme_light": "Hell", "theme_dark": "Dunkel", "theme_auto": "Automatisch"});
+Object.assign(I18N.zh,{"hist_src": "过去 3 年同日平均", "src_h": "过去 3 年同日平均（Open-Meteo）", "theme_h": "外观", "theme_light": "浅色", "theme_dark": "深色", "theme_auto": "自动"});
 const LOCALES = {pt:'pt-BR',en:'en-GB',es:'es-AR',it:'it-IT',de:'de-DE',zh:'zh-CN'};
 const LANG_NAMES = {pt:'Português',en:'English',es:'Español',it:'Italiano',de:'Deutsch',zh:'中文'};
 
@@ -1357,15 +1366,15 @@ function hoursFor(d){ if(!d.km) return 'dia livre'; const h=d.km/speedOf(d.road)
 function mergeRoad(a,b){ const tok=['asfalto','rípio','areia','sal'].filter(x=>(a+' '+b).includes(x)); return tok.join(' + ')||a; }
 function windLvl(g){ return g>=70?'danger':(g>=50?'strong':(g>=30?'mod':'calm')); }
 function windHtml(c){ if(c[9]==null) return ''; const l=windLvl(c[10]);
-  return `<div class="wind">${tr('wind')}: <span class="wl ${l}">${tr('wl_'+l)}</span> ${tr('wind_line',{a:c[9],g:c[10]})}<br><span class="small">${tr(c[11]==='m'?'src_m':'src_e')}${c[10]>=50?'. '+tr('wind_am'):''}</span></div>`; }
+  return `<div class="wind">${tr('wind')}: <span class="wl ${l}">${tr('wl_'+l)}</span> ${tr('wind_line',{a:c[9],g:c[10]})}<br><span class="small">${tr(c[11]==='m'?'src_m':(c[11]==='h'?'src_h':'src_e'))}${c[10]>=50?'. '+tr('wind_am'):''}</span></div>`; }
 function rainLvl(p){ return p>=25?'alta':(p>=10?'moderada':'baixa'); }
 function climaBox(d,i){
   const pts=[d.from,...d.route,d.to];
   const hi=pts.reduce((a,b)=>S[b][3]>S[a][3]?b:a);
   const dest = d.to===d.from ? hi : d.to;
   const mo=dateOf(i).getUTCMonth();
-  const okC=c=>c && (c[12]!=null ? true : (mo>=5&&mo<=7));
-  const c1=nearestClim(dest), c2=nearestClim(hi);
+  const okC=c=>!!c;
+  const c1=climFor(dest,dateOf(i)), c2=climFor(hi,dateOf(i));
   const list=[]; if(okC(c1)) list.push([c1,tr('dest')]); if(okC(c2) && (!list.length || c2[0]!==list[0][0][0])) list.push([c2,tr('highest')]);
   if(!list.length){ const s=S[dest]; return `<div class="box cbox"><b>${tr('clima')}</b><p class="small" style="margin:4px 0 0">${tr('no_clim')} <a href="https://www.windy.com/${s[1]}/${s[2]}?${s[1]},${s[2]},9" target="_blank" rel="noopener">${tr('live')}</a></p><div class="fc" data-fc="${i}"></div></div>`; }
   const rows=list.map(([c,lab])=>{ const lvl=rainLvl(c[4]); const what=c[3]<=0&&c[1]>=2500?tr('rainsnow'):tr('rain'); const lvlT=tr({baixa:'low',moderada:'mod',alta:'high'}[lvl]);
@@ -1502,7 +1511,7 @@ function renderDays(){
   $('#days').querySelectorAll('[data-done]').forEach(c=>c.onchange=()=>{ const o=store.get('done',{}); o[c.dataset.done]=c.checked; store.set('done',o); c.closest('.day').classList.toggle('done',c.checked); });
   $('#days').querySelectorAll('[data-note]').forEach(t=>t.oninput=()=>{ const o=store.get('notes',{}); o[t.dataset.note]=t.value; store.set('notes',o); });
   $('#days').querySelectorAll('[data-city]').forEach(a=>a.onclick=()=>{ store.set('city', a.dataset.day); });
-  loadForecasts();
+  loadForecasts(); loadHistClim();
   $('#days').querySelectorAll('[data-gday]').forEach(a=>a.onclick=()=>{ store.set('gday', Number(a.dataset.gday)); });
   if(plan!=='meu'&&plan!=='nova') return;
   const W = $('#days');
@@ -1864,6 +1873,7 @@ function renderExtra(){
       </div>
       <p class="small">O boliviano passou a flutuar em 2026 e oscila bastante; atualize na véspera.</p></details>
   </div>
+  <h3 class="sub">${tr('theme_h')}</h3><div class="card"><div class="segm" role="group">${['light','dark','auto'].map(x=>`<button type="button" data-theme-set="${x}" aria-pressed="${store.get('theme','light')===x}">${tr('theme_'+x)}</button>`).join('')}</div></div>
   ${tabsCard()}
   <h3 class="sub">Usar sem sinal</h3>
   <div class="card"><ol style="margin:0;padding-left:1.2em">
@@ -1898,6 +1908,7 @@ function renderExtra(){
   ['cv-v','cv-from','cv-to','r-ARS','r-CLP','r-BOB','r-USD'].forEach(id=>{ $('#'+id).oninput=conv; $('#'+id).onchange=conv; });
   conv();
   wireTabs();
+  document.querySelectorAll('[data-theme-set]').forEach(b=>b.onclick=()=>{ store.set('theme',b.dataset.themeSet); applyTheme(); renderAll(); });
 }
 
 /* Live forecast (Open-Meteo): works where the page may reach the internet, e.g. the installed app */
@@ -2328,7 +2339,7 @@ function wireHistory(){
 }
 
 /* Route map: Leaflet + OpenStreetMap where reachable, otherwise an offline schematic */
-let LMAP=null, MAPMODE=null;
+let LMAP=null, MAPMODE=null, LBOUNDS=null;
 function mapPoints(){
   const days=planDays(); if(!days.length) return [];
   const seq=[{id:days[0].from, i:-1}];
@@ -2341,7 +2352,7 @@ function dayLine(d){ const g=store.get(geoKey(d),null); return g || [d.from,...d
 function pointHtml(p){
   const days=planDays(), i=p.i<0?0:p.i, d=days[i], s=S[p.id], dt=dateOf(p.i<0?0:i);
   const lab = (p.is||[p.i]).map(x=>x<0?tr('start_pt'):dayLabel(x+1)).join(', ');
-  const c=nearestClim(p.id), mo=dt.getUTCMonth(), okc=c && (c[12]!=null || (mo>=5&&mo<=7));
+  const c=climFor(p.id,dt), okc=!!c;
   const clim = okc ? `<div>${c[3]}° / ${c[2]}°, ${tr('rain')} ${c[4]}%${c[9]!=null?`<br>${tr('wind')}: ${tr('wind_line',{a:c[9],g:c[10]})}`:''}</div>` : `<div class="small">${tr('no_clim')}</div>`;
   return `<div class="mpop"><b>${esc(lab)}: ${esc(s[0].split(' (')[0])}</b><div class="small">${fmt(dt)}, ${nf.format(s[3])} m</div>${clim}<div class="mfc small" data-mfc="${p.id}|${iso(dt)}">${tr('fc_load')}</div>
     <div class="actions" style="margin-top:6px">${(p.is||[p.i]).filter(x=>x>=0).map(x=>`<a class="btn" href="#d-${x+1}">${tr('see_day')} ${x+1}</a>`).join('')}<a class="btn" target="_blank" rel="noopener" href="${gmPoint(p.id)}">${tr('gm_point')}</a><a class="btn" target="_blank" rel="noopener" href="https://www.windy.com/${s[1]}/${s[2]}?${s[1]},${s[2]},9">Windy</a></div></div>`;
@@ -2389,7 +2400,7 @@ async function renderMap(){
       const icon=L.divIcon({className:'mk', html:`<span style="background:${stc}">${p.i<0?'P':p.i+1}${(p.is||[]).length>1?'+':''}</span>`, iconSize:[28,28], iconAnchor:[14,14]});
       L.marker([s[1],s[2]],{icon, title:s[0]}).addTo(LMAP).bindPopup(()=>pointHtml(p),{maxWidth:280}); });
     LMAP.on('popupopen',e=>fillMfc(e.popup.getElement()));
-    LMAP.fitBounds(L.latLngBounds(all),{padding:[24,24]});
+    LBOUNDS=L.latLngBounds(all); LMAP.fitBounds(LBOUNDS,{padding:[24,24]}); autoTrace();
     info.textContent=tr('map_tap');
     return;
   }
@@ -2909,13 +2920,13 @@ function fcCached(id,date){ const s=S[id]; if(!s) return null; return store.get(
 function dayWeather(d,i){
   const pts=[d.from,...d.route,d.to], hi=pts.reduce((a,b)=>S[b][3]>S[a][3]?b:a), dest=d.to===d.from?hi:d.to, dt=dateOf(i), mo=dt.getUTCMonth();
   const ok=c=>c && (c[12]!=null || (mo>=5&&mo<=7));
-  const c1=nearestClim(dest), c2=nearestClim(hi), cs=[c1,c2].filter(ok);
+  const c1=climFor(dest,dt), c2=climFor(hi,dt), cs=[c1,c2].filter(Boolean);
   const f=fcCached(dest, iso(dt));
   if(f){ const kind=wmoKind(f.code), mm=f.mm||0, p=f.p||0;
     const status = kind==='snow'?'snow' : (mm>=5||p>=70)?'heavy' : (mm>=1||p>=40)?'light' : (mm>=0.2||p>=20)?'drizzle':'dry';
     return {live:true, status, kind, tmax:f.max, tmin:f.min, rain:p, mm, gust:f.g, cl:f.cl, hp:f.hp||null}; }
   if(!cs.length) return {status:'na', kind:'cloud'};
-  const c=ok(c1)?c1:c2, rain=Math.max(...cs.map(x=>x[4])), gust=Math.max(...cs.map(x=>x[10]||0)), tmin=Math.min(...cs.map(x=>x[3])), snow=cs.some(x=>climCond(x).kind==='snow');
+  const c=c1||c2, rain=Math.max(...cs.map(x=>x[4])), gust=Math.max(...cs.map(x=>x[10]||0)), tmin=Math.min(...cs.map(x=>x[3])), snow=cs.some(x=>climCond(x).kind==='snow');
   const status = snow?'snow' : rain>=50?'heavy' : rain>=25?'light' : rain>=10?'drizzle':'dry';
   return {live:false, status, kind:climCond(c).kind, tmax:c[2], tmin, rain, gust, cl:climCond(c).cl};
 }
@@ -2944,6 +2955,93 @@ function weatherSummary(){
 function legendHtml(){ return `<div class="mleg">${['dry','drizzle','light','heavy','snow'].map(s=>`<span><i class="st-${s}"></i>${tr('st_'+s)}</span>`).join('')}<span><i class="route"></i>${tr('leg_route')}</span></div>`; }
 function statusColor(s){ return ({dry:'#2BB673',drizzle:'#E9B23A',light:'#F08A24',heavy:'#E5484D',snow:'#6BA8E5'})[s]||'#8A96A3'; }
 
+/* Local climate for any place and date: average of the last 3 years (Open-Meteo archive) */
+const _sleep=ms=>new Promise(r=>setTimeout(r,ms));
+function climKey(id,date){ const s=S[id]; return 'climx:'+s[1].toFixed(2)+','+s[2].toFixed(2)+':'+date.slice(5); }
+function climFor(id, dt){
+  const c=store.get(climKey(id, iso(dt)), null); if(c) return c;
+  const n=nearestClim(id); if(!n) return null; const mo=dt.getUTCMonth();
+  return (n[12]!=null || (mo>=5&&mo<=7)) ? n : null;
+}
+async function fetchClimHist(id, date){
+  const key=climKey(id,date), have=store.get(key,null); if(have) return have;
+  const s=S[id], md=date.slice(5), y0=new Date().getFullYear()-1, rows=[];
+  for(const y of [y0,y0-1,y0-2]){
+    const d=new Date(`${y}-${md}T12:00:00Z`); if(isNaN(d)) continue; const a=new Date(d), b=new Date(d); a.setUTCDate(a.getUTCDate()-3); b.setUTCDate(b.getUTCDate()+3);
+    try{ const r=await fetch(`https://archive-api.open-meteo.com/v1/archive?latitude=${s[1]}&longitude=${s[2]}&start_date=${iso(a)}&end_date=${iso(b)}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,wind_speed_10m_max,wind_gusts_10m_max&wind_speed_unit=kmh&timezone=auto`);
+      if(!r.ok) continue; const j=await r.json(), D=j.daily; D.time.forEach((t,k)=>rows.push({mx:D.temperature_2m_max[k], mn:D.temperature_2m_min[k], p:D.precipitation_sum[k], w:D.wind_speed_10m_max[k], g:D.wind_gusts_10m_max[k]})); }catch(e){}
+  }
+  const v=rows.filter(r=>r.mx!=null); if(!v.length) return null;
+  const avg=f=>v.reduce((x,r)=>x+(r[f]||0),0)/v.length;
+  const clim=[s[0].split(' (')[0], s[3], Math.round(avg('mx')), Math.round(avg('mn')), Math.round(100*v.filter(r=>(r.p||0)>=1).length/v.length), tr('hist_src'), ctryOf(id), s[1], s[2], Math.round(avg('w')*0.6), Math.round(avg('g')), 'h', Number(md.slice(0,2))-1];
+  store.set(key, clim); return clim;
+}
+let _histRun=null;
+async function loadHistClim(){
+  const days=planDays(); const runId=plan+':'+planStart()+':'+days.map(d=>S[d.to][1].toFixed(2)+','+S[d.to][2].toFixed(2)).join(';'); if(_histRun===runId) return; _histRun=runId;
+  for(let i=0;i<days.length;i++){
+    if(_histRun!==runId) return;
+    const d=days[i], dt=dateOf(i), pts=[d.from,...d.route,d.to], hi=pts.reduce((a,b)=>S[b][3]>S[a][3]?b:a), dest=d.to===d.from?hi:d.to;
+    const need=[dest, hi].filter((id,k,a)=>a.indexOf(id)===k && !store.get(climKey(id,iso(dt)),null) && !(nearestClim(id) && (nearestClim(id)[12]!=null || (dt.getUTCMonth()>=5&&dt.getUTCMonth()<=7))));
+    if(!need.length) continue;
+    let got=false; for(const id of need){ if(await fetchClimHist(id, iso(dt))) got=true; }
+    if(got) refreshCard(i);
+  }
+  $('#wsum').innerHTML=weatherSummary();
+}
+function refreshCard(i){
+  const days=planDays(), d=days[i], card=document.getElementById('d-'+(i+1)); if(!card||!d) return;
+  const wp=card.querySelector('.wpart'); if(wp) wp.outerHTML=weatherPart(d,i);
+  const w=dayWeather(d,i), dot=card.querySelector('.tldot'); if(dot) dot.style.borderColor=statusColor(w.status);
+  const tp=card.querySelector('.dtemp'); if(tp) tp.textContent = w.tmax!=null ? w.tmax+'°' : '';
+  const cb=card.querySelector('.cbox'); if(cb){ const open=card.querySelector('.dmore')?.open; cb.outerHTML=climaBox(d,i); }
+}
+
+/* Name the "overnight to be decided" stops along the real road */
+let _resolving=false;
+async function resolveVirtuals(){
+  if(_resolving || plan!=='nova' || !navigator.onLine) return;
+  const days=store.get('novaDays',[])||[]; const isV=id=>/^v/.test(id) && S[id] && !S[id][7];
+  if(!days.some(d=>isV(d.to))) return;
+  _resolving=true;
+  try{
+    let i=0, changed=false;
+    while(i<days.length){
+      if(!isV(days[i].to)){ i++; continue; }
+      let j=i; while(j<days.length && isV(days[j].to)) j++;
+      const group=days.slice(i, Math.min(j+1, days.length)), A=group[0].from, B=group[group.length-1].to, n=group.length;
+      let geo=null, dist=null;
+      try{ const r=await fetch(`https://router.project-osrm.org/route/v1/driving/${S[A][2]},${S[A][1]};${S[B][2]},${S[B][1]}?overview=full&geometries=geojson`); if(r.ok){ const jj=await r.json(); const R0=jj.routes&&jj.routes[0]; if(R0){ geo=R0.geometry.coordinates.map(c=>[c[1],c[0]]); dist=R0.distance/1000; } } }catch(e){}
+      let cum=null, tot=0; if(geo){ cum=[0]; for(let k=1;k<geo.length;k++) cum.push(cum[k-1]+pathKm([geo[k-1],geo[k]])); tot=cum[cum.length-1]; }
+      for(let k=0;k<n-1;k++){ const v=group[k].to; if(!isV(v)) continue; let la=S[v][1], lo=S[v][2];
+        if(geo){ let x=cum.findIndex(c=>c>=tot*(k+1)/n); if(x<0) x=geo.length-1; [la,lo]=geo[x]; }
+        const nm=await reverseName(la,lo); await _sleep(1100);
+        S[v][1]=la; S[v][2]=lo; if(nm) S[v][0]=nm.name; if(nm && BCTRY.includes(nm.c)) S[v][5]=nm.c; S[v][7]=1; CST[v]=S[v]; changed=true; }
+      if(dist) group.forEach(d=>{ d.km=Math.round(dist/n); d.kmEst=false; d.h=hoursFor(d); });
+      i=j+1;
+    }
+    if(changed){ store.set('cstops',CST); store.set('novaDays',days); renderAll(); }
+  } finally { _resolving=false; }
+}
+
+/* Trace the map along the road automatically */
+let _tracing=false;
+async function autoTrace(){
+  if(_tracing || !navigator.onLine) return; const days=planDays().filter(d=>d.km && !store.get(geoKey(d),null)); if(!days.length) return;
+  _tracing=true; let n=0;
+  try{ for(const d of days){ const coords=[d.from,...d.route,d.to].map(id=>`${S[id][2]},${S[id][1]}`).join(';');
+      try{ const r=await fetch(`https://router.project-osrm.org/route/v1/driving/${coords}?overview=simplified&geometries=geojson`); if(!r.ok) break; const j=await r.json();
+        if(j.routes&&j.routes[0]){ store.set(geoKey(d), j.routes[0].geometry.coordinates.map(c=>[+c[1].toFixed(4), +c[0].toFixed(4)])); n++; } }catch(e){ break; }
+      await _sleep(250); }
+  } finally { _tracing=false; if(n) renderMap(); }
+}
+
+/* Appearance: light by default, dark optional */
+function applyTheme(){ const t=store.get('theme','light'); if(t==='auto') document.documentElement.removeAttribute('data-theme'); else document.documentElement.setAttribute('data-theme', t);
+  const m=document.querySelector('meta[name="theme-color"]'); if(m) m.setAttribute('content', getComputedStyle(document.documentElement).getPropertyValue('--surface').trim()||'#FFFFFF');
+  const b=$('#themebtn'); if(b){ b.textContent = t==='dark'?'☾':(t==='auto'?'◐':'☀'); b.setAttribute('aria-label', tr('theme_'+t)); b.title=tr('theme_'+t); } }
+function cycleTheme(){ const order=['light','dark','auto']; const t=store.get('theme','light'); store.set('theme', order[(order.indexOf(t)+1)%3]); applyTheme(); MAPMODE=MAPMODE; renderAll(); toast(tr('theme_'+store.get('theme','light'))); }
+
 /* Tabs and hash */
 const TABS = ['criar','roteiro','dormir','gastos','estrada','docs','extra'];
 function showTab(){
@@ -2957,13 +3055,14 @@ function showTab(){
   if(t==='gastos') renderGastos();
   if(t==='criar') renderBuilder();
   renderTitle();
-  if(t==='roteiro' && LMAP) setTimeout(()=>LMAP.invalidateSize(),60);
+  if(t==='roteiro' && LMAP) setTimeout(()=>{ LMAP.invalidateSize(); if(LBOUNDS) LMAP.fitBounds(LBOUNDS,{padding:[24,24]}); },80);
   if(h.startsWith('d-')){ const el=document.getElementById(h); if(el) el.scrollIntoView({block:'start'}); }
   else window.scrollTo(0,0);
 }
-function renderAll(){ applyStatic(); renderSeg(); renderProfile(); renderStats(); renderDays(); renderRoad(); renderDocs(); renderExtra(); applyTabPrefs(); showTab(); renderMap(); }
+function renderAll(){ applyStatic(); renderSeg(); renderProfile(); renderStats(); renderDays(); renderRoad(); renderDocs(); renderExtra(); applyTabPrefs(); showTab(); renderMap(); resolveVirtuals(); }
 window.addEventListener('hashchange', showTab);
 wireChat();
+applyTheme(); $('#themebtn').onclick=cycleTheme;
 renderAll();
 (async()=>{ try{ if(window.claude && typeof window.claude.use==='function'){ SAMPLE = await window.claude.use('sample'); } }catch(e){ SAMPLE=null; } })();
 if('serviceWorker' in navigator){ window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{})); }
