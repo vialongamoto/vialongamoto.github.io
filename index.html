@@ -157,10 +157,14 @@ details.card summary .cnt{font:500 .85rem var(--text);color:var(--muted)}
 /* Bottom nav */
 nav.tabs{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px);z-index:20}
 nav.tabs .in{max-width:760px;margin:0 auto;display:grid;grid-template-columns:repeat(7,1fr)}
-.hrow{display:flex;align-items:center;gap:12px}
-.hrow .mark{flex:none;width:52px;height:52px}
-.hrow h1{flex:1;min-width:0;font-size:1.9rem}
-.hrow h1 .brand{display:block;font:600 .95rem var(--text);letter-spacing:.02em;color:var(--laguna);margin-top:4px}
+.hbar{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.hbrand{display:flex;align-items:center;gap:8px;min-width:0}
+.hbrand .mark{flex:none;width:34px;height:34px}
+.hbrand .brand{font:700 1.15rem var(--text);letter-spacing:-.01em;color:var(--ink)}
+.iconbtn{flex:none;display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);text-decoration:none}
+.iconbtn:hover{background:var(--sunk)}
+.iconbtn[aria-current="page"]{background:var(--laguna);border-color:var(--laguna);color:var(--surface)}
+h1.ttl{font-size:clamp(1.8rem,7vw,2.6rem);font-weight:700;margin:14px 0 0;overflow-wrap:anywhere;line-height:1.05}
 .wv{font:500 .8rem var(--text);color:var(--muted);text-align:right;margin-top:2px}
 .wind{margin-top:3px;font-size:.88rem}
 .wl{display:inline-block;font:600 .78rem var(--display);padding:1px 7px;border-radius:6px;margin-left:4px}
@@ -183,7 +187,7 @@ input[type=date].tin{min-height:42px}
 .sf.on{background:var(--laguna);border-color:var(--laguna);color:var(--surface)}
 .fc{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:.9rem}
 .fc:empty{display:none}
-@media (min-width:640px){ .hrow h1{font-size:2.6rem} }
+
 #langsel{width:auto;flex:none;font-size:.9rem;padding:6px 8px}
 .bars{display:flex;flex-direction:column;gap:8px}
 .barrow{display:grid;grid-template-columns:7.5em 1fr auto;gap:8px;align-items:center;font-size:.9rem}
@@ -1051,7 +1055,8 @@ details.conv[open] summary{margin-bottom:10px}
 <body>
 <div class="wrap">
 <header class="top">
-  <div class="hrow"><svg class="mark" viewBox="0 0 200 200" role="img" aria-label="vialonga"><path d="M44 58 L100 150 L156 58" fill="none" stroke="var(--flamingo)" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/><path d="M44 58 L100 150 L156 58" fill="none" stroke="var(--bg)" stroke-width="3.5" stroke-dasharray="9 9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="44" cy="58" r="15" fill="var(--bg)" stroke="var(--laguna)" stroke-width="7"/><circle cx="156" cy="58" r="15" fill="var(--laguna)"/></svg><h1><span id="ttl">Expedição Andes 2027</span><span class="brand">vialonga</span></h1><a href="#extra" id="setbtn" class="btn tbtn" aria-label="Configurações" title="Configurações"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></a><button type="button" id="themebtn" class="btn tbtn">☀</button><select id="langsel" aria-label="Idioma"></select></div>
+  <div class="hbar"><div class="hbrand"><svg class="mark" viewBox="0 0 200 200" role="img" aria-label="vialonga"><path d="M44 58 L100 150 L156 58" fill="none" stroke="var(--flamingo)" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/><path d="M44 58 L100 150 L156 58" fill="none" stroke="var(--bg)" stroke-width="3.5" stroke-dasharray="9 9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="44" cy="58" r="15" fill="var(--bg)" stroke="var(--laguna)" stroke-width="7"/><circle cx="156" cy="58" r="15" fill="var(--laguna)"/></svg><span class="brand">vialonga</span></div><a href="#extra" id="setbtn" class="iconbtn" aria-label="Configurações" title="Configurações"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></a></div>
+  <h1 class="ttl"><span id="ttl">Expedição Andes 2027</span></h1>
   <p id="sub">Gustavo, saída do Rio em 30 de junho</p>
   <div class="seg" id="seg"></div>
 </header>
@@ -1130,7 +1135,7 @@ details.conv[open] summary{margin-bottom:10px}
 <section class="tab" id="t-extra">
   <h2 class="sec" data-i="h_extra">Câmbio, canal e offline</h2>
   <p class="lead langnote" data-i="content_pt"></p>
-  <div id="extra"></div>
+  <div id="extrabox"></div>
 </section>
 </main>
 </div>
@@ -1380,6 +1385,7 @@ Object.assign(I18N.es,{"d_alerts": "Atención", "see_tip": "Ver consejo", "t_pro
 Object.assign(I18N.it,{"d_alerts": "Attenzione", "see_tip": "Vedi consiglio", "t_problem": "Problema", "t_solution": "Cosa fare", "t_help": "Aiuto e dove risolvere", "t_route": "Itinerario analizzato", "t_countries": "Paesi", "t_summary": "{a} punti di attenzione in {d} giorni", "t_auto": "Analizzato automaticamente da percorso, meteo, fondo stradale e veicolo."});
 Object.assign(I18N.de,{"d_alerts": "Achtung", "see_tip": "Tipp ansehen", "t_problem": "Problem", "t_solution": "Was tun", "t_help": "Hilfe und Lösungen", "t_route": "Analysierte Route", "t_countries": "Länder", "t_summary": "{a} Achtungspunkte an {d} Tagen", "t_auto": "Automatisch aus Route, Wetter, Belag und Fahrzeug analysiert."});
 Object.assign(I18N.zh,{"d_alerts": "注意", "see_tip": "查看建议", "t_problem": "问题", "t_solution": "怎么做", "t_help": "帮助与解决途径", "t_route": "分析的行程", "t_countries": "国家", "t_summary": "{d} 天中有 {a} 个注意点", "t_auto": "根据路线、天气、路面和车辆自动分析。"});
+I18N.pt.settings="Configurações";I18N.pt.h_extra="Configurações";I18N.en.settings="Settings";I18N.en.h_extra="Settings";I18N.es.settings="Configuración";I18N.es.h_extra="Configuración";I18N.it.settings="Impostazioni";I18N.it.h_extra="Impostazioni";I18N.de.settings="Einstellungen";I18N.de.h_extra="Einstellungen";I18N.zh.settings="设置";I18N.zh.h_extra="设置";
 const LOCALES = {pt:'pt-BR',en:'en-GB',es:'es-AR',it:'it-IT',de:'de-DE',zh:'zh-CN'};
 const LANG_NAMES = {pt:'Português',en:'English',es:'Español',it:'Italiano',de:'Deutsch',zh:'中文'};
 
@@ -1928,8 +1934,8 @@ function renderExtra(){
     ['Banco Central de Bolivia, cotações','https://www.bcb.gob.bo/librerias/indicadores/otras/anteriores.php?qdd=1&qmm=12'],
     ['Fechamentos do Paso de Jama em julho/2026','https://www.todojujuy.com/paso-jama-a988/1']
   ];
-  $('#extra').innerHTML = `
-  <h3 class="sub">${tr('lang')}</h3><div class="card"><select id="langsel2">${Object.keys(I18N).map(l=>`<option value="${l}" ${l===LANG?'selected':''}>${LANG_NAMES[l]}</option>`).join('')}</select></div>
+  $("#extrabox").innerHTML = `
+  <h3 class="sub">${tr('lang')}</h3><div class="card"><select id="langsel2" aria-label="${tr('lang')}">${Object.keys(I18N).map(l=>`<option value="${l}" ${l===LANG?'selected':''}>${LANG_NAMES[l]}</option>`).join('')}</select></div>
   <h3 class="sub">${tr('theme_h')}</h3><div class="card"><div class="segm" role="group">${['light','dark','auto'].map(x=>`<button type="button" data-theme-set="${x}" aria-pressed="${store.get('theme','light')===x}">${tr('theme_'+x)}</button>`).join('')}</div></div>
   ${tabsCard()}
   <h3 class="sub">Usar sem sinal</h3>
@@ -2031,9 +2037,7 @@ function applyStatic(){
   document.querySelectorAll('[data-i]').forEach(el=>{ el.textContent = tr(el.dataset.i); });
   document.querySelectorAll('[data-iph]').forEach(el=>{ el.placeholder = tr(el.dataset.iph); });
   document.querySelectorAll('.langnote').forEach(el=>{ el.hidden = LANG==='pt'; });
-  const ls=$('#langsel'); ls.setAttribute('aria-label', tr('lang'));
-  ls.innerHTML = Object.keys(I18N).map(l=>`<option value="${l}" ${l===LANG?'selected':''}>${LANG_NAMES[l]}</option>`).join('');
-  ls.onchange = ()=>{ LANG=ls.value; store.set('lang',LANG); nf=new Intl.NumberFormat(LOCALES[LANG]); renderAll(); };
+  const sb=$('#setbtn'); if(sb){ sb.setAttribute('aria-label', tr('settings')); sb.title=tr('settings'); }
 }
 
 /* Vehicles and safety */
@@ -3429,8 +3433,9 @@ function showTab(){
   let t = TABS.includes(h)? h : (h.startsWith('d-')? 'roteiro' : 'roteiro');
   TABS.forEach(x=>{ $('#t-'+x).classList.toggle('on',x===t); });
   $('#profile').style.display = t==='roteiro'?'':'none'; $('#stats').style.display = t==='roteiro'?'':'none';
-  $('#sub').style.display = t==='criar'?'none':''; $('#seg').style.display = t==='criar'?'none':'';
+  $('#sub').style.display = (t==='criar'||t==='extra')?'none':''; $('#seg').style.display = (t==='criar'||t==='extra')?'none':''; document.querySelector('h1.ttl').style.display = t==='extra'?'none':'';
   document.querySelectorAll('nav.tabs a').forEach(a=>a.setAttribute('aria-current', a.dataset.t===t?'page':'false'));
+  const sbt=$('#setbtn'); if(sbt) sbt.setAttribute('aria-current', t==='extra'?'page':'false');
   if(t==='dormir') renderCitySel();
   if(t==='gastos') renderGastos();
   if(t==='criar') renderBuilder();
@@ -3443,7 +3448,7 @@ function showTab(){
 function renderAll(){ applyStatic(); renderSeg(); renderProfile(); renderStats(); renderDays(); renderRoad(); renderDocs(); renderExtra(); applyTabPrefs(); showTab(); renderMap(); resolveVirtuals(); }
 window.addEventListener('hashchange', showTab);
 wireChat();
-applyTheme(); $('#themebtn').onclick=cycleTheme;
+applyTheme();
 renderAll();
 (async()=>{ try{ if(window.claude && typeof window.claude.use==='function'){ SAMPLE = await window.claude.use('sample'); } }catch(e){ SAMPLE=null; } })();
 if('serviceWorker' in navigator){ window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{})); }
