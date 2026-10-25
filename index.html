@@ -1036,6 +1036,11 @@ details.conv[open] summary{margin-bottom:10px}
 .tipctx.col{flex-direction:column;align-items:stretch}
 .tip .linklist a{padding:8px 0}
 .msg.bot{white-space:pre-line}
+.segrow{display:flex;align-items:center;gap:8px;padding:2px 0 2px 6px;margin-left:8px;border-left:3px dotted var(--line)}
+.segline{display:none}
+.segkm{font:700 .9rem ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--sunk);padding:2px 8px;border-radius:8px;color:var(--ink)}
+.segrow .small{font-size:.8rem}
+.sbody .bpt{border-top:0}
 #toast{position:fixed;left:50%;transform:translateX(-50%) translateY(20px);bottom:calc(78px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);border-radius:12px;padding:10px 14px;display:flex;gap:14px;align-items:center;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:50;max-width:calc(100% - 32px);font-size:.95rem}
 #toast.on{opacity:1;transform:translateX(-50%);pointer-events:auto}
 #toast button{background:none;border:0;color:var(--bg);font:700 .95rem var(--text);text-decoration:underline;cursor:pointer;padding:4px}
@@ -2647,12 +2652,24 @@ function legsHtml(b,legs,v){
       <label class="small" style="display:inline-flex;gap:4px;align-items:center;margin-left:4px"><input type="checkbox" data-lx4="${k}" ${ld.x4?'checked':''}> ${tr('b_x4')}</label></div>
       ${ld.notes?`<p class="small" style="margin:6px 0 0">${esc(ld.notes)}</p>`:''}</div>`; }).join('');
 }
+function segInfo(b){
+  const out=[]; if(b.pts.length<2) return out; const vt=myVeh().type;
+  bLegs(b).forEach(L=>{ const ld=legData(b,L), ids=[L.from,...L.vias,L.to]; const segs=[]; let tot=0;
+    for(let k=1;k<ids.length;k++){ const d=hav(ids[k-1],ids[k]); segs.push(d); tot+=d; }
+    const hrs=legHours(ld,vt), est = ld.src!=='osrm' && ld.src!=='user';
+    segs.forEach((d,k)=>out.push({km:Math.round(tot?ld.km*d/tot:ld.km/segs.length), h:tot?hrs*d/tot:hrs/segs.length, est, surf:ld.surf}));
+  });
+  return [null, ...out];
+}
+function segRow(s){ if(!s) return ''; const h=s.h; const ht=h<1?`${Math.round(h*60)} min`:`≈ ${Math.floor(h)}h${String(Math.round((h%1)*60)).padStart(2,'0')}`;
+  return `<div class="segrow" aria-label="${nf.format(s.km)} km"><span class="segline" aria-hidden="true"></span><span class="segkm">${nf.format(s.km)} km</span><span class="small">${ht}${s.est?', '+tr('estimated'):''}${s.surf&&s.surf.some(x=>x!=='asfalto')?', '+s.surf.filter(x=>x!=='asfalto').map(x=>tr('surf_'+x)).join(', '):''}</span></div>`; }
 function pointsHtml(b){
+  const SG=segInfo(b);
   if(!b.pts.length) return `<p class="small" style="margin:0">${tr('b_empty')}</p>`;
   return b.pts.map((p,i)=>{ const s=S[p.id]||['?',0,0,0]; const first=i===0, last=i===b.pts.length-1;
     const role = first?tr('b_start_pt'):(last?tr('b_end_pt'):'');
     const sel = first ? `<span class="small">${role}</span>` : `<select data-bnight="${i}" aria-label="${tr('b_nights')}">${last?'':`<option value="0" ${p.type==='via'?'selected':''}>${tr('b_pass')}</option>`}${[1,2,3,4,5,6,7].map(n=>`<option value="${n}" ${p.type==='sleep'&&(p.nights||1)===n?'selected':''}>${n} ${n===1?tr('b_night1'):tr('b_nights')}</option>`).join('')}</select>`;
-    return `<div class="bpt"><span class="bn">${i+1}</span><div class="bt"><b>${esc(s[0])}</b><br><span class="small">${nf.format(s[3])} m${last&&!first?', '+role:''}</span>${p.why?`<span class="why">${p.type==='via'?'':'★ '}${esc(p.why)}</span>`:''}</div>
+    return `${i>0?segRow(SG[i]):''}<div class="bpt"><span class="bn">${i+1}</span><div class="bt"><b>${esc(s[0])}</b><br><span class="small">${nf.format(s[3])} m${last&&!first?', '+role:''}</span>${p.why && !(p.type!=='via' && p.why===tr('why_pass')) && !(p.type==='via' && p.why!==tr('why_pass') && p.why!==tr('why_visit'))?`<span class="why">${p.type==='via'?'':'★ '}${esc(p.why)}</span>`:''}</div>
       ${sel}<div class="bact"><button class="btn" type="button" data-bup="${i}" aria-label="${tr('b_up')}" ${first?'disabled':''}>↑</button><button class="btn" type="button" data-bdown="${i}" aria-label="${tr('b_down')}" ${last?'disabled':''}>↓</button>${trashBtn(`data-brm="${i}"`, tr('del_pt'))}</div></div>`; }).join('');
 }
 function missingHtml(b){
@@ -2690,8 +2707,8 @@ function renderBuilder(){
       <div class="radio-row"><label class="radio"><input type="radio" name="pmode" value="rep" checked><span>${tr('pm_rep')}</span></label><label class="radio"><input type="radio" name="pmode" value="add"><span>${tr('pm_add')}</span></label></div>
       <div class="actions"><button class="btn primary" type="button" id="pl-go">${tr('paste_go')}</button>${b.pts.length?`<button class="btn" type="button" id="pl-fill">${tr('pl_fill')}</button>`:''}</div><p class="small" id="pl-st" style="margin:6px 0 0"></p></details>
     ${missingHtml(b)}
-    <div class="phead" style="margin-top:16px"><h4 class="h4" style="margin:0">${tr('my_route')}</h4>${b.pts.length>1&&td.n?`<span class="wl ${nd>td.n?'strong':'calm'}">${tr('plan_fit',{t:nd,n:td.n})}</span>`:''}</div>
-    ${b.pts.length>1?`<div class="actions" style="margin-top:6px"><button class="btn" type="button" id="b-dist" ${td.n?'':'disabled'}>${tr('dist_btn')}</button>${td.n?'':`<span class="small">${tr('dist_need')}</span>`}</div>`:''}
+    <div class="phead" style="margin-top:16px"><h4 class="h4" style="margin:0">${tr('my_route')}</h4>${b.pts.length>1?`<span class="wl mod">${nf.format(totKm)} km</span>`:''}${b.pts.length>1&&td.n?`<span class="wl ${nd>td.n?'strong':'calm'}">${tr('plan_fit',{t:nd,n:td.n})}</span>`:''}</div>
+    ${b.pts.length>1?`<div class="actions" style="margin-top:6px"><button class="btn" type="button" id="b-dist" ${td.n?'':'disabled'}>${tr('dist_btn')}</button><button class="btn" type="button" id="b-calc2">${tr('b_calc')}</button>${td.n?'':`<span class="small">${tr('dist_need')}</span>`}</div>`:''}
     <div id="b-pts">${pointsHtml(b)}</div>
     <div class="field" style="margin-top:10px"><label for="b-q">${tr('add_stop')}</label><input type="text" id="b-q" class="tin" placeholder="${tr('b_search_ph')}"></div>
     ${b.pts.length>1?`<div class="field" style="margin-top:8px"><label for="b-pos">${tr('ins_pos')}</label><select id="b-pos"><option value="">${tr('ins_end')}</option>${b.pts.slice(0,-1).map((p,i)=>`<option value="${i+1}">${tr('ins_after',{n:i+1,x:esc(S[p.id][0])})}</option>`).join('')}</select></div>`:''}
@@ -2723,9 +2740,10 @@ function renderBuilder(){
   if($('#sp-go')){ wireSmart(); attachAC($('#b-q'), x=>addBuilderPoint(x)); }
   if($('#pl-fill')) $('#pl-fill').onclick=()=>{ const x=bState(); $('#pl-txt').value=x.pts.map(p=>S[p.id][0].split(' (')[0]).join('\n'); };
   if($('#pl-txt')) $('#pl-txt').oninput=()=>{ const x=bState(); x.pasteText=$('#pl-txt').value; store.set('builder',x); };
+  if($('#b-calc2')) $('#b-calc2').onclick=()=>{ const c=$('#b-calc'); if(c){ $('#b-calc2').disabled=true; $('#b-calc2').textContent=tr('b_calc_wait'); c.click(); } };
   if($('#b-dist')) $('#b-dist').onclick=async()=>{ const bt=$('#b-dist'); bt.disabled=true; bt.textContent=tr('dist_wait'); const snap=localStorage.getItem(K+'builder'); await autoDistribute(true); renderBuilder();
     const y=bState(); toast(tr(bDaysPreview(y)>tripDates(y).n?'dist_short':'dist_done',{t:bDaysPreview(y),n:tripDates(y).n}), ()=>{ try{ snap===null?localStorage.removeItem(K+'builder'):localStorage.setItem(K+'builder',snap);}catch(e){} renderBuilder(); }); };
-  el.querySelectorAll('[data-bnight]').forEach(s=>s.onchange=()=>{ const x=bState(), p=x.pts[Number(s.dataset.bnight)], n=Number(s.value); if(n===0){p.type='via';} else {p.type='sleep'; p.nights=n;} bSave(x); renderBuilder(); });
+  el.querySelectorAll('[data-bnight]').forEach(s=>s.onchange=()=>{ const x=bState(), p=x.pts[Number(s.dataset.bnight)], n=Number(s.value); if(n===0){p.type='via';} else {p.type='sleep'; p.nights=n;} p.why=''; bSave(x); renderBuilder(); });
   el.querySelectorAll('[data-bup]').forEach(bt=>bt.onclick=()=>{ const x=bState(), i=Number(bt.dataset.bup); [x.pts[i-1],x.pts[i]]=[x.pts[i],x.pts[i-1]]; bSave(x); renderBuilder(); });
   el.querySelectorAll('[data-bdown]').forEach(bt=>bt.onclick=()=>{ const x=bState(), i=Number(bt.dataset.bdown); [x.pts[i+1],x.pts[i]]=[x.pts[i],x.pts[i+1]]; bSave(x); renderBuilder(); });
   el.querySelectorAll('[data-brm]').forEach(bt=>bt.onclick=()=>withUndo(['builder'],()=>{ const x=bState(); x.pts.splice(Number(bt.dataset.brm),1); bSave(x); renderBuilder(); }));
