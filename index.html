@@ -1041,6 +1041,37 @@ details.conv[open] summary{margin-bottom:10px}
 .segkm{font:700 .9rem ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--sunk);padding:2px 8px;border-radius:8px;color:var(--ink)}
 .segrow .small{font-size:.8rem}
 .sbody .bpt{border-top:0}
+section.tab > h2.sec{display:none}
+.expn{margin:14px 0 0;font:600 .95rem var(--text);color:var(--muted)}
+h1.ttl{margin-top:2px}
+.hacts{display:flex;gap:8px}
+#sos-fab{position:fixed;left:16px;bottom:calc(84px + env(safe-area-inset-bottom,0px));width:58px;height:58px;border-radius:50%;border:3px solid #fff;background:#D92D20;color:#fff;font:800 1rem var(--text);letter-spacing:.04em;box-shadow:0 6px 18px rgba(217,45,32,.45);z-index:26;cursor:pointer}
+#chat-fab{width:50px;height:50px}
+.sossheet{border-top:6px solid #D92D20}
+.sost{color:#D92D20;font:800 1.6rem var(--display)}
+.sosloc{font-size:.95rem;margin:4px 0 10px}
+.sosbig{display:block;text-align:center;background:#D92D20;color:#fff;font:800 1.5rem var(--text);padding:16px;border-radius:16px;text-decoration:none;margin-bottom:10px}
+.sosn a{font-size:1.1rem}
+.soscon{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}
+.soscon summary{cursor:pointer;font:600 1rem var(--display)}
+.soscon .grid2 input,.sheet .grid2 input,.sheet .grid2 select{min-width:0;width:100%}
+.trrow{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.tri{font-size:1.4rem}
+.trt{display:flex;flex-direction:column;gap:1px;min-width:0}
+.trt b{font:700 1.1rem var(--text);color:var(--ink)}
+.tra{display:flex;gap:6px}
+.tra .btn{padding:6px 10px}
+.altbars{display:flex;gap:6px;align-items:flex-end;height:96px;margin-top:12px}
+.altbars .ab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;min-width:0}
+.altbars i{display:block;width:100%;background:color-mix(in srgb,#6C7BE0 55%,var(--sunk));border-radius:6px 6px 0 0}
+.altbars i.hi{background:var(--st-snow)}
+.altbars .av{font:600 .75rem var(--text);color:var(--muted);margin-bottom:2px;white-space:nowrap}
+.altbars .an{font:600 .78rem/1.15 var(--text);color:var(--ink);text-align:center;margin-top:4px;min-height:2.3em;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.bars5 span{font-size:.78rem!important}
+.blab{font-size:.8rem!important}
+.mt>span{font-size:.8rem!important}
+.small{font-size:.88rem}
+main{padding-bottom:calc(160px + env(safe-area-inset-bottom,0px))}
 #toast{position:fixed;left:50%;transform:translateX(-50%) translateY(20px);bottom:calc(78px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);border-radius:12px;padding:10px 14px;display:flex;gap:14px;align-items:center;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:50;max-width:calc(100% - 32px);font-size:.95rem}
 #toast.on{opacity:1;transform:translateX(-50%);pointer-events:auto}
 #toast button{background:none;border:0;color:var(--bg);font:700 .95rem var(--text);text-decoration:underline;cursor:pointer;padding:4px}
@@ -1060,8 +1091,9 @@ details.conv[open] summary{margin-bottom:10px}
 <body>
 <div class="wrap">
 <header class="top">
-  <div class="hbar"><div class="hbrand"><svg class="mark" viewBox="0 0 200 200" role="img" aria-label="vialonga"><path d="M44 58 L100 150 L156 58" fill="none" stroke="var(--flamingo)" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/><path d="M44 58 L100 150 L156 58" fill="none" stroke="var(--bg)" stroke-width="3.5" stroke-dasharray="9 9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="44" cy="58" r="15" fill="var(--bg)" stroke="var(--laguna)" stroke-width="7"/><circle cx="156" cy="58" r="15" fill="var(--laguna)"/></svg><span class="brand">vialonga</span></div><a href="#extra" id="setbtn" class="iconbtn" aria-label="Configurações" title="Configurações"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></a></div>
-  <h1 class="ttl"><span id="ttl">Expedição Andes 2027</span></h1>
+  <div class="hbar"><div class="hbrand"><svg class="mark" viewBox="0 0 200 200" role="img" aria-label="vialonga"><path d="M44 58 L100 150 L156 58" fill="none" stroke="var(--flamingo)" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/><path d="M44 58 L100 150 L156 58" fill="none" stroke="var(--bg)" stroke-width="3.5" stroke-dasharray="9 9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="44" cy="58" r="15" fill="var(--bg)" stroke="var(--laguna)" stroke-width="7"/><circle cx="156" cy="58" r="15" fill="var(--laguna)"/></svg><span class="brand">vialonga</span></div><div class="hacts"><button type="button" id="trbtn" class="iconbtn" aria-label="Tradutor" title="Tradutor"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h9M8.5 3v2M6 5c1 3.5 3.5 6 6.5 7.5M11 5c-1 3.5-3.5 6-6.5 7.5"/><path d="M12.5 21l4-9 4 9M14 17.5h5"/></svg></button><a href="#extra" id="setbtn" class="iconbtn" aria-label="Configurações" title="Configurações"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></a></div></div>
+  <p class="expn" id="expn"></p>
+  <h1 class="ttl"><span id="ttl">Roteiro</span></h1>
   <p id="sub">Gustavo, saída do Rio em 30 de junho</p>
   <div class="seg" id="seg"></div>
 </header>
@@ -1166,6 +1198,17 @@ details.conv[open] summary{margin-bottom:10px}
   </div>
 </div>
 
+<button id="sos-fab" type="button" aria-label="SOS">SOS</button>
+<div class="overlay" id="sos" role="dialog" aria-modal="true" aria-labelledby="sos-t"><div class="sheet sossheet">
+  <div class="phead"><h3 id="sos-t" class="sost">SOS</h3><button class="btn" type="button" id="sos-x" aria-label="Fechar">×</button></div>
+  <div id="sos-body"></div>
+</div></div>
+<div class="overlay" id="trs" role="dialog" aria-modal="true" aria-labelledby="tr-t"><div class="sheet chatsheet">
+  <div class="phead"><h3 id="tr-t" data-i="tr_h">Tradutor de serviços</h3><button class="btn" type="button" id="tr-x" aria-label="Fechar">×</button></div>
+  <p class="small" data-i="tr_lead" style="margin:4px 0 8px"></p>
+  <div class="grid2"><select id="tr-c" aria-label="País"></select><input type="search" id="tr-q" class="tin" data-iph="tr_ph"></div>
+  <div id="tr-list" class="chatlog"></div>
+</div></div>
 <button id="chat-fab" type="button" aria-label="Assistente"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 10h.01M12 10h.01M16 10h.01"/></svg></button>
 <div class="overlay" id="chat" role="dialog" aria-modal="true" aria-labelledby="chat-t"><div class="sheet chatsheet">
   <div class="phead"><h3 id="chat-t" data-i="chat_h">Assistente</h3><div class="actions" style="margin:0"><button class="btn" type="button" id="chat-clear" data-i="chat_clear">Limpar</button><button class="btn" type="button" id="chat-x" aria-label="Fechar">×</button></div></div>
@@ -1391,6 +1434,12 @@ Object.assign(I18N.it,{"d_alerts": "Attenzione", "see_tip": "Vedi consiglio", "t
 Object.assign(I18N.de,{"d_alerts": "Achtung", "see_tip": "Tipp ansehen", "t_problem": "Problem", "t_solution": "Was tun", "t_help": "Hilfe und Lösungen", "t_route": "Analysierte Route", "t_countries": "Länder", "t_summary": "{a} Achtungspunkte an {d} Tagen", "t_auto": "Automatisch aus Route, Wetter, Belag und Fahrzeug analysiert."});
 Object.assign(I18N.zh,{"d_alerts": "注意", "see_tip": "查看建议", "t_problem": "问题", "t_solution": "怎么做", "t_help": "帮助与解决途径", "t_route": "分析的行程", "t_countries": "国家", "t_summary": "{d} 天中有 {a} 个注意点", "t_auto": "根据路线、天气、路面和车辆自动分析。"});
 I18N.pt.settings="Configurações";I18N.pt.h_extra="Configurações";I18N.en.settings="Settings";I18N.en.h_extra="Settings";I18N.es.settings="Configuración";I18N.es.h_extra="Configuración";I18N.it.settings="Impostazioni";I18N.it.h_extra="Impostazioni";I18N.de.settings="Einstellungen";I18N.de.h_extra="Einstellungen";I18N.zh.settings="设置";I18N.zh.h_extra="设置";
+Object.assign(I18N.pt,{"sos_locating": "Localizando você…", "sos_call": "Ligar para emergência", "sos_112": "Em qualquer celular, 112 e 911 costumam funcionar mesmo sem chip ou sem crédito.", "sos_share": "Enviar minha localização", "sos_msg": "SOS: preciso de ajuda. Minha localização: {u}", "sos_hosp": "Hospitais perto", "sos_contact": "Contato de emergência", "sos_cname": "Nome", "sos_callc": "Ligar para {n}", "sos_copied": "Mensagem copiada.", "sos_nogps": "Não consegui o GPS. Permita a localização ou ligue mesmo assim.", "sos_note": "A ligação usa a linha de voz do celular; enviar a localização usa dados ou SMS. O GPS funciona mesmo sem internet.", "tr_h": "Tradutor de serviços", "tr_lead": "O nome muda de país para país: escolha o país e mostre a palavra certa, ouça a pronúncia ou procure perto de você.", "tr_ph": "Buscar: borracharia, farmácia...", "tr_neutral": "Espanhol geral", "tr_listen": "Ouvir", "tr_near": "Procurar perto", "tr_phrases": "Frases úteis", "tr_nospeech": "O celular não tem voz disponível.", "share_btn": "Compartilhar com o grupo", "share_text": "Roteiro {x} no vialonga. Abra o link para importar:", "share_copied": "Link copiado. Envie para o grupo.", "share_fail": "Não foi possível gerar o link.", "share_imported": "Roteiro {x} importado.", "share_bad": "Link de roteiro inválido."});
+Object.assign(I18N.en,{"sos_locating": "Finding your location…", "sos_call": "Call emergency", "sos_112": "On any phone, 112 and 911 usually work even without a SIM or credit.", "sos_share": "Send my location", "sos_msg": "SOS: I need help. My location: {u}", "sos_hosp": "Hospitals nearby", "sos_contact": "Emergency contact", "sos_cname": "Name", "sos_callc": "Call {n}", "sos_copied": "Message copied.", "sos_nogps": "Could not get GPS. Allow location or call anyway.", "sos_note": "Calls use your phone’s voice line; sending your location uses data or SMS. GPS works without internet.", "tr_h": "Service translator", "tr_lead": "Names change from country to country: pick the country, show the right word, hear it or search nearby.", "tr_ph": "Search: tyre repair, pharmacy...", "tr_neutral": "General Spanish", "tr_listen": "Listen", "tr_near": "Search nearby", "tr_phrases": "Useful phrases", "tr_nospeech": "No voice available on this phone.", "share_btn": "Share with the group", "share_text": "Itinerary {x} on vialonga. Open the link to import:", "share_copied": "Link copied. Send it to the group.", "share_fail": "Could not create the link.", "share_imported": "Itinerary {x} imported.", "share_bad": "Invalid itinerary link."});
+Object.assign(I18N.es,{"sos_locating": "Ubicándote…", "sos_call": "Llamar a emergencias", "sos_112": "En cualquier celular, 112 y 911 suelen funcionar aun sin chip o sin saldo.", "sos_share": "Enviar mi ubicación", "sos_msg": "SOS: necesito ayuda. Mi ubicación: {u}", "sos_hosp": "Hospitales cerca", "sos_contact": "Contacto de emergencia", "sos_cname": "Nombre", "sos_callc": "Llamar a {n}", "sos_copied": "Mensaje copiado.", "sos_nogps": "No pude obtener el GPS. Permití la ubicación o llamá igual.", "sos_note": "La llamada usa la línea de voz; enviar la ubicación usa datos o SMS. El GPS funciona sin internet.", "tr_h": "Traductor de servicios", "tr_lead": "Los nombres cambian de país a país: elegí el país, mostrá la palabra correcta, escuchala o buscá cerca.", "tr_ph": "Buscar: gomería, farmacia...", "tr_neutral": "Español general", "tr_listen": "Escuchar", "tr_near": "Buscar cerca", "tr_phrases": "Frases útiles", "tr_nospeech": "El celular no tiene voz disponible.", "share_btn": "Compartir con el grupo", "share_text": "Itinerario {x} en vialonga. Abrí el enlace para importarlo:", "share_copied": "Enlace copiado. Envialo al grupo.", "share_fail": "No se pudo generar el enlace.", "share_imported": "Itinerario {x} importado.", "share_bad": "Enlace de itinerario inválido."});
+Object.assign(I18N.it,{"sos_locating": "Ti sto localizzando…", "sos_call": "Chiama emergenza", "sos_112": "Da qualsiasi telefono, 112 e 911 di solito funzionano anche senza SIM o credito.", "sos_share": "Invia la mia posizione", "sos_msg": "SOS: ho bisogno di aiuto. La mia posizione: {u}", "sos_hosp": "Ospedali vicini", "sos_contact": "Contatto di emergenza", "sos_cname": "Nome", "sos_callc": "Chiama {n}", "sos_copied": "Messaggio copiato.", "sos_nogps": "GPS non disponibile. Consenti la posizione o chiama comunque.", "sos_note": "La chiamata usa la linea voce; l’invio della posizione usa dati o SMS. Il GPS funziona senza internet.", "tr_h": "Traduttore di servizi", "tr_lead": "I nomi cambiano da paese a paese: scegli il paese, mostra la parola giusta, ascoltala o cerca vicino.", "tr_ph": "Cerca: gommista, farmacia...", "tr_neutral": "Spagnolo generale", "tr_listen": "Ascolta", "tr_near": "Cerca vicino", "tr_phrases": "Frasi utili", "tr_nospeech": "Nessuna voce disponibile sul telefono.", "share_btn": "Condividi con il gruppo", "share_text": "Itinerario {x} su vialonga. Apri il link per importarlo:", "share_copied": "Link copiato. Invialo al gruppo.", "share_fail": "Impossibile creare il link.", "share_imported": "Itinerario {x} importato.", "share_bad": "Link di itinerario non valido."});
+Object.assign(I18N.de,{"sos_locating": "Standort wird ermittelt…", "sos_call": "Notruf anrufen", "sos_112": "Auf jedem Handy funktionieren 112 und 911 meist auch ohne SIM oder Guthaben.", "sos_share": "Meinen Standort senden", "sos_msg": "SOS: Ich brauche Hilfe. Mein Standort: {u}", "sos_hosp": "Krankenhäuser in der Nähe", "sos_contact": "Notfallkontakt", "sos_cname": "Name", "sos_callc": "{n} anrufen", "sos_copied": "Nachricht kopiert.", "sos_nogps": "Kein GPS. Standort erlauben oder trotzdem anrufen.", "sos_note": "Anrufe nutzen die Sprachleitung; das Senden des Standorts nutzt Daten oder SMS. GPS funktioniert ohne Internet.", "tr_h": "Dienstleistungs-Übersetzer", "tr_lead": "Namen ändern sich von Land zu Land: Land wählen, das richtige Wort zeigen, anhören oder in der Nähe suchen.", "tr_ph": "Suchen: Reifendienst, Apotheke...", "tr_neutral": "Allgemeines Spanisch", "tr_listen": "Anhören", "tr_near": "In der Nähe suchen", "tr_phrases": "Nützliche Sätze", "tr_nospeech": "Keine Stimme auf diesem Gerät.", "share_btn": "Mit der Gruppe teilen", "share_text": "Reiseplan {x} in vialonga. Link öffnen zum Importieren:", "share_copied": "Link kopiert. An die Gruppe senden.", "share_fail": "Link konnte nicht erstellt werden.", "share_imported": "Reiseplan {x} importiert.", "share_bad": "Ungültiger Reiseplan-Link."});
+Object.assign(I18N.zh,{"sos_locating": "正在定位……", "sos_call": "拨打紧急电话", "sos_112": "任何手机即使没有 SIM 卡或话费，通常也能拨打 112 和 911。", "sos_share": "发送我的位置", "sos_msg": "SOS：我需要帮助。我的位置：{u}", "sos_hosp": "附近医院", "sos_contact": "紧急联系人", "sos_cname": "姓名", "sos_callc": "打给 {n}", "sos_copied": "信息已复制。", "sos_nogps": "无法获取 GPS。请允许定位或直接拨打。", "sos_note": "通话使用手机语音线路；发送位置使用数据或短信。GPS 无需网络也能工作。", "tr_h": "服务翻译", "tr_lead": "不同国家叫法不同：选择国家，出示正确的词，收听发音或搜索附近。", "tr_ph": "搜索：补胎、药店……", "tr_neutral": "通用西班牙语", "tr_listen": "收听", "tr_near": "搜索附近", "tr_phrases": "常用句子", "tr_nospeech": "此手机没有可用语音。", "share_btn": "分享给车队", "share_text": "vialonga 上的行程 {x}。打开链接即可导入：", "share_copied": "链接已复制，发给车队吧。", "share_fail": "无法生成链接。", "share_imported": "已导入行程 {x}。", "share_bad": "行程链接无效。"});
 const LOCALES = {pt:'pt-BR',en:'en-GB',es:'es-AR',it:'it-IT',de:'de-DE',zh:'zh-CN'};
 const LANG_NAMES = {pt:'Português',en:'English',es:'Español',it:'Italiano',de:'Deutsch',zh:'中文'};
 
@@ -1509,6 +1558,7 @@ function renderProfile(){
 }
 function allDoneAsk(days){ const done=store.get('done',{}); return days.length && days.every(d=>done[plan+':'+(d.uid||d.id)]) ? `<p style="margin:0 0 8px"><b>${tr('done_ask')}</b></p>` : ''; }
 function renderStats(){
+  setTimeout(()=>{ const ws=$('#w-share'); if(ws) ws.onclick=shareRoute; },0);
   const vw=$('#vbarwrap'); if(vw){ vw.innerHTML = plan==='hist'?'':vehBar(); wireVehBar(); }
   const days = planDays(); const km = days.reduce((s,d)=>s+d.km,0);
   const high = days.filter(d=>maxAlt(d)>=3500).length;
@@ -1523,7 +1573,7 @@ function renderStats(){
   if(plan==='nova'){
     const m=store.get('novaMeta',{})||{}, tgt=m.days||0, diff=days.length-tgt;
     $('#planwarn').innerHTML = allDoneAsk(days)+tr('warn_nova',{n:days.length, t: tgt?` (${diff>0?tr('b_over',{n:diff}):tr('b_under',{n:-diff})})`:'', v:esc(vehName(myVeh()))})+`
-      <div class="actions"><button class="btn primary" type="button" id="w-add">${tr('add_loc')}</button><a class="btn" href="#criar">${tr('edit_builder')}</a><button class="btn" type="button" id="w-done">${tr('done_trip')}</button></div>`;
+      <div class="actions"><button class="btn primary" type="button" id="w-add">${tr('add_loc')}</button><a class="btn" href="#criar">${tr('edit_builder')}</a><button class="btn" type="button" id="w-share">${tr('share_btn')}</button><button class="btn" type="button" id="w-done">${tr('done_trip')}</button></div>`;
     $('#w-add').onclick = ()=>openAdd(0); armTwice($('#w-done'), tr('done_confirm'), concludeTrip);
   } else if(plan==='hist'){
     $('#planwarn').innerHTML = tr('hist_ro')+`<div class="actions"><button class="btn primary" type="button" id="w-back">${tr('hist_back')}</button></div>`;
@@ -1531,7 +1581,7 @@ function renderStats(){
   } else if(plan==='meu'){
     const okD = days.length<=22, okA = ata<=4;
     $('#planwarn').innerHTML = tr('warn_meu',{n:days.length,okd:tr(okD?'inside':'above'),a:ata,oka:tr(okA?'inside':'above')})+`
-      <div class="actions"><button class="btn primary" type="button" id="w-add">${tr('add_loc')}</button><button class="btn" type="button" id="w-reset">${tr('reset22')}</button><button class="btn" type="button" id="w-done">${tr('done_trip')}</button></div>`;
+      <div class="actions"><button class="btn primary" type="button" id="w-add">${tr('add_loc')}</button><button class="btn" type="button" id="w-share">${tr('share_btn')}</button><button class="btn" type="button" id="w-reset">${tr('reset22')}</button><button class="btn" type="button" id="w-done">${tr('done_trip')}</button></div>`;
     $('#planwarn').insertAdjacentHTML('afterbegin', allDoneAsk(days));
     $('#w-add').onclick = ()=>openAdd(0); armTwice($('#w-done'), tr('done_confirm'), concludeTrip);
     armTwice($('#w-reset'), tr('confirm_reset'), ()=>{ store.set('custom', fromTemplate('22')); renderAll(); });
@@ -2313,7 +2363,8 @@ function titleText(){
   if(plan==='hist'){ const h=histView(); return h?h.name:tr('name_default'); }
   return store.get('meuName','Expedição Andes 2027');
 }
-function renderTitle(){ const t=titleText(); const el=$('#ttl'); if(el) el.textContent=t; document.title=t+' · vialonga'; }
+const PAGE_T={criar:'h_criar',roteiro:'tab_roteiro',dormir:'h_dormir',gastos:'h_gastos',estrada:'h_estrada',docs:'h_docs',dicas:'h_dicas',extra:'h_extra'};
+function renderTitle(){ const tab=curTab(), name=titleText(); const el=$('#ttl'); if(el) el.textContent=tr(PAGE_T[tab]||'tab_roteiro'); const ex=$('#expn'); if(ex){ ex.textContent=name; ex.hidden = tab==='extra'; } document.title=tr(PAGE_T[tab]||'tab_roteiro')+', '+name+' · vialonga'; }
 
 /* Saved routes (projects) */
 function projs(){ return store.get('projects',[])||[]; }
@@ -2995,7 +3046,8 @@ function weatherPart(d,i){
   const w=dayWeather(d,i), pts=[d.from,...d.route,d.to].filter((x,k,a)=>k===0||x!==a[k-1]);
   const bars = w.hp && w.hp.length
     ? `<div class="bars5" aria-label="${tr('bars_rain')}">${w.hp.map((v,k)=>`<div class="b"><i style="height:${Math.max(6,v)}%" class="${v===Math.max(...w.hp)&&v>=20?'hot st-'+w.status:''}"></i><span>${[6,9,12,15,18][k]}h</span></div>`).join('')}</div><p class="blab">${tr('bars_rain')}</p>`
-    : (pts.length>1?`<div class="bars5" aria-label="${tr('bars_alt')}">${pts.slice(0,7).map(id=>`<div class="b"><i style="height:${Math.max(6,Math.round(S[id][3]/48))}%" class="${S[id][3]>=3500?'hot st-snow':''}"></i><span>${esc(S[id][0].split(' (')[0].slice(0,6))}</span></div>`).join('')}</div><p class="blab">${tr('bars_alt')}</p>`:'');
+    : (pts.length>1?(()=>{ const P=pts.slice(0,6), top=Math.max(1000,...P.map(id=>S[id][3]));
+        return `<div class="altbars" aria-label="${tr('bars_alt')}">${P.map(id=>`<div class="ab"><span class="av">${nf.format(S[id][3])} m</span><i style="height:${Math.max(8,Math.round(S[id][3]/top*100))}%" class="${S[id][3]>=3500?'hi':''}"></i><span class="an">${esc(placeName(id))}</span></div>`).join('')}</div><p class="blab">${tr('bars_alt')}</p>`; })():'');
   if(w.status==='na') return `<div class="wpart"><div class="metrics"><div class="mt"><span class="wbig">${wIcon('cloud',34)}</span></div><div class="mt"><b class="mv">${nf.format(d.km)}</b><span>km</span></div></div>${bars}</div>`;
   return `<div class="wpart"><div class="metrics">
       <div class="mt"><span class="wbig">${wIcon(w.kind,36)}${(w.gust||0)>=50?wIcon('wind',22):''}</span><span>${tr('sky_'+w.kind)}</span></div>
@@ -3444,6 +3496,133 @@ renderDicas = function(){
 };
 document.addEventListener('click', e=>{ const b=e.target.closest('[data-tip]'); if(b && !b.closest('#dicas')){ e.preventDefault(); goTip(b.dataset.tip); } });
 
+/* ---------- SOS: locate, call local emergency, send location ---------- */
+const EMER_MAIN={BR:'190',AR:'911',BO:'110',CL:'133',PE:'105',UY:'911',PY:'911',XX:'112'};
+let SOS_POS=null;
+function sosCountryGuess(){ const i=todayIdx(); const days=planDays(); if(i>=0&&days[i]) return days[i].c||'BR'; return 'BR'; }
+function nearestStop(lat,lng){ let b=null,bd=1e9; Object.keys(S).forEach(k=>{ const s=S[k]; const d=(s[1]-lat)**2+(s[2]-lng)**2; if(d<bd){bd=d;b=k;} }); return b; }
+function sosRender(){
+  const c=(SOS_POS&&SOS_POS.c)||sosCountryGuess(), n=EMER[c]||EMER.XX, contact=store.get('sosContact',{name:'',phone:''});
+  const where = SOS_POS ? `${SOS_POS.place?esc(SOS_POS.place)+', ':''}${tr('c_'+c)} (${SOS_POS.lat.toFixed(5)}, ${SOS_POS.lng.toFixed(5)}, ±${Math.round(SOS_POS.acc)} m)` : tr('sos_locating');
+  const mapsLink = SOS_POS ? `https://maps.google.com/?q=${SOS_POS.lat},${SOS_POS.lng}` : '';
+  const msg = SOS_POS ? tr('sos_msg',{u:mapsLink}) : '';
+  $('#sos-body').innerHTML = `<p class="sosloc">📍 ${where}</p>
+    <a class="sosbig" href="tel:${EMER_MAIN[c]||'112'}">${tr('sos_call')} ${EMER_MAIN[c]||'112'}</a>
+    <div class="emn sosn"><a href="tel:${n[0].split(' ')[0]}"><span>${tr('em_pol')}</span>${n[0]}</a><a href="tel:${n[1].split(' ')[0]}"><span>${tr('em_amb')}</span>${n[1]}</a><a href="tel:${n[2].split(' ')[0]}"><span>${tr('em_fire')}</span>${n[2]}</a></div>
+    <p class="small">${tr('sos_112')}</p>
+    ${SOS_POS?`<div class="actions"><button class="btn primary" type="button" id="sos-share">${tr('sos_share')}</button><a class="btn" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(msg)}">WhatsApp</a><a class="btn" href="sms:${contact.phone||''}?body=${encodeURIComponent(msg)}">SMS</a></div>
+    <div class="actions"><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/hospital/@${SOS_POS.lat},${SOS_POS.lng},13z">🏥 ${tr('sos_hosp')}</a><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/${encodeURIComponent(glossLocal('fuel',c))}/@${SOS_POS.lat},${SOS_POS.lng},13z">⛽ ${esc(glossLocal('fuel',c))}</a><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/${encodeURIComponent(glossLocal('tyre',c))}/@${SOS_POS.lat},${SOS_POS.lng},13z">🛞 ${esc(glossLocal('tyre',c))}</a></div>`:''}
+    <details class="soscon" ${contact.phone?'':'open'}><summary>${tr('sos_contact')}${contact.name?': '+esc(contact.name):''}</summary>
+      <div class="grid2" style="margin-top:8px"><input class="tin" id="sc-name" placeholder="${tr('sos_cname')}" value="${esc(contact.name)}"><input class="tin" id="sc-phone" type="tel" placeholder="+55 21 99999-9999" value="${esc(contact.phone)}"></div>
+      <div class="actions"><button class="btn" type="button" id="sc-save">${tr('veh_save').split(' ')[0]}</button>${contact.phone?`<a class="btn primary" href="tel:${esc(contact.phone)}">${tr('sos_callc',{n:esc(contact.name||contact.phone)})}</a>`:''}</div></details>
+    <p class="small">${tr('sos_note')}</p>`;
+  const sh=$('#sos-share'); if(sh) sh.onclick=async()=>{ try{ await navigator.share({title:'SOS vialonga', text:msg}); }catch(e){ try{ await navigator.clipboard.writeText(msg); toast(tr('sos_copied')); }catch(e2){} } };
+  $('#sc-save').onclick=()=>{ store.set('sosContact',{name:$('#sc-name').value.trim(), phone:$('#sc-phone').value.trim()}); sosRender(); };
+}
+function sosOpen(){
+  $('#sos').classList.add('on'); sosRender();
+  if(!navigator.geolocation){ return; }
+  navigator.geolocation.getCurrentPosition(async pos=>{
+    const lat=pos.coords.latitude, lng=pos.coords.longitude; SOS_POS={lat,lng,acc:pos.coords.accuracy};
+    const k=nearestStop(lat,lng); if(k && pathKm([[lat,lng],[S[k][1],S[k][2]]])<80){ SOS_POS.c=ctryOf(k); SOS_POS.place=S[k][0].split(' (')[0]; }
+    sosRender();
+    try{ const r=await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}&zoom=12&accept-language=${LANG}`); if(r.ok){ const j=await r.json(), a=j.address||{}; const cc=(a.country_code||'').toUpperCase();
+      SOS_POS.c=EMER[cc]?cc:(cc?'XX':SOS_POS.c); SOS_POS.place=a.city||a.town||a.village||a.county||SOS_POS.place; sosRender(); } }catch(e){}
+  }, err=>{ $('#sos-body').insertAdjacentHTML('afterbegin', `<p class="ferr">${tr('sos_nogps')}</p>`); }, {enableHighAccuracy:true, timeout:15000, maximumAge:60000});
+}
+
+/* ---------- Service translator: local names change from country to country ---------- */
+const GLOSS=[
+ {k:'fuel', icon:'⛽', pt:'Posto de gasolina', en:'Petrol station', es:{AR:'Estación de servicio', CL:'Bencinera / Servicentro', BO:'Surtidor / Gasolinera', PE:'Grifo', UY:'Estación de servicio', PY:'Estación de servicio', X:'Gasolinera'}},
+ {k:'gas', icon:'⛽', pt:'Gasolina', en:'Petrol', es:{AR:'Nafta', CL:'Bencina', BO:'Gasolina', PE:'Gasolina', UY:'Nafta', PY:'Nafta', X:'Gasolina'}},
+ {k:'tyre', icon:'🛞', pt:'Borracharia', en:'Tyre repair shop', es:{AR:'Gomería', CL:'Vulcanización', BO:'Llantería', PE:'Llantería / Vulcanizadora', UY:'Gomería', PY:'Gomería', X:'Taller de neumáticos'}},
+ {k:'tyre2', icon:'🛞', pt:'Pneu', en:'Tyre', es:{AR:'Cubierta / Neumático', CL:'Neumático', BO:'Llanta', PE:'Llanta', UY:'Cubierta', PY:'Cubierta', X:'Neumático'}},
+ {k:'flat', icon:'🛞', pt:'Pneu furado', en:'Flat tyre', es:{AR:'Pinchadura', CL:'Pinchazo', BO:'Llanta pinchada', PE:'Llanta baja', UY:'Pinchadura', PY:'Pinchadura', X:'Pinchazo'}},
+ {k:'mech', icon:'🔧', pt:'Oficina mecânica', en:'Mechanic', es:{X:'Taller mecánico'}},
+ {k:'moto', icon:'🏍', pt:'Oficina de motos', en:'Motorcycle workshop', es:{AR:'Taller de motos / Moto service', X:'Taller de motos'}},
+ {k:'parts', icon:'⚙', pt:'Peças de moto', en:'Motorcycle parts', es:{AR:'Repuestos de motos', X:'Repuestos de motos'}},
+ {k:'tow', icon:'🚚', pt:'Guincho', en:'Tow truck', es:{AR:'Grúa / Auxilio mecánico', X:'Grúa'}},
+ {k:'oil', icon:'🛢', pt:'Óleo do motor', en:'Engine oil', es:{X:'Aceite de motor'}},
+ {k:'hosp', icon:'🏥', pt:'Pronto-socorro', en:'Emergency room', es:{AR:'Guardia', CL:'Urgencia / SAPU', BO:'Emergencias', PE:'Emergencia', UY:'Emergencia', PY:'Urgencias', X:'Urgencias'}},
+ {k:'pharm', icon:'💊', pt:'Farmácia', en:'Pharmacy', es:{X:'Farmacia'}},
+ {k:'police', icon:'👮', pt:'Polícia', en:'Police', es:{CL:'Carabineros', X:'Policía'}},
+ {k:'station', icon:'🏢', pt:'Delegacia', en:'Police station', es:{CL:'Comisaría de Carabineros', X:'Comisaría'}},
+ {k:'rest', icon:'🍽', pt:'Restaurante', en:'Restaurant', es:{AR:'Restaurante / Parrilla / Comedor', CL:'Restaurante / Picada', BO:'Restaurante / Pensión', PE:'Restaurante / Menú', X:'Restaurante'}},
+ {k:'snack', icon:'🥪', pt:'Lanchonete', en:'Snack bar', es:{AR:'Confitería / Bar', CL:'Fuente de soda', PE:'Cafetería', X:'Cafetería'}},
+ {k:'hotel', icon:'🛏', pt:'Hotel / pousada', en:'Hotel / guesthouse', es:{AR:'Hotel / Hostería / Hospedaje', CL:'Hostal / Residencial', BO:'Hostal / Alojamiento', PE:'Hostal / Hospedaje', X:'Hotel / Hostal'}},
+ {k:'park', icon:'🅿', pt:'Estacionamento', en:'Parking', es:{AR:'Estacionamiento / Cochera', PE:'Cochera', X:'Estacionamiento'}},
+ {k:'wc', icon:'🚻', pt:'Banheiro', en:'Toilet', es:{X:'Baño'}},
+ {k:'atm', icon:'🏧', pt:'Caixa eletrônico', en:'ATM', es:{X:'Cajero automático'}},
+ {k:'exch', icon:'💱', pt:'Casa de câmbio', en:'Currency exchange', es:{X:'Casa de cambio'}},
+ {k:'market', icon:'🛒', pt:'Mercado', en:'Grocery store', es:{AR:'Almacén / Supermercado', BO:'Tienda / Mercado', PE:'Bodega / Mercado', X:'Supermercado'}},
+ {k:'sim', icon:'📶', pt:'Chip de celular', en:'SIM card', es:{X:'Chip / Tarjeta SIM'}},
+ {k:'wash', icon:'🧽', pt:'Lava-jato', en:'Car wash', es:{AR:'Lavadero', CL:'Lavado de autos', X:'Lavadero'}},
+ {k:'ins', icon:'📄', pt:'Seguro obrigatório', en:'Mandatory insurance', es:{AR:'Seguro / Carta Verde', CL:'SOAPEX', BO:'SOAT', PE:'SOAT', X:'Seguro obligatorio'}}
+];
+const PHRASES=[
+ {pt:'Meu pneu furou. Onde tem uma borracharia?', en:'I have a flat tyre. Where is a tyre repair shop?', es:{AR:'Se me pinchó la cubierta. ¿Dónde hay una gomería?', CL:'Se me pinchó el neumático. ¿Dónde hay una vulcanización?', X:'Se me pinchó la llanta. ¿Dónde hay una llantería?'}},
+ {pt:'Onde fica o posto de gasolina mais próximo?', en:'Where is the nearest petrol station?', es:{AR:'¿Dónde queda la estación de servicio más cercana?', CL:'¿Dónde está la bencinera más cercana?', PE:'¿Dónde está el grifo más cercano?', X:'¿Dónde está la gasolinera más cercana?'}},
+ {pt:'Preciso de um mecânico de motos.', en:'I need a motorcycle mechanic.', es:{X:'Necesito un mecánico de motos.'}},
+ {pt:'Sofri um acidente. Chame uma ambulância, por favor.', en:'I had an accident. Please call an ambulance.', es:{X:'Tuve un accidente. Llame a una ambulancia, por favor.'}},
+ {pt:'Preciso ir ao hospital.', en:'I need to go to the hospital.', es:{X:'Necesito ir al hospital.'}},
+ {pt:'Aceita cartão?', en:'Do you take cards?', es:{X:'¿Acepta tarjeta?'}},
+ {pt:'Quanto custa?', en:'How much is it?', es:{X:'¿Cuánto cuesta?'}},
+ {pt:'Onde posso estacionar a moto com segurança?', en:'Where can I park my motorcycle safely?', es:{AR:'¿Dónde puedo dejar la moto segura? ¿Tienen cochera?', X:'¿Dónde puedo estacionar la moto de forma segura?'}},
+ {pt:'Tem quarto para esta noite?', en:'Do you have a room for tonight?', es:{X:'¿Tiene habitación para esta noche?'}},
+ {pt:'A estrada está aberta?', en:'Is the road open?', es:{AR:'¿Está habilitada la ruta?', X:'¿Está abierta la carretera?'}}
+];
+const SPEECH={AR:'es-AR',CL:'es-CL',BO:'es-BO',PE:'es-PE',UY:'es-UY',PY:'es-PY',X:'es-ES'};
+function glossLocal(k,c){ const g=GLOSS.find(x=>x.k===k); if(!g) return k; if(c==='BR') return g.pt; return (g.es[c]||g.es.X).split(' / ')[0]; }
+function speak(text, lang){ try{ const u=new SpeechSynthesisUtterance(text); u.lang=lang; u.rate=.95; speechSynthesis.cancel(); speechSynthesis.speak(u); }catch(e){ toast(tr('tr_nospeech')); } }
+function trCountry(){ const s=store.get('trC',null); if(s) return s; const c=(SOS_POS&&SOS_POS.c)||sosCountryGuess(); if(c!=='BR') return c; const o=[...planCountries()].find(x=>x!=='BR'&&x!=='XX'); return o||'AR'; }
+function trRender(){
+  const c=trCountry(), q=fold(($('#tr-q')||{}).value||''), base=LANG==='pt'?'pt':'en';
+  const opts=['AR','CL','BO','PE','UY','PY','X'].map(x=>`<option value="${x}" ${x===c?'selected':''}>${x==='X'?tr('tr_neutral'):tr('c_'+x)}</option>`).join('');
+  const where = SOS_POS ? `@${SOS_POS.lat},${SOS_POS.lng},13z` : (()=>{ const i=Math.max(0,todayIdx()); const d=planDays()[i]; return d?`@${S[d.to][1]},${S[d.to][2]},13z`:''; })();
+  const gl=GLOSS.filter(g=>!q || fold(g.pt+' '+g.en+' '+Object.values(g.es).join(' ')).includes(q));
+  const ph=PHRASES.filter(p=>!q || fold(p.pt+' '+p.en+' '+Object.values(p.es).join(' ')).includes(q));
+  $('#tr-list').innerHTML = `${gl.map(g=>{ const loc=g.es[c]||g.es.X;
+      return `<div class="trrow"><span class="tri" aria-hidden="true">${g.icon}</span><div class="trt"><span class="small">${esc(base==='pt'?g.pt:g.en)}</span><b>${esc(loc)}</b><span class="small">${esc(g.en)}</span></div>
+        <div class="tra"><button type="button" class="btn" data-say="${esc(loc.split(' / ')[0])}" aria-label="${tr('tr_listen')}">🔊</button><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/${encodeURIComponent(loc.split(' / ')[0])}/${where}" aria-label="${tr('tr_near')}">📍</a></div></div>`; }).join('')}
+    ${ph.length?`<h4 class="h4">${tr('tr_phrases')}</h4>${ph.map(p=>{ const loc=p.es[c]||p.es.X; return `<div class="trrow"><div class="trt" style="grid-column:1 / 3"><span class="small">${esc(base==='pt'?p.pt:p.en)}</span><b>${esc(loc)}</b></div><div class="tra"><button type="button" class="btn" data-say="${esc(loc)}" aria-label="${tr('tr_listen')}">🔊</button></div></div>`; }).join('')}`:''}`;
+  $('#tr-c').innerHTML=opts;
+  $('#tr-list').querySelectorAll('[data-say]').forEach(b=>b.onclick=()=>speak(b.dataset.say, SPEECH[c]||'es-ES'));
+}
+function trOpen(){ $('#trs').classList.add('on'); trRender(); }
+
+/* ---------- Share itinerary with the group ---------- */
+async function packRoute(){
+  const days=planDays(); const ids=new Set(); days.forEach(d=>[d.from,d.to,...d.route].forEach(x=>ids.add(x)));
+  const stops={}; ids.forEach(id=>{ if(CST[id]) stops[id]=CST[id]; });
+  const payload={v:1, name:titleText(), start:iso(dateOf(0)), days, stops, builder: plan==='nova'?bState():null};
+  const raw=new TextEncoder().encode(JSON.stringify(payload));
+  let bytes=raw, z='0';
+  if(window.CompressionStream){ try{ const cs=new Blob([raw]).stream().pipeThrough(new CompressionStream('deflate-raw')); bytes=new Uint8Array(await new Response(cs).arrayBuffer()); z='1'; }catch(e){} }
+  let s=''; bytes.forEach(b=>s+=String.fromCharCode(b));
+  return z+btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+}
+async function unpackRoute(str){
+  const z=str[0], b64=str.slice(1).replace(/-/g,'+').replace(/_/g,'/'); const bin=atob(b64); const bytes=Uint8Array.from(bin, ch=>ch.charCodeAt(0));
+  let out=bytes; if(z==='1'){ const ds=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('deflate-raw')); out=new Uint8Array(await new Response(ds).arrayBuffer()); }
+  return JSON.parse(new TextDecoder().decode(out));
+}
+async function shareRoute(){
+  try{ const code=await packRoute(); const url='https://vialongamoto.github.io/#r='+code;
+    const text=tr('share_text',{x:titleText()});
+    if(navigator.share){ try{ await navigator.share({title:titleText(), text, url}); return; }catch(e){ if(e&&e.name==='AbortError') return; } }
+    await navigator.clipboard.writeText(url); toast(tr('share_copied'));
+  }catch(e){ toast(tr('share_fail')); }
+}
+async function importFromHash(){
+  const h=location.hash||''; if(!h.startsWith('#r=')) return;
+  try{ const p=await unpackRoute(h.slice(3)); history.replaceState(null,'',location.pathname);
+    Object.assign(S,p.stops||{}); Object.assign(CST,p.stops||{}); store.set('cstops',CST);
+    if(p.builder) store.set('builder',p.builder); else store.del('builder');
+    store.set('novaDays',p.days); store.set('novaMeta',{name:p.name, start:p.start, days:p.days.length, vehicle:myVeh().type}); store.del('projActive');
+    saveProject(true); setPlan('nova'); renderAll(); location.hash='roteiro'; toast(tr('share_imported',{x:p.name}));
+  }catch(e){ toast(tr('share_bad')); }
+}
+
 /* Tabs and hash */
 const TABS = ['criar','roteiro','dormir','gastos','estrada','docs','dicas','extra'];
 function showTab(){
@@ -3451,7 +3630,7 @@ function showTab(){
   let t = TABS.includes(h)? h : (h.startsWith('d-')? 'roteiro' : 'roteiro');
   TABS.forEach(x=>{ $('#t-'+x).classList.toggle('on',x===t); });
   $('#profile').style.display = t==='roteiro'?'':'none'; $('#stats').style.display = t==='roteiro'?'':'none';
-  $('#sub').style.display = (t==='criar'||t==='extra')?'none':''; $('#seg').style.display = (t==='criar'||t==='extra')?'none':''; document.querySelector('h1.ttl').style.display = t==='extra'?'none':'';
+  $('#sub').style.display = (t==='criar'||t==='extra')?'none':''; $('#seg').style.display = (t==='criar'||t==='extra')?'none':''; 
   document.querySelectorAll('nav.tabs a').forEach(a=>a.setAttribute('aria-current', a.dataset.t===t?'page':'false'));
   const sbt=$('#setbtn'); if(sbt) sbt.setAttribute('aria-current', t==='extra'?'page':'false');
   if(t==='dormir') renderCitySel();
@@ -3466,6 +3645,10 @@ function showTab(){
 function renderAll(){ applyStatic(); renderSeg(); renderProfile(); renderStats(); renderDays(); renderRoad(); renderDocs(); renderExtra(); applyTabPrefs(); showTab(); renderMap(); resolveVirtuals(); }
 window.addEventListener('hashchange', showTab);
 wireChat();
+$('#sos-fab').onclick=sosOpen; $('#sos-x').onclick=()=>$('#sos').classList.remove('on'); $('#sos').onclick=e=>{ if(e.target.id==='sos') $('#sos').classList.remove('on'); };
+$('#trbtn').onclick=trOpen; $('#tr-x').onclick=()=>$('#trs').classList.remove('on'); $('#trs').onclick=e=>{ if(e.target.id==='trs') $('#trs').classList.remove('on'); };
+$('#tr-q').oninput=trRender; $('#tr-c').onchange=()=>{ store.set('trC',$('#tr-c').value); trRender(); };
+importFromHash();
 applyTheme();
 renderAll();
 (async()=>{ try{ if(window.claude && typeof window.claude.use==='function'){ SAMPLE = await window.claude.use('sample'); } }catch(e){ SAMPLE=null; } })();
