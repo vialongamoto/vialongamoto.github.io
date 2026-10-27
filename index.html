@@ -1072,6 +1072,24 @@ h1.ttl{margin-top:2px}
 .mt>span{font-size:.8rem!important}
 .small{font-size:.88rem}
 main{padding-bottom:calc(160px + env(safe-area-inset-bottom,0px))}
+nav.tabs a{position:relative}
+nav.tabs a.hasbadge::after{content:attr(data-badge);position:absolute;top:4px;right:calc(50% - 20px);min-width:17px;height:17px;padding:0 4px;border-radius:9px;background:#D92D20;color:#fff;font:700 .7rem/17px var(--text)}
+nav.tabs a[data-t="atencao"] svg{stroke:#D97706}
+.paso{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px;margin:12px 0}
+.paso.must{border-left:5px solid #D97706}
+.phd{display:flex;gap:12px;align-items:flex-start}
+.psi{font-size:1.8rem;line-height:1}
+.paso h3{font:600 1.3rem/1.15 var(--display);margin:2px 0}
+.prisk{margin-top:10px;padding:8px 10px;border-radius:10px;font-size:.92rem}
+.prisk.r-h,.prisk.r-x{background:color-mix(in srgb,var(--st-heavy) 14%,var(--surface));color:var(--ink)} .prisk.r-m{background:var(--amberbg)} .prisk.r-l{background:var(--lagbg)}
+.pcheck{margin-top:10px;padding:12px;border:1px dashed var(--line);border-radius:12px}
+.pst{font:800 .8rem var(--text);letter-spacing:.05em;padding:3px 8px;border-radius:6px}
+.pst.open{background:var(--lagbg);color:var(--laguna)} .pst.closed{background:color-mix(in srgb,var(--st-heavy) 18%,transparent);color:var(--st-heavy)} .pst.none{background:var(--amberbg);color:var(--amber)}
+.btn.pok{border-color:var(--laguna);color:var(--laguna)} .btn.pno{border-color:var(--st-heavy);color:var(--st-heavy)}
+.pbanner{display:flex;gap:10px;align-items:center;margin-top:10px;padding:10px 12px;border-radius:12px;text-decoration:none;color:var(--ink);border:2px solid #D97706;background:var(--amberbg)}
+.pbanner.open{border-color:var(--laguna);background:var(--lagbg)} .pbanner.closed{border-color:var(--st-heavy)}
+.pbanner>span:first-child{font-size:1.4rem}
+.segpaso{font:700 .8rem var(--text);color:#B45309;background:var(--amberbg);padding:2px 8px;border-radius:8px}
 #toast{position:fixed;left:50%;transform:translateX(-50%) translateY(20px);bottom:calc(78px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);border-radius:12px;padding:10px 14px;display:flex;gap:14px;align-items:center;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:50;max-width:calc(100% - 32px);font-size:.95rem}
 #toast.on{opacity:1;transform:translateX(-50%);pointer-events:auto}
 #toast button{background:none;border:0;color:var(--bg);font:700 .95rem var(--text);text-decoration:underline;cursor:pointer;padding:4px}
@@ -1121,6 +1139,11 @@ main{padding-bottom:calc(160px + env(safe-area-inset-bottom,0px))}
   <p class="lead" data-i="lead_dormir">Ordenado por hotel, pousada, hostel e camping. Notas e número de avaliações do Google; preços são faixas estimadas para julho de 2027.</p>
   <select id="citysel" aria-label="Escolha o pernoite"></select>
   <div id="lodging"></div>
+</section>
+
+<section class="tab" id="t-atencao">
+  <h2 class="sec" data-i="h_atencao">Atenção</h2>
+  <div id="atencao"></div>
 </section>
 
 <section class="tab" id="t-dicas">
@@ -1221,6 +1244,7 @@ main{padding-bottom:calc(160px + env(safe-area-inset-bottom,0px))}
   <div class="in">
     <a href="#criar" data-t="criar"><svg viewBox="0 0 24 24"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8 16.5C12 14 9 9.5 15.5 7.5"/><path d="M18 14v6M15 17h6"/></svg><span data-i="tab_criar">Criar</span></a>
     <a href="#roteiro" data-t="roteiro"><svg viewBox="0 0 24 24"><path d="M3 20l5-14 4 8 3-5 6 11z"/></svg><span data-i="tab_roteiro">Roteiro</span></a>
+    <a href="#atencao" data-t="atencao"><svg viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/></svg><span data-i="tab_atencao">Atenção</span></a>
     <a href="#dormir" data-t="dormir"><svg viewBox="0 0 24 24"><path d="M3 19V9l9-5 9 5v10M8 19v-6h8v6"/></svg><span data-i="tab_dormir">Dormir</span></a>
     <a href="#gastos" data-t="gastos"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M15 15h3"/></svg><span data-i="tab_gastos">Gastos</span></a>
     <a href="#estrada" data-t="estrada"><svg viewBox="0 0 24 24"><path d="M6 3l-3 18M18 3l3 18M12 4v3M12 11v3M12 18v2"/></svg><span data-i="tab_estrada">Estrada</span></a>
@@ -1440,6 +1464,12 @@ Object.assign(I18N.es,{"sos_locating": "Ubicándote…", "sos_call": "Llamar a e
 Object.assign(I18N.it,{"sos_locating": "Ti sto localizzando…", "sos_call": "Chiama emergenza", "sos_112": "Da qualsiasi telefono, 112 e 911 di solito funzionano anche senza SIM o credito.", "sos_share": "Invia la mia posizione", "sos_msg": "SOS: ho bisogno di aiuto. La mia posizione: {u}", "sos_hosp": "Ospedali vicini", "sos_contact": "Contatto di emergenza", "sos_cname": "Nome", "sos_callc": "Chiama {n}", "sos_copied": "Messaggio copiato.", "sos_nogps": "GPS non disponibile. Consenti la posizione o chiama comunque.", "sos_note": "La chiamata usa la linea voce; l’invio della posizione usa dati o SMS. Il GPS funziona senza internet.", "tr_h": "Traduttore di servizi", "tr_lead": "I nomi cambiano da paese a paese: scegli il paese, mostra la parola giusta, ascoltala o cerca vicino.", "tr_ph": "Cerca: gommista, farmacia...", "tr_neutral": "Spagnolo generale", "tr_listen": "Ascolta", "tr_near": "Cerca vicino", "tr_phrases": "Frasi utili", "tr_nospeech": "Nessuna voce disponibile sul telefono.", "share_btn": "Condividi con il gruppo", "share_text": "Itinerario {x} su vialonga. Apri il link per importarlo:", "share_copied": "Link copiato. Invialo al gruppo.", "share_fail": "Impossibile creare il link.", "share_imported": "Itinerario {x} importato.", "share_bad": "Link di itinerario non valido."});
 Object.assign(I18N.de,{"sos_locating": "Standort wird ermittelt…", "sos_call": "Notruf anrufen", "sos_112": "Auf jedem Handy funktionieren 112 und 911 meist auch ohne SIM oder Guthaben.", "sos_share": "Meinen Standort senden", "sos_msg": "SOS: Ich brauche Hilfe. Mein Standort: {u}", "sos_hosp": "Krankenhäuser in der Nähe", "sos_contact": "Notfallkontakt", "sos_cname": "Name", "sos_callc": "{n} anrufen", "sos_copied": "Nachricht kopiert.", "sos_nogps": "Kein GPS. Standort erlauben oder trotzdem anrufen.", "sos_note": "Anrufe nutzen die Sprachleitung; das Senden des Standorts nutzt Daten oder SMS. GPS funktioniert ohne Internet.", "tr_h": "Dienstleistungs-Übersetzer", "tr_lead": "Namen ändern sich von Land zu Land: Land wählen, das richtige Wort zeigen, anhören oder in der Nähe suchen.", "tr_ph": "Suchen: Reifendienst, Apotheke...", "tr_neutral": "Allgemeines Spanisch", "tr_listen": "Anhören", "tr_near": "In der Nähe suchen", "tr_phrases": "Nützliche Sätze", "tr_nospeech": "Keine Stimme auf diesem Gerät.", "share_btn": "Mit der Gruppe teilen", "share_text": "Reiseplan {x} in vialonga. Link öffnen zum Importieren:", "share_copied": "Link kopiert. An die Gruppe senden.", "share_fail": "Link konnte nicht erstellt werden.", "share_imported": "Reiseplan {x} importiert.", "share_bad": "Ungültiger Reiseplan-Link."});
 Object.assign(I18N.zh,{"sos_locating": "正在定位……", "sos_call": "拨打紧急电话", "sos_112": "任何手机即使没有 SIM 卡或话费，通常也能拨打 112 和 911。", "sos_share": "发送我的位置", "sos_msg": "SOS：我需要帮助。我的位置：{u}", "sos_hosp": "附近医院", "sos_contact": "紧急联系人", "sos_cname": "姓名", "sos_callc": "打给 {n}", "sos_copied": "信息已复制。", "sos_nogps": "无法获取 GPS。请允许定位或直接拨打。", "sos_note": "通话使用手机语音线路；发送位置使用数据或短信。GPS 无需网络也能工作。", "tr_h": "服务翻译", "tr_lead": "不同国家叫法不同：选择国家，出示正确的词，收听发音或搜索附近。", "tr_ph": "搜索：补胎、药店……", "tr_neutral": "通用西班牙语", "tr_listen": "收听", "tr_near": "搜索附近", "tr_phrases": "常用句子", "tr_nospeech": "此手机没有可用语音。", "share_btn": "分享给车队", "share_text": "vialonga 上的行程 {x}。打开链接即可导入：", "share_copied": "链接已复制，发给车队吧。", "share_fail": "无法生成链接。", "share_imported": "已导入行程 {x}。", "share_bad": "行程链接无效。"});
+Object.assign(I18N.pt,{"tab_atencao": "Atenção", "h_atencao": "Atenção antes de cada trecho", "a_lead": "Os pasos de montanha podem fechar sem aviso por neve, gelo ou \"viento blanco\". Antes de cada travessia, consulte os canais oficiais e registre o status aqui.", "a_today": "Hoje, dia {n}", "p_must": "travessia obrigatória", "p_near": "passa perto", "p_risk_h": "Risco alto de fechamento", "p_risk_m": "Risco moderado de fechamento", "p_risk_l": "Risco baixo de fechamento", "p_risk_x": "Normalmente fechado nesta época", "p_risk_m_o": "em {m}, pelo histórico de neve e tempestades.", "p_risk_m_x": "em {m}: planeje outro paso.", "p_status": "Status", "p_open": "ABERTO", "p_closed": "FECHADO", "p_checked": "conferido {t}", "p_unchecked": "NÃO CONFERIDO", "p_mustcheck": "Confira se está aberto antes de sair", "p_rule": "Confira na véspera e na manhã do dia nos canais oficiais e registre o que viu. O app avisa até você registrar.", "p_isopen": "Está aberto", "p_isclosed": "Está fechado", "p_planb": "Plano B: ", "p_alts": "pasos alternativos perto da rota: {x}.", "p_noalt": "não há paso alternativo próximo; avalie esperar a reabertura.", "p_docs": "Documentos e alfândega", "p_none": "Este roteiro não cruza pasos de montanha.", "p_others": "Pasos próximos e alternativos", "p_all": "Canais oficiais", "p_pend": "{n} paso(s) para conferir antes de sair", "p_closed_t": "Paso fechado registrado. Veja o plano B."});
+Object.assign(I18N.en,{"tab_atencao": "Alerts", "h_atencao": "Check before each leg", "a_lead": "Mountain passes can close without warning due to snow, ice or \"viento blanco\". Before each crossing, check the official channels and record the status here.", "a_today": "Today, day {n}", "p_must": "mandatory crossing", "p_near": "passes nearby", "p_risk_h": "High risk of closure", "p_risk_m": "Moderate risk of closure", "p_risk_l": "Low risk of closure", "p_risk_x": "Usually closed this time of year", "p_risk_m_o": "in {m}, based on the history of snow and storms.", "p_risk_m_x": "in {m}: plan another pass.", "p_status": "Status", "p_open": "OPEN", "p_closed": "CLOSED", "p_checked": "checked {t}", "p_unchecked": "NOT CHECKED", "p_mustcheck": "Check it is open before leaving", "p_rule": "Check the day before and that morning on the official channels and record what you saw. The app reminds you until you do.", "p_isopen": "It is open", "p_isclosed": "It is closed", "p_planb": "Plan B: ", "p_alts": "alternative passes near the route: {x}.", "p_noalt": "no alternative pass nearby; consider waiting for it to reopen.", "p_docs": "Documents and customs", "p_none": "This itinerary does not cross mountain passes.", "p_others": "Nearby and alternative passes", "p_all": "Official channels", "p_pend": "{n} pass(es) to check before leaving", "p_closed_t": "Closed pass recorded. See plan B."});
+Object.assign(I18N.es,{"tab_atencao": "Atención", "h_atencao": "Atención antes de cada tramo", "a_lead": "Los pasos de montaña pueden cerrar sin aviso por nieve, hielo o viento blanco. Antes de cada cruce, consultá los canales oficiales y registrá el estado acá.", "a_today": "Hoy, día {n}", "p_must": "cruce obligatorio", "p_near": "pasa cerca", "p_risk_h": "Riesgo alto de cierre", "p_risk_m": "Riesgo moderado de cierre", "p_risk_l": "Riesgo bajo de cierre", "p_risk_x": "Normalmente cerrado en esta época", "p_risk_m_o": "en {m}, por el historial de nieve y tormentas.", "p_risk_m_x": "en {m}: planificá otro paso.", "p_status": "Estado", "p_open": "HABILITADO", "p_closed": "CERRADO", "p_checked": "consultado {t}", "p_unchecked": "SIN CONSULTAR", "p_mustcheck": "Confirmá que esté habilitado antes de salir", "p_rule": "Consultá la víspera y la mañana del día en los canales oficiales y registrá lo que viste. La app te avisa hasta que lo registres.", "p_isopen": "Está habilitado", "p_isclosed": "Está cerrado", "p_planb": "Plan B: ", "p_alts": "pasos alternativos cerca de la ruta: {x}.", "p_noalt": "no hay paso alternativo cerca; evaluá esperar la reapertura.", "p_docs": "Documentos y aduana", "p_none": "Este itinerario no cruza pasos de montaña.", "p_others": "Pasos cercanos y alternativos", "p_all": "Canales oficiales", "p_pend": "{n} paso(s) para consultar antes de salir", "p_closed_t": "Paso cerrado registrado. Mirá el plan B."});
+Object.assign(I18N.it,{"tab_atencao": "Attenzione", "h_atencao": "Attenzione prima di ogni tappa", "a_lead": "I passi di montagna possono chiudere senza preavviso per neve, ghiaccio o \"viento blanco\". Prima di ogni attraversamento controlla i canali ufficiali e registra lo stato qui.", "a_today": "Oggi, giorno {n}", "p_must": "attraversamento obbligatorio", "p_near": "passa vicino", "p_risk_h": "Rischio alto di chiusura", "p_risk_m": "Rischio moderato di chiusura", "p_risk_l": "Rischio basso di chiusura", "p_risk_x": "Di solito chiuso in questo periodo", "p_risk_m_o": "a {m}, in base allo storico di neve e tempeste.", "p_risk_m_x": "a {m}: pianifica un altro passo.", "p_status": "Stato", "p_open": "APERTO", "p_closed": "CHIUSO", "p_checked": "verificato {t}", "p_unchecked": "NON VERIFICATO", "p_mustcheck": "Verifica che sia aperto prima di partire", "p_rule": "Controlla il giorno prima e la mattina stessa sui canali ufficiali e registra ciò che hai visto.", "p_isopen": "È aperto", "p_isclosed": "È chiuso", "p_planb": "Piano B: ", "p_alts": "passi alternativi vicino al percorso: {x}.", "p_noalt": "nessun passo alternativo vicino; valuta di attendere la riapertura.", "p_docs": "Documenti e dogana", "p_none": "Questo itinerario non attraversa passi di montagna.", "p_others": "Passi vicini e alternativi", "p_all": "Canali ufficiali", "p_pend": "{n} passo/i da verificare prima di partire", "p_closed_t": "Passo chiuso registrato. Vedi il piano B."});
+Object.assign(I18N.de,{"tab_atencao": "Achtung", "h_atencao": "Vor jeder Etappe prüfen", "a_lead": "Gebirgspässe können ohne Vorwarnung wegen Schnee, Eis oder „viento blanco“ schließen. Vor jeder Überquerung die offiziellen Kanäle prüfen und den Status hier eintragen.", "a_today": "Heute, Tag {n}", "p_must": "Pflichtüberquerung", "p_near": "führt nahe vorbei", "p_risk_h": "Hohes Schließungsrisiko", "p_risk_m": "Mittleres Schließungsrisiko", "p_risk_l": "Geringes Schließungsrisiko", "p_risk_x": "Zu dieser Zeit meist geschlossen", "p_risk_m_o": "im {m}, nach Schnee- und Sturmhistorie.", "p_risk_m_x": "im {m}: anderen Pass planen.", "p_status": "Status", "p_open": "OFFEN", "p_closed": "GESCHLOSSEN", "p_checked": "geprüft {t}", "p_unchecked": "NICHT GEPRÜFT", "p_mustcheck": "Vor der Abfahrt prüfen, ob offen", "p_rule": "Am Vortag und am Morgen in den offiziellen Kanälen prüfen und eintragen.", "p_isopen": "Ist offen", "p_isclosed": "Ist geschlossen", "p_planb": "Plan B: ", "p_alts": "alternative Pässe nahe der Route: {x}.", "p_noalt": "kein Alternativpass in der Nähe; Wiederöffnung abwarten.", "p_docs": "Dokumente und Zoll", "p_none": "Dieser Reiseplan quert keine Gebirgspässe.", "p_others": "Nahe und alternative Pässe", "p_all": "Offizielle Kanäle", "p_pend": "{n} Pass/Pässe vor der Abfahrt prüfen", "p_closed_t": "Geschlossener Pass eingetragen. Plan B ansehen."});
+Object.assign(I18N.zh,{"tab_atencao": "注意", "h_atencao": "每段出发前检查", "a_lead": "山口可能因降雪、结冰或白毛风随时关闭。每次过境前，请查看官方渠道并在此记录状态。", "a_today": "今天，第 {n} 天", "p_must": "必经过境", "p_near": "途经附近", "p_risk_h": "关闭风险高", "p_risk_m": "关闭风险中等", "p_risk_l": "关闭风险低", "p_risk_x": "此季节通常关闭", "p_risk_m_o": "（{m}，根据降雪和风暴历史）。", "p_risk_m_x": "（{m}）：请规划其他山口。", "p_status": "状态", "p_open": "开放", "p_closed": "关闭", "p_checked": "已确认 {t}", "p_unchecked": "未确认", "p_mustcheck": "出发前确认是否开放", "p_rule": "前一天和当天早上在官方渠道确认并记录。", "p_isopen": "开放", "p_isclosed": "关闭", "p_planb": "备选方案：", "p_alts": "路线附近的替代山口：{x}。", "p_noalt": "附近没有替代山口，可考虑等待重新开放。", "p_docs": "证件与海关", "p_none": "此行程不经过山口。", "p_others": "附近及替代山口", "p_all": "官方渠道", "p_pend": "出发前有 {n} 个山口待确认", "p_closed_t": "已记录山口关闭，请查看备选方案。"});
 const LOCALES = {pt:'pt-BR',en:'en-GB',es:'es-AR',it:'it-IT',de:'de-DE',zh:'zh-CN'};
 const LANG_NAMES = {pt:'Português',en:'English',es:'Español',it:'Italiano',de:'Deutsch',zh:'中文'};
 
@@ -1612,6 +1642,7 @@ function renderDays(){
         <div class="dright"><div class="dtr"><span class="dtemp">${w.tmax!=null?w.tmax+'°':''}</span>${ed&&days.length>1?trashBtn(`data-del="${i}"`, tr('del_day_any')):''}</div><span class="dchip">${d.km?nf.format(d.km)+' km':esc(tr('free_day'))}</span></div></div>
       ${weatherPart(d,i)}
       ${alertRow(i+1)}
+      ${dayPasos(d).filter(x=>x.kind==='must').map(x=>{ const c=pasoCheck(x.p.id,i); return `<a class="pbanner ${c?c.s:'none'}" href="#atencao"><span>🚧</span><span><b>${esc(x.p.n)}</b><br><span class="small">${c?(c.s==='open'?tr('p_open'):tr('p_closed'))+', '+tr('p_checked',{t:fmtStamp(c.t)}):tr('p_mustcheck')}</span></span></a>`; }).join('')}
       <div class="chips">${chips}${flags}</div>
       <details class="dmore" ${isToday?'open':''}><summary>${tr('d_more')}</summary>
       <ul>${d.see.map(s=>`<li>${esc(s)}</li>`).join('')}</ul>
@@ -2363,7 +2394,7 @@ function titleText(){
   if(plan==='hist'){ const h=histView(); return h?h.name:tr('name_default'); }
   return store.get('meuName','Expedição Andes 2027');
 }
-const PAGE_T={criar:'h_criar',roteiro:'tab_roteiro',dormir:'h_dormir',gastos:'h_gastos',estrada:'h_estrada',docs:'h_docs',dicas:'h_dicas',extra:'h_extra'};
+const PAGE_T={criar:'h_criar',roteiro:'tab_roteiro',atencao:'h_atencao',dormir:'h_dormir',gastos:'h_gastos',estrada:'h_estrada',docs:'h_docs',dicas:'h_dicas',extra:'h_extra'};
 function renderTitle(){ const tab=curTab(), name=titleText(); const el=$('#ttl'); if(el) el.textContent=tr(PAGE_T[tab]||'tab_roteiro'); const ex=$('#expn'); if(ex){ ex.textContent=name; ex.hidden = tab==='extra'; } document.title=tr(PAGE_T[tab]||'tab_roteiro')+', '+name+' · vialonga'; }
 
 /* Saved routes (projects) */
@@ -2708,12 +2739,13 @@ function segInfo(b){
   bLegs(b).forEach(L=>{ const ld=legData(b,L), ids=[L.from,...L.vias,L.to]; const segs=[]; let tot=0;
     for(let k=1;k<ids.length;k++){ const d=hav(ids[k-1],ids[k]); segs.push(d); tot+=d; }
     const hrs=legHours(ld,vt), est = ld.src!=='osrm' && ld.src!=='user';
-    segs.forEach((d,k)=>out.push({km:Math.round(tot?ld.km*d/tot:ld.km/segs.length), h:tot?hrs*d/tot:hrs/segs.length, est, surf:ld.surf}));
+    segs.forEach((d,k)=>out.push({km:Math.round(tot?ld.km*d/tot:ld.km/segs.length), h:tot?hrs*d/tot:hrs/segs.length, est, surf:ld.surf, a:ids[k], b:ids[k+1]}));
   });
   return [null, ...out];
 }
 function segRow(s){ if(!s) return ''; const h=s.h; const ht=h<1?`${Math.round(h*60)} min`:`≈ ${Math.floor(h)}h${String(Math.round((h%1)*60)).padStart(2,'0')}`;
-  return `<div class="segrow" aria-label="${nf.format(s.km)} km"><span class="segline" aria-hidden="true"></span><span class="segkm">${nf.format(s.km)} km</span><span class="small">${ht}${s.est?', '+tr('estimated'):''}${s.surf&&s.surf.some(x=>x!=='asfalto')?', '+s.surf.filter(x=>x!=='asfalto').map(x=>tr('surf_'+x)).join(', '):''}</span></div>`; }
+  const ps=(s.a&&s.b)?pasosFor(s.a,s.b,[],null).filter(x=>x.kind==='must'):[];
+  return `<div class="segrow" aria-label="${nf.format(s.km)} km"><span class="segline" aria-hidden="true"></span><span class="segkm">${nf.format(s.km)} km</span>${ps.length?`<span class="segpaso">🚧 ${esc(ps[0].p.n)}</span>`:''}<span class="small">${ht}${s.est?', '+tr('estimated'):''}${s.surf&&s.surf.some(x=>x!=='asfalto')?', '+s.surf.filter(x=>x!=='asfalto').map(x=>tr('surf_'+x)).join(', '):''}</span></div>`; }
 function pointsHtml(b){
   const SG=segInfo(b);
   if(!b.pts.length) return `<p class="small" style="margin:0">${tr('b_empty')}</p>`;
@@ -3444,6 +3476,18 @@ function analyzeRoute(){
       products:[['Spray dielétrico para conectores','Protege a parte elétrica'],['Lubrificante de corrente para moto','Depois da lavagem']], links:[['Como proteger a moto no Salar de Uyuni', ytSearch('proteger moto salar de uyuni sal')]], near:'lava jato'});
     if(d.km > V.max*1.1) add('long',i,{cat:'road', sev:'warn', icon:'⏱', short:'Dia longo', title:'Dias longos ao volante',
       problem:`Dias acima de ${nf.format(V.max)} km cansam e aumentam o risco, principalmente no fim da tarde.`, solution:['Saia cedo e pare a cada 2 horas.', 'Não pilote à noite em estradas com animais na pista.', 'Se puder, divida o dia na aba Criar.'], products:[], links:[], go:'criar'});
+    dayPasos(d).forEach(x=>{ const p=x.p, dt=dateOf(i), r=pasoRisk(p,dt), mes=new Intl.DateTimeFormat('pt-BR',{month:'long'}).format(dt);
+      if(x.kind==='must'){
+        add('paso_'+p.id,i,{cat:'paso', sev:'warn', icon:'🚧', short:p.n.replace(/^Paso (de )?/,'').split(' (')[0], title:`${p.n}: confira se está aberto antes de sair`,
+          problem:`${p.n} (${nf.format(p.alt)} m) liga ${p.a} a ${p.b}. ${r==='x'?`Em ${mes} ele costuma estar fechado para a temporada.`:r==='h'?`Em ${mes} o risco de fechamento é alto: nevascas, gelo na pista e "viento blanco", que zera a visibilidade.`:r==='m'?`Em ${mes} há risco moderado de fechamento por neve ou tempestade.`:'O risco de fechamento é baixo nesta época, mas o horário de funcionamento limita a travessia.'} ${p.note}`,
+          solution:['Confira o status na véspera e de novo na manhã do dia, nos canais oficiais, e registre na aba Atenção.', 'Respeite o horário de funcionamento: chegue cedo, porque fora do horário não se cruza.', 'Saia com tanque cheio, roupa para frio e comida: filas e esperas acontecem em altitude.', 'Tenha um plano B: outro paso ou um dia de folga para esperar a reabertura.', p.cs.includes('CL')?'Entrando no Chile: nada de frutas, verduras, carnes, laticínios, mel ou sementes; declare tudo no SAG.':'Tenha os documentos do veículo à mão.'],
+          products:[], links:pasoLinks(p), go:'atencao'});
+        add('paso_docs',i,{cat:'docs', sev:'warn', icon:'🛂', short:'Documentos', title:'Documentos e alfândega nos pasos',
+          problem:'Cada travessia exige documentos do viajante e do veículo, e a alfândega pode multar ou reter alimentos e produtos não declarados.',
+          solution:['Viajante: passaporte ou documento de identidade aceito, e seguro de viagem (obrigatório na Argentina).', 'Veículo: CRLV, CNH e PID; Carta Verde na Argentina; TITV e SOAPEX no Chile; SIVETUR e SOAT na Bolívia.', 'Guarde os comprovantes de entrada do veículo: são exigidos na saída.', 'Alfândega do Chile (SAG) e da Argentina (SENASA): não leve frutas, verduras, carnes, laticínios, mel, sementes ou plantas; declare o que tiver.', 'Folha de coca comprada na Bolívia é proibida no Chile.', 'Animais de estimação precisam de certificado veterinário.'],
+          products:[['Pasta organizadora de documentos à prova d’água','Documentos secos e à mão']], links:[['Declaração SAG e formulários oficiais (Pasos Fronterizos)','https://www.pasosfronterizos.gob.cl/'],['Documentos para entrar na Argentina','https://www.argentina.gob.ar/migraciones/documentacion-para-ingresar-al-pais-como-turista'],['Admissão temporária de veículo no Chile (ChileAtiende)','https://www.chileatiende.gob.cl/fichas/52-solicitar-permiso-para-el-ingreso-temporal-de-vehiculos']], go:'docs'});
+      } else add('pasonear_'+p.id,i,{cat:'paso', sev:'info', icon:'🚧', short:p.n.replace(/^Paso (de )?/,'').split(' (')[0], title:`${p.n} fica perto da rota`, problem:`Este dia passa perto do ${p.n}${x.kind==='alt'?', alternativa para cruzar a fronteira':''}. ${p.note}`, solution:['Se pretende usar este paso, confira o status na aba Atenção antes de sair.'], products:[], links:pasoLinks(p).slice(0,2), go:'atencao'});
+    });
     if(d.border) add('border',i,{cat:'docs', sev:'info', icon:'🛂', short:'Fronteira', title:'Fronteiras', problem:'Filas podem passar de duas horas e cada país pede documentos do viajante e do veículo.', solution:['Chegue cedo, com documentos numa pasta.', 'Confira a aba Docs.', 'Guarde os comprovantes de entrada do veículo.'], products:[], links:[], go:'docs'});
     // lodging and food in small places
     if(d.km && !D.lodging[d.sleep] && /^v/.test(d.to)) add('stay',i,{cat:'stay', sev:'info', icon:'🛏', short:'Pernoite', title:'Pernoites em cidades pequenas', problem:'Nesses pernoites há pouca oferta de hospedagem e restaurantes.', solution:['Reserve antes, ainda com sinal.', 'Tenha um plano B de camping.', 'Peça o jantar ao chegar: cozinhas fecham cedo.'], products:[], links:[], near:'hotel', go:'dormir'});
@@ -3452,7 +3496,7 @@ function analyzeRoute(){
   _anCache={key, res}; return res;
 }
 function dayIssues(n){ return analyzeRoute().filter(x=>x.days.includes(n)); }
-function goTip(k){ store.set('tipFocus',k); if(location.hash==='#dicas') focusTip(); else location.hash='dicas'; }
+function goTip(k){ if(/^paso(near)?_/.test(k) && k!=='paso_docs'){ location.hash='atencao'; return; } store.set('tipFocus',k); if(location.hash==='#dicas') focusTip(); else location.hash='dicas'; }
 function focusTip(){ const k=store.get('tipFocus',null); if(!k) return; store.del('tipFocus'); setTimeout(()=>{ const el=document.getElementById('tip-'+k); if(el){ el.scrollIntoView({behavior:'smooth',block:'start'}); el.classList.add('flash'); setTimeout(()=>el.classList.remove('flash'),1600); } },120); }
 function alertRow(n){
   const is=dayIssues(n).filter(x=>x.sev==='warn'); if(!is.length) return '';
@@ -3623,8 +3667,88 @@ async function importFromHash(){
   }catch(e){ toast(tr('share_bad')); }
 }
 
+/* ---------- Mountain passes: detection on the route + mandatory status check ---------- */
+// risk by month (0 = Jan): 'h' high, 'm' medium, 'l' low, 'x' usually closed for the season
+const PASOS=[
+ {id:'jama', n:'Paso de Jama', lat:-23.236, lng:-67.035, alt:4200, cs:['AR','CL'], a:'Jujuy (Purmamarca / Susques)', b:'Antofagasta (San Pedro de Atacama)', risk:'mmllmhhhhmll', note:'Rota pavimentada mais usada para ir de carro ou moto da Argentina a San Pedro de Atacama. Trechos acima de 4.800 m.', links:[['TodoJujuy: estado do Paso de Jama hoje','https://www.todojujuy.com/paso-jama-a988/1']]},
+ {id:'sico', n:'Paso de Sico', lat:-23.83, lng:-67.25, alt:4079, cs:['AR','CL'], a:'Salta (San Antonio de los Cobres)', b:'Antofagasta (Socaire / San Pedro)', risk:'mmllmhhhhmll', note:'Grande parte de rípio, sem posto entre San Antonio de los Cobres e San Pedro.'},
+ {id:'sfco', n:'Paso San Francisco', lat:-26.878, lng:-68.303, alt:4726, cs:['AR','CL'], a:'Catamarca (Fiambalá)', b:'Atacama (Copiapó)', risk:'lllmhhhhhmll', note:'Cerca de 480 km sem combustível entre Copiapó e Fiambalá; controles longe da linha de fronteira.'},
+ {id:'aguanegra', n:'Paso de Agua Negra', lat:-30.19, lng:-69.83, alt:4780, cs:['AR','CL'], a:'San Juan (Las Flores)', b:'Coquimbo (Vicuña)', risk:'llllxxxxxxml', note:'O mais alto entre os dois países; costuma abrir só no verão (aprox. novembro a abril).'},
+ {id:'cristo', n:'Paso Los Libertadores (Cristo Redentor)', lat:-32.825, lng:-70.07, alt:3200, cs:['AR','CL'], a:'Mendoza (Uspallata)', b:'Valparaíso / Santiago (Los Andes)', risk:'lllmhhhhhmll', note:'O mais movimentado. Inclui as curvas de Los Caracoles; filas longas em feriados.', links:[['PasAr (Mendoza): estado do Cristo Redentor e do Pehuenche', gSearch('PasAr Mendoza por Mí estado paso Cristo Redentor')]]},
+ {id:'pehuenche', n:'Paso Pehuenche', lat:-35.98, lng:-70.39, alt:2553, cs:['AR','CL'], a:'Mendoza (Malargüe)', b:'Maule (Talca)', risk:'llllmhhhhmll', note:'Alternativa mais baixa e com menos caminhões; costuma ter horário reduzido no inverno.'},
+ {id:'pinohachado', n:'Paso Pino Hachado', lat:-38.66, lng:-70.89, alt:1884, cs:['AR','CL'], a:'Neuquén (Las Lajas)', b:'Araucanía (Lonquimay)', risk:'llllmhhhmlll', note:'Corredor de caminhões entre Neuquén e Temuco.'},
+ {id:'samore', n:'Paso Cardenal Samoré', lat:-40.71, lng:-71.94, alt:1321, cs:['AR','CL'], a:'Neuquén (Villa La Angostura)', b:'Los Lagos (Osorno)', risk:'llllmhhhmlll', note:'Liga a região dos lagos dos dois países; neve frequente no inverno.'},
+ {id:'aymond', n:'Paso Integración Austral (Monte Aymond)', lat:-52.15, lng:-69.48, alt:150, cs:['AR','CL'], a:'Santa Cruz (Río Gallegos)', b:'Magallanes (Punta Arenas)', risk:'lllllmmmllll', note:'Caminho para Ushuaia pela Terra do Fogo; vento muito forte o ano todo.'},
+ {id:'sebastian', n:'Paso San Sebastián', lat:-53.32, lng:-68.62, alt:50, cs:['AR','CL'], a:'Terra do Fogo (Río Grande)', b:'Terra do Fogo chilena (Porvenir)', risk:'lllllmmmllll', note:'Travessia obrigatória para chegar a Ushuaia por terra; parte em rípio do lado chileno.'},
+ {id:'ollague', n:'Paso Ollagüe (Avaroa)', lat:-21.224, lng:-68.253, alt:3700, cs:['BO','CL'], a:'Potosí (Uyuni / Avaroa)', b:'Antofagasta (Calama)', risk:'mmlllmmmmlll', note:'Acesso de rípio e areia do lado boliviano; horário reduzido, confirme antes.'},
+ {id:'cajon', n:'Paso Hito Cajón', lat:-22.89, lng:-67.78, alt:4480, cs:['BO','CL'], a:'Potosí (Laguna Verde)', b:'Antofagasta (San Pedro de Atacama)', risk:'mmllmhhhmmll', note:'Saída da Reserva Eduardo Avaroa para San Pedro; muito alto e frio.'},
+ {id:'colchane', n:'Paso Colchane (Pisiga)', lat:-19.27, lng:-68.64, alt:3700, cs:['BO','CL'], a:'Oruro (Pisiga)', b:'Tarapacá (Iquique)', risk:'mmllllllllll', note:'Corredor do altiplano entre Oruro e Iquique.'}
+];
+const RISK_T={h:'p_risk_h', m:'p_risk_m', l:'p_risk_l', x:'p_risk_x'};
+function segDist(lat,lng,a,b){ // km from point to segment a-b (equirectangular)
+  const kx=Math.cos(lat*Math.PI/180)*111, ky=111; const ax=(a[1]-lng)*kx, ay=(a[0]-lat)*ky, bx=(b[1]-lng)*kx, by=(b[0]-lat)*ky;
+  const dx=bx-ax, dy=by-ay, L=dx*dx+dy*dy; let t=L?-(ax*dx+ay*dy)/L:0; t=Math.max(0,Math.min(1,t)); const px=ax+t*dx, py=ay+t*dy; return Math.sqrt(px*px+py*py); }
+function lineDist(p, line){ let m=1e9; for(let k=1;k<line.length;k++) m=Math.min(m, segDist(p.lat,p.lng,line[k-1],line[k])); if(line.length===1) m=pathKm([[p.lat,p.lng],line[0]]); return m; }
+function pasosFor(fromId, toId, viaIds, geo){
+  const line = geo || [fromId,...(viaIds||[]),toId].map(id=>[S[id][1],S[id][2]]);
+  const cs=new Set([fromId,...(viaIds||[]),toId].map(ctryOf));
+  const cross=[...cs]; const out=[];
+  PASOS.forEach(p=>{ const d=lineDist(p,line); const pairOK = cs.has(p.cs[0]) && cs.has(p.cs[1]);
+    if(pairOK && d<120) out.push({p, d, kind:'must'}); else if(d<45) out.push({p, d, kind:'near'}); });
+  // keep only the closest crossing per country pair as mandatory; others become alternatives
+  const PRI={jama:70, cristo:70, samore:50, aymond:60, sebastian:60, ollague:30, sfco:20, pehuenche:30, pinohachado:30, colchane:30};
+  const eff=x=>x.d-(geo?0:(PRI[x.p.id]||0));
+  const best={}; out.filter(x=>x.kind==='must').forEach(x=>{ const k=x.p.cs.join(); if(!best[k]||eff(x)<eff(best[k])) best[k]=x; });
+  return out.map(x=> x.kind==='must' && best[x.p.cs.join()]!==x ? {...x, kind:'alt'} : x).sort((a,b)=>a.d-b.d);
+}
+function dayPasos(d){ return pasosFor(d.from, d.to, d.route, store.get(geoKey(d),null)); }
+function pasoRisk(p, dt){ return p.risk[dt.getUTCMonth()]||'l'; }
+function routePasos(){ const days=planDays(), out=[]; days.forEach((d,i)=>{ dayPasos(d).forEach(x=>{ if(x.kind!=='near'||x.d<25) out.push({...x, i, d}); }); }); return out; }
+function pasoCheckKey(pid,i){ return 'pchk:'+plan+':'+(planDays()[i]?.uid||i)+':'+pid; }
+function pasoCheck(pid,i){ return store.get(pasoCheckKey(pid,i),null); }
+function pasoPending(){ const now=new Date(); const t0=Date.UTC(now.getFullYear(),now.getMonth(),now.getDate());
+  return routePasos().filter(x=>x.kind==='must').filter(x=>{ const dt=dateOf(x.i); const diff=Math.round((Date.UTC(dt.getUTCFullYear(),dt.getUTCMonth(),dt.getUTCDate())-t0)/864e5);
+    const c=pasoCheck(x.p.id,x.i); const fresh = c && (Date.now()-c.t) < 12*36e5; return diff>=0 && diff<=1 && !(fresh && c.s==='open'); }); }
+function pasoLinks(p){
+  const L=(p.cs||[]).includes('CL')?[['Pasos Fronterizos (governo do Chile)','https://www.pasosfronterizos.gob.cl/'],['Canal oficial da UPF no WhatsApp','https://www.whatsapp.com/channel/0029VaEOckE3LdQRRRmLea3w'],['@UPFronterizos no X (atualização imediata)','https://x.com/UPFronterizos']]:[];
+  if(p.cs.includes('AR')) L.push(['Pasos Internacionales (governo argentino, mapa em tempo real)','https://www.argentina.gob.ar/seguridad/pasosinternacionales']);
+  if(p.cs.includes('BO')) L.push(['ABC Bolívia: transitabilidade das estradas','https://www.abc.gob.bo/']);
+  return L.concat(p.links||[]);
+}
+function pasoCard(x, compact){
+  const dt=dateOf(x.i), r=pasoRisk(x.p, dt), c=pasoCheck(x.p.id, x.i);
+  const st = c ? `<span class="pst ${c.s}">${tr(c.s==='open'?'p_open':'p_closed')}</span> <span class="small">${tr('p_checked',{t:fmtStamp(c.t)})}</span>` : `<span class="pst none">${tr('p_unchecked')}</span>`;
+  const alts = routePasos().filter(y=>y.i===x.i && y.kind==='alt').map(y=>y.p);
+  return `<article class="paso ${x.kind}" id="paso-${x.p.id}-${x.i}">
+    <div class="phd"><span class="psi" aria-hidden="true">🚧</span><div><span class="small">${dayLabel(x.i+1)}, ${fmt(dt)}, ${tr(x.kind==='must'?'p_must':'p_near')}</span><h3>${esc(x.p.n)}</h3><span class="small">${esc(x.p.a)} ↔ ${esc(x.p.b)}, ${nf.format(x.p.alt)} m</span></div></div>
+    <div class="prisk r-${r}"><b>${tr(RISK_T[r])}</b> ${tr('p_risk_m_'+(r==='x'?'x':'o'),{m:new Intl.DateTimeFormat(LOCALES[LANG],{month:'long'}).format(dt)})}</div>
+    ${x.kind==='must'?`<div class="pcheck"><div>${tr('p_status')}: ${st}</div>
+      <p class="small">${tr('p_rule')}</p>
+      <div class="actions">${pasoLinks(x.p).slice(0,3).map(l=>`<a class="btn" target="_blank" rel="noopener" href="${l[1]}">${esc(l[0])}</a>`).join('')}</div>
+      <div class="actions"><button class="btn pok" type="button" data-pset="open" data-pid="${x.p.id}" data-pi="${x.i}">✓ ${tr('p_isopen')}</button><button class="btn pno" type="button" data-pset="closed" data-pid="${x.p.id}" data-pi="${x.i}">✕ ${tr('p_isclosed')}</button></div>
+      ${c&&c.s==='closed'?`<div class="box alert"><b>${tr('p_planb')}</b>${alts.length?tr('p_alts',{x:alts.map(a=>a.n).join(', ')}):tr('p_noalt')} <a href="#criar">${tr('edit_builder')}</a></div>`:''}</div>`:''}
+    ${compact?'':`<p>${esc(x.p.note)}</p>
+    <h4>${tr('t_help')}</h4><div class="linklist">${pasoLinks(x.p).map(l=>`<a target="_blank" rel="noopener" href="${l[1]}">${esc(l[0])}</a>`).join('')}</div>
+    <div class="actions"><button class="btn" type="button" data-tip="paso_docs">${tr('p_docs')}</button></div>`}
+  </article>`;
+}
+function renderAtencao(){
+  const el=$('#atencao'); if(!el) return; const rp=routePasos(), must=rp.filter(x=>x.kind==='must'), other=rp.filter(x=>x.kind!=='must');
+  const pend=pasoPending(); const ti=todayIdx(), today=ti>=0?dayIssues(ti+1).filter(x=>x.sev==='warn'):[];
+  el.innerHTML = `
+    ${pend.length?`<div class="wsum warn"><span class="wsi">!</span><div><b>${tr('p_pend',{n:pend.length})}</b><span>${pend.map(x=>x.p.n).join(', ')}</span></div></div>`:''}
+    ${ti>=0&&today.length?`<div class="card"><h3 class="sub" style="margin-top:0">${tr('a_today',{n:ti+1})}</h3>${today.map(x=>`<div class="cprow cp-warn"><span class="cpi">${x.icon}</span><span>${esc(x.title)}</span><button class="btn" type="button" data-tip="${x.key}">${tr('see_tip')}</button></div>`).join('')}</div>`:''}
+    <p class="lead">${tr('a_lead')}</p>
+    ${must.length?must.map(x=>pasoCard(x,false)).join(''):`<div class="card"><p style="margin:0">${tr('p_none')}</p></div>`}
+    ${other.length?`<h3 class="sub">${tr('p_others')}</h3>${other.map(x=>pasoCard(x,true)).join('')}`:''}
+    <h3 class="sub">${tr('p_all')}</h3><div class="card linklist">${pasoLinks({cs:['AR','BO','CL']}).map(l=>`<a target="_blank" rel="noopener" href="${l[1]}">${esc(l[0])}</a>`).join('')}</div>`;
+  el.querySelectorAll('[data-pset]').forEach(b=>b.onclick=()=>{ store.set(pasoCheckKey(b.dataset.pid, Number(b.dataset.pi)), {s:b.dataset.pset, t:Date.now()}); renderAtencao(); updateAttBadge(); if(b.dataset.pset==='closed') toast(tr('p_closed_t')); });
+  el.querySelectorAll('[data-tip]').forEach(b=>b.onclick=()=>goTip(b.dataset.tip));
+}
+function updateAttBadge(){ const a=document.querySelector('nav.tabs a[data-t="atencao"]'); if(!a) return; const n=pasoPending().length; a.classList.toggle('hasbadge', n>0); a.dataset.badge=n||''; }
+
 /* Tabs and hash */
-const TABS = ['criar','roteiro','dormir','gastos','estrada','docs','dicas','extra'];
+const TABS = ['criar','roteiro','atencao','dormir','gastos','estrada','docs','dicas','extra'];
 function showTab(){
   let h = (location.hash||'').slice(1);
   let t = TABS.includes(h)? h : (h.startsWith('d-')? 'roteiro' : 'roteiro');
@@ -3637,6 +3761,8 @@ function showTab(){
   if(t==='gastos') renderGastos();
   if(t==='criar') renderBuilder();
   if(t==='dicas') renderDicas();
+  if(t==='atencao') renderAtencao();
+  updateAttBadge();
   renderTitle();
   if(t==='roteiro' && LMAP) setTimeout(()=>{ LMAP.invalidateSize(); if(LBOUNDS) LMAP.fitBounds(LBOUNDS,{padding:[24,24]}); },80);
   if(h.startsWith('d-')){ const el=document.getElementById(h); if(el) el.scrollIntoView({block:'start'}); }
