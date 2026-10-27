@@ -1090,6 +1090,14 @@ nav.tabs a[data-t="atencao"] svg{stroke:#D97706}
 .pbanner.open{border-color:var(--laguna);background:var(--lagbg)} .pbanner.closed{border-color:var(--st-heavy)}
 .pbanner>span:first-child{font-size:1.4rem}
 .segpaso{font:700 .8rem var(--text);color:#B45309;background:var(--amberbg);padding:2px 8px;border-radius:8px}
+.pbt{display:flex;flex-direction:column;gap:2px;min-width:0}
+.pbl{font-size:.88rem}
+.pbl.late,.prow2 .late{color:var(--st-heavy);font-weight:700}
+.pbs{font:700 .9rem var(--text);margin-top:2px}
+.pbanner.none .pbs{color:#B45309}
+.phours{margin-top:10px;padding:10px 12px;border-radius:10px;background:var(--sunk);display:flex;flex-direction:column;gap:4px;font-size:.93rem}
+.prow2{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:4px}
+.prow2 input[type=time]{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:4px 8px}
 #toast{position:fixed;left:50%;transform:translateX(-50%) translateY(20px);bottom:calc(78px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);border-radius:12px;padding:10px 14px;display:flex;gap:14px;align-items:center;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:50;max-width:calc(100% - 32px);font-size:.95rem}
 #toast.on{opacity:1;transform:translateX(-50%);pointer-events:auto}
 #toast button{background:none;border:0;color:var(--bg);font:700 .95rem var(--text);text-decoration:underline;cursor:pointer;padding:4px}
@@ -1470,6 +1478,12 @@ Object.assign(I18N.es,{"tab_atencao": "Atención", "h_atencao": "Atención antes
 Object.assign(I18N.it,{"tab_atencao": "Attenzione", "h_atencao": "Attenzione prima di ogni tappa", "a_lead": "I passi di montagna possono chiudere senza preavviso per neve, ghiaccio o \"viento blanco\". Prima di ogni attraversamento controlla i canali ufficiali e registra lo stato qui.", "a_today": "Oggi, giorno {n}", "p_must": "attraversamento obbligatorio", "p_near": "passa vicino", "p_risk_h": "Rischio alto di chiusura", "p_risk_m": "Rischio moderato di chiusura", "p_risk_l": "Rischio basso di chiusura", "p_risk_x": "Di solito chiuso in questo periodo", "p_risk_m_o": "a {m}, in base allo storico di neve e tempeste.", "p_risk_m_x": "a {m}: pianifica un altro passo.", "p_status": "Stato", "p_open": "APERTO", "p_closed": "CHIUSO", "p_checked": "verificato {t}", "p_unchecked": "NON VERIFICATO", "p_mustcheck": "Verifica che sia aperto prima di partire", "p_rule": "Controlla il giorno prima e la mattina stessa sui canali ufficiali e registra ciò che hai visto.", "p_isopen": "È aperto", "p_isclosed": "È chiuso", "p_planb": "Piano B: ", "p_alts": "passi alternativi vicino al percorso: {x}.", "p_noalt": "nessun passo alternativo vicino; valuta di attendere la riapertura.", "p_docs": "Documenti e dogana", "p_none": "Questo itinerario non attraversa passi di montagna.", "p_others": "Passi vicini e alternativi", "p_all": "Canali ufficiali", "p_pend": "{n} passo/i da verificare prima di partire", "p_closed_t": "Passo chiuso registrato. Vedi il piano B."});
 Object.assign(I18N.de,{"tab_atencao": "Achtung", "h_atencao": "Vor jeder Etappe prüfen", "a_lead": "Gebirgspässe können ohne Vorwarnung wegen Schnee, Eis oder „viento blanco“ schließen. Vor jeder Überquerung die offiziellen Kanäle prüfen und den Status hier eintragen.", "a_today": "Heute, Tag {n}", "p_must": "Pflichtüberquerung", "p_near": "führt nahe vorbei", "p_risk_h": "Hohes Schließungsrisiko", "p_risk_m": "Mittleres Schließungsrisiko", "p_risk_l": "Geringes Schließungsrisiko", "p_risk_x": "Zu dieser Zeit meist geschlossen", "p_risk_m_o": "im {m}, nach Schnee- und Sturmhistorie.", "p_risk_m_x": "im {m}: anderen Pass planen.", "p_status": "Status", "p_open": "OFFEN", "p_closed": "GESCHLOSSEN", "p_checked": "geprüft {t}", "p_unchecked": "NICHT GEPRÜFT", "p_mustcheck": "Vor der Abfahrt prüfen, ob offen", "p_rule": "Am Vortag und am Morgen in den offiziellen Kanälen prüfen und eintragen.", "p_isopen": "Ist offen", "p_isclosed": "Ist geschlossen", "p_planb": "Plan B: ", "p_alts": "alternative Pässe nahe der Route: {x}.", "p_noalt": "kein Alternativpass in der Nähe; Wiederöffnung abwarten.", "p_docs": "Dokumente und Zoll", "p_none": "Dieser Reiseplan quert keine Gebirgspässe.", "p_others": "Nahe und alternative Pässe", "p_all": "Offizielle Kanäle", "p_pend": "{n} Pass/Pässe vor der Abfahrt prüfen", "p_closed_t": "Geschlossener Pass eingetragen. Plan B ansehen."});
 Object.assign(I18N.zh,{"tab_atencao": "注意", "h_atencao": "每段出发前检查", "a_lead": "山口可能因降雪、结冰或白毛风随时关闭。每次过境前，请查看官方渠道并在此记录状态。", "a_today": "今天，第 {n} 天", "p_must": "必经过境", "p_near": "途经附近", "p_risk_h": "关闭风险高", "p_risk_m": "关闭风险中等", "p_risk_l": "关闭风险低", "p_risk_x": "此季节通常关闭", "p_risk_m_o": "（{m}，根据降雪和风暴历史）。", "p_risk_m_x": "（{m}）：请规划其他山口。", "p_status": "状态", "p_open": "开放", "p_closed": "关闭", "p_checked": "已确认 {t}", "p_unchecked": "未确认", "p_mustcheck": "出发前确认是否开放", "p_rule": "前一天和当天早上在官方渠道确认并记录。", "p_isopen": "开放", "p_isclosed": "关闭", "p_planb": "备选方案：", "p_alts": "路线附近的替代山口：{x}。", "p_noalt": "附近没有替代山口，可考虑等待重新开放。", "p_docs": "证件与海关", "p_none": "此行程不经过山口。", "p_others": "附近及替代山口", "p_all": "官方渠道", "p_pend": "出发前有 {n} 个山口待确认", "p_closed_t": "已记录山口关闭，请查看备选方案。"});
+Object.assign(I18N.pt,{"p_via": "Rota via", "p_hours": "Horário", "p_ref": "referência, confirme", "p_arr": "saindo às {d}, chega por volta das {a}", "p_arr2": "chegada estimada às {a}", "p_late": "— perto do fechamento: saia até {l}", "p_late2": "Você chegaria perto do fechamento do paso. Saia até {l} para ter folga.", "p_consult": "Consulte o status antes de sair", "p_dep": "Saída prevista"});
+Object.assign(I18N.en,{"p_via": "Route via", "p_hours": "Hours", "p_ref": "reference, confirm", "p_arr": "leaving at {d}, you arrive around {a}", "p_arr2": "estimated arrival {a}", "p_late": "— close to closing time: leave by {l}", "p_late2": "You would arrive close to closing time. Leave by {l} to keep a margin.", "p_consult": "Check the status before leaving", "p_dep": "Planned departure"});
+Object.assign(I18N.es,{"p_via": "Ruta por", "p_hours": "Horario", "p_ref": "referencia, confirmá", "p_arr": "saliendo a las {d}, llegás cerca de las {a}", "p_arr2": "llegada estimada {a}", "p_late": "— cerca del cierre: salí antes de las {l}", "p_late2": "Llegarías cerca del cierre del paso. Salí antes de las {l} para tener margen.", "p_consult": "Consultá el estado antes de salir", "p_dep": "Salida prevista"});
+Object.assign(I18N.it,{"p_via": "Percorso via", "p_hours": "Orario", "p_ref": "riferimento, conferma", "p_arr": "partendo alle {d}, arrivi verso le {a}", "p_arr2": "arrivo stimato {a}", "p_late": "— vicino alla chiusura: parti entro le {l}", "p_late2": "Arriveresti vicino alla chiusura. Parti entro le {l} per avere margine.", "p_consult": "Controlla lo stato prima di partire", "p_dep": "Partenza prevista"});
+Object.assign(I18N.de,{"p_via": "Route über", "p_hours": "Öffnungszeit", "p_ref": "Richtwert, bestätigen", "p_arr": "Abfahrt {d}, Ankunft gegen {a}", "p_arr2": "geschätzte Ankunft {a}", "p_late": "— kurz vor Schließung: bis {l} losfahren", "p_late2": "Du kämst kurz vor Schließung an. Bis {l} losfahren, um Puffer zu haben.", "p_consult": "Status vor der Abfahrt prüfen", "p_dep": "Geplante Abfahrt"});
+Object.assign(I18N.zh,{"p_via": "经由", "p_hours": "开放时间", "p_ref": "参考，请确认", "p_arr": "{d} 出发，约 {a} 到达", "p_arr2": "预计 {a} 到达", "p_late": "— 接近关闭：请在 {l} 前出发", "p_late2": "你会在接近关闭时到达。请在 {l} 前出发以留有余地。", "p_consult": "出发前查询状态", "p_dep": "计划出发"});
 const LOCALES = {pt:'pt-BR',en:'en-GB',es:'es-AR',it:'it-IT',de:'de-DE',zh:'zh-CN'};
 const LANG_NAMES = {pt:'Português',en:'English',es:'Español',it:'Italiano',de:'Deutsch',zh:'中文'};
 
@@ -1642,7 +1656,10 @@ function renderDays(){
         <div class="dright"><div class="dtr"><span class="dtemp">${w.tmax!=null?w.tmax+'°':''}</span>${ed&&days.length>1?trashBtn(`data-del="${i}"`, tr('del_day_any')):''}</div><span class="dchip">${d.km?nf.format(d.km)+' km':esc(tr('free_day'))}</span></div></div>
       ${weatherPart(d,i)}
       ${alertRow(i+1)}
-      ${dayPasos(d).filter(x=>x.kind==='must').map(x=>{ const c=pasoCheck(x.p.id,i); return `<a class="pbanner ${c?c.s:'none'}" href="#atencao"><span>🚧</span><span><b>${esc(x.p.n)}</b><br><span class="small">${c?(c.s==='open'?tr('p_open'):tr('p_closed'))+', '+tr('p_checked',{t:fmtStamp(c.t)}):tr('p_mustcheck')}</span></span></a>`; }).join('')}
+      ${dayPasos(d).filter(x=>x.kind==='must').map(x=>{ const c=pasoCheck(x.p.id,i), tm=pasoTiming(d,i,x.p);
+        return `<a class="pbanner ${c?c.s:'none'}" href="#atencao"><span>🚧</span><span class="pbt"><span class="small">${tr('p_via')}</span><b>${esc(x.p.n)}</b>
+          ${tm?`<span class="pbl">🕒 ${tr('p_hours')}: ${esc(tm.ph.txt)}${tm.ph.ok?'':' ('+tr('p_ref')+')'}</span><span class="pbl ${tm.late?'late':''}">🚦 ${tr('p_arr',{d:tm.dep,a:tm.arr})}${tm.late?' '+tr('p_late',{l:tm.latest}):''}</span>`:''}
+          <span class="pbs">${c?`${c.s==='open'?'✓ '+tr('p_open'):'✕ '+tr('p_closed')}, ${tr('p_checked',{t:fmtStamp(c.t)})}`:`⚠ ${tr('p_consult')}`}</span></span></a>`; }).join('')}
       <div class="chips">${chips}${flags}</div>
       <details class="dmore" ${isToday?'open':''}><summary>${tr('d_more')}</summary>
       <ul>${d.see.map(s=>`<li>${esc(s)}</li>`).join('')}</ul>
@@ -3478,9 +3495,10 @@ function analyzeRoute(){
       problem:`Dias acima de ${nf.format(V.max)} km cansam e aumentam o risco, principalmente no fim da tarde.`, solution:['Saia cedo e pare a cada 2 horas.', 'Não pilote à noite em estradas com animais na pista.', 'Se puder, divida o dia na aba Criar.'], products:[], links:[], go:'criar'});
     dayPasos(d).forEach(x=>{ const p=x.p, dt=dateOf(i), r=pasoRisk(p,dt), mes=new Intl.DateTimeFormat('pt-BR',{month:'long'}).format(dt);
       if(x.kind==='must'){
-        add('paso_'+p.id,i,{cat:'paso', sev:'warn', icon:'🚧', short:p.n.replace(/^Paso (de )?/,'').split(' (')[0], title:`${p.n}: confira se está aberto antes de sair`,
+        const tm=pasoTiming(d,i,p);
+        add('paso_'+p.id,i,{cat:'paso', sev:'warn', icon:'🚧', short:p.n.replace(/^Paso (de )?/,'').split(' (')[0], title:`Rota via ${p.n}: consulte o status antes de sair`,
           problem:`${p.n} (${nf.format(p.alt)} m) liga ${p.a} a ${p.b}. ${r==='x'?`Em ${mes} ele costuma estar fechado para a temporada.`:r==='h'?`Em ${mes} o risco de fechamento é alto: nevascas, gelo na pista e "viento blanco", que zera a visibilidade.`:r==='m'?`Em ${mes} há risco moderado de fechamento por neve ou tempestade.`:'O risco de fechamento é baixo nesta época, mas o horário de funcionamento limita a travessia.'} ${p.note}`,
-          solution:['Confira o status na véspera e de novo na manhã do dia, nos canais oficiais, e registre na aba Atenção.', 'Respeite o horário de funcionamento: chegue cedo, porque fora do horário não se cruza.', 'Saia com tanque cheio, roupa para frio e comida: filas e esperas acontecem em altitude.', 'Tenha um plano B: outro paso ou um dia de folga para esperar a reabertura.', p.cs.includes('CL')?'Entrando no Chile: nada de frutas, verduras, carnes, laticínios, mel ou sementes; declare tudo no SAG.':'Tenha os documentos do veículo à mão.'],
+          solution:['Confira o status na véspera e de novo na manhã do dia, nos canais oficiais, e registre na aba Atenção.', tm?`Horário de funcionamento: ${tm.ph.txt}${tm.ph.ok?'':' (referência, confirme)'}. Saindo às ${tm.dep}, você chega por volta das ${tm.arr}${tm.late?`, tarde demais: saia até ${tm.latest}`:''}.`:'Respeite o horário de funcionamento: fora dele não se cruza.', 'Saia com tanque cheio, roupa para frio e comida: filas e esperas acontecem em altitude.', 'Tenha um plano B: outro paso ou um dia de folga para esperar a reabertura.', p.cs.includes('CL')?'Entrando no Chile: nada de frutas, verduras, carnes, laticínios, mel ou sementes; declare tudo no SAG.':'Tenha os documentos do veículo à mão.'],
           products:[], links:pasoLinks(p), go:'atencao'});
         add('paso_docs',i,{cat:'docs', sev:'warn', icon:'🛂', short:'Documentos', title:'Documentos e alfândega nos pasos',
           problem:'Cada travessia exige documentos do viajante e do veículo, e a alfândega pode multar ou reter alimentos e produtos não declarados.',
@@ -3721,6 +3739,9 @@ function pasoCard(x, compact){
   const alts = routePasos().filter(y=>y.i===x.i && y.kind==='alt').map(y=>y.p);
   return `<article class="paso ${x.kind}" id="paso-${x.p.id}-${x.i}">
     <div class="phd"><span class="psi" aria-hidden="true">🚧</span><div><span class="small">${dayLabel(x.i+1)}, ${fmt(dt)}, ${tr(x.kind==='must'?'p_must':'p_near')}</span><h3>${esc(x.p.n)}</h3><span class="small">${esc(x.p.a)} ↔ ${esc(x.p.b)}, ${nf.format(x.p.alt)} m</span></div></div>
+    ${(()=>{ const tm=x.kind==='must'?pasoTiming(x.d,x.i,x.p):null, ph=pasoHours(x.p,dt); if(!ph) return '';
+      return `<div class="phours"><div>🕒 <b>${tr('p_hours')}:</b> ${esc(ph.txt)}${ph.ok?'':` <span class="small">(${tr('p_ref')})</span>`}</div>${ph.note?`<div class="small">${esc(ph.note)}</div>`:''}
+      ${tm?`<div class="prow2"><label class="small" for="dep-${x.i}">${tr('p_dep')}</label><input type="time" id="dep-${x.i}" data-dep="${x.i}" value="${tm.dep}"><span class="${tm.late?'late':''}">🚦 ${tr('p_arr2',{a:tm.arr})}</span></div>${tm.late?`<div class="box alert"><b>${tr('alert')}</b>${tr('p_late2',{l:tm.latest})}</div>`:''}`:''}</div>`; })()}
     <div class="prisk r-${r}"><b>${tr(RISK_T[r])}</b> ${tr('p_risk_m_'+(r==='x'?'x':'o'),{m:new Intl.DateTimeFormat(LOCALES[LANG],{month:'long'}).format(dt)})}</div>
     ${x.kind==='must'?`<div class="pcheck"><div>${tr('p_status')}: ${st}</div>
       <p class="small">${tr('p_rule')}</p>
@@ -3732,6 +3753,43 @@ function pasoCard(x, compact){
     <div class="actions"><button class="btn" type="button" data-tip="paso_docs">${tr('p_docs')}</button></div>`}
   </article>`;
 }
+/* Opening hours (local time) and arrival estimate at the pass */
+const PASO_H={
+ jama:{w:'08:00–18:00 (hora do Chile) / 09:00–19:00 (hora argentina)', s:'08:00–20:00 (hora do Chile)', cw:18, cs:20, ok:true, note:'Horário de inverno vale de maio a setembro.'},
+ ollague:{a:'08:00–20:00 para carros e motos; 08:00–18:30 para caminhões', c:20, ok:true},
+ cajon:{a:'08:00–18:00', c:18, ok:true},
+ sico:{a:'08:00–18:00 (lado chileno)', c:18, ok:true, note:'Em alguns dias opera só para carga: confirme se está liberado para turistas.'},
+ sfco:{a:'09:00–18:30; saída de veículos costuma fechar às 16:30', c:16.5, ok:false, note:'Com neve já operou em horário reduzido e com correntes obrigatórias.'},
+ cristo:{a:'horário amplo, reduzido no inverno', c:18, ok:false, note:'Confirme o horário da temporada no PasAr (Mendoza) ou na UPF.'},
+ pehuenche:{a:'diurno, reduzido no inverno', c:18, ok:false},
+ pinohachado:{a:'aprox. 08:00–19:00', c:19, ok:false},
+ samore:{a:'aprox. 08:00–18:00 (Chile) / 09:00–19:00 (Argentina)', c:18, ok:false},
+ aguanegra:{a:'só na temporada de verão, horário diurno', c:17, ok:false},
+ aymond:{a:'horário amplo; confirme na temporada', c:22, ok:false},
+ sebastian:{a:'horário amplo; confirme na temporada', c:22, ok:false},
+ colchane:{a:'aprox. 08:00–20:00', c:20, ok:false}
+};
+function pasoHours(p, dt){ const h=PASO_H[p.id]; if(!h) return null; const m=dt.getUTCMonth(), winter=m>=4&&m<=8;
+  if(h.w) return {txt: winter?h.w:h.s, close: winter?h.cw:h.cs, ok:h.ok, note:h.note};
+  return {txt:h.a, close:h.c, ok:h.ok, note:h.note}; }
+function depKey(i){ return 'dep:'+plan+':'+(planDays()[i]?.uid||i); }
+function depTime(i){ return store.get(depKey(i),'08:00'); }
+function hmToNum(s){ const [h,m]=String(s||'08:00').split(':').map(Number); return (h||0)+(m||0)/60; }
+function numToHm(x){ x=((x%24)+24)%24; const h=Math.floor(x), m=Math.round((x-h)*60); return String(m===60?h+1:h).padStart(2,'0')+':'+String(m===60?0:m).padStart(2,'0'); }
+function hoursToPaso(d, p){
+  const ids=[d.from,...d.route,d.to], line=store.get(geoKey(d),null)||ids.map(id=>[S[id][1],S[id][2]]);
+  let best=1e9, along=0, acc=0, tot=0; const segs=[];
+  for(let k=1;k<line.length;k++){ const L=pathKm([line[k-1],line[k]]); segs.push(L); tot+=L; }
+  for(let k=1;k<line.length;k++){ const dd=segDist(p.lat,p.lng,line[k-1],line[k]); if(dd<best){ best=dd; const toA=pathKm([line[k-1],[p.lat,p.lng]]); along=acc+Math.min(segs[k-1],toA); } acc+=segs[k-1]; }
+  const frac=tot?Math.min(1,along/tot):0.5; const hrs=(d.km||tot*1.3)/speedOf(d.road||'asfalto');
+  return hrs*frac + 0.3; // small buffer for stops
+}
+function pasoTiming(d, i, p){
+  const ph=pasoHours(p, dateOf(i)); if(!ph) return null;
+  const dep=hmToNum(depTime(i)), arr=dep+hoursToPaso(d,p), latest=ph.close-1-(arr-dep);
+  return {ph, dep:depTime(i), arr:numToHm(arr), late: arr > ph.close-1, latest:numToHm(Math.max(4,latest))};
+}
+
 function renderAtencao(){
   const el=$('#atencao'); if(!el) return; const rp=routePasos(), must=rp.filter(x=>x.kind==='must'), other=rp.filter(x=>x.kind!=='must');
   const pend=pasoPending(); const ti=todayIdx(), today=ti>=0?dayIssues(ti+1).filter(x=>x.sev==='warn'):[];
@@ -3742,7 +3800,8 @@ function renderAtencao(){
     ${must.length?must.map(x=>pasoCard(x,false)).join(''):`<div class="card"><p style="margin:0">${tr('p_none')}</p></div>`}
     ${other.length?`<h3 class="sub">${tr('p_others')}</h3>${other.map(x=>pasoCard(x,true)).join('')}`:''}
     <h3 class="sub">${tr('p_all')}</h3><div class="card linklist">${pasoLinks({cs:['AR','BO','CL']}).map(l=>`<a target="_blank" rel="noopener" href="${l[1]}">${esc(l[0])}</a>`).join('')}</div>`;
-  el.querySelectorAll('[data-pset]').forEach(b=>b.onclick=()=>{ store.set(pasoCheckKey(b.dataset.pid, Number(b.dataset.pi)), {s:b.dataset.pset, t:Date.now()}); renderAtencao(); updateAttBadge(); if(b.dataset.pset==='closed') toast(tr('p_closed_t')); });
+  el.querySelectorAll('[data-dep]').forEach(inp=>inp.onchange=()=>{ store.set(depKey(Number(inp.dataset.dep)), inp.value||'08:00'); renderAtencao(); renderDays(); });
+  el.querySelectorAll('[data-pset]').forEach(b=>b.onclick=()=>{ store.set(pasoCheckKey(b.dataset.pid, Number(b.dataset.pi)), {s:b.dataset.pset, t:Date.now()}); renderAtencao(); renderDays(); updateAttBadge(); if(b.dataset.pset==='closed') toast(tr('p_closed_t')); });
   el.querySelectorAll('[data-tip]').forEach(b=>b.onclick=()=>goTip(b.dataset.tip));
 }
 function updateAttBadge(){ const a=document.querySelector('nav.tabs a[data-t="atencao"]'); if(!a) return; const n=pasoPending().length; a.classList.toggle('hasbadge', n>0); a.dataset.badge=n||''; }
