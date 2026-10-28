@@ -1625,12 +1625,18 @@ function climaBox(d,i){
   return `<div class="box cbox"><b>${tr('clima')}</b><span class="small">${tr('clima_sub')}</span>${rows}<div class="fc" data-fc="${i}"></div></div>`;
 }
 function fromTemplate(k){ return D.plans[k].days.map((id,i)=>({...JSON.parse(JSON.stringify(D.days[id])), id, uid:id})); }
-function customDays(){ if(plan==='nova'){ let raw=null; try{ raw=localStorage.getItem(K+'novaDays'); }catch(e){} if(raw!==_pdRaw){ _pdRaw=raw; _pdVal=store.get('novaDays',[]); } return _pdVal||[]; } let c=store.get('custom',null); if(!Array.isArray(c)||!c.length){ c=fromTemplate('22'); store.set('custom',c); } let mig=false; c.forEach(d=>{ const tp=D.days[d.id]; if(tp && tp.gap && !d.gap){ d.gap=tp.gap; mig=true; } }); if(mig) store.set('custom',c); return c; }
+function migrateNova(){ try{ const raw=localStorage.getItem(K+'novaDays'); if(!raw) return; const nd=JSON.parse(raw); if(!Array.isArray(nd)||!nd.length) return;
+    if(nd[0].start) return;
+    let base=nd; if(nd.some(d=>d.dayN!=null)){ const g=[]; nd.forEach(d=>{ const l=g[g.length-1]; if(l && l.dayN===d.dayN && d.km && l.km){ l.route.push(l.to); l.to=d.to; l.km+=d.km; l.sleep=d.sleep; } else g.push({...d, route:[...(d.route||[])]}); }); base=g; }
+    localStorage.setItem(K+'novaDays', JSON.stringify(cityCardsFrom(base))); }catch(e){} }
+function customDays(){ if(plan==='nova'){ migrateNova(); let raw=null; try{ raw=localStorage.getItem(K+'novaDays'); }catch(e){} if(raw!==_pdRaw){ _pdRaw=raw; _pdVal=store.get('novaDays',[]); } return _pdVal||[]; } let c=store.get('custom',null); if(!Array.isArray(c)||!c.length){ c=fromTemplate('22'); store.set('custom',c); } let mig=false; c.forEach(d=>{ const tp=D.days[d.id]; if(tp && tp.gap && !d.gap){ d.gap=tp.gap; mig=true; } }); if(mig) store.set('custom',c); return c; }
 function saveCustom(c){ store.set(plan==='nova'?'novaDays':'custom',c); }
 function planDays(){ if(plan==='hist'){ const h=(store.get('history',[])||[]).find(x=>x.id===store.get('histView',null)); return h?h.days:[]; } if(plan==='meu'||plan==='nova') return customDays(); return D.plans[plan].days.map(id=>({id,uid:id,...D.days[id]})); }
 let uidN = Date.now();
 function newUid(){ return 'u'+(uidN++).toString(36); }
 function title(day){
+  if(day.start) return S[day.to][0].split(' (')[0];
+  if(day.dayN!=null && day.km && day.from!==day.to) return cleanPlaceName(S[day.to][0].split(' (')[0]);
   if(day.id==='salar') return 'Salar de Uyuni';
   if(day.id==='spa-dia') return 'San Pedro de Atacama';
   if(day.id==='lagunas') return 'Lagunas altiplânicas';
@@ -1721,8 +1727,8 @@ function renderDays(){
     return `<article class="day tl ${done[key]?'done':''} ${isToday?'today':''}" id="d-${i+1}">
       <span class="tldot" style="border-color:${statusColor(w.status)}"></span>
       <div class="dcard">
-      <div class="dtop"><div class="dtt"><span class="dno">${dayLabel(dayOff(i)+1)}, ${fmt(dt)}${d.dayN!=null&&d.km?', '+depTime(i):''}${isToday?', '+tr('today'):''}${d.pass?` <span class="rolechip">${tr('cc_pass')}</span>`:(d.dayN!=null&&d.km?` <span class="rolechip sleep">${tr('cc_sleep')}</span>`:'')}</span><h3>${dayIssues(i+1).some(x=>x.sev==='warn')?'<span class="wsign" title="'+tr('d_alerts')+'">⚠</span> ':''}${esc(title(d))}</h3></div>
-        <div class="dright"><div class="dtr"><span class="dtemp">${w.tmax!=null?w.tmax+'°':''}</span>${ed&&days.length>1?(d.dayN!=null&&d.km?trashBtn(`data-rmseg="${i}"`, tr('cc_del',{x:esc(cleanPlaceName(placeName(d.to)))})):trashBtn(`data-del="${i}"`, tr('del_day_any'))):''}</div><span class="dchip">${d.km?nf.format(d.km)+' km':esc(tr('free_day'))}</span></div></div>
+      <div class="dtop"><div class="dtt"><span class="dno">${dayLabel(dayOff(i)+1)}, ${fmt(dt)}${d.start?', '+depTime(i+1>=days.length?i:i+1):(d.dayN!=null&&d.km?', '+numToHm(hmToNum(depTime(i))+(d.km/speedOf(d.road||'asfalto'))):'')}${isToday?', '+tr('today'):''} <span class="rolechip ${d.start||(!d.pass&&d.dayN!=null)?'sleep':''}">${d.start?tr('b_start_pt'):(d.pass?tr('cc_pass'):(d.dayN!=null?tr('cc_sleep'):''))}</span>${(!d.start&&d.dayN!=null&&d.km)?`<br>${tr('cc_from',{x:esc(cleanPlaceName(placeName(d.from))),h:nf.format(d.km)+' km'})}`:''}</span><h3>${dayIssues(i+1).some(x=>x.sev==='warn')?'<span class="wsign" title="'+tr('d_alerts')+'">⚠</span> ':''}${esc(title(d))}</h3></div>
+        <div class="dright"><div class="dtr"><span class="dtemp">${w.tmax!=null?w.tmax+'°':''}</span>${ed&&days.length>1?(d.dayN!=null&&(d.km||d.start)?trashBtn(`data-rmseg="${i}"`, tr('cc_del',{x:esc(cleanPlaceName(placeName(d.to)))})):trashBtn(`data-del="${i}"`, tr('del_day_any'))):''}</div><span class="dchip">${d.km?nf.format(d.km)+' km':(d.start?esc(tr('b_start_pt')):esc(tr('free_day')))}</span></div></div>
       ${weatherPart(d,i)}
       ${alertRow(i+1)}
       ${dayPasos(d).filter(x=>x.kind==='must').map(x=>{ const c=pasoCheck(x.p.id,i), tm=pasoTiming(d,i,x.p);
@@ -2221,6 +2227,7 @@ function dayCities(d){ return [d.from,...d.route,d.to]; }
 /* Remove one city from the itinerary (only the user does this), keeping every other city and the order */
 function removeStretch(i){
   const c=customDays().map(x=>({...x})), d=c[i]; if(!d) return; const city=d.to, nx=c[i+1];
+  if(d.start){ c.splice(i,1); if(c[0]&&c[0].km){ c[0]={...c[0], from:c[0].to, km:0, h:'', start:true, pass:false, sleep:null}; } saveCustom(c); if(plan==='nova'){ const b=bState(); const pi=b.pts.findIndex(p=>p.id===city); if(pi>=0){ b.pts.splice(pi,1); bSave(b); } } renderAll(); return; }
   if(nx && nx.from===city && nx.km){ nx.km=(nx.km||0)+(d.km||0); nx.from=d.from; nx.h=fmtH(nx.km/speedOf(nx.road||'asfalto')); if(!d.pass && nx.dayN!==d.dayN){ /* keep the next day's own date */ } c.splice(i,1); }
   else { c.splice(i,1); for(let j=i;j<c.length;j++){ if(c[j].from===city && !c[j].km){ c[j].from=c[j].to=d.from; c[j].sleep=d.from; } } }
   // renumber calendar days so there are no gaps
@@ -2472,6 +2479,17 @@ function interpAt(path, f){
       return {lat:a[1]+(z[1]-a[1])*t, lng:a[2]+(z[2]-a[2])*t, alt:Math.round(a[3]+(z[3]-a[3])*t), c: t<0.5?ctryOf(path[i]):ctryOf(path[i+1])}; } need-=seg[i]; }
   const z=S[path[path.length-1]]; return {lat:z[1],lng:z[2],alt:z[3],c:ctryOf(path[path.length-1])};
 }
+function cityCardsFrom(out){
+  const segs=[]; if(!out.length) return segs;
+  const first=out[0].from;
+  segs.push({from:first, to:first, route:[], km:0, h:'', road:out[0].road||'asfalto', surf:(out[0].surf||['asfalto']).slice(), c:ctryOf(first), sleep:null, start:true, see:[], id:'custom', uid:newUid(), dayN:0});
+  out.forEach((d,n)=>{ const ids=[d.from,...d.route,d.to];
+    if(!d.km || ids.length<=2){ segs.push({...d, route:[], dayN:n, pass:false}); return; }
+    let tot=0; const L=[]; for(let k=1;k<ids.length;k++){ const x=hav(ids[k-1],ids[k]); L.push(x); tot+=x; }
+    for(let k=1;k<ids.length;k++){ const share=tot?L[k-1]/tot:1/(ids.length-1), last=k===ids.length-1;
+      segs.push({...d, from:ids[k-1], to:ids[k], route:[], km:Math.round(d.km*share), h:fmtH(((d.km||0)/speedOf(d.road||'asfalto'))*share), c:ctryOf(ids[k]), sleep:last?d.sleep:ids[k], pass:!last, see:k===1?(d.see||[]):[], uid:k===ids.length-1&&d.uid?d.uid:newUid(), dayN:n}); } });
+  return segs;
+}
 function generateRoute(){
   const b=bState(), v=b.vehicle||'adv', max=VEH[v].max, out=[];
   bLegs(b).forEach(L=>{
@@ -2501,11 +2519,7 @@ function generateRoute(){
     });
     for(let r=1;r<(L.toPt.nights||1);r++) out.push({from:L.to,to:L.to,route:[],km:0,h:'dia livre',road:'asfalto',surf:['asfalto'],c:ctryOf(L.to),sleep:L.to,see:[],id:'custom',uid:newUid()});
   });
-  const segs=[]; out.forEach((d,n)=>{ const ids=[d.from,...d.route,d.to];
-    if(!d.km || ids.length<=2){ segs.push({...d, dayN:n}); return; }
-    let tot=0; const L=[]; for(let k=1;k<ids.length;k++){ const x=hav(ids[k-1],ids[k]); L.push(x); tot+=x; }
-    for(let k=1;k<ids.length;k++){ const share=tot?L[k-1]/tot:1/(ids.length-1), last=k===ids.length-1;
-      segs.push({...d, from:ids[k-1], to:ids[k], route:[], km:Math.round(d.km*share), h:fmtH(((d.km||0)/speedOf(d.road||'asfalto'))*share), c:ctryOf(ids[k]), sleep:last?d.sleep:ids[k], pass:!last, see:k===1?d.see:[], uid:newUid(), dayN:n}); } });
+  const segs=cityCardsFrom(out);
   store.set('cstops',CST);
   store.set('novaDays', segs); store.set('novaMeta', {name:b.name||tr('name_default'), start:b.start, days:Number(b.days)||0, vehicle:v});
   store.set('vehicle', v);
@@ -3755,7 +3769,7 @@ function analyzeRoute(){
       problem:'O sal gruda no chassi, na corrente, nos freios e nos conectores elétricos e acelera a corrosão.', solution:['Antes de entrar, proteja os conectores com spray dielétrico e lubrifique a corrente.', 'Evite as bordas úmidas do salar.', 'Lave com água doce assim que possível e relubrifique.'],
       products:[['Spray dielétrico para conectores','Protege a parte elétrica'],['Lubrificante de corrente para moto','Depois da lavagem']], links:[['Como proteger a moto no Salar de Uyuni', ytSearch('proteger moto salar de uyuni sal')]], near:'lava jato'});
     const dayKm = d.dayN!=null ? days.filter(x=>x.dayN===d.dayN).reduce((s,x)=>s+(x.km||0),0) : d.km;
-    if(dayKm > V.max*1.1 && (d.dayN==null || !d.pass)) add('long',i,{cat:'road', sev:'warn', icon:'⏱', short:'Dia longo', title:'Dias longos ao volante',
+    if(dayKm > V.max*1.1 && !d.start && (d.dayN==null || !d.pass)) add('long',i,{cat:'road', sev:'warn', icon:'⏱', short:'Dia longo', title:'Dias longos ao volante',
       problem:`Dias acima de ${nf.format(V.max)} km cansam e aumentam o risco, principalmente no fim da tarde.`, solution:['Saia cedo e pare a cada 2 horas.', 'Não pilote à noite em estradas com animais na pista.', 'Se puder, divida o dia na aba Criar.'], products:[], links:[], go:'criar'});
     dayPasos(d).forEach(x=>{ const p=x.p, dt=dateOf(i), r=pasoRisk(p,dt), mes=new Intl.DateTimeFormat('pt-BR',{month:'long'}).format(dt);
       if(x.kind==='must'){
