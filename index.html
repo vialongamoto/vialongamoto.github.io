@@ -1484,6 +1484,12 @@ Object.assign(I18N.es,{"p_via": "Ruta por", "p_hours": "Horario", "p_ref": "refe
 Object.assign(I18N.it,{"p_via": "Percorso via", "p_hours": "Orario", "p_ref": "riferimento, conferma", "p_arr": "partendo alle {d}, arrivi verso le {a}", "p_arr2": "arrivo stimato {a}", "p_late": "— vicino alla chiusura: parti entro le {l}", "p_late2": "Arriveresti vicino alla chiusura. Parti entro le {l} per avere margine.", "p_consult": "Controlla lo stato prima di partire", "p_dep": "Partenza prevista"});
 Object.assign(I18N.de,{"p_via": "Route über", "p_hours": "Öffnungszeit", "p_ref": "Richtwert, bestätigen", "p_arr": "Abfahrt {d}, Ankunft gegen {a}", "p_arr2": "geschätzte Ankunft {a}", "p_late": "— kurz vor Schließung: bis {l} losfahren", "p_late2": "Du kämst kurz vor Schließung an. Bis {l} losfahren, um Puffer zu haben.", "p_consult": "Status vor der Abfahrt prüfen", "p_dep": "Geplante Abfahrt"});
 Object.assign(I18N.zh,{"p_via": "经由", "p_hours": "开放时间", "p_ref": "参考，请确认", "p_arr": "{d} 出发，约 {a} 到达", "p_arr2": "预计 {a} 到达", "p_late": "— 接近关闭：请在 {l} 前出发", "p_late2": "你会在接近关闭时到达。请在 {l} 前出发以留有余地。", "p_consult": "出发前查询状态", "p_dep": "计划出发"});
+Object.assign(I18N.pt,{"m_route": "chuva no trajeto, {w}, mediana de {n} modelos", "m_dest": "chuva no destino, dia inteiro", "bars_route": "chuva prevista no trajeto, mm a cada 2 h", "m_dayacc": "Acumulado no destino no dia inteiro (0h–24h): {m} mm. Serve para saber como está a região.", "st_light": "Chuva"});
+Object.assign(I18N.en,{"m_route": "rain on the road, {w}, median of {n} models", "m_dest": "rain at destination, whole day", "bars_route": "rain expected on the road, mm every 2 h", "m_dayacc": "Accumulated at destination over the whole day (0–24h): {m} mm. Useful to gauge the region.", "st_light": "Rain"});
+Object.assign(I18N.es,{"m_route": "lluvia en el trayecto, {w}, mediana de {n} modelos", "m_dest": "lluvia en el destino, día completo", "bars_route": "lluvia prevista en el trayecto, mm cada 2 h", "m_dayacc": "Acumulado en el destino en el día completo (0–24 h): {m} mm. Sirve para saber cómo está la región.", "st_light": "Lluvia"});
+Object.assign(I18N.it,{"m_route": "pioggia sul percorso, {w}, mediana di {n} modelli", "m_dest": "pioggia a destinazione, giorno intero", "bars_route": "pioggia prevista sul percorso, mm ogni 2 h", "m_dayacc": "Accumulo a destinazione nell’intera giornata (0–24): {m} mm. Utile per capire la situazione della zona.", "st_light": "Pioggia"});
+Object.assign(I18N.de,{"m_route": "Regen auf der Strecke, {w}, Median aus {n} Modellen", "m_dest": "Regen am Ziel, ganzer Tag", "bars_route": "erwarteter Regen auf der Strecke, mm je 2 h", "m_dayacc": "Tagessumme am Ziel (0–24 Uhr): {m} mm. Gut, um die Lage der Region einzuschätzen.", "st_light": "Regen"});
+Object.assign(I18N.zh,{"m_route": "途中降雨，{w}，{n} 个模型中位数", "m_dest": "目的地全天降雨", "bars_route": "途中预计降雨，每 2 小时毫米", "m_dayacc": "目的地全天（0–24 时）累计：{m} 毫米，可了解当地情况。", "st_light": "雨"});
 const LOCALES = {pt:'pt-BR',en:'en-GB',es:'es-AR',it:'it-IT',de:'de-DE',zh:'zh-CN'};
 const LANG_NAMES = {pt:'Português',en:'English',es:'Español',it:'Italiano',de:'Deutsch',zh:'中文'};
 
@@ -2068,6 +2074,39 @@ async function getFc(id, date){
     store.set(key,v); return {...v, old:false};
   }catch(e){ return cached?{...cached, old:true}:null; }
 }
+/* Rain on the road: only the hours you ride, along the route, median of ECMWF, GFS and ICON */
+const RAIN_MODELS=['ecmwf_ifs025','gfs_seamless','icon_seamless'];
+function median(a){ const v=a.filter(x=>x!=null&&!isNaN(x)).sort((x,y)=>x-y); if(!v.length) return null; const m=Math.floor(v.length/2); return v.length%2?v[m]:(v[m-1]+v[m])/2; }
+async function pointHourlyRain(id, date){
+  const s=S[id], key='rr:'+s[1].toFixed(2)+','+s[2].toFixed(2)+':'+date, c=store.get(key,null);
+  if(c && Date.now()-c.t < 3*36e5) return c;
+  try{ const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${s[1]}&longitude=${s[2]}&hourly=precipitation,precipitation_probability&models=${RAIN_MODELS.join(',')}&timezone=auto&start_date=${date}&end_date=${date}`);
+    if(!r.ok) throw 0; const j=await r.json(), H=j.hourly||{};
+    const per=RAIN_MODELS.map(m=>H['precipitation_'+m]).filter(Boolean);
+    const probs=RAIN_MODELS.map(m=>H['precipitation_probability_'+m]).filter(Boolean);
+    const mm=Array.from({length:24},(_,h)=>median(per.map(a=>a[h])));
+    const pr=Array.from({length:24},(_,h)=>{ const v=probs.map(a=>a[h]).filter(x=>x!=null); return v.length?Math.max(...v):null; });
+    const v={t:Date.now(), mm, pr, n:per.length}; store.set(key,v); return v;
+  }catch(e){ return c||null; }
+}
+async function routeRain(d, i){
+  const date=iso(dateOf(i)), ids=[d.from,...d.route,d.to].filter((x,k,a)=>a.indexOf(x)===k);
+  const pts=ids.length>4?[ids[0], ids[Math.floor(ids.length/3)], ids[Math.floor(2*ids.length/3)], ids[ids.length-1]]:ids;
+  const data=[]; for(const id of pts){ data.push(await pointHourlyRain(id,date)); }
+  if(!data.some(Boolean)) return null;
+  const dep=hmToNum(depTime(i)), dur=d.km?Math.max(1,(d.km)/speedOf(d.road||'asfalto')):0;
+  const start=Math.max(6,Math.floor(dep)), end=Math.min(18,Math.ceil(dep+dur)) || 18;
+  let tot=0, max1=0, maxp=0; const bins=[0,0,0,0,0,0];
+  for(let h=start; h<Math.max(start+1,end); h++){
+    const f=dur?Math.min(1,Math.max(0,(h-dep)/dur)):1, k=Math.round(f*(pts.length-1)), P=data[k]||data.find(Boolean);
+    const v=P&&P.mm[h]!=null?P.mm[h]:0, p=P&&P.pr[h]!=null?P.pr[h]:0;
+    tot+=v; max1=Math.max(max1,v); maxp=Math.max(maxp,p); const b=Math.floor((h-6)/2); if(b>=0&&b<6) bins[b]+=v;
+  }
+  const n=Math.max(...data.filter(Boolean).map(x=>x.n||0));
+  return {rmm:Math.round(tot*10)/10, rmax:Math.round(max1*10)/10, rp:maxp, rbins:bins.map(x=>Math.round(x*10)/10), win:`${numToHm(start)}–${numToHm(Math.max(start+1,end))}`, nmod:n};
+}
+function rainStatus(mm, max1){ if(max1>=10 || mm>=30) return 'heavy'; if(mm>2) return 'light'; if(mm>=0.2) return 'drizzle'; return 'dry'; }
+
 async function loadForecasts(){
   const days=planDays(), now=new Date(); const t0=Date.UTC(now.getFullYear(),now.getMonth(),now.getDate());
   for(let i=0;i<days.length;i++){
@@ -2077,10 +2116,11 @@ async function loadForecasts(){
     const date=iso(dt), out=[];
     for(const id of fcPoints(days[i])){ const f=await getFc(id,date); if(f) out.push([id,f]); }
     if(!out.length) continue;
+    try{ const rr=await routeRain(days[i], i); if(rr){ const dest=days[i].to===days[i].from?fcPoints(days[i]).slice(-1)[0]:days[i].to, s=S[dest], key='fc2:'+s[1].toFixed(2)+','+s[2].toFixed(2)+':'+date, f=store.get(key,null); if(f){ Object.assign(f, rr); store.set(key,f); } } }catch(e){}
     const card=document.getElementById('d-'+(i+1)); if(card){ const wp=card.querySelector('.wpart'); if(wp) wp.outerHTML=weatherPart(days[i],i); const w2=dayWeather(days[i],i); const dot=card.querySelector('.tldot'); if(dot) dot.style.borderColor=statusColor(w2.status); const tp=card.querySelector('.dtemp'); if(tp&&w2.tmax!=null) tp.textContent=w2.tmax+'°'; }
     $('#wsum').innerHTML = weatherSummary();
     el.innerHTML = `<b>${tr('fc_title')}</b>`+out.map(([id,f])=>{ const l=windLvl(f.g); const h=new Intl.DateTimeFormat(LOCALES[LANG],{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}).format(new Date(f.t));
-      return `<div class="wind">${wIcon(wmoKind(f.code),22)} ${esc(S[id][0].split(' (')[0])}: ${tr(f.cl!=null?'fc_line2':'fc_line',{min:f.min,max:f.max,p:f.p,w:f.w,g:f.g,c:f.cl})} <span class="wl ${l}">${tr('wl_'+l)}</span><br><span class="small">${f.old?tr('fc_old')+', ':''}${tr('fc_upd',{h})}</span></div>`; }).join('');
+      return `<div class="wind">${wIcon(wmoKind(f.code),22)} ${esc(S[id][0].split(' (')[0])}: ${tr(f.cl!=null?'fc_line2':'fc_line',{min:f.min,max:f.max,p:f.p,w:f.w,g:f.g,c:f.cl})} <span class="wl ${l}">${tr('wl_'+l)}</span>${f.mm!=null?`<br><span class="small">${tr('m_dayacc',{m:nf.format(f.mm)})}</span>`:''}<br><span class="small">${f.old?tr('fc_old')+', ':''}${tr('fc_upd',{h})}</span></div>`; }).join('');
   }
 }
 
@@ -3083,9 +3123,9 @@ function dayWeather(d,i){
   const ok=c=>c && (c[12]!=null || (mo>=5&&mo<=7));
   const c1=climFor(dest,dt), c2=climFor(hi,dt), cs=[c1,c2].filter(Boolean);
   const f=fcCached(dest, iso(dt));
-  if(f){ const kind=wmoKind(f.code), mm=f.mm||0, p=f.p||0;
-    const status = kind==='snow'?'snow' : (mm>=5||p>=70)?'heavy' : (mm>=1||p>=40)?'light' : (mm>=0.2||p>=20)?'drizzle':'dry';
-    return {live:true, status, kind, tmax:f.max, tmin:f.min, rain:p, mm, gust:f.g, cl:f.cl, hp:f.hp||null}; }
+  if(f){ let kind=wmoKind(f.code); const onRoute=f.rmm!=null; if(onRoute && kind!=='snow' && kind!=='fog'){ kind = f.rmm>=0.2 ? ((kind==='thunder' && (f.rmax||0)>=5)?'thunder':'rain') : ((kind==='rain'||kind==='thunder')?'cloud':kind); } const mm=onRoute?f.rmm:(f.mm||0), p=onRoute?(f.rp||0):(f.p||0);
+    const status = kind==='snow'&&mm>=0.2?'snow' : onRoute ? rainStatus(mm, f.rmax||0) : ((mm>=30)?'heavy':(mm>2)?'light':(mm>=0.2)?'drizzle':'dry');
+    return {live:true, status, kind, tmax:f.max, tmin:f.min, rain:p, mm, day:f.mm, onRoute, win:f.win, nmod:f.nmod, bins:f.rbins||null, gust:f.g, cl:f.cl, hp:f.hp||null}; }
   if(!cs.length) return {status:'na', kind:'cloud'};
   const c=c1||c2, rain=Math.max(...cs.map(x=>x[4])), gust=Math.max(...cs.map(x=>x[10]||0)), tmin=Math.min(...cs.map(x=>x[3])), snow=cs.some(x=>climCond(x).kind==='snow');
   const status = snow?'snow' : rain>=50?'heavy' : rain>=25?'light' : rain>=10?'drizzle':'dry';
@@ -3093,14 +3133,16 @@ function dayWeather(d,i){
 }
 function weatherPart(d,i){
   const w=dayWeather(d,i), pts=[d.from,...d.route,d.to].filter((x,k,a)=>k===0||x!==a[k-1]);
-  const bars = w.hp && w.hp.length
+  const bars = w.bins && w.bins.length
+    ? (()=>{ const top=Math.max(3,...w.bins); return `<div class="bars5" aria-label="${tr('bars_route')}">${w.bins.map((v,k)=>`<div class="b"><i style="height:${Math.max(6,Math.round(v/top*100))}%" class="${v>0&&v===Math.max(...w.bins)?'hot st-'+w.status:''}" title="${nf.format(v)} mm"></i><span>${6+2*k}h</span></div>`).join('')}</div><p class="blab">${tr('bars_route')}</p>`; })()
+    : w.hp && w.hp.length
     ? `<div class="bars5" aria-label="${tr('bars_rain')}">${w.hp.map((v,k)=>`<div class="b"><i style="height:${Math.max(6,v)}%" class="${v===Math.max(...w.hp)&&v>=20?'hot st-'+w.status:''}"></i><span>${[6,9,12,15,18][k]}h</span></div>`).join('')}</div><p class="blab">${tr('bars_rain')}</p>`
     : (pts.length>1?(()=>{ const P=pts.slice(0,6), top=Math.max(1000,...P.map(id=>S[id][3]));
         return `<div class="altbars" aria-label="${tr('bars_alt')}">${P.map(id=>`<div class="ab"><span class="av">${nf.format(S[id][3])} m</span><i style="height:${Math.max(8,Math.round(S[id][3]/top*100))}%" class="${S[id][3]>=3500?'hi':''}"></i><span class="an">${esc(placeName(id))}</span></div>`).join('')}</div><p class="blab">${tr('bars_alt')}</p>`; })():'');
   if(w.status==='na') return `<div class="wpart"><div class="metrics"><div class="mt"><span class="wbig">${wIcon('cloud',34)}</span></div><div class="mt"><b class="mv">${nf.format(d.km)}</b><span>km</span></div></div>${bars}</div>`;
   return `<div class="wpart"><div class="metrics">
       <div class="mt"><span class="wbig">${wIcon(w.kind,36)}${(w.gust||0)>=50?wIcon('wind',22):''}</span><span>${tr('sky_'+w.kind)}</span></div>
-      <div class="mt"><b class="mv st-${w.status}">${w.live&&w.mm!=null?nf.format(w.mm)+'<small>mm</small>':w.rain+'<small>%</small>'}</b><span>${w.live&&w.mm!=null?tr('m_mm',{p:w.rain}):tr('m_rain')}</span></div>
+      <div class="mt"><b class="mv st-${w.status}">${w.live&&w.mm!=null?nf.format(w.mm)+'<small>mm</small>':w.rain+'<small>%</small>'}</b><span>${w.live&&w.onRoute?tr('m_route',{w:w.win,n:w.nmod||3}):(w.live&&w.mm!=null?tr('m_dest'):tr('m_rain'))}</span></div>
       <div class="mt"><b class="mv">${w.tmin}°<small>/${w.tmax}°</small></b><span>${tr('m_temp')}</span></div>
       <div class="mt"><b class="mv ${(w.gust||0)>=50?'st-light':''}">${w.gust||0}<small>km/h</small></b><span>${tr('m_gust')}</span></div>
     </div><div class="wrow"><span class="badge st-${w.status}">${tr('st_'+w.status)}</span><span class="small">${w.live?tr('m_live'):tr('m_hist')}, ${tr('clouds_s',{c:w.cl!=null?w.cl:'–'})}</span></div>${bars}</div>`;
