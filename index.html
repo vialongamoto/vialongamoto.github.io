@@ -1498,6 +1498,7 @@ Object.assign(I18N.de,{"m_route_h": "Regen auf der Strecke, {w}, Median aus 3 Ja
 Object.assign(I18N.zh,{"m_route_h": "途中降雨，{w}，3 年中位数（{b} 年中 {a} 年有雨）", "m_hist3": "过去 3 年同日"});
 I18N.pt.bars_route_h="chuva no trajeto em anos anteriores, mm a cada 2 h";I18N.en.bars_route_h="rain on the road in past years, mm every 2 h";I18N.es.bars_route_h="lluvia en el trayecto en años anteriores, mm cada 2 h";I18N.it.bars_route_h="pioggia sul percorso negli anni passati, mm ogni 2 h";I18N.de.bars_route_h="Regen auf der Strecke in Vorjahren, mm je 2 h";I18N.zh.bars_route_h="往年途中降雨，每 2 小时毫米";
 I18N.pt.gen_done="Roteiro novo gerado. O anterior pode ser recuperado.";I18N.en.gen_done="New itinerary built. The previous one can be restored.";I18N.es.gen_done="Itinerario nuevo generado. El anterior se puede recuperar.";I18N.it.gen_done="Nuovo itinerario generato. Il precedente si può ripristinare.";I18N.de.gen_done="Neuer Reiseplan erstellt. Der vorherige lässt sich wiederherstellen.";I18N.zh.gen_done="已生成新行程，可恢复之前的行程。";
+I18N.pt.own_stop="Pernoite numa parada da sua lista";I18N.en.own_stop="Overnight at a stop from your list";I18N.es.own_stop="Pernocte en una parada de tu lista";I18N.it.own_stop="Pernottamento in una tappa del tuo elenco";I18N.de.own_stop="Übernachtung an einem Stopp deiner Liste";I18N.zh.own_stop="在你列表中的地点过夜";
 const LOCALES = {pt:'pt-BR',en:'en-GB',es:'es-AR',it:'it-IT',de:'de-DE',zh:'zh-CN'};
 const LANG_NAMES = {pt:'Português',en:'English',es:'Español',it:'Italiano',de:'Deutsch',zh:'中文'};
 
@@ -2317,15 +2318,27 @@ function generateRoute(){
     const ld=legData(b,L), path=[L.from,...L.vias,L.to];
     const n=(b.split && ld.km>max*1.15)?Math.ceil(ld.km/max):1;
     const hTot=legHours(ld,v);
-    let prev=L.from;
-    for(let j=1;j<=n;j++){
-      let to=L.to;
-      if(j<n){ const p=interpAt(path,j/n); to='v'+newUid(); S[to]=[`${tr('to_define')} (${S[L.from][0].split(' (')[0]} → ${S[L.to][0].split(' (')[0]}, km ${nf.format(Math.round(ld.km*j/n))})`, p.lat, p.lng, p.alt, 'pernoite', p.c, null]; CST[to]=S[to]; }
-      const day={from:prev, to, route: n===1?L.vias.slice():[], km:Math.round(ld.km/n), kmEst: ld.src!=='osrm'&&ld.src!=='user', h:fmtH(hTot/n), road:roadText(ld.surf), surf:ld.surf.slice(), c:ctryOf(to), sleep:to,
-        see: ld.notes&&j===1?[ld.notes]:[], id:'custom', uid:newUid()};
+    // cumulative fraction of each point along the leg
+    const F=[0]; let tot=0; for(let k=1;k<path.length;k++){ tot+=hav(path[k-1],path[k]); F.push(tot); } for(let k=0;k<F.length;k++) F[k]=tot?F[k]/tot:k/(path.length-1);
+    // where each day ends: prefer one of your own stops, create a new overnight only if none is close
+    const ends=[]; let last=0;
+    for(let j=1;j<n;j++){ const f=j/n; let best=-1, bd=1;
+      for(let k=last+1;k<path.length-1;k++){ const dd=Math.abs(F[k]-f); if(dd<bd){ bd=dd; best=k; } }
+      if(best>0 && bd<=0.6/n){ ends.push({pos:best, f:F[best], id:path[best], own:true}); last=best; }
+      else { let k=path.findIndex((x,idx)=>idx>last && F[idx]>=f); if(k<1) k=path.length-1; const p=interpAt(path,f), id='v'+newUid();
+        S[id]=[`${tr('to_define')} (${S[L.from][0].split(' (')[0]} → ${S[L.to][0].split(' (')[0]}, km ${nf.format(Math.round(ld.km*f))})`, p.lat, p.lng, p.alt, 'pernoite', p.c, null]; CST[id]=S[id];
+        ends.push({pos:k-0.5, f, id, own:false}); last=k-1; } }
+    ends.push({pos:path.length-1, f:1, id:L.to, own:true});
+    let prevPos=0, prevF=0, prev=L.from;
+    ends.forEach(E=>{
+      const route=path.filter((x,idx)=>idx>prevPos && idx<E.pos);
+      const share=Math.max(0.01,E.f-prevF);
+      const day={from:prev, to:E.id, route, km:Math.round(ld.km*share), kmEst: ld.src!=='osrm'&&ld.src!=='user', h:fmtH(hTot*share), road:roadText(ld.surf), surf:ld.surf.slice(), c:ctryOf(E.id), sleep:E.id,
+        see: ld.notes&&prev===L.from?[ld.notes]:[], id:'custom', uid:newUid()};
+      if(E.own && E.id!==L.to) day.see=[...day.see, tr('own_stop')];
       if(ld.x4) day.alert=tr('s_off');
-      out.push(day); prev=to;
-    }
+      out.push(day); prev=E.id; prevPos=Math.ceil(E.pos); prevF=E.f;
+    });
     for(let r=1;r<(L.toPt.nights||1);r++) out.push({from:L.to,to:L.to,route:[],km:0,h:'dia livre',road:'asfalto',surf:['asfalto'],c:ctryOf(L.to),sleep:L.to,see:[],id:'custom',uid:newUid()});
   });
   store.set('cstops',CST);
@@ -3118,8 +3131,17 @@ function distributeDays(b, ext){
     let moved=true; while(extra>0 && moved){ moved=false; for(const c of order){ if(extra<=0) break; if((c.p.nights-1) < capFor(c.sc[0])){ c.p.nights++; c.p.why=c.sc[1]||tr('why_rest'); extra--; moved=true; } } }
     let j=0; while(extra>0){ const c=order[j%order.length]; c.p.nights++; c.p.why=c.p.why||tr('why_rest'); extra--; j++; }
   } else if(extra<0){
-    const low=cand.filter(x=>x.i<last && x.sc[0]<1).sort((a,c)=>a.sc[0]-c.sc[0]);
-    for(const c of low){ if(N-bDaysPreview(b)>=0) break; c.p.type='via'; c.p.why=tr('why_pass'); if(N-bDaysPreview(b) < extra){ c.p.type='sleep'; c.p.why=''; } else extra=N-bDaysPreview(b); }
+    // join the shortest neighbouring legs first, so days stay balanced; keep places travellers value
+    const skip=new Set(); let guard=0;
+    while(bDaysPreview(b)>N && guard++<60){
+      const legs=bLegs(b); let best=null;
+      for(let k=0;k<legs.length-1;k++){ const id=legs[k].to, pIdx=b.pts.findIndex((p,ii)=>ii>0 && ii<b.pts.length-1 && p.id===id && p.type!=='via');
+        if(pIdx<0 || skip.has(pIdx)) continue; const sc=(ext&&ext[pIdx])||stayScore(b.pts[pIdx].id); if(sc[0]>=1) continue;
+        const km=legData(b,legs[k]).km+legData(b,legs[k+1]).km; if(!best||km<best.km) best={pIdx,km}; }
+      if(!best) break;
+      const before=bDaysPreview(b), p=b.pts[best.pIdx]; p.type='via'; p.why=tr('why_pass');
+      if(bDaysPreview(b)>=before){ p.type='sleep'; p.why=''; skip.add(best.pIdx); }
+    }
   }
   return {N, total:bDaysPreview(b)};
 }
@@ -3264,14 +3286,16 @@ async function resolveVirtuals(){
       if(!isV(days[i].to)){ i++; continue; }
       let j=i; while(j<days.length && isV(days[j].to)) j++;
       const group=days.slice(i, Math.min(j+1, days.length)), A=group[0].from, B=group[group.length-1].to, n=group.length;
+      const thru=[A]; group.forEach(g=>{ g.route.forEach(x=>{ if(!isV(x)) thru.push(x); }); if(!isV(g.to)) thru.push(g.to); }); if(thru[thru.length-1]!==B) thru.push(B);
+      const kms=group.map(g=>g.km||1), ktot=kms.reduce((x,y)=>x+y,0); const fr=[]; { let acc=0; kms.forEach(k=>{ acc+=k; fr.push(acc/ktot); }); }
       let geo=null, dist=null;
-      try{ const r=await fetch(`https://router.project-osrm.org/route/v1/driving/${S[A][2]},${S[A][1]};${S[B][2]},${S[B][1]}?overview=full&geometries=geojson`); if(r.ok){ const jj=await r.json(); const R0=jj.routes&&jj.routes[0]; if(R0){ geo=R0.geometry.coordinates.map(c=>[c[1],c[0]]); dist=R0.distance/1000; } } }catch(e){}
+      try{ const r=await fetch(`https://router.project-osrm.org/route/v1/driving/${thru.map(x=>`${S[x][2]},${S[x][1]}`).join(';')}?overview=full&geometries=geojson`); if(r.ok){ const jj=await r.json(); const R0=jj.routes&&jj.routes[0]; if(R0){ geo=R0.geometry.coordinates.map(c=>[c[1],c[0]]); dist=R0.distance/1000; } } }catch(e){}
       let cum=null, tot=0; if(geo){ cum=[0]; for(let k=1;k<geo.length;k++) cum.push(cum[k-1]+pathKm([geo[k-1],geo[k]])); tot=cum[cum.length-1]; }
       for(let k=0;k<n-1;k++){ const v=group[k].to; if(!isV(v)) continue; let la=S[v][1], lo=S[v][2];
-        if(geo){ let x=cum.findIndex(c=>c>=tot*(k+1)/n); if(x<0) x=geo.length-1; [la,lo]=geo[x]; }
+        if(geo){ let x=cum.findIndex(c=>c>=tot*fr[k]); if(x<0) x=geo.length-1; [la,lo]=geo[x]; }
         const nm=await reverseName(la,lo); await _sleep(1100);
         S[v][1]=la; S[v][2]=lo; if(nm) S[v][0]=nm.name; if(nm && BCTRY.includes(nm.c)) S[v][5]=nm.c; S[v][7]=1; CST[v]=S[v]; changed=true; }
-      if(dist) group.forEach(d=>{ d.km=Math.round(dist/n); d.kmEst=false; d.h=hoursFor(d); });
+      if(dist) group.forEach((d,k)=>{ d.km=Math.round(dist*kms[k]/ktot); d.kmEst=false; d.h=hoursFor(d); });
       i=j+1;
     }
     if(changed){ store.set('cstops',CST); store.set('novaDays',days); renderAll(); }
