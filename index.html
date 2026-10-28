@@ -1119,6 +1119,7 @@ nav.tabs a[data-t="atencao"] svg{stroke:#D97706}
 .ccard{border:1px solid var(--line);border-left:4px solid var(--line);border-radius:14px;padding:10px 12px;background:var(--bg)}
 .ccard.r-start,.ccard.r-sleep{border-left-color:var(--laguna)} .ccard.r-pass{border-left-color:#8EA0FF} .ccard.r-end{border-left-color:var(--laguna)}
 .cc1{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center}
+.cw .btn.trash{margin-left:6px;padding:4px 7px}
 .ct{font:700 .9rem ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted)}
 .cn{display:flex;flex-direction:column;min-width:0} .cn b{font:600 1.05rem/1.2 var(--display);overflow-wrap:anywhere}
 .cw{display:flex;align-items:center;gap:4px;font-size:1.05rem}
@@ -1540,6 +1541,7 @@ Object.assign(I18N.es,{"cc_pass": "Paso", "cc_sleep": "Pernocte", "cc_from": "de
 Object.assign(I18N.it,{"cc_pass": "Passaggio", "cc_sleep": "Pernottamento", "cc_from": "da {x}, {h}", "cc_hour": "a quell’ora", "cc_hist": "storico di 3 anni", "cc_nodata": "Il meteo di questa località appare con internet", "gen_missing": "Mancano {n} località senza posizione. Correggile nella fase Percorso."});
 Object.assign(I18N.de,{"cc_pass": "Durchfahrt", "cc_sleep": "Übernachtung", "cc_from": "ab {x}, {h}", "cc_hour": "zu der Zeit", "cc_hist": "3-Jahres-Historie", "cc_nodata": "Wetter für diesen Ort erscheint mit Internet", "gen_missing": "{n} Orte haben noch keinen Standort. Im Schritt Route korrigieren."});
 Object.assign(I18N.zh,{"cc_pass": "途经", "cc_sleep": "过夜", "cc_from": "自 {x}，{h}", "cc_hour": "此时", "cc_hist": "3 年历史", "cc_nodata": "联网后显示此地天气", "gen_missing": "还有 {n} 个地点没有位置，请在“路线”步骤修正。"});
+I18N.pt.cc_del="Excluir {x} do roteiro";I18N.en.cc_del="Remove {x} from the itinerary";I18N.es.cc_del="Quitar {x} del itinerario";I18N.it.cc_del="Rimuovi {x} dall’itinerario";I18N.de.cc_del="{x} aus dem Reiseplan entfernen";I18N.zh.cc_del="从行程中删除 {x}";
 const LOCALES = {pt:'pt-BR',en:'en-GB',es:'es-AR',it:'it-IT',de:'de-DE',zh:'zh-CN'};
 const LANG_NAMES = {pt:'Português',en:'English',es:'Español',it:'Italiano',de:'Deutsch',zh:'中文'};
 
@@ -2206,6 +2208,26 @@ function passHtml(d,i,w){
 
 /* One card per city: every place from Criar shows up in Roteiro, stop-over or pass-through */
 function dayCities(d){ return [d.from,...d.route,d.to]; }
+/* Remove one city from the itinerary (only the user does this), keeping every other city and the order */
+function removeCity(i, k){
+  const c=customDays(), d=c[i]; if(!d) return; const ids=[d.from,...d.route,d.to], id=ids[k];
+  if(k>0 && k<ids.length-1){ const old=pathLen(legIds(d)); d.route.splice(k-1,1); rescale(d, old, pathLen(legIds(d))); d.id='custom'; }
+  else if(k===ids.length-1){
+    const nx=c[i+1];
+    if(d.route.length){ const old=pathLen(legIds(d)); d.to=d.route.pop(); d.sleep=d.to; d.c=ctryOf(d.to); rescale(d, old, pathLen(legIds(d))); d.id='custom';
+      if(nx){ if(nx.from===id){ if(!nx.km){ nx.from=nx.to=d.to; nx.sleep=d.to; } else { const o2=pathLen(legIds(nx)); nx.from=d.to; rescale(nx,o2,pathLen(legIds(nx))); nx.id='custom'; } } } }
+    else if(nx && nx.km){ const o2=pathLen(legIds(nx)); nx.from=d.from; nx.km+=0; c.splice(i,1); rescale(nx,o2,pathLen(legIds(nx))); nx.id='custom'; }
+    else { c.splice(i,1); }
+    for(let j=i;j<c.length;j++){ if(c[j] && !c[j].km && c[j].to===id){ const pv=c[j-1]; if(pv){ c[j].from=c[j].to=pv.to; c[j].sleep=pv.to; } } }
+  } else if(k===0){
+    if(d.route.length){ const old=pathLen(legIds(d)); d.from=d.route.shift(); rescale(d, old, pathLen(legIds(d))); d.id='custom'; }
+    else c.splice(i,1);
+  }
+  saveCustom(c.filter(x=>x && S[x.from] && S[x.to]));
+  if(plan==='nova'){ const b=bState(); const pi=b.pts.findIndex(p=>p.id===id); if(pi>=0){ b.pts.splice(pi,1); bSave(b); } }
+  renderAll();
+}
+
 function cityCards(d,i,w,first){
   const ids=dayCities(d); if(d.from===d.to && !d.route.length) return '';
   const {dep,dur}=dayWindow(d,i), F=fracs(ids), passBy={}; (w&&w.pass||[]).forEach(p=>{ (passBy[p.id]=passBy[p.id]||[]).push(p); });
@@ -2224,7 +2246,7 @@ function cityCards(d,i,w,first){
     const segH=dur*(F[k]-(F[k-1]||0));
     return `<article class="ccard r-${role}">
       <div class="cc1"><span class="ct">${numToHm(arr)}</span><div class="cn"><b>${esc(cleanPlaceName(placeName(id)))}</b><span class="small">${roleT}, ${nf.format(s[3])} m</span></div>
-        <span class="cw">${kind?wIcon(kind,26):''}<b>${p&&p.temp!=null?p.temp+'°':'–'}</b></span></div>
+        <span class="cw">${kind?wIcon(kind,26):''}<b>${p&&p.temp!=null?p.temp+'°':'–'}</b>${(plan==='meu'||plan==='nova')?trashBtn(`data-rmcity="${i}:${k}"`, tr('cc_del',{x:esc(cleanPlaceName(placeName(id)))})):''}</span></div>
       ${k>0?`<div class="cc2"><span class="segkm">${nf.format(segKm[k])} km</span><span class="small">${tr('cc_from',{x:esc(cleanPlaceName(placeName(ids[k-1]))),h:segH<1?Math.round(segH*60)+' min':'≈ '+Math.floor(segH)+'h'+String(Math.round((segH%1)*60)).padStart(2,'0')})}, ${esc(d.road||'asfalto')}</span></div>`:''}
       <div class="cc3">${st?`<span class="badge st-${st}">${tr('st_'+st)}</span><span class="small">${nf.format(mm)} mm ${tr('cc_hour')}${w&&w.hist?', '+tr('cc_hist'):''}</span>`:`<span class="small">${tr('cc_nodata')}</span>`}</div>
       ${flags.length?`<div class="cflags">${flags.join('')}</div>`:''}
@@ -4043,6 +4065,7 @@ function showTab(){
 }
 function renderAll(){ applyStatic(); renderSeg(); renderProfile(); renderStats(); renderDays(); renderRoad(); renderDocs(); renderExtra(); applyTabPrefs(); showTab(); renderMap(); resolveVirtuals(); if(plan==='nova'){ const ids=new Set(); planDays().forEach(d=>[d.from,d.to,...d.route].forEach(x=>ids.add(x))); fillAltitudes([...ids]); } }
 window.addEventListener('hashchange', showTab);
+$('#days').addEventListener('click', e=>{ const bt=e.target.closest('[data-rmcity]'); if(!bt || (plan!=='meu'&&plan!=='nova')) return; e.preventDefault(); const [i,k]=bt.dataset.rmcity.split(':').map(Number); withUndo([plan==='nova'?'novaDays':'custom','builder'],()=>removeCity(i,k)); });
 wireChat();
 $('#sos-fab').onclick=sosOpen; $('#sos-x').onclick=()=>$('#sos').classList.remove('on'); $('#sos').onclick=e=>{ if(e.target.id==='sos') $('#sos').classList.remove('on'); };
 $('#trbtn').onclick=trOpen; $('#tr-x').onclick=()=>$('#trs').classList.remove('on'); $('#trs').onclick=e=>{ if(e.target.id==='trs') $('#trs').classList.remove('on'); };
