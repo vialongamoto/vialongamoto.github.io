@@ -1490,6 +1490,13 @@ Object.assign(I18N.es,{"m_route": "lluvia en el trayecto, {w}, mediana de {n} mo
 Object.assign(I18N.it,{"m_route": "pioggia sul percorso, {w}, mediana di {n} modelli", "m_dest": "pioggia a destinazione, giorno intero", "bars_route": "pioggia prevista sul percorso, mm ogni 2 h", "m_dayacc": "Accumulo a destinazione nell’intera giornata (0–24): {m} mm. Utile per capire la situazione della zona.", "st_light": "Pioggia"});
 Object.assign(I18N.de,{"m_route": "Regen auf der Strecke, {w}, Median aus {n} Modellen", "m_dest": "Regen am Ziel, ganzer Tag", "bars_route": "erwarteter Regen auf der Strecke, mm je 2 h", "m_dayacc": "Tagessumme am Ziel (0–24 Uhr): {m} mm. Gut, um die Lage der Region einzuschätzen.", "st_light": "Regen"});
 Object.assign(I18N.zh,{"m_route": "途中降雨，{w}，{n} 个模型中位数", "m_dest": "目的地全天降雨", "bars_route": "途中预计降雨，每 2 小时毫米", "m_dayacc": "目的地全天（0–24 时）累计：{m} 毫米，可了解当地情况。", "st_light": "雨"});
+Object.assign(I18N.pt,{"m_route_h": "chuva no trajeto, {w}, mediana de 3 anos ({a} de {b} anos com chuva)", "m_hist3": "histórico dos últimos 3 anos nesta data"});
+Object.assign(I18N.en,{"m_route_h": "rain on the road, {w}, median of 3 years ({a} of {b} years wet)", "m_hist3": "last 3 years on this date"});
+Object.assign(I18N.es,{"m_route_h": "lluvia en el trayecto, {w}, mediana de 3 años ({a} de {b} años con lluvia)", "m_hist3": "historial de los últimos 3 años en esta fecha"});
+Object.assign(I18N.it,{"m_route_h": "pioggia sul percorso, {w}, mediana di 3 anni ({a} su {b} anni piovosi)", "m_hist3": "ultimi 3 anni in questa data"});
+Object.assign(I18N.de,{"m_route_h": "Regen auf der Strecke, {w}, Median aus 3 Jahren ({a} von {b} Jahren nass)", "m_hist3": "letzte 3 Jahre an diesem Datum"});
+Object.assign(I18N.zh,{"m_route_h": "途中降雨，{w}，3 年中位数（{b} 年中 {a} 年有雨）", "m_hist3": "过去 3 年同日"});
+I18N.pt.bars_route_h="chuva no trajeto em anos anteriores, mm a cada 2 h";I18N.en.bars_route_h="rain on the road in past years, mm every 2 h";I18N.es.bars_route_h="lluvia en el trayecto en años anteriores, mm cada 2 h";I18N.it.bars_route_h="pioggia sul percorso negli anni passati, mm ogni 2 h";I18N.de.bars_route_h="Regen auf der Strecke in Vorjahren, mm je 2 h";I18N.zh.bars_route_h="往年途中降雨，每 2 小时毫米";
 const LOCALES = {pt:'pt-BR',en:'en-GB',es:'es-AR',it:'it-IT',de:'de-DE',zh:'zh-CN'};
 const LANG_NAMES = {pt:'Português',en:'English',es:'Español',it:'Italiano',de:'Deutsch',zh:'中文'};
 
@@ -3128,13 +3135,16 @@ function dayWeather(d,i){
     return {live:true, status, kind, tmax:f.max, tmin:f.min, rain:p, mm, day:f.mm, onRoute, win:f.win, nmod:f.nmod, bins:f.rbins||null, gust:f.g, cl:f.cl, hp:f.hp||null}; }
   if(!cs.length) return {status:'na', kind:'cloud'};
   const c=c1||c2, rain=Math.max(...cs.map(x=>x[4])), gust=Math.max(...cs.map(x=>x[10]||0)), tmin=Math.min(...cs.map(x=>x[3])), snow=cs.some(x=>climCond(x).kind==='snow');
+  const hr=d.km?store.get(hrKey(d,i),null):null;
+  if(hr){ const st=snow&&hr.rmm>=0.2?'snow':rainStatus(hr.rmm, hr.rmax); let kind=climCond(c).kind; if(kind!=='snow'&&kind!=='fog') kind = hr.rmm>=2?'rain':(hr.rmm>=0.2?'partly':(kind==='rain'?'partly':kind));
+    return {live:false, hist:true, status:st, kind, tmax:c[2], tmin, rain, mm:hr.rmm, onRoute:true, win:hr.win, wet:hr.wet, years:hr.years, bins:hr.rbins, gust, cl:climCond(c).cl}; }
   const status = snow?'snow' : rain>=50?'heavy' : rain>=25?'light' : rain>=10?'drizzle':'dry';
   return {live:false, status, kind:climCond(c).kind, tmax:c[2], tmin, rain, gust, cl:climCond(c).cl};
 }
 function weatherPart(d,i){
   const w=dayWeather(d,i), pts=[d.from,...d.route,d.to].filter((x,k,a)=>k===0||x!==a[k-1]);
   const bars = w.bins && w.bins.length
-    ? (()=>{ const top=Math.max(3,...w.bins); return `<div class="bars5" aria-label="${tr('bars_route')}">${w.bins.map((v,k)=>`<div class="b"><i style="height:${Math.max(6,Math.round(v/top*100))}%" class="${v>0&&v===Math.max(...w.bins)?'hot st-'+w.status:''}" title="${nf.format(v)} mm"></i><span>${6+2*k}h</span></div>`).join('')}</div><p class="blab">${tr('bars_route')}</p>`; })()
+    ? (()=>{ const top=Math.max(3,...w.bins); return `<div class="bars5" aria-label="${tr('bars_route')}">${w.bins.map((v,k)=>`<div class="b"><i style="height:${Math.max(6,Math.round(v/top*100))}%" class="${v>0&&v===Math.max(...w.bins)?'hot st-'+w.status:''}" title="${nf.format(v)} mm"></i><span>${6+2*k}h</span></div>`).join('')}</div><p class="blab">${tr(w.hist?'bars_route_h':'bars_route')}</p>`; })()
     : w.hp && w.hp.length
     ? `<div class="bars5" aria-label="${tr('bars_rain')}">${w.hp.map((v,k)=>`<div class="b"><i style="height:${Math.max(6,v)}%" class="${v===Math.max(...w.hp)&&v>=20?'hot st-'+w.status:''}"></i><span>${[6,9,12,15,18][k]}h</span></div>`).join('')}</div><p class="blab">${tr('bars_rain')}</p>`
     : (pts.length>1?(()=>{ const P=pts.slice(0,6), top=Math.max(1000,...P.map(id=>S[id][3]));
@@ -3142,10 +3152,11 @@ function weatherPart(d,i){
   if(w.status==='na') return `<div class="wpart"><div class="metrics"><div class="mt"><span class="wbig">${wIcon('cloud',34)}</span></div><div class="mt"><b class="mv">${nf.format(d.km)}</b><span>km</span></div></div>${bars}</div>`;
   return `<div class="wpart"><div class="metrics">
       <div class="mt"><span class="wbig">${wIcon(w.kind,36)}${(w.gust||0)>=50?wIcon('wind',22):''}</span><span>${tr('sky_'+w.kind)}</span></div>
-      <div class="mt"><b class="mv st-${w.status}">${w.live&&w.mm!=null?nf.format(w.mm)+'<small>mm</small>':w.rain+'<small>%</small>'}</b><span>${w.live&&w.onRoute?tr('m_route',{w:w.win,n:w.nmod||3}):(w.live&&w.mm!=null?tr('m_dest'):tr('m_rain'))}</span></div>
+      <div class="mt"><b class="mv st-${w.status}">${w.mm!=null&&(w.live||w.hist)?nf.format(w.mm)+'<small>mm</small>':w.rain+'<small>%</small>'}</b><span>${w.live&&w.onRoute?tr('m_route',{w:w.win,n:w.nmod||3}):(w.hist?tr('m_route_h',{w:w.win,a:w.wet,b:w.years}):(w.live&&w.mm!=null?tr('m_dest'):tr('m_rain')))}</span></div>
       <div class="mt"><b class="mv">${w.tmin}°<small>/${w.tmax}°</small></b><span>${tr('m_temp')}</span></div>
+      ${w.hist?`<div class="mt"><b class="mv">${w.rain}<small>%</small></b><span>${tr('m_rain')}</span></div>`:''}
       <div class="mt"><b class="mv ${(w.gust||0)>=50?'st-light':''}">${w.gust||0}<small>km/h</small></b><span>${tr('m_gust')}</span></div>
-    </div><div class="wrow"><span class="badge st-${w.status}">${tr('st_'+w.status)}</span><span class="small">${w.live?tr('m_live'):tr('m_hist')}, ${tr('clouds_s',{c:w.cl!=null?w.cl:'–'})}</span></div>${bars}</div>`;
+    </div><div class="wrow"><span class="badge st-${w.status}">${tr('st_'+w.status)}</span><span class="small">${w.live?tr('m_live'):(w.hist?tr('m_hist3'):tr('m_hist'))}, ${tr('clouds_s',{c:w.cl!=null?w.cl:'–'})}</span></div>${bars}</div>`;
 }
 function weatherSummary(){
   const days=planDays(); if(!days.length) return '';
@@ -3180,6 +3191,30 @@ async function fetchClimHist(id, date){
   const clim=[s[0].split(' (')[0], s[3], Math.round(avg('mx')), Math.round(avg('mn')), Math.round(100*v.filter(r=>(r.p||0)>=1).length/v.length), tr('hist_src'), ctryOf(id), s[1], s[2], Math.round(avg('w')*0.6), Math.round(avg('g')), 'h', Number(md.slice(0,2))-1];
   store.set(key, clim); return clim;
 }
+/* Historical rain on the road: same date in the last 3 years, riding hours only, start and end of the leg */
+async function hourlyHist(id, date){
+  const s=S[id], key='hh:'+s[1].toFixed(2)+','+s[2].toFixed(2)+':'+date.slice(5), c=store.get(key,null); if(c) return c;
+  const md=date.slice(5), y0=new Date().getFullYear()-1, years=[];
+  for(const y of [y0,y0-1,y0-2]){ const day=`${y}-${md}`; if(isNaN(new Date(day+'T12:00:00Z'))) continue;
+    try{ const r=await fetch(`https://archive-api.open-meteo.com/v1/archive?latitude=${s[1]}&longitude=${s[2]}&start_date=${day}&end_date=${day}&hourly=precipitation&timezone=auto`); if(!r.ok) continue; const j=await r.json(); if(j.hourly&&j.hourly.precipitation) years.push(j.hourly.precipitation.map(v=>v||0)); }catch(e){} }
+  if(!years.length) return null; store.set(key, years); return years;
+}
+function hrKey(d,i){ const a=S[d.from], b=S[d.to]; return 'hrr:'+a[1].toFixed(2)+','+a[2].toFixed(2)+'>'+b[1].toFixed(2)+','+b[2].toFixed(2)+':'+iso(dateOf(i)).slice(5)+':'+depTime(i); }
+async function histRouteRain(d,i){
+  const key=hrKey(d,i), c=store.get(key,null); if(c) return c;
+  const date=iso(dateOf(i)), A=await hourlyHist(d.from,date), B=d.to!==d.from?await hourlyHist(d.to,date):A; if(!A&&!B) return null;
+  const dep=hmToNum(depTime(i)), dur=d.km?Math.max(1,d.km/speedOf(d.road||'asfalto')):10, start=Math.max(6,Math.floor(dep)), end=Math.min(18,Math.ceil(dep+dur))||18;
+  const nY=Math.max((A||[]).length,(B||[]).length), perYear=[];
+  for(let y=0;y<nY;y++){ let tot=0, max1=0; const bins=[0,0,0,0,0,0];
+    for(let h=start; h<Math.max(start+1,end); h++){ const f=d.km?Math.min(1,Math.max(0,(h-dep)/dur)):1, P=(f<0.5?(A||B):(B||A))[y]||(A||B)[0]; const v=P?P[h]||0:0;
+      tot+=v; max1=Math.max(max1,v); const b=Math.floor((h-6)/2); if(b>=0&&b<6) bins[b]+=v; }
+    perYear.push({tot,max1,bins}); }
+  const med=a=>{ const v=[...a].sort((x,y)=>x-y), m=Math.floor(v.length/2); return v.length%2?v[m]:(v[m-1]+v[m])/2; };
+  const res={rmm:Math.round(med(perYear.map(p=>p.tot))*10)/10, rmax:Math.round(med(perYear.map(p=>p.max1))*10)/10, rbins:[0,1,2,3,4,5].map(k=>Math.round(med(perYear.map(p=>p.bins[k]))*10)/10),
+    wet:perYear.filter(p=>p.tot>=1).length, years:perYear.length, win:`${numToHm(start)}–${numToHm(Math.max(start+1,end))}`};
+  store.set(key,res); return res;
+}
+
 let _histRun=null;
 async function loadHistClim(){
   const days=planDays(); const runId=plan+':'+planStart()+':'+days.map(d=>S[d.to][1].toFixed(2)+','+S[d.to][2].toFixed(2)).join(';'); if(_histRun===runId) return; _histRun=runId;
@@ -3187,8 +3222,9 @@ async function loadHistClim(){
     if(_histRun!==runId) return;
     const d=days[i], dt=dateOf(i), pts=[d.from,...d.route,d.to], hi=pts.reduce((a,b)=>S[b][3]>S[a][3]?b:a), dest=d.to===d.from?hi:d.to;
     const need=[dest, hi].filter((id,k,a)=>a.indexOf(id)===k && !store.get(climKey(id,iso(dt)),null) && !(nearestClim(id) && (nearestClim(id)[12]!=null || (dt.getUTCMonth()>=5&&dt.getUTCMonth()<=7))));
-    if(!need.length) continue;
     let got=false; for(const id of need){ if(await fetchClimHist(id, iso(dt))) got=true; }
+    const nowD=new Date(), diff=Math.round((Date.parse(iso(dt)+'T00:00:00Z')-Date.UTC(nowD.getFullYear(),nowD.getMonth(),nowD.getDate()))/864e5);
+    if((diff>15 || diff<0) && d.km && !store.get(hrKey(d,i),null)){ if(await histRouteRain(d,i)) got=true; }
     if(got) refreshCard(i);
   }
   $('#wsum').innerHTML=weatherSummary(); const cr=$('#crit'); if(cr) cr.innerHTML=criticalCard(true);
