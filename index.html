@@ -1134,6 +1134,8 @@ nav.tabs a[data-t="atencao"] svg{stroke:#D97706}
 .trow .btn.trash{padding:3px 6px}
 .trow.end .pd{background:var(--laguna)}
 .tseg{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;margin-left:calc(3.1em + 12px);padding:4px 0 4px 12px;border-left:3px dotted var(--line)}
+.rolechip{display:inline-block;font:700 .72rem var(--text);letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:6px;background:var(--sunk);color:var(--muted);margin-left:4px;vertical-align:middle}
+.rolechip.sleep{background:var(--lagbg);color:var(--laguna)}
 #toast{position:fixed;left:50%;transform:translateX(-50%) translateY(20px);bottom:calc(78px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);border-radius:12px;padding:10px 14px;display:flex;gap:14px;align-items:center;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:50;max-width:calc(100% - 32px);font-size:.95rem}
 #toast.on{opacity:1;transform:translateX(-50%);pointer-events:auto}
 #toast button{background:none;border:0;color:var(--bg);font:700 .95rem var(--text);text-decoration:underline;cursor:pointer;padding:4px}
@@ -1573,7 +1575,10 @@ let nf = new Intl.NumberFormat('pt-BR');
 function money(v){ return new Intl.NumberFormat(LOCALES[LANG],{style:'currency',currency:'BRL',maximumFractionDigits:v>=1000?0:2}).format(v); }
 const WD = ['dom','seg','ter','qua','qui','sex','sáb'], MO = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
 function planStart(){ if(typeof plan!=='undefined' && plan==='nova'){ const m=store.get('novaMeta',null); if(m&&m.start) return m.start; } if(typeof plan!=='undefined' && plan==='hist'){ const h=(store.get('history',[])||[]).find(x=>x.id===store.get('histView',null)); if(h) return h.start; } return D.start; }
-function dateOf(i){ const d = new Date(planStart()+'T12:00:00Z'); d.setUTCDate(d.getUTCDate()+i); return d; }
+let _pdRaw=null, _pdVal=null;
+function dayOff(i){ const days=planDays(), d=days[i]; return d && d.dayN!=null ? d.dayN : i; }
+function nDays(days){ days=days||planDays(); const l=days[days.length-1]; return l && l.dayN!=null ? l.dayN+1 : days.length; }
+function dateOf(i){ const d = new Date(planStart()+'T12:00:00Z'); d.setUTCDate(d.getUTCDate()+dayOff(i)); return d; }
 function fmt(d){ return new Intl.DateTimeFormat(LOCALES[LANG],{weekday:'short',day:'numeric',month:'short',timeZone:'UTC'}).format(d); }
 function fmtLong(d){ return new Intl.DateTimeFormat(LOCALES[LANG],{day:'numeric',month:'long',timeZone:'UTC'}).format(d); }
 function iso(d){ return d.toISOString().slice(0,10); }
@@ -1620,7 +1625,7 @@ function climaBox(d,i){
   return `<div class="box cbox"><b>${tr('clima')}</b><span class="small">${tr('clima_sub')}</span>${rows}<div class="fc" data-fc="${i}"></div></div>`;
 }
 function fromTemplate(k){ return D.plans[k].days.map((id,i)=>({...JSON.parse(JSON.stringify(D.days[id])), id, uid:id})); }
-function customDays(){ if(plan==='nova') return store.get('novaDays',[]); let c=store.get('custom',null); if(!Array.isArray(c)||!c.length){ c=fromTemplate('22'); store.set('custom',c); } let mig=false; c.forEach(d=>{ const tp=D.days[d.id]; if(tp && tp.gap && !d.gap){ d.gap=tp.gap; mig=true; } }); if(mig) store.set('custom',c); return c; }
+function customDays(){ if(plan==='nova'){ let raw=null; try{ raw=localStorage.getItem(K+'novaDays'); }catch(e){} if(raw!==_pdRaw){ _pdRaw=raw; _pdVal=store.get('novaDays',[]); } return _pdVal||[]; } let c=store.get('custom',null); if(!Array.isArray(c)||!c.length){ c=fromTemplate('22'); store.set('custom',c); } let mig=false; c.forEach(d=>{ const tp=D.days[d.id]; if(tp && tp.gap && !d.gap){ d.gap=tp.gap; mig=true; } }); if(mig) store.set('custom',c); return c; }
 function saveCustom(c){ store.set(plan==='nova'?'novaDays':'custom',c); }
 function planDays(){ if(plan==='hist'){ const h=(store.get('history',[])||[]).find(x=>x.id===store.get('histView',null)); return h?h.days:[]; } if(plan==='meu'||plan==='nova') return customDays(); return D.plans[plan].days.map(id=>({id,uid:id,...D.days[id]})); }
 let uidN = Date.now();
@@ -1638,7 +1643,7 @@ const PRICE_FUEL = Object.assign({XX:7.00}, store.get('fuelp', {BR:6.50, AR:7.10
 /* Header and plan switch */
 function renderSeg(){
   const nova=store.get('novaDays',[])||[], nm=store.get('novaMeta',{})||{};
-  const lab = {meu:tr('plan_meu',{n:(store.get('custom',[])||[]).length||22}), nova:tr('plan_nova',{x:nm.name||tr('h_criar'),n:nova.length}), '26':tr('plan_26'), '20':tr('plan_20')};
+  const lab = {meu:tr('plan_meu',{n:(store.get('custom',[])||[]).length||22}), nova:tr('plan_nova',{x:nm.name||tr('h_criar'),n:nDays(nova)}), '26':tr('plan_26'), '20':tr('plan_20')};
   const hv=(store.get('history',[])||[]).find(x=>x.id===store.get('histView',null)); if(hv) lab.hist=tr('hist_plan',{x:hv.name});
   const mine=(nova.length?['meu','nova']:['meu']).concat(plan==='hist'&&hv?['hist']:[]);
   $('#seg').innerHTML = `<label for="plansel" class="small">${tr('route_sel')}</label><select id="plansel">${mine.map(k=>`<option value="${k}" ${k===plan?'selected':''}>${esc(lab[k])}</option>`).join('')}<optgroup label="${tr('models')}">${['26','20'].map(k=>`<option value="${k}" ${k===plan?'selected':''}>${esc(lab[k])}</option>`).join('')}</optgroup></select>`;
@@ -1675,12 +1680,12 @@ function renderStats(){
   if(!days.length){ $('#sub').textContent=''; $('#stats').innerHTML=''; $('#planwarn').innerHTML=''; return; }
   const endTxt=new Intl.DateTimeFormat(LOCALES[LANG],{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'}).format(end);
   $('#sub').textContent = plan==='meu' ? tr('sub',{a:fmtLong(dateOf(0)),b:endTxt}) : tr('sub2',{a:fmtLong(dateOf(0)),b:endTxt});
-  $('#stats').innerHTML = `<span><b>${nf.format(km)} km</b> ${tr('km_total')}</span><span><b>${nf.format(Math.round(km/days.length))} km</b> ${tr('km_day')}</span><span><b>${high}</b> ${tr('days_high')}</span><span><b>${dirt}</b> ${tr('days_dirt')}</span>`;
+  $('#stats').innerHTML = `<span><b>${nf.format(km)} km</b> ${tr('km_total')}</span><span><b>${nf.format(Math.round(km/nDays(days)))} km</b> ${tr('km_day')}</span><span><b>${high}</b> ${tr('days_high')}</span><span><b>${dirt}</b> ${tr('days_dirt')}</span>`;
   const ata = days.filter(d=>d.sleep!=='olla' && ctryOf(d.sleep)==='CL').length;
   if(plan!=='nova') $('#stats').innerHTML += `<span><b>${ata}</b> ${tr('nights_ata')}</span>`;
   if(plan==='nova'){
-    const m=store.get('novaMeta',{})||{}, tgt=m.days||0, diff=days.length-tgt;
-    $('#planwarn').innerHTML = allDoneAsk(days)+tr('warn_nova',{n:days.length, t: tgt?` (${diff>0?tr('b_over',{n:diff}):tr('b_under',{n:-diff})})`:'', v:esc(vehName(myVeh()))})+`
+    const m=store.get('novaMeta',{})||{}, tgt=m.days||0, diff=nDays(days)-tgt;
+    $('#planwarn').innerHTML = allDoneAsk(days)+tr('warn_nova',{n:nDays(days), t: tgt?` (${diff>0?tr('b_over',{n:diff}):tr('b_under',{n:-diff})})`:'', v:esc(vehName(myVeh()))})+`
       <div class="actions"><button class="btn primary" type="button" id="w-add">${tr('add_loc')}</button><a class="btn" href="#criar">${tr('edit_builder')}</a><button class="btn" type="button" id="w-share">${tr('share_btn')}</button><button class="btn" type="button" id="w-done">${tr('done_trip')}</button></div>`;
     $('#w-add').onclick = ()=>openAdd(0); armTwice($('#w-done'), tr('done_confirm'), concludeTrip);
   } else if(plan==='hist'){
@@ -1716,11 +1721,10 @@ function renderDays(){
     return `<article class="day tl ${done[key]?'done':''} ${isToday?'today':''}" id="d-${i+1}">
       <span class="tldot" style="border-color:${statusColor(w.status)}"></span>
       <div class="dcard">
-      <div class="dtop"><div class="dtt"><span class="dno">${dayLabel(i+1)}, ${fmt(dt)}${isToday?', '+tr('today'):''}</span><h3>${dayIssues(i+1).some(x=>x.sev==='warn')?'<span class="wsign" title="'+tr('d_alerts')+'">⚠</span> ':''}${esc(title(d))}</h3></div>
-        <div class="dright"><div class="dtr"><span class="dtemp">${w.tmax!=null?w.tmax+'°':''}</span>${ed&&days.length>1?trashBtn(`data-del="${i}"`, tr('del_day_any')):''}</div><span class="dchip">${d.km?nf.format(d.km)+' km':esc(tr('free_day'))}</span></div></div>
+      <div class="dtop"><div class="dtt"><span class="dno">${dayLabel(dayOff(i)+1)}, ${fmt(dt)}${d.dayN!=null&&d.km?', '+depTime(i):''}${isToday?', '+tr('today'):''}${d.pass?` <span class="rolechip">${tr('cc_pass')}</span>`:(d.dayN!=null&&d.km?` <span class="rolechip sleep">${tr('cc_sleep')}</span>`:'')}</span><h3>${dayIssues(i+1).some(x=>x.sev==='warn')?'<span class="wsign" title="'+tr('d_alerts')+'">⚠</span> ':''}${esc(title(d))}</h3></div>
+        <div class="dright"><div class="dtr"><span class="dtemp">${w.tmax!=null?w.tmax+'°':''}</span>${ed&&days.length>1?(d.dayN!=null&&d.km?trashBtn(`data-rmseg="${i}"`, tr('cc_del',{x:esc(cleanPlaceName(placeName(d.to)))})):trashBtn(`data-del="${i}"`, tr('del_day_any'))):''}</div><span class="dchip">${d.km?nf.format(d.km)+' km':esc(tr('free_day'))}</span></div></div>
       ${weatherPart(d,i)}
       ${alertRow(i+1)}
-      ${cityCards(d,i,dayWeather(d,i),true)}
       ${dayPasos(d).filter(x=>x.kind==='must').map(x=>{ const c=pasoCheck(x.p.id,i), tm=pasoTiming(d,i,x.p);
         return `<a class="pbanner ${c?c.s:'none'}" href="#atencao"><span>🚧</span><span class="pbt"><span class="small">${tr('p_via')}</span><b>${esc(x.p.n)}</b>
           ${tm?`<span class="pbl">🕒 ${tr('p_hours')}: ${esc(tm.ph.txt)}${tm.ph.ok?'':' ('+tr('p_ref')+')'}</span><span class="pbl ${tm.late?'late':''}">🚦 ${tr('p_arr',{d:tm.dep,a:tm.arr})}${tm.late?' '+tr('p_late',{l:tm.latest}):''}</span>`:''}
@@ -2215,6 +2219,16 @@ function passHtml(d,i,w){
 /* One card per city: every place from Criar shows up in Roteiro, stop-over or pass-through */
 function dayCities(d){ return [d.from,...d.route,d.to]; }
 /* Remove one city from the itinerary (only the user does this), keeping every other city and the order */
+function removeStretch(i){
+  const c=customDays().map(x=>({...x})), d=c[i]; if(!d) return; const city=d.to, nx=c[i+1];
+  if(nx && nx.from===city && nx.km){ nx.km=(nx.km||0)+(d.km||0); nx.from=d.from; nx.h=fmtH(nx.km/speedOf(nx.road||'asfalto')); if(!d.pass && nx.dayN!==d.dayN){ /* keep the next day's own date */ } c.splice(i,1); }
+  else { c.splice(i,1); for(let j=i;j<c.length;j++){ if(c[j].from===city && !c[j].km){ c[j].from=c[j].to=d.from; c[j].sleep=d.from; } } }
+  // renumber calendar days so there are no gaps
+  let n=-1, prev=null; c.forEach(x=>{ if(x.dayN==null) return; if(x.dayN!==prev){ n++; prev=x.dayN; } x.dayN=n; });
+  saveCustom(c);
+  if(plan==='nova'){ const b=bState(); const pi=b.pts.findIndex(p=>p.id===city); if(pi>=0){ b.pts.splice(pi,1); bSave(b); } }
+  renderAll();
+}
 function removeCity(i, k){
   const c=customDays(), d=c[i]; if(!d) return; const ids=[d.from,...d.route,d.to], id=ids[k];
   if(k>0 && k<ids.length-1){ const old=pathLen(legIds(d)); d.route.splice(k-1,1); rescale(d, old, pathLen(legIds(d))); d.id='custom'; }
@@ -2272,7 +2286,7 @@ async function loadForecasts(){
     for(const id of fcPoints(days[i])){ const f=await getFc(id,date); if(f) out.push([id,f]); }
     if(!out.length) continue;
     try{ const rr=await routeRain(days[i], i); if(rr){ const dest=days[i].to===days[i].from?fcPoints(days[i]).slice(-1)[0]:days[i].to, s=S[dest], key='fc2:'+s[1].toFixed(2)+','+s[2].toFixed(2)+':'+date, f=store.get(key,null); if(f){ Object.assign(f, rr); store.set(key,f); } } }catch(e){}
-    const card=document.getElementById('d-'+(i+1)); if(card){ const wp=card.querySelector('.wpart'); if(wp) wp.outerHTML=weatherPart(days[i],i); const cc=card.querySelector('.ccs'); if(cc) cc.outerHTML=cityCards(days[i],i,dayWeather(days[i],i),true); const w2=dayWeather(days[i],i); const dot=card.querySelector('.tldot'); if(dot) dot.style.borderColor=statusColor(w2.status); const tp=card.querySelector('.dtemp'); if(tp&&w2.tmax!=null) tp.textContent=w2.tmax+'°'; }
+    const card=document.getElementById('d-'+(i+1)); if(card){ const wp=card.querySelector('.wpart'); if(wp) wp.outerHTML=weatherPart(days[i],i); const w2=dayWeather(days[i],i); const dot=card.querySelector('.tldot'); if(dot) dot.style.borderColor=statusColor(w2.status); const tp=card.querySelector('.dtemp'); if(tp&&w2.tmax!=null) tp.textContent=w2.tmax+'°'; }
     $('#wsum').innerHTML = weatherSummary();
     el.innerHTML = `<b>${tr('fc_title')}</b>`+out.map(([id,f])=>{ const l=windLvl(f.g); const h=new Intl.DateTimeFormat(LOCALES[LANG],{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}).format(new Date(f.t));
       return `<div class="wind">${wIcon(wmoKind(f.code),22)} ${esc(S[id][0].split(' (')[0])}: ${tr(f.cl!=null?'fc_line2':'fc_line',{min:f.min,max:f.max,p:f.p,w:f.w,g:f.g,c:f.cl})} <span class="wl ${l}">${tr('wl_'+l)}</span>${f.mm!=null?`<br><span class="small">${tr('m_dayacc',{m:nf.format(f.mm)})}</span>`:''}<br><span class="small">${f.old?tr('fc_old')+', ':''}${tr('fc_upd',{h})}</span></div>`; }).join('');
@@ -2487,8 +2501,13 @@ function generateRoute(){
     });
     for(let r=1;r<(L.toPt.nights||1);r++) out.push({from:L.to,to:L.to,route:[],km:0,h:'dia livre',road:'asfalto',surf:['asfalto'],c:ctryOf(L.to),sleep:L.to,see:[],id:'custom',uid:newUid()});
   });
+  const segs=[]; out.forEach((d,n)=>{ const ids=[d.from,...d.route,d.to];
+    if(!d.km || ids.length<=2){ segs.push({...d, dayN:n}); return; }
+    let tot=0; const L=[]; for(let k=1;k<ids.length;k++){ const x=hav(ids[k-1],ids[k]); L.push(x); tot+=x; }
+    for(let k=1;k<ids.length;k++){ const share=tot?L[k-1]/tot:1/(ids.length-1), last=k===ids.length-1;
+      segs.push({...d, from:ids[k-1], to:ids[k], route:[], km:Math.round(d.km*share), h:fmtH(((d.km||0)/speedOf(d.road||'asfalto'))*share), c:ctryOf(ids[k]), sleep:last?d.sleep:ids[k], pass:!last, see:k===1?d.see:[], uid:newUid(), dayN:n}); } });
   store.set('cstops',CST);
-  store.set('novaDays', out); store.set('novaMeta', {name:b.name||tr('name_default'), start:b.start, days:Number(b.days)||0, vehicle:v});
+  store.set('novaDays', segs); store.set('novaMeta', {name:b.name||tr('name_default'), start:b.start, days:Number(b.days)||0, vehicle:v});
   store.set('vehicle', v);
   saveProject(true);
   setPlan('nova'); renderAll(); location.hash='roteiro';
@@ -3207,7 +3226,7 @@ function dataAnswer(q){
   if(/quantos km|quantos dias|how many (km|days)|cu[aá]ntos (km|d[ií]as)/.test(ql)){ const km=days.reduce((s,d)=>s+(d.km||0),0); return {text:`${titleText()}: ${days.length} ${tr('b_nights')==='noites'?'dias':'days'}, ${nf.format(km)} km.`, tab:'roteiro'}; }
   const dm=ql.match(/\bdia\s+(\d{1,2})\b|\bday\s+(\d{1,2})\b|\bd[ií]a\s+(\d{1,2})\b/); if(dm){ const n=Number(dm[1]||dm[2]||dm[3]); const d=days[n-1]; if(d) return {text:`${dayLabel(n)}, ${fmt(dateOf(n-1))}: ${title(d)}, ${nf.format(d.km)} km, ${d.road}.`, day:n}; }
   if(/hoje|today|hoy|amanh|tomorrow|ma[nñ]ana/.test(ql)){ let i=todayIdx(); if(/amanh|tomorrow|ma[nñ]ana/.test(ql)) i=i>=0?i+1:-1; if(i>=0 && days[i]) return {text:`${dayLabel(i+1)}: ${title(days[i])}, ${nf.format(days[i].km)} km.`, day:i+1}; }
-  if(/alerta|atenc|critic|risco|perigo|alert|risk|danger/.test(ql)){ const is=analyzeRoute().filter(x=>x.sev==='warn'); return {text: is.length? is.map(x=>`${x.icon} ${x.title} (${fmtDayList(x.days)})`).join('\n') : tr('cp_none'), tab:'dicas'}; }
+  if(/alerta|atenc|critic|risco|perigo|alert|risk|danger/.test(ql)){ const is=analyzeRoute().filter(x=>x.sev==='warn'); return {text: is.length? is.map(x=>`${x.icon} ${x.title} (${fmtDayList(x.cal||x.days)})`).join('\n') : tr('cp_none'), tab:'dicas'}; }
   if(/combust|posto|gasolina|autonomia|fuel|nafta|bencina/.test(ql)){ const v=myVeh(); let g=null; days.forEach((d,i)=>{ const x=dayGap(d); if(x && (!g||x.km>g.km)) g={...x,i}; });
     return {text:`${vehName(v)}: ${tr('rng',{a:nf.format(Math.round(v.tank*v.kml*0.9)),b:''})}.${g?' '+tr('gap_ok',{g:nf.format(g.km),l:g.label?` (${g.label})`:'',s:''}).split(':')[0]+` (${dayLabel(g.i+1)}).`:''}`, tab:'estrada'}; }
   return null;
@@ -3395,7 +3414,7 @@ async function loadHistClim(){
 }
 function refreshCard(i){
   const days=planDays(), d=days[i], card=document.getElementById('d-'+(i+1)); if(!card||!d) return;
-  const wp=card.querySelector('.wpart'); if(wp) wp.outerHTML=weatherPart(d,i); const cc=card.querySelector('.ccs'); if(cc) cc.outerHTML=cityCards(d,i,dayWeather(d,i),true);
+  const wp=card.querySelector('.wpart'); if(wp) wp.outerHTML=weatherPart(d,i);
   const w=dayWeather(d,i), dot=card.querySelector('.tldot'); if(dot) dot.style.borderColor=statusColor(w.status);
   const tp=card.querySelector('.dtemp'); if(tp) tp.textContent = w.tmax!=null ? w.tmax+'°' : '';
   _anCache=null; const ar=card.querySelector('.alerts'), nr=alertRow(i+1); if(ar) ar.outerHTML=nr||''; else if(nr){ const wp2=card.querySelector('.wpart'); if(wp2) wp2.insertAdjacentHTML('afterend', nr); }
@@ -3669,7 +3688,7 @@ function analyzeRoute(){
   const key=JSON.stringify([plan, planStart(), v.id, v.type, v.fuel, v.ron, v.tank, v.kml, v.extra, days.map(d=>[d.from,d.to,d.km,d.road,d.c])]);
   if(_anCache && _anCache.key===key && !_anCache.dirty) return _anCache.res;
   const map={}; // key -> issue
-  const add=(k,i,base)=>{ if(!map[k]) map[k]={key:k, days:[], places:[], froms:[], ...base}; if(!map[k].days.includes(i+1)){ map[k].days.push(i+1); map[k].places.push(days[i].to); map[k].froms.push(days[i].from); } };
+  const add=(k,i,base)=>{ if(!map[k]) map[k]={key:k, days:[], cal:[], places:[], froms:[], ...base}; if(!map[k].days.includes(i+1)){ map[k].days.push(i+1); map[k].places.push(days[i].to); map[k].froms.push(days[i].from); } const cd=(days[i].dayN!=null?days[i].dayN:i)+1; if(!map[k].cal.includes(cd)) map[k].cal.push(cd); };
   days.forEach((d,i)=>{
     const w=dayWeather(d,i), s=surfOf(d), alt=maxAlt(d), g=dayGap(d), c=d.c, dest=d.to;
     // fuel autonomy
@@ -3735,7 +3754,8 @@ function analyzeRoute(){
     if(s.includes('sal')) add('salt',i,{cat:'road', sev:'warn', icon:'🧂', short:'Sal', title:'Sal e corrosão',
       problem:'O sal gruda no chassi, na corrente, nos freios e nos conectores elétricos e acelera a corrosão.', solution:['Antes de entrar, proteja os conectores com spray dielétrico e lubrifique a corrente.', 'Evite as bordas úmidas do salar.', 'Lave com água doce assim que possível e relubrifique.'],
       products:[['Spray dielétrico para conectores','Protege a parte elétrica'],['Lubrificante de corrente para moto','Depois da lavagem']], links:[['Como proteger a moto no Salar de Uyuni', ytSearch('proteger moto salar de uyuni sal')]], near:'lava jato'});
-    if(d.km > V.max*1.1) add('long',i,{cat:'road', sev:'warn', icon:'⏱', short:'Dia longo', title:'Dias longos ao volante',
+    const dayKm = d.dayN!=null ? days.filter(x=>x.dayN===d.dayN).reduce((s,x)=>s+(x.km||0),0) : d.km;
+    if(dayKm > V.max*1.1 && (d.dayN==null || !d.pass)) add('long',i,{cat:'road', sev:'warn', icon:'⏱', short:'Dia longo', title:'Dias longos ao volante',
       problem:`Dias acima de ${nf.format(V.max)} km cansam e aumentam o risco, principalmente no fim da tarde.`, solution:['Saia cedo e pare a cada 2 horas.', 'Não pilote à noite em estradas com animais na pista.', 'Se puder, divida o dia na aba Criar.'], products:[], links:[], go:'criar'});
     dayPasos(d).forEach(x=>{ const p=x.p, dt=dateOf(i), r=pasoRisk(p,dt), mes=new Intl.DateTimeFormat('pt-BR',{month:'long'}).format(dt);
       if(x.kind==='must'){
@@ -3768,7 +3788,7 @@ function alertRow(n){
 criticalPoints = function(){ const out=[]; analyzeRoute().forEach(x=>x.days.forEach(n=>out.push({i:n-1, kind:x.key, sev:x.sev, text:x.title, key:x.key, icon:x.icon}))); return out.sort((a,b)=>a.i-b.i); };
 criticalCard = function(open){
   const is=analyzeRoute(), w=is.filter(x=>x.sev==='warn'), o=is.filter(x=>x.sev!=='warn');
-  const row=x=>`<div class="cprow cp-${x.sev}"><span class="cpi" aria-hidden="true">${x.icon}</span><span><b>${esc(x.title)}</b><br><span class="small">${fmtDayList(x.days)}</span></span><button type="button" class="btn" data-tip="${x.key}">${tr('see_tip')}</button></div>`;
+  const row=x=>`<div class="cprow cp-${x.sev}"><span class="cpi" aria-hidden="true">${x.icon}</span><span><b>${esc(x.title)}</b><br><span class="small">${fmtDayList(x.cal||x.days)}</span></span><button type="button" class="btn" data-tip="${x.key}">${tr('see_tip')}</button></div>`;
   return `<details class="card crit" ${open?'open':''}><summary><span>${tr('cp_h')}</span><span class="cnt">${w.length} ${tr('cp_warn')}</span></summary>
     ${is.length? w.map(row).join('') + (o.length?`<details class="cpmore"><summary>${tr('cp_more',{n:o.length})}</summary>${o.map(row).join('')}</details>`:'') : `<p class="small" style="margin:8px 0 0">${tr('cp_none')}</p>`}</details>`;
 };
@@ -3776,7 +3796,7 @@ function issueCard(x){
   const first=x.places[0];
   const near = x.near ? [...new Set(x.cat==='fuel'?x.froms:x.places)].slice(0,3).map(id=>[`${x.near}, ${placeName(id)}`, mapsNear(x.near, id)]) : [];
   return `<article class="tip ${x.sev==='warn'?'tipwarn':''}" id="tip-${x.key}"><div class="tiphead"><span class="tipi" aria-hidden="true">${x.icon}</span><h3>${esc(x.title)}</h3></div>
-    <div class="tipdays">${x.days.map(n=>`<a class="cpday" href="#d-${n}">${n}</a>`).join('')}<span class="small">${fmtDayList(x.days)}</span></div>
+    <div class="tipdays">${x.days.map(n=>`<a class="cpday" href="#d-${n}">${n}</a>`).join('')}<span class="small">${fmtDayList(x.cal||x.days)}</span></div>
     <h4>${tr('t_problem')}</h4><p>${esc(x.problem)}</p>
     <h4>${tr('t_solution')}</h4><ul>${x.solution.map(s=>`<li>${esc(s)}</li>`).join('')}</ul>
     ${x.products&&x.products.length?`<h4>${tr('t_prod')}</h4><div class="prods">${x.products.map(p=>`<a class="prod" target="_blank" rel="noopener" href="${mlSearch(p[0])}"><b>${esc(p[0])}</b><span>${esc(p[1])}</span><em>${tr('t_buy')}</em></a>`).join('')}</div>`:''}
@@ -4017,7 +4037,9 @@ function pasoHours(p, dt){ const h=PASO_H[p.id]; if(!h) return null; const m=dt.
   if(h.w) return {txt: winter?h.w:h.s, close: winter?h.cw:h.cs, ok:h.ok, note:h.note};
   return {txt:h.a, close:h.c, ok:h.ok, note:h.note}; }
 function depKey(i){ return 'dep:'+plan+':'+(planDays()[i]?.uid||i); }
-function depTime(i){ return store.get(depKey(i),'08:00'); }
+function depTime(i){ const days=planDays(), d=days[i]; if(!d || d.dayN==null) return store.get(depKey(i),'08:00');
+  let j=i; while(j>0 && days[j-1].dayN===d.dayN) j--; let off=0; for(let k=j;k<i;k++) off+=days[k].km?days[k].km/speedOf(days[k].road||'asfalto'):0;
+  return numToHm(hmToNum(store.get(depKey(j),'08:00'))+off); }
 function hmToNum(s){ const [h,m]=String(s||'08:00').split(':').map(Number); return (h||0)+(m||0)/60; }
 function numToHm(x){ x=((x%24)+24)%24; const h=Math.floor(x), m=Math.round((x-h)*60); return String(m===60?h+1:h).padStart(2,'0')+':'+String(m===60?0:m).padStart(2,'0'); }
 function hoursToPaso(d, p){
@@ -4073,7 +4095,7 @@ function showTab(){
 }
 function renderAll(){ applyStatic(); renderSeg(); renderProfile(); renderStats(); renderDays(); renderRoad(); renderDocs(); renderExtra(); applyTabPrefs(); showTab(); renderMap(); resolveVirtuals(); if(plan==='nova'){ const ids=new Set(); planDays().forEach(d=>[d.from,d.to,...d.route].forEach(x=>ids.add(x))); fillAltitudes([...ids]); } }
 window.addEventListener('hashchange', showTab);
-$('#days').addEventListener('click', e=>{ const bt=e.target.closest('[data-rmcity]'); if(!bt || (plan!=='meu'&&plan!=='nova')) return; e.preventDefault(); const [i,k]=bt.dataset.rmcity.split(':').map(Number); withUndo([plan==='nova'?'novaDays':'custom','builder'],()=>removeCity(i,k)); });
+$('#days').addEventListener('click', e=>{ const sg=e.target.closest('[data-rmseg]'); if(sg && (plan==='meu'||plan==='nova')){ e.preventDefault(); const i=Number(sg.dataset.rmseg); withUndo([plan==='nova'?'novaDays':'custom','builder'],()=>removeStretch(i)); return; } const bt=e.target.closest('[data-rmcity]'); if(!bt || (plan!=='meu'&&plan!=='nova')) return; e.preventDefault(); const [i,k]=bt.dataset.rmcity.split(':').map(Number); withUndo([plan==='nova'?'novaDays':'custom','builder'],()=>removeCity(i,k)); });
 wireChat();
 $('#sos-fab').onclick=sosOpen; $('#sos-x').onclick=()=>$('#sos').classList.remove('on'); $('#sos').onclick=e=>{ if(e.target.id==='sos') $('#sos').classList.remove('on'); };
 $('#trbtn').onclick=trOpen; $('#tr-x').onclick=()=>$('#trs').classList.remove('on'); $('#trs').onclick=e=>{ if(e.target.id==='trs') $('#trs').classList.remove('on'); };
