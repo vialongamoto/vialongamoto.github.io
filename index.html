@@ -1497,6 +1497,7 @@ Object.assign(I18N.it,{"m_route_h": "pioggia sul percorso, {w}, mediana di 3 ann
 Object.assign(I18N.de,{"m_route_h": "Regen auf der Strecke, {w}, Median aus 3 Jahren ({a} von {b} Jahren nass)", "m_hist3": "letzte 3 Jahre an diesem Datum"});
 Object.assign(I18N.zh,{"m_route_h": "途中降雨，{w}，3 年中位数（{b} 年中 {a} 年有雨）", "m_hist3": "过去 3 年同日"});
 I18N.pt.bars_route_h="chuva no trajeto em anos anteriores, mm a cada 2 h";I18N.en.bars_route_h="rain on the road in past years, mm every 2 h";I18N.es.bars_route_h="lluvia en el trayecto en años anteriores, mm cada 2 h";I18N.it.bars_route_h="pioggia sul percorso negli anni passati, mm ogni 2 h";I18N.de.bars_route_h="Regen auf der Strecke in Vorjahren, mm je 2 h";I18N.zh.bars_route_h="往年途中降雨，每 2 小时毫米";
+I18N.pt.gen_done="Roteiro novo gerado. O anterior pode ser recuperado.";I18N.en.gen_done="New itinerary built. The previous one can be restored.";I18N.es.gen_done="Itinerario nuevo generado. El anterior se puede recuperar.";I18N.it.gen_done="Nuovo itinerario generato. Il precedente si può ripristinare.";I18N.de.gen_done="Neuer Reiseplan erstellt. Der vorherige lässt sich wiederherstellen.";I18N.zh.gen_done="已生成新行程，可恢复之前的行程。";
 const LOCALES = {pt:'pt-BR',en:'en-GB',es:'es-AR',it:'it-IT',de:'de-DE',zh:'zh-CN'};
 const LANG_NAMES = {pt:'Português',en:'English',es:'Español',it:'Italiano',de:'Deutsch',zh:'中文'};
 
@@ -2300,8 +2301,9 @@ function wireLegs(el){
       bSave(x); renderBuilder();
     }catch(e){ st.textContent = e&&e.code==='not_granted' ? 'Sem permissão para consultar Claude.' : 'Não foi possível consultar Claude agora.'; $('#b-ai').disabled=false; }
   };
-  armTwice($('#b-gen'), store.get('novaDays',null)?tr('b_gen_confirm'):tr('b_gen'), generateRoute);
-  if(!store.get('novaDays',null)) $('#b-gen').onclick=generateRoute;
+  $('#b-gen').onclick=()=>{ const keys=['novaDays','novaMeta','plan2','projects']; const snap=keys.map(k=>{ try{ return [k, localStorage.getItem(K+k)]; }catch(e){ return [k,null]; } });
+    const had=(store.get('novaDays',[])||[]).length>0; generateRoute();
+    if(had) toast(tr('gen_done'), ()=>{ snap.forEach(([k,v])=>{ try{ v===null?localStorage.removeItem(K+k):localStorage.setItem(K+k,v); }catch(e){} }); plan=store.get('plan2','meu'); renderAll(); }); };
 }
 function interpAt(path, f){
   const seg=[]; let tot=0; for(let i=1;i<path.length;i++){ const d=hav(path[i-1],path[i]); seg.push(d); tot+=d; }
@@ -2648,11 +2650,21 @@ async function geoBatchClaude(names){
     const out={}; (r.places||[]).forEach(p=>{ if(typeof p.lat==='number') out[String(p.q).toLowerCase()]={name:p.name||p.q, lat:p.lat, lng:p.lng, alt:Math.round(p.alt_m||0), c:BCTRY.includes(p.country)?p.country:'XX'}; }); return out;
   }catch(e){ return {}; }
 }
+const _altTried=new Set();
+async function fillAltitudes(ids){
+  const need=ids.filter(id=>S[id] && CST[id] && !S[id][8] && !_altTried.has(id)); if(!need.length || !navigator.onLine) return false; need.forEach(id=>_altTried.add(id));
+  let changed=false;
+  for(let k=0;k<need.length;k+=50){ const part=need.slice(k,k+50);
+    try{ const r=await fetch(`https://api.open-meteo.com/v1/elevation?latitude=${part.map(id=>S[id][1].toFixed(4)).join(',')}&longitude=${part.map(id=>S[id][2].toFixed(4)).join(',')}`); if(!r.ok) break; const j=await r.json();
+      (j.elevation||[]).forEach((e,n)=>{ const id=part[n]; if(e!=null && S[id]){ S[id][3]=Math.round(e); S[id][8]=1; CST[id]=S[id]; changed=true; } }); }catch(e){ break; } }
+  if(changed){ store.set('cstops',CST); if(curTab()==='criar') renderBuilder(); else if(plan==='nova') renderAll(); }
+  return changed;
+}
 function addPts(list, replace){
-  const b=bState(); if(replace) b.pts=[];
+  const b=bState(); if(replace) b.pts=[]; const newAlt=[];
   list.forEach(p=>{ let id=knownByName(p.name); if(!id || Math.abs(S[id][1]-p.lat)+Math.abs(S[id][2]-p.lng)>0.5){ id='b'+newUid(); S[id]=[p.name,p.lat,p.lng,p.alt||nearestAlt(p.lat,p.lng),'pernoite',p.c||'XX',null]; CST[id]=S[id]; }
-    if(b.pts.length && b.pts[b.pts.length-1].id===id) return; b.pts.push({id, type:p.type||'sleep', nights:p.nights||1}); });
-  store.set('cstops',CST); bSave(b); return b;
+    if(b.pts.length && b.pts[b.pts.length-1].id===id) return; b.pts.push({id, type:p.type||'sleep', nights:p.nights||1}); if(p.alt==null||p.alt===0) newAlt.push(id); });
+  store.set('cstops',CST); bSave(b); if(newAlt.length) fillAltitudes(newAlt); return b;
 }
 function pathKm(coords){ let s=0; for(let i=1;i<coords.length;i++){ const a=coords[i-1], c=coords[i]; const R=6371, r=Math.PI/180, dl=(c[0]-a[0])*r, dn=(c[1]-a[1])*r, x=Math.sin(dl/2)**2+Math.cos(a[0]*r)*Math.cos(c[0]*r)*Math.sin(dn/2)**2; s+=2*R*Math.asin(Math.sqrt(x)); } return s; }
 async function reverseName(lat,lng){
@@ -2828,6 +2840,7 @@ function stepHead(n, title, summary, done, open){
   return `<button type="button" class="shead" data-go="${n}" aria-expanded="${open}"><span class="sn ${done?'ok':''}">${done?'✓':n}</span><span class="st"><b>${title}</b><span class="small">${summary}</span></span><span class="chev" aria-hidden="true">${open?'−':'+'}</span></button>`;
 }
 function renderBuilder(){
+  setTimeout(()=>fillAltitudes(bState().pts.map(p=>p.id)),0);
   const b=bState(), el=$('#builder'), legs=bLegs(b), v=myVeh(), vt=v.type, done=stepsDone(b), td=tripDates(b);
   let step=window._step; if(!step){ step = !done[1]?1:(!done[2]?2:(!done[3]?3:4)); window._step=step; }
   const a=activeProj(), dirty=isDirty();
@@ -3905,7 +3918,7 @@ function showTab(){
   if(h.startsWith('d-')){ const el=document.getElementById(h); if(el) el.scrollIntoView({block:'start'}); }
   else window.scrollTo(0,0);
 }
-function renderAll(){ applyStatic(); renderSeg(); renderProfile(); renderStats(); renderDays(); renderRoad(); renderDocs(); renderExtra(); applyTabPrefs(); showTab(); renderMap(); resolveVirtuals(); }
+function renderAll(){ applyStatic(); renderSeg(); renderProfile(); renderStats(); renderDays(); renderRoad(); renderDocs(); renderExtra(); applyTabPrefs(); showTab(); renderMap(); resolveVirtuals(); if(plan==='nova'){ const ids=new Set(); planDays().forEach(d=>[d.from,d.to,...d.route].forEach(x=>ids.add(x))); fillAltitudes([...ids]); } }
 window.addEventListener('hashchange', showTab);
 wireChat();
 $('#sos-fab').onclick=sosOpen; $('#sos-x').onclick=()=>$('#sos').classList.remove('on'); $('#sos').onclick=e=>{ if(e.target.id==='sos') $('#sos').classList.remove('on'); };
