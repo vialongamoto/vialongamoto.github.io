@@ -1128,6 +1128,12 @@ nav.tabs a[data-t="atencao"] svg{stroke:#D97706}
 .cflags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .pf.paso{background:var(--amberbg);color:#B45309;text-decoration:none}
 .ccard .actions{margin-top:8px} .ccard .actions .btn{padding:5px 10px;font-size:.85rem}
+.tline{border:1px solid var(--line);border-radius:14px;padding:6px 10px;background:var(--bg)}
+.trow{display:grid;grid-template-columns:3.1em 10px minmax(0,1fr) auto auto;gap:8px;align-items:center;padding:6px 0}
+.trow .pn{text-decoration:none;color:var(--ink)}
+.trow .btn.trash{padding:3px 6px}
+.trow.end .pd{background:var(--laguna)}
+.tseg{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;margin-left:calc(3.1em + 12px);padding:4px 0 4px 12px;border-left:3px dotted var(--line)}
 #toast{position:fixed;left:50%;transform:translateX(-50%) translateY(20px);bottom:calc(78px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);border-radius:12px;padding:10px 14px;display:flex;gap:14px;align-items:center;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:50;max-width:calc(100% - 32px);font-size:.95rem}
 #toast.on{opacity:1;transform:translateX(-50%);pointer-events:auto}
 #toast button{background:none;border:0;color:var(--bg);font:700 .95rem var(--text);text-decoration:underline;cursor:pointer;padding:4px}
@@ -1714,7 +1720,7 @@ function renderDays(){
         <div class="dright"><div class="dtr"><span class="dtemp">${w.tmax!=null?w.tmax+'°':''}</span>${ed&&days.length>1?trashBtn(`data-del="${i}"`, tr('del_day_any')):''}</div><span class="dchip">${d.km?nf.format(d.km)+' km':esc(tr('free_day'))}</span></div></div>
       ${weatherPart(d,i)}
       ${alertRow(i+1)}
-      ${cityCards(d,i,dayWeather(d,i),i===0)}
+      ${cityCards(d,i,dayWeather(d,i),true)}
       ${dayPasos(d).filter(x=>x.kind==='must').map(x=>{ const c=pasoCheck(x.p.id,i), tm=pasoTiming(d,i,x.p);
         return `<a class="pbanner ${c?c.s:'none'}" href="#atencao"><span>🚧</span><span class="pbt"><span class="small">${tr('p_via')}</span><b>${esc(x.p.n)}</b>
           ${tm?`<span class="pbl">🕒 ${tr('p_hours')}: ${esc(tm.ph.txt)}${tm.ph.ok?'':' ('+tr('p_ref')+')'}</span><span class="pbl ${tm.late?'late':''}">🚦 ${tr('p_arr',{d:tm.dep,a:tm.arr})}${tm.late?' '+tr('p_late',{l:tm.latest}):''}</span>`:''}
@@ -2228,31 +2234,33 @@ function removeCity(i, k){
   renderAll();
 }
 
+/* Day timeline: every city in order, and between two cities the km of that stretch with its analysis */
 function cityCards(d,i,w,first){
   const ids=dayCities(d); if(d.from===d.to && !d.route.length) return '';
   const {dep,dur}=dayWindow(d,i), F=fracs(ids), passBy={}; (w&&w.pass||[]).forEach(p=>{ (passBy[p.id]=passBy[p.id]||[]).push(p); });
-  const km=d.km||Math.round(pathLen(ids)*1.3), segKm=[0]; for(let k=1;k<ids.length;k++) segKm.push(Math.round(km*(F[k]-F[k-1])));
-  const used={};
-  return `<div class="ccs">${ids.map((id,k)=>{
-    if(k===0 && !first) return '';
-    const s=S[id], arr=dep+F[k]*dur, list=passBy[id]||[]; const p=list[(used[id]=(used[id]||0)+1)-1]||list[0]||null;
-    const last=k===ids.length-1, role= k===0?'start':(last?(d.to===d.sleep?'sleep':'end'):'pass');
-    const roleT = k===0?tr('b_start_pt'):(last?tr('cc_sleep'):tr('cc_pass'));
-    const mm=p&&p.mm!=null?p.mm:null, st=mm!=null?rainStatus(mm,mm):null;
-    const kind = p&&p.code!=null ? wmoKind(p.code) : (mm!=null ? (mm>=2?'rain':mm>=0.2?'partly':'sun') : null);
-    const ps = k>0 ? pasosFor(ids[k-1], id, [], null).filter(x=>x.kind==='must') : [];
-    const flags=[]; if(mm!=null&&mm>=1) flags.push(`<span class="pf rain">🌧 ${tr('pf_rain')}</span>`); if(p&&p.temp!=null&&p.temp<=3) flags.push(`<span class="pf cold">🥶 ${tr('pf_cold')}</span>`);
-    if(s[3]>=3500) flags.push(`<span class="pf alt">⛰ ${tr('pf_alt')} ${nf.format(s[3])} m</span>`); ps.forEach(x=>flags.push(`<a class="pf paso" href="#atencao">🚧 ${esc(x.p.n)}</a>`));
-    const segH=dur*(F[k]-(F[k-1]||0));
-    return `<article class="ccard r-${role}">
-      <div class="cc1"><span class="ct">${numToHm(arr)}</span><div class="cn"><b>${esc(cleanPlaceName(placeName(id)))}</b><span class="small">${roleT}, ${nf.format(s[3])} m</span></div>
-        <span class="cw">${kind?wIcon(kind,26):''}<b>${p&&p.temp!=null?p.temp+'°':'–'}</b>${(plan==='meu'||plan==='nova')?trashBtn(`data-rmcity="${i}:${k}"`, tr('cc_del',{x:esc(cleanPlaceName(placeName(id)))})):''}</span></div>
-      ${k>0?`<div class="cc2"><span class="segkm">${nf.format(segKm[k])} km</span><span class="small">${tr('cc_from',{x:esc(cleanPlaceName(placeName(ids[k-1]))),h:segH<1?Math.round(segH*60)+' min':'≈ '+Math.floor(segH)+'h'+String(Math.round((segH%1)*60)).padStart(2,'0')})}, ${esc(d.road||'asfalto')}</span></div>`:''}
-      <div class="cc3">${st?`<span class="badge st-${st}">${tr('st_'+st)}</span><span class="small">${nf.format(mm)} mm ${tr('cc_hour')}${w&&w.hist?', '+tr('cc_hist'):''}</span>`:`<span class="small">${tr('cc_nodata')}</span>`}</div>
-      ${flags.length?`<div class="cflags">${flags.join('')}</div>`:''}
-      <div class="actions"><a class="btn" target="_blank" rel="noopener" href="${gmPoint(id)}">Maps</a>${role==='sleep'?`<a class="btn" href="#dormir" data-city="${d.sleep}" data-day="${i}">${tr('sleep')}</a>`:''}<a class="btn" target="_blank" rel="noopener" href="${mapsNear(glossLocal('fuel',ctryOf(id)==='BR'?'BR':ctryOf(id)),id)}">⛽</a><a class="btn" target="_blank" rel="noopener" href="${mapsNear(ctryOf(id)==='BR'?'restaurante':'restaurante',id)}">🍽</a></div>
-    </article>`; }).join('')}</div>`;
+  const km=d.km||Math.round(pathLen(ids)*1.3), used={}, ed=(plan==='meu'||plan==='nova');
+  const pData=(id)=>{ const l=passBy[id]||[]; const n=(used[id]=(used[id]||0)+1)-1; return l[n]||l[0]||null; };
+  let html='';
+  ids.forEach((id,k)=>{
+    const s=S[id], p=pData(id), arr=dep+F[k]*dur, last=k===ids.length-1;
+    const role = k===0?tr('b_start_pt'):(last?(d.to===d.sleep?tr('cc_sleep'):tr('b_end_pt')):tr('cc_pass'));
+    if(k>0){ // stretch between the previous city and this one
+      const sk=Math.round(km*(F[k]-F[k-1])), sh=dur*(F[k]-F[k-1]);
+      const ps=pasosFor(ids[k-1], id, [], null).filter(x=>x.kind==='must');
+      const mm=p&&p.mm!=null?p.mm:null;
+      const fl=[]; if(mm!=null&&mm>=0.2) fl.push(`<span class="pf rain">🌧 ${nf.format(mm)} mm</span>`); ps.forEach(x=>fl.push(`<a class="pf paso" href="#atencao">🚧 ${esc(x.p.n)}</a>`));
+      if(s[3]>=3500) fl.push(`<span class="pf alt">⛰ ${nf.format(s[3])} m</span>`); if(p&&p.temp!=null&&p.temp<=3) fl.push(`<span class="pf cold">🥶 ${p.temp}°</span>`);
+      html+=`<div class="tseg"><span class="segkm">${nf.format(sk)} km</span><span class="small">${sh<1?Math.round(sh*60)+' min':'≈ '+Math.floor(sh)+'h'+String(Math.round((sh%1)*60)).padStart(2,'0')}, ${esc(d.road||'asfalto')}</span>${fl.join('')}</div>`;
+    }
+    const kind = p&&p.code!=null ? wmoKind(p.code) : (p&&p.mm!=null ? (p.mm>=2?'rain':p.mm>=0.2?'partly':'sun') : null);
+    html+=`<div class="trow ${k===0||last?'end':''}"><span class="pt">${numToHm(arr)}</span><span class="pd" aria-hidden="true"></span>
+      <a class="pn" target="_blank" rel="noopener" href="${gmPoint(id)}"><b>${esc(cleanPlaceName(placeName(id)))}</b><small>${role}, ${nf.format(s[3])} m</small></a>
+      <span class="pw">${kind?wIcon(kind,22):''}<b>${p&&p.temp!=null?p.temp+'°':'–'}</b></span>
+      ${ed?trashBtn(`data-rmcity="${i}:${k}"`, tr('cc_del',{x:esc(cleanPlaceName(placeName(id)))})):'<span></span>'}</div>`;
+  });
+  return `<div class="ccs tline"><div class="phd2"><b>${tr('pass_h',{n:ids.length})}</b><span class="small">${tr('pass_note',{d:depTime(i)})}</span></div>${html}</div>`;
 }
+
 
 async function loadForecasts(){
   const days=planDays(), now=new Date(); const t0=Date.UTC(now.getFullYear(),now.getMonth(),now.getDate());
@@ -2264,7 +2272,7 @@ async function loadForecasts(){
     for(const id of fcPoints(days[i])){ const f=await getFc(id,date); if(f) out.push([id,f]); }
     if(!out.length) continue;
     try{ const rr=await routeRain(days[i], i); if(rr){ const dest=days[i].to===days[i].from?fcPoints(days[i]).slice(-1)[0]:days[i].to, s=S[dest], key='fc2:'+s[1].toFixed(2)+','+s[2].toFixed(2)+':'+date, f=store.get(key,null); if(f){ Object.assign(f, rr); store.set(key,f); } } }catch(e){}
-    const card=document.getElementById('d-'+(i+1)); if(card){ const wp=card.querySelector('.wpart'); if(wp) wp.outerHTML=weatherPart(days[i],i); const cc=card.querySelector('.ccs'); if(cc) cc.outerHTML=cityCards(days[i],i,dayWeather(days[i],i),i===0); const w2=dayWeather(days[i],i); const dot=card.querySelector('.tldot'); if(dot) dot.style.borderColor=statusColor(w2.status); const tp=card.querySelector('.dtemp'); if(tp&&w2.tmax!=null) tp.textContent=w2.tmax+'°'; }
+    const card=document.getElementById('d-'+(i+1)); if(card){ const wp=card.querySelector('.wpart'); if(wp) wp.outerHTML=weatherPart(days[i],i); const cc=card.querySelector('.ccs'); if(cc) cc.outerHTML=cityCards(days[i],i,dayWeather(days[i],i),true); const w2=dayWeather(days[i],i); const dot=card.querySelector('.tldot'); if(dot) dot.style.borderColor=statusColor(w2.status); const tp=card.querySelector('.dtemp'); if(tp&&w2.tmax!=null) tp.textContent=w2.tmax+'°'; }
     $('#wsum').innerHTML = weatherSummary();
     el.innerHTML = `<b>${tr('fc_title')}</b>`+out.map(([id,f])=>{ const l=windLvl(f.g); const h=new Intl.DateTimeFormat(LOCALES[LANG],{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}).format(new Date(f.t));
       return `<div class="wind">${wIcon(wmoKind(f.code),22)} ${esc(S[id][0].split(' (')[0])}: ${tr(f.cl!=null?'fc_line2':'fc_line',{min:f.min,max:f.max,p:f.p,w:f.w,g:f.g,c:f.cl})} <span class="wl ${l}">${tr('wl_'+l)}</span>${f.mm!=null?`<br><span class="small">${tr('m_dayacc',{m:nf.format(f.mm)})}</span>`:''}<br><span class="small">${f.old?tr('fc_old')+', ':''}${tr('fc_upd',{h})}</span></div>`; }).join('');
@@ -2366,7 +2374,7 @@ function safetyBox(d){
 /* Route builder */
 const BCTRY = ['BR','AR','BO','CL','PE','UY','PY','XX'];
 function bState(){ const t=new Date(); t.setDate(t.getDate()+30);
-  const b=store.get('builder',null) || {name:'', start:t.toISOString().slice(0,10), days:'', mode:'ret', ret:'', split:true, pts:[], legs:{}, missing:[]}; b.vehicle=vehicle(); if(!b.missing) b.missing=[]; if(b.mode==='days' || b.mode==='ret'){} else b.mode = b.days&&!b.ret?'days':'ret'; return b; }
+  const b=store.get('builder',null) || {name:'', start:t.toISOString().slice(0,10), days:'', mode:'ret', ret:'', split:false, pts:[], legs:{}, missing:[]}; if(!b._splitMig){ b.split=false; b._splitMig=1; store.set('builder',b); } b.vehicle=vehicle(); if(!b.missing) b.missing=[]; if(b.mode==='days' || b.mode==='ret'){} else b.mode = b.days&&!b.ret?'days':'ret'; return b; }
 function bSave(b){ store.set('builder',b); if(typeof renderTitle==='function') renderTitle(); }
 function bLegs(b){
   const pts=b.pts; if(pts.length<2) return [];
@@ -3387,7 +3395,7 @@ async function loadHistClim(){
 }
 function refreshCard(i){
   const days=planDays(), d=days[i], card=document.getElementById('d-'+(i+1)); if(!card||!d) return;
-  const wp=card.querySelector('.wpart'); if(wp) wp.outerHTML=weatherPart(d,i); const cc=card.querySelector('.ccs'); if(cc) cc.outerHTML=cityCards(d,i,dayWeather(d,i),i===0);
+  const wp=card.querySelector('.wpart'); if(wp) wp.outerHTML=weatherPart(d,i); const cc=card.querySelector('.ccs'); if(cc) cc.outerHTML=cityCards(d,i,dayWeather(d,i),true);
   const w=dayWeather(d,i), dot=card.querySelector('.tldot'); if(dot) dot.style.borderColor=statusColor(w.status);
   const tp=card.querySelector('.dtemp'); if(tp) tp.textContent = w.tmax!=null ? w.tmax+'°' : '';
   _anCache=null; const ar=card.querySelector('.alerts'), nr=alertRow(i+1); if(ar) ar.outerHTML=nr||''; else if(nr){ const wp2=card.querySelector('.wpart'); if(wp2) wp2.insertAdjacentHTML('afterend', nr); }
