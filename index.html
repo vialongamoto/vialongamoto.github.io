@@ -1098,6 +1098,35 @@ nav.tabs a[data-t="atencao"] svg{stroke:#D97706}
 .phours{margin-top:10px;padding:10px 12px;border-radius:10px;background:var(--sunk);display:flex;flex-direction:column;gap:4px;font-size:.93rem}
 .prow2{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:4px}
 .prow2 input[type=time]{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:4px 8px}
+.pass{margin-top:12px;border:1px solid var(--line);border-radius:14px;padding:6px 10px;background:var(--bg)}
+.phd2{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:baseline;padding:4px 0 6px}
+.phd2 b{font:600 1rem var(--display)}
+.prw{display:grid;grid-template-columns:3.1em 10px minmax(0,1fr) auto;gap:8px;align-items:center;padding:7px 0;border-top:1px dashed var(--line);position:relative}
+.prw:first-of-type{border-top:0}
+.pt{font:700 .85rem ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted)}
+.pd{width:10px;height:10px;border-radius:50%;background:var(--line);justify-self:center}
+.prw.end .pd{background:var(--laguna)}
+.pn{display:flex;flex-direction:column;min-width:0}
+.pn b{font-size:.95rem;overflow-wrap:anywhere}
+.pn small{font-size:.78rem;color:var(--muted)}
+.pw{display:flex;align-items:center;gap:4px;font-size:.95rem;justify-self:end}
+.prw .pm{grid-column:4;grid-row:1;align-self:end;margin-top:26px;font-size:.78rem}
+.prw .pw{grid-column:4;grid-row:1;align-self:start}
+.pm{font:600 .85rem ui-monospace,SFMono-Regular,Menlo,monospace;text-align:right;color:var(--muted)}
+.pf{display:inline-block;width:fit-content;margin-top:3px;font:700 .7rem var(--text);padding:1px 7px;border-radius:6px}
+.pf.rain{background:color-mix(in srgb,var(--st-light) 18%,transparent);color:var(--st-light)} .pf.alt{background:var(--flbg);color:var(--flamingo)} .pf.cold{background:color-mix(in srgb,var(--st-snow) 20%,transparent);color:#3D7FC0}
+.ccs{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.ccard{border:1px solid var(--line);border-left:4px solid var(--line);border-radius:14px;padding:10px 12px;background:var(--bg)}
+.ccard.r-start,.ccard.r-sleep{border-left-color:var(--laguna)} .ccard.r-pass{border-left-color:#8EA0FF} .ccard.r-end{border-left-color:var(--laguna)}
+.cc1{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center}
+.ct{font:700 .9rem ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted)}
+.cn{display:flex;flex-direction:column;min-width:0} .cn b{font:600 1.05rem/1.2 var(--display);overflow-wrap:anywhere}
+.cw{display:flex;align-items:center;gap:4px;font-size:1.05rem}
+.cc2{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px}
+.cc3{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px}
+.cflags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.pf.paso{background:var(--amberbg);color:#B45309;text-decoration:none}
+.ccard .actions{margin-top:8px} .ccard .actions .btn{padding:5px 10px;font-size:.85rem}
 #toast{position:fixed;left:50%;transform:translateX(-50%) translateY(20px);bottom:calc(78px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);border-radius:12px;padding:10px 14px;display:flex;gap:14px;align-items:center;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:50;max-width:calc(100% - 32px);font-size:.95rem}
 #toast.on{opacity:1;transform:translateX(-50%);pointer-events:auto}
 #toast button{background:none;border:0;color:var(--bg);font:700 .95rem var(--text);text-decoration:underline;cursor:pointer;padding:4px}
@@ -1499,6 +1528,18 @@ Object.assign(I18N.zh,{"m_route_h": "途中降雨，{w}，3 年中位数（{b} �
 I18N.pt.bars_route_h="chuva no trajeto em anos anteriores, mm a cada 2 h";I18N.en.bars_route_h="rain on the road in past years, mm every 2 h";I18N.es.bars_route_h="lluvia en el trayecto en años anteriores, mm cada 2 h";I18N.it.bars_route_h="pioggia sul percorso negli anni passati, mm ogni 2 h";I18N.de.bars_route_h="Regen auf der Strecke in Vorjahren, mm je 2 h";I18N.zh.bars_route_h="往年途中降雨，每 2 小时毫米";
 I18N.pt.gen_done="Roteiro novo gerado. O anterior pode ser recuperado.";I18N.en.gen_done="New itinerary built. The previous one can be restored.";I18N.es.gen_done="Itinerario nuevo generado. El anterior se puede recuperar.";I18N.it.gen_done="Nuovo itinerario generato. Il precedente si può ripristinare.";I18N.de.gen_done="Neuer Reiseplan erstellt. Der vorherige lässt sich wiederherstellen.";I18N.zh.gen_done="已生成新行程，可恢复之前的行程。";
 I18N.pt.own_stop="Pernoite numa parada da sua lista";I18N.en.own_stop="Overnight at a stop from your list";I18N.es.own_stop="Pernocte en una parada de tu lista";I18N.it.own_stop="Pernottamento in una tappa del tuo elenco";I18N.de.own_stop="Übernachtung an einem Stopp deiner Liste";I18N.zh.own_stop="在你列表中的地点过夜";
+Object.assign(I18N.pt,{"pass_h": "{n} cidades no caminho", "pass_note": "horários estimados saindo às {d}", "pf_rain": "chuva nessa hora", "pf_alt": "altitude", "pf_cold": "frio"});
+Object.assign(I18N.en,{"pass_h": "{n} places on the way", "pass_note": "estimated times leaving at {d}", "pf_rain": "rain at that hour", "pf_alt": "altitude", "pf_cold": "cold"});
+Object.assign(I18N.es,{"pass_h": "{n} lugares en el camino", "pass_note": "horarios estimados saliendo a las {d}", "pf_rain": "lluvia a esa hora", "pf_alt": "altura", "pf_cold": "frío"});
+Object.assign(I18N.it,{"pass_h": "{n} località sul percorso", "pass_note": "orari stimati partendo alle {d}", "pf_rain": "pioggia a quell’ora", "pf_alt": "quota", "pf_cold": "freddo"});
+Object.assign(I18N.de,{"pass_h": "{n} Orte unterwegs", "pass_note": "geschätzte Zeiten bei Abfahrt {d}", "pf_rain": "Regen zu der Zeit", "pf_alt": "Höhe", "pf_cold": "Kälte"});
+Object.assign(I18N.zh,{"pass_h": "途经 {n} 个地点", "pass_note": "按 {d} 出发估算的时间", "pf_rain": "此时有雨", "pf_alt": "高海拔", "pf_cold": "寒冷"});
+Object.assign(I18N.pt,{"cc_pass": "Passagem", "cc_sleep": "Pernoite", "cc_from": "desde {x}, {h}", "cc_hour": "nessa hora", "cc_hist": "histórico de 3 anos", "cc_nodata": "Clima desta cidade aparece com internet", "gen_missing": "Faltam {n} cidades sem localização. Corrija na etapa Rota para o roteiro ter 100% das cidades."});
+Object.assign(I18N.en,{"cc_pass": "Pass-through", "cc_sleep": "Overnight", "cc_from": "from {x}, {h}", "cc_hour": "at that hour", "cc_hist": "3-year history", "cc_nodata": "Weather for this place appears when online", "gen_missing": "{n} places still have no location. Fix them in the Route step so the itinerary has 100% of your places."});
+Object.assign(I18N.es,{"cc_pass": "Paso", "cc_sleep": "Pernocte", "cc_from": "desde {x}, {h}", "cc_hour": "a esa hora", "cc_hist": "historial de 3 años", "cc_nodata": "El clima de este lugar aparece con internet", "gen_missing": "Faltan {n} lugares sin ubicación. Corregilos en la etapa Ruta para que el itinerario tenga el 100% de los lugares."});
+Object.assign(I18N.it,{"cc_pass": "Passaggio", "cc_sleep": "Pernottamento", "cc_from": "da {x}, {h}", "cc_hour": "a quell’ora", "cc_hist": "storico di 3 anni", "cc_nodata": "Il meteo di questa località appare con internet", "gen_missing": "Mancano {n} località senza posizione. Correggile nella fase Percorso."});
+Object.assign(I18N.de,{"cc_pass": "Durchfahrt", "cc_sleep": "Übernachtung", "cc_from": "ab {x}, {h}", "cc_hour": "zu der Zeit", "cc_hist": "3-Jahres-Historie", "cc_nodata": "Wetter für diesen Ort erscheint mit Internet", "gen_missing": "{n} Orte haben noch keinen Standort. Im Schritt Route korrigieren."});
+Object.assign(I18N.zh,{"cc_pass": "途经", "cc_sleep": "过夜", "cc_from": "自 {x}，{h}", "cc_hour": "此时", "cc_hist": "3 年历史", "cc_nodata": "联网后显示此地天气", "gen_missing": "还有 {n} 个地点没有位置，请在“路线”步骤修正。"});
 const LOCALES = {pt:'pt-BR',en:'en-GB',es:'es-AR',it:'it-IT',de:'de-DE',zh:'zh-CN'};
 const LANG_NAMES = {pt:'Português',en:'English',es:'Español',it:'Italiano',de:'Deutsch',zh:'中文'};
 
@@ -1511,7 +1552,7 @@ const store = {
 };
 const S = D.stops;
 let plan = store.get('plan2','meu'); if(!['meu','nova','hist','26','20'].includes(plan) || (plan==='nova' && !(store.get('novaDays',[])||[]).length) || (plan==='hist' && !store.get('histView',null))) plan='meu';
-let CST = store.get('cstops',{}); Object.assign(D.stops, CST);
+let CST = store.get('cstops',{}); { let fixed=false; Object.values(CST).forEach(s=>{ if(s && typeof s[0]==='string'){ const n=s[0].replace(/^(rua|r\.|avenida|av\.|travessa|praça|praca|estrada|rodovia|alameda|terminal rodovi[aá]rio de|rodovi[aá]ria de)\s+/i,'').trim(); if(n!==s[0]){ s[0]=n; fixed=true; } } }); if(fixed) store.set('cstops',CST); } Object.assign(D.stops, CST);
 let SAMPLE = null;
 const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -1671,6 +1712,7 @@ function renderDays(){
         <div class="dright"><div class="dtr"><span class="dtemp">${w.tmax!=null?w.tmax+'°':''}</span>${ed&&days.length>1?trashBtn(`data-del="${i}"`, tr('del_day_any')):''}</div><span class="dchip">${d.km?nf.format(d.km)+' km':esc(tr('free_day'))}</span></div></div>
       ${weatherPart(d,i)}
       ${alertRow(i+1)}
+      ${cityCards(d,i,dayWeather(d,i),i===0)}
       ${dayPasos(d).filter(x=>x.kind==='must').map(x=>{ const c=pasoCheck(x.p.id,i), tm=pasoTiming(d,i,x.p);
         return `<a class="pbanner ${c?c.s:'none'}" href="#atencao"><span>🚧</span><span class="pbt"><span class="small">${tr('p_via')}</span><b>${esc(x.p.n)}</b>
           ${tm?`<span class="pbl">🕒 ${tr('p_hours')}: ${esc(tm.ph.txt)}${tm.ph.ok?'':' ('+tr('p_ref')+')'}</span><span class="pbl ${tm.late?'late':''}">🚦 ${tr('p_arr',{d:tm.dep,a:tm.arr})}${tm.late?' '+tr('p_late',{l:tm.latest}):''}</span>`:''}
@@ -2086,35 +2128,109 @@ async function getFc(id, date){
 /* Rain on the road: only the hours you ride, along the route, median of ECMWF, GFS and ICON */
 const RAIN_MODELS=['ecmwf_ifs025','gfs_seamless','icon_seamless'];
 function median(a){ const v=a.filter(x=>x!=null&&!isNaN(x)).sort((x,y)=>x-y); if(!v.length) return null; const m=Math.floor(v.length/2); return v.length%2?v[m]:(v[m-1]+v[m])/2; }
+
+
+function rainStatus(mm, max1){ if(max1>=10 || mm>=30) return 'heavy'; if(mm>2) return 'light'; if(mm>=0.2) return 'drizzle'; return 'dry'; }
+
+/* ---- Every stop of the day, analysed at the hour you pass ---- */
+function cleanPlaceName(n){ return String(n||'').replace(/^(rua|r\.|avenida|av\.|travessa|praça|praca|estrada|rodovia|alameda|terminal rodovi[aá]rio de|rodovi[aá]ria de|esta[cç][aã]o rodovi[aá]ria de)\s+/i,'').trim(); }
+function samplePts(ids, cap){ if(ids.length<=cap) return ids; const out=[]; for(let k=0;k<cap;k++) out.push(ids[Math.round(k*(ids.length-1)/(cap-1))]); return [...new Set(out)]; }
+function fracs(ids){ const F=[0]; let t=0; for(let k=1;k<ids.length;k++){ t+=hav(ids[k-1],ids[k]); F.push(t); } return F.map(x=>t?x/t:0); }
+function dayWindow(d,i){ const dep=hmToNum(depTime(i)), dur=d.km?Math.max(0.5,d.km/speedOf(d.road||'asfalto')):0; return {dep, dur}; }
 async function pointHourlyRain(id, date){
-  const s=S[id], key='rr:'+s[1].toFixed(2)+','+s[2].toFixed(2)+':'+date, c=store.get(key,null);
+  const s=S[id], key='rr2:'+s[1].toFixed(2)+','+s[2].toFixed(2)+':'+date, c=store.get(key,null);
   if(c && Date.now()-c.t < 3*36e5) return c;
-  try{ const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${s[1]}&longitude=${s[2]}&hourly=precipitation,precipitation_probability&models=${RAIN_MODELS.join(',')}&timezone=auto&start_date=${date}&end_date=${date}`);
+  try{ const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${s[1]}&longitude=${s[2]}&hourly=precipitation,precipitation_probability,temperature_2m,weather_code&models=${RAIN_MODELS.join(',')}&timezone=auto&start_date=${date}&end_date=${date}`);
     if(!r.ok) throw 0; const j=await r.json(), H=j.hourly||{};
-    const per=RAIN_MODELS.map(m=>H['precipitation_'+m]).filter(Boolean);
-    const probs=RAIN_MODELS.map(m=>H['precipitation_probability_'+m]).filter(Boolean);
+    const pick=k=>RAIN_MODELS.map(m=>H[k+'_'+m]).filter(Boolean);
+    const per=pick('precipitation'), probs=pick('precipitation_probability'), tmp=pick('temperature_2m'), wc=pick('weather_code');
     const mm=Array.from({length:24},(_,h)=>median(per.map(a=>a[h])));
     const pr=Array.from({length:24},(_,h)=>{ const v=probs.map(a=>a[h]).filter(x=>x!=null); return v.length?Math.max(...v):null; });
-    const v={t:Date.now(), mm, pr, n:per.length}; store.set(key,v); return v;
+    const tp=Array.from({length:24},(_,h)=>median(tmp.map(a=>a[h])));
+    const cd=Array.from({length:24},(_,h)=>{ const v=wc.map(a=>a[h]).filter(x=>x!=null); return v.length?median(v):null; });
+    const v={t:Date.now(), mm, pr, tp, cd, n:per.length}; store.set(key,v); return v;
   }catch(e){ return c||null; }
 }
 async function routeRain(d, i){
-  const date=iso(dateOf(i)), ids=[d.from,...d.route,d.to].filter((x,k,a)=>a.indexOf(x)===k);
-  const pts=ids.length>4?[ids[0], ids[Math.floor(ids.length/3)], ids[Math.floor(2*ids.length/3)], ids[ids.length-1]]:ids;
+  const date=iso(dateOf(i)), all=[d.from,...d.route,d.to].filter((x,k,a)=>a.indexOf(x)===k), pts=samplePts(all,30), F=fracs(pts);
   const data=[]; for(const id of pts){ data.push(await pointHourlyRain(id,date)); }
   if(!data.some(Boolean)) return null;
-  const dep=hmToNum(depTime(i)), dur=d.km?Math.max(1,(d.km)/speedOf(d.road||'asfalto')):0;
-  const start=Math.max(6,Math.floor(dep)), end=Math.min(18,Math.ceil(dep+dur)) || 18;
+  const {dep,dur}=dayWindow(d,i), start=Math.max(6,Math.floor(dep)), end=Math.min(18,Math.ceil(dep+dur))||18;
+  const near=f=>{ let b=0,bd=9; F.forEach((x,k)=>{ if(Math.abs(x-f)<bd){ bd=Math.abs(x-f); b=k; } }); return b; };
   let tot=0, max1=0, maxp=0; const bins=[0,0,0,0,0,0];
-  for(let h=start; h<Math.max(start+1,end); h++){
-    const f=dur?Math.min(1,Math.max(0,(h-dep)/dur)):1, k=Math.round(f*(pts.length-1)), P=data[k]||data.find(Boolean);
-    const v=P&&P.mm[h]!=null?P.mm[h]:0, p=P&&P.pr[h]!=null?P.pr[h]:0;
-    tot+=v; max1=Math.max(max1,v); maxp=Math.max(maxp,p); const b=Math.floor((h-6)/2); if(b>=0&&b<6) bins[b]+=v;
-  }
+  for(let h=start; h<Math.max(start+1,end); h++){ const f=dur?Math.min(1,Math.max(0,(h+0.5-dep)/dur)):1, P=data[near(f)]||data.find(Boolean);
+    const v=P&&P.mm[h]!=null?P.mm[h]:0, p=P&&P.pr[h]!=null?P.pr[h]:0; tot+=v; max1=Math.max(max1,v); maxp=Math.max(maxp,p); const b=Math.floor((h-6)/2); if(b>=0&&b<6) bins[b]+=v; }
+  const pass=pts.map((id,k)=>{ const T=dep+F[k]*dur, H=Math.min(23,Math.max(0,Math.floor(T))), P=data[k];
+    return {id, t:numToHm(T), mm:P&&P.mm[H]!=null?Math.round(P.mm[H]*10)/10:null, temp:P&&P.tp&&P.tp[H]!=null?Math.round(P.tp[H]):null, code:P&&P.cd?P.cd[H]:null, p:P&&P.pr?P.pr[H]:null}; });
   const n=Math.max(...data.filter(Boolean).map(x=>x.n||0));
-  return {rmm:Math.round(tot*10)/10, rmax:Math.round(max1*10)/10, rp:maxp, rbins:bins.map(x=>Math.round(x*10)/10), win:`${numToHm(start)}–${numToHm(Math.max(start+1,end))}`, nmod:n};
+  return {rmm:Math.round(tot*10)/10, rmax:Math.round(max1*10)/10, rp:maxp, rbins:bins.map(x=>Math.round(x*10)/10), win:`${numToHm(start)}–${numToHm(Math.max(start+1,end))}`, nmod:n, pass};
 }
-function rainStatus(mm, max1){ if(max1>=10 || mm>=30) return 'heavy'; if(mm>2) return 'light'; if(mm>=0.2) return 'drizzle'; return 'dry'; }
+async function hourlyHist(id, date){
+  const s=S[id], key='hh2:'+s[1].toFixed(2)+','+s[2].toFixed(2)+':'+date.slice(5), c=store.get(key,null); if(c) return c;
+  const md=date.slice(5), y0=new Date().getFullYear()-1, years=[];
+  for(const y of [y0,y0-1,y0-2]){ const day=`${y}-${md}`; if(isNaN(new Date(day+'T12:00:00Z'))) continue;
+    try{ const r=await fetch(`https://archive-api.open-meteo.com/v1/archive?latitude=${s[1]}&longitude=${s[2]}&start_date=${day}&end_date=${day}&hourly=precipitation,temperature_2m&timezone=auto`); if(!r.ok) continue; const j=await r.json();
+      if(j.hourly&&j.hourly.precipitation) years.push({p:j.hourly.precipitation.map(v=>v||0), t:(j.hourly.temperature_2m||[]).map(v=>v)}); }catch(e){} }
+  if(!years.length) return null; store.set(key, years); return years;
+}
+function hrKey(d,i){ const ids=[d.from,...d.route,d.to]; return 'hrr2:'+ids.map(x=>S[x][1].toFixed(2)+','+S[x][2].toFixed(2)).join('>')+':'+iso(dateOf(i)).slice(5)+':'+depTime(i); }
+async function histRouteRain(d,i){
+  const key=hrKey(d,i), c=store.get(key,null); if(c) return c;
+  const date=iso(dateOf(i)), all=[d.from,...d.route,d.to].filter((x,k,a)=>a.indexOf(x)===k), pts=samplePts(all,30), F=fracs(pts);
+  const H=[]; for(const id of pts){ H.push(await hourlyHist(id,date)); } if(!H.some(Boolean)) return null;
+  const {dep,dur}=dayWindow(d,i), start=Math.max(6,Math.floor(dep)), end=Math.min(18,Math.ceil(dep+dur))||18;
+  const near=f=>{ let b=0,bd=9; F.forEach((x,k)=>{ if(Math.abs(x-f)<bd){ bd=Math.abs(x-f); b=k; } }); return b; };
+  const nY=Math.max(...H.filter(Boolean).map(x=>x.length)), perYear=[];
+  for(let y=0;y<nY;y++){ let tot=0,max1=0; const bins=[0,0,0,0,0,0];
+    for(let h=start; h<Math.max(start+1,end); h++){ const f=dur?Math.min(1,Math.max(0,(h+0.5-dep)/dur)):1; const P=(H[near(f)]||H.find(Boolean)); const Y=P[y]||P[0]; const v=Y?Y.p[h]||0:0;
+      tot+=v; max1=Math.max(max1,v); const b=Math.floor((h-6)/2); if(b>=0&&b<6) bins[b]+=v; }
+    perYear.push({tot,max1,bins}); }
+  const med=a=>median(a)||0;
+  const pass=pts.map((id,k)=>{ const T=dep+F[k]*dur, Hh=Math.min(23,Math.max(0,Math.floor(T))), Y=H[k]||[];
+    return {id, t:numToHm(T), mm:Y.length?Math.round(med(Y.map(x=>x.p[Hh]))*10)/10:null, temp:Y.length&&Y[0].t.length?Math.round(med(Y.map(x=>x.t[Hh]))):null, code:null, p:null, wet:Y.filter(x=>x.p[Hh]>=0.5).length, years:Y.length}; });
+  const res={rmm:Math.round(med(perYear.map(p=>p.tot))*10)/10, rmax:Math.round(med(perYear.map(p=>p.max1))*10)/10, rbins:[0,1,2,3,4,5].map(k=>Math.round(med(perYear.map(p=>p.bins[k]))*10)/10),
+    wet:perYear.filter(p=>p.tot>=1).length, years:perYear.length, win:`${numToHm(start)}–${numToHm(Math.max(start+1,end))}`, pass};
+  store.set(key,res); return res;
+}
+function passHtml(d,i,w){
+  const ids=[d.from,...d.route,d.to].filter((x,k,a)=>a.indexOf(x)===k); if(ids.length<3 && !(w&&w.pass)) return '';
+  const {dep,dur}=dayWindow(d,i), F=fracs(ids), byId={}; (w&&w.pass||[]).forEach(p=>byId[p.id]=p);
+  const rows=ids.map((id,k)=>{ const p=byId[id], T=p?p.t:numToHm(dep+F[k]*dur), s=S[id];
+    const kind = p&&p.code!=null ? wmoKind(p.code) : (p&&p.mm!=null ? (p.mm>=2?'rain':p.mm>=0.2?'partly':'sun') : null);
+    const flags=[]; if(p&&p.mm!=null&&p.mm>=1) flags.push(`<span class="pf rain">${tr('pf_rain')}</span>`); if(s[3]>=3500) flags.push(`<span class="pf alt">${tr('pf_alt')}</span>`); if(p&&p.temp!=null&&p.temp<=3) flags.push(`<span class="pf cold">${tr('pf_cold')}</span>`);
+    const role = k===0?tr('b_start_pt'):(k===ids.length-1?tr('b_end_pt'):'');
+    return `<div class="prw ${k===0||k===ids.length-1?'end':''}"><span class="pt">${T}</span><span class="pd" aria-hidden="true"></span><span class="pn"><b>${esc(cleanPlaceName(placeName(id)))}</b><small>${nf.format(s[3])} m${role?', '+role:''}</small>${flags.join('')}</span>
+      <span class="pw">${kind?wIcon(kind,22):''}${p&&p.temp!=null?`<b>${p.temp}°</b>`:'<b>–</b>'}</span><span class="pm">${p&&p.mm!=null?nf.format(p.mm)+' mm':'–'}</span></div>`; }).join('');
+  return `<div class="pass"><div class="phd2"><b>${tr('pass_h',{n:ids.length})}</b><span class="small">${tr('pass_note',{d:depTime(i)})}</span></div>${rows}</div>`;
+}
+
+/* One card per city: every place from Criar shows up in Roteiro, stop-over or pass-through */
+function dayCities(d){ return [d.from,...d.route,d.to]; }
+function cityCards(d,i,w,first){
+  const ids=dayCities(d); if(d.from===d.to && !d.route.length) return '';
+  const {dep,dur}=dayWindow(d,i), F=fracs(ids), passBy={}; (w&&w.pass||[]).forEach(p=>{ (passBy[p.id]=passBy[p.id]||[]).push(p); });
+  const km=d.km||Math.round(pathLen(ids)*1.3), segKm=[0]; for(let k=1;k<ids.length;k++) segKm.push(Math.round(km*(F[k]-F[k-1])));
+  const used={};
+  return `<div class="ccs">${ids.map((id,k)=>{
+    if(k===0 && !first) return '';
+    const s=S[id], arr=dep+F[k]*dur, list=passBy[id]||[]; const p=list[(used[id]=(used[id]||0)+1)-1]||list[0]||null;
+    const last=k===ids.length-1, role= k===0?'start':(last?(d.to===d.sleep?'sleep':'end'):'pass');
+    const roleT = k===0?tr('b_start_pt'):(last?tr('cc_sleep'):tr('cc_pass'));
+    const mm=p&&p.mm!=null?p.mm:null, st=mm!=null?rainStatus(mm,mm):null;
+    const kind = p&&p.code!=null ? wmoKind(p.code) : (mm!=null ? (mm>=2?'rain':mm>=0.2?'partly':'sun') : null);
+    const ps = k>0 ? pasosFor(ids[k-1], id, [], null).filter(x=>x.kind==='must') : [];
+    const flags=[]; if(mm!=null&&mm>=1) flags.push(`<span class="pf rain">🌧 ${tr('pf_rain')}</span>`); if(p&&p.temp!=null&&p.temp<=3) flags.push(`<span class="pf cold">🥶 ${tr('pf_cold')}</span>`);
+    if(s[3]>=3500) flags.push(`<span class="pf alt">⛰ ${tr('pf_alt')} ${nf.format(s[3])} m</span>`); ps.forEach(x=>flags.push(`<a class="pf paso" href="#atencao">🚧 ${esc(x.p.n)}</a>`));
+    const segH=dur*(F[k]-(F[k-1]||0));
+    return `<article class="ccard r-${role}">
+      <div class="cc1"><span class="ct">${numToHm(arr)}</span><div class="cn"><b>${esc(cleanPlaceName(placeName(id)))}</b><span class="small">${roleT}, ${nf.format(s[3])} m</span></div>
+        <span class="cw">${kind?wIcon(kind,26):''}<b>${p&&p.temp!=null?p.temp+'°':'–'}</b></span></div>
+      ${k>0?`<div class="cc2"><span class="segkm">${nf.format(segKm[k])} km</span><span class="small">${tr('cc_from',{x:esc(cleanPlaceName(placeName(ids[k-1]))),h:segH<1?Math.round(segH*60)+' min':'≈ '+Math.floor(segH)+'h'+String(Math.round((segH%1)*60)).padStart(2,'0')})}, ${esc(d.road||'asfalto')}</span></div>`:''}
+      <div class="cc3">${st?`<span class="badge st-${st}">${tr('st_'+st)}</span><span class="small">${nf.format(mm)} mm ${tr('cc_hour')}${w&&w.hist?', '+tr('cc_hist'):''}</span>`:`<span class="small">${tr('cc_nodata')}</span>`}</div>
+      ${flags.length?`<div class="cflags">${flags.join('')}</div>`:''}
+      <div class="actions"><a class="btn" target="_blank" rel="noopener" href="${gmPoint(id)}">Maps</a>${role==='sleep'?`<a class="btn" href="#dormir" data-city="${d.sleep}" data-day="${i}">${tr('sleep')}</a>`:''}<a class="btn" target="_blank" rel="noopener" href="${mapsNear(glossLocal('fuel',ctryOf(id)==='BR'?'BR':ctryOf(id)),id)}">⛽</a><a class="btn" target="_blank" rel="noopener" href="${mapsNear(ctryOf(id)==='BR'?'restaurante':'restaurante',id)}">🍽</a></div>
+    </article>`; }).join('')}</div>`;
+}
 
 async function loadForecasts(){
   const days=planDays(), now=new Date(); const t0=Date.UTC(now.getFullYear(),now.getMonth(),now.getDate());
@@ -2126,7 +2242,7 @@ async function loadForecasts(){
     for(const id of fcPoints(days[i])){ const f=await getFc(id,date); if(f) out.push([id,f]); }
     if(!out.length) continue;
     try{ const rr=await routeRain(days[i], i); if(rr){ const dest=days[i].to===days[i].from?fcPoints(days[i]).slice(-1)[0]:days[i].to, s=S[dest], key='fc2:'+s[1].toFixed(2)+','+s[2].toFixed(2)+':'+date, f=store.get(key,null); if(f){ Object.assign(f, rr); store.set(key,f); } } }catch(e){}
-    const card=document.getElementById('d-'+(i+1)); if(card){ const wp=card.querySelector('.wpart'); if(wp) wp.outerHTML=weatherPart(days[i],i); const w2=dayWeather(days[i],i); const dot=card.querySelector('.tldot'); if(dot) dot.style.borderColor=statusColor(w2.status); const tp=card.querySelector('.dtemp'); if(tp&&w2.tmax!=null) tp.textContent=w2.tmax+'°'; }
+    const card=document.getElementById('d-'+(i+1)); if(card){ const wp=card.querySelector('.wpart'); if(wp) wp.outerHTML=weatherPart(days[i],i); const cc=card.querySelector('.ccs'); if(cc) cc.outerHTML=cityCards(days[i],i,dayWeather(days[i],i),i===0); const w2=dayWeather(days[i],i); const dot=card.querySelector('.tldot'); if(dot) dot.style.borderColor=statusColor(w2.status); const tp=card.querySelector('.dtemp'); if(tp&&w2.tmax!=null) tp.textContent=w2.tmax+'°'; }
     $('#wsum').innerHTML = weatherSummary();
     el.innerHTML = `<b>${tr('fc_title')}</b>`+out.map(([id,f])=>{ const l=windLvl(f.g); const h=new Intl.DateTimeFormat(LOCALES[LANG],{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}).format(new Date(f.t));
       return `<div class="wind">${wIcon(wmoKind(f.code),22)} ${esc(S[id][0].split(' (')[0])}: ${tr(f.cl!=null?'fc_line2':'fc_line',{min:f.min,max:f.max,p:f.p,w:f.w,g:f.g,c:f.cl})} <span class="wl ${l}">${tr('wl_'+l)}</span>${f.mm!=null?`<br><span class="small">${tr('m_dayacc',{m:nf.format(f.mm)})}</span>`:''}<br><span class="small">${f.old?tr('fc_old')+', ':''}${tr('fc_upd',{h})}</span></div>`; }).join('');
@@ -2302,7 +2418,7 @@ function wireLegs(el){
       bSave(x); renderBuilder();
     }catch(e){ st.textContent = e&&e.code==='not_granted' ? 'Sem permissão para consultar Claude.' : 'Não foi possível consultar Claude agora.'; $('#b-ai').disabled=false; }
   };
-  $('#b-gen').onclick=()=>{ const keys=['novaDays','novaMeta','plan2','projects']; const snap=keys.map(k=>{ try{ return [k, localStorage.getItem(K+k)]; }catch(e){ return [k,null]; } });
+  $('#b-gen').onclick=()=>{ const mb=bState(); if((mb.missing||[]).length){ toast(tr('gen_missing',{n:mb.missing.length})); window._step=2; renderBuilder(); return; } const keys=['novaDays','novaMeta','plan2','projects']; const snap=keys.map(k=>{ try{ return [k, localStorage.getItem(K+k)]; }catch(e){ return [k,null]; } });
     const had=(store.get('novaDays',[])||[]).length>0; generateRoute();
     if(had) toast(tr('gen_done'), ()=>{ snap.forEach(([k,v])=>{ try{ v===null?localStorage.removeItem(K+k):localStorage.setItem(K+k,v); }catch(e){} }); plan=store.get('plan2','meu'); renderAll(); }); };
 }
@@ -2676,7 +2792,7 @@ async function fillAltitudes(ids){
 function addPts(list, replace){
   const b=bState(); if(replace) b.pts=[]; const newAlt=[];
   list.forEach(p=>{ let id=knownByName(p.name); if(!id || Math.abs(S[id][1]-p.lat)+Math.abs(S[id][2]-p.lng)>0.5){ id='b'+newUid(); S[id]=[p.name,p.lat,p.lng,p.alt||nearestAlt(p.lat,p.lng),'pernoite',p.c||'XX',null]; CST[id]=S[id]; }
-    if(b.pts.length && b.pts[b.pts.length-1].id===id) return; b.pts.push({id, type:p.type||'sleep', nights:p.nights||1}); if(p.alt==null||p.alt===0) newAlt.push(id); });
+    if(b.pts.length && b.pts[b.pts.length-1].id===id && (p.src||p.name)===S[id][0]){ id='b'+newUid(); S[id]=[p.src||p.name,p.lat+0.0001,p.lng,p.alt||nearestAlt(p.lat,p.lng),'pernoite',p.c||'XX',null]; CST[id]=S[id]; } b.pts.push({id, type:p.type||'sleep', nights:p.nights||1}); if(p.alt==null||p.alt===0) newAlt.push(id); });
   store.set('cstops',CST); bSave(b); if(newAlt.length) fillAltitudes(newAlt); return b;
 }
 function pathKm(coords){ let s=0; for(let i=1;i<coords.length;i++){ const a=coords[i-1], c=coords[i]; const R=6371, r=Math.PI/180, dl=(c[0]-a[0])*r, dn=(c[1]-a[1])*r, x=Math.sin(dl/2)**2+Math.cos(a[0]*r)*Math.cos(c[0]*r)*Math.sin(dn/2)**2; s+=2*R*Math.asin(Math.sqrt(x)); } return s; }
@@ -2690,12 +2806,13 @@ const fold=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
 function acLocal(q){ const n=fold(q);
   return Object.keys(S).filter(k=>{ if(/^v/.test(k)) return false; const s=fold(S[k][0]); return s.startsWith(n) || s.includes(' '+n) || s.includes('('+n); }).slice(0,4)
     .map(k=>({name:S[k][0].split(' (')[0], sub:tr('c_'+ctryOf(k)), lat:S[k][1], lng:S[k][2], alt:S[k][3], c:ctryOf(k)})); }
-async function acRemote(q){
-  const key=LANG+'|'+q.toLowerCase(); if(AC_CACHE[key]) return AC_CACHE[key];
+async function acRemote(q, placesOnly){
+  const key=LANG+'|'+(placesOnly?'P|':'')+q.toLowerCase(); if(AC_CACHE[key]) return AC_CACHE[key];
   let out=[];
-  try{ const r=await fetch(`https://photon.komoot.io/api/?q=${encodeURIComponent(q)}&limit=8${['en','de','fr'].includes(LANG)?'&lang='+LANG:''}`); if(!r.ok) throw 0; const j=await r.json();
+  try{ const r=await fetch(`https://photon.komoot.io/api/?q=${encodeURIComponent(q)}&limit=8${placesOnly?'&osm_tag=place':''}${['en','de','fr'].includes(LANG)?'&lang='+LANG:''}`); if(!r.ok) throw 0; const j=await r.json();
     out=(j.features||[]).map(f=>{ const p=f.properties||{}, c=f.geometry.coordinates, cc=(p.countrycode||'').toUpperCase();
-      return {name:p.name||p.city||q, sub:[p.city&&p.city!==p.name?p.city:'', p.state, p.country].filter(Boolean).join(', '), lat:c[1], lng:c[0], alt:null, c:BCTRY.includes(cc)?cc:'XX'}; });
+      const street = p.osm_key==='highway' || p.osm_key==='amenity' || /^(rua|avenida|av\.|terminal|rodovi)/i.test(p.name||'');
+      return {name: street && p.city ? p.city : cleanPlaceName(p.name||p.city||q), sub:[p.city&&p.city!==p.name?p.city:'', p.state, p.country].filter(Boolean).join(', '), lat:c[1], lng:c[0], alt:null, c:BCTRY.includes(cc)?cc:'XX'}; });
   }catch(e){ try{ out=await geoSearch(q); }catch(e2){ out=[]; } }
   const seen=new Set(); out=out.filter(x=>{ const k=x.name.toLowerCase()+'|'+x.lat.toFixed(1)+'|'+x.lng.toFixed(1); if(seen.has(k)) return false; seen.add(k); return true; });
   AC_CACHE[key]=out; return out;
@@ -2933,6 +3050,7 @@ function localWords(q){ const ws=fold(q).split(/\s+/).filter(w=>w.length>2); if(
 async function geoOne(name, near){
   const variants=[name, name.replace(/\b(do|da|dos|das)\b/gi,'de'), name.split(/[(\-–,]/)[0].trim(), fold(name)].filter((x,i,a)=>x && a.indexOf(x)===i);
   for(const q of variants){ const loc=acLocal(q); if(loc.length) return loc[0]; const lw=localWords(q); if(lw) return lw; }
+  for(const q of variants){ let res=[]; try{ res=await acRemote(q,true); }catch(e){} if(res.length){ if(near){ res.sort((p,q2)=>((p.lat-near.lat)**2+(p.lng-near.lng)**2)-((q2.lat-near.lat)**2+(q2.lng-near.lng)**2)); } return res[0]; } }
   for(const q of variants){ let res=[]; try{ res=await acRemote(q); }catch(e){}
     if(res.length){ if(near){ res.sort((p,q2)=>((p.lat-near.lat)**2+(p.lng-near.lng)**2)-((q2.lat-near.lat)**2+(q2.lng-near.lng)**2)); } return res[0]; } }
   return null;
@@ -2948,7 +3066,7 @@ async function pasteRoute(){
   let prev = append && b0.pts.length ? {lat:S[b0.pts[b0.pts.length-1].id][1], lng:S[b0.pts[b0.pts.length-1].id][2]} : null;
   for(let i=0;i<names.length;i++){ const n=names[i]; st.textContent=tr('paste_wait',{i:i+1,n:names.length,x:n});
     let p=cl[n.toLowerCase()] || await geoOne(n, prev);
-    if(p){ found.push({...p, src:n}); prev=p; } else miss.push({name:n, pos:base+found.length}); }
+    if(p){ found.push({...p, src:n, name: (fold(p.name).includes(fold(n))||fold(n).includes(fold(p.name)))?p.name:n}); prev=p; } else miss.push({name:n, pos:base+found.length}); }
   const b=addPts(found, !append); b.missing = append ? [...(b.missing||[]), ...miss] : miss; b.pasteText=txt; bSave(b);
   st.textContent=tr('dist_wait'); await autoDistribute(true);
   window._plOpen=true; renderBuilder(); window._plOpen=false;
@@ -3167,12 +3285,12 @@ function dayWeather(d,i){
   const f=fcCached(dest, iso(dt));
   if(f){ let kind=wmoKind(f.code); const onRoute=f.rmm!=null; if(onRoute && kind!=='snow' && kind!=='fog'){ kind = f.rmm>=0.2 ? ((kind==='thunder' && (f.rmax||0)>=5)?'thunder':'rain') : ((kind==='rain'||kind==='thunder')?'cloud':kind); } const mm=onRoute?f.rmm:(f.mm||0), p=onRoute?(f.rp||0):(f.p||0);
     const status = kind==='snow'&&mm>=0.2?'snow' : onRoute ? rainStatus(mm, f.rmax||0) : ((mm>=30)?'heavy':(mm>2)?'light':(mm>=0.2)?'drizzle':'dry');
-    return {live:true, status, kind, tmax:f.max, tmin:f.min, rain:p, mm, day:f.mm, onRoute, win:f.win, nmod:f.nmod, bins:f.rbins||null, gust:f.g, cl:f.cl, hp:f.hp||null}; }
+    return {live:true, status, kind, tmax:f.max, tmin:f.min, rain:p, mm, day:f.mm, onRoute, win:f.win, nmod:f.nmod, bins:f.rbins||null, pass:f.pass||null, gust:f.g, cl:f.cl, hp:f.hp||null}; }
   if(!cs.length) return {status:'na', kind:'cloud'};
   const c=c1||c2, rain=Math.max(...cs.map(x=>x[4])), gust=Math.max(...cs.map(x=>x[10]||0)), tmin=Math.min(...cs.map(x=>x[3])), snow=cs.some(x=>climCond(x).kind==='snow');
   const hr=d.km?store.get(hrKey(d,i),null):null;
   if(hr){ const st=snow&&hr.rmm>=0.2?'snow':rainStatus(hr.rmm, hr.rmax); let kind=climCond(c).kind; if(kind!=='snow'&&kind!=='fog') kind = hr.rmm>=2?'rain':(hr.rmm>=0.2?'partly':(kind==='rain'?'partly':kind));
-    return {live:false, hist:true, status:st, kind, tmax:c[2], tmin, rain, mm:hr.rmm, onRoute:true, win:hr.win, wet:hr.wet, years:hr.years, bins:hr.rbins, gust, cl:climCond(c).cl}; }
+    return {live:false, hist:true, status:st, kind, tmax:c[2], tmin, rain, mm:hr.rmm, onRoute:true, win:hr.win, wet:hr.wet, years:hr.years, bins:hr.rbins, pass:hr.pass||null, gust, cl:climCond(c).cl}; }
   const status = snow?'snow' : rain>=50?'heavy' : rain>=25?'light' : rain>=10?'drizzle':'dry';
   return {live:false, status, kind:climCond(c).kind, tmax:c[2], tmin, rain, gust, cl:climCond(c).cl};
 }
@@ -3227,28 +3345,9 @@ async function fetchClimHist(id, date){
   store.set(key, clim); return clim;
 }
 /* Historical rain on the road: same date in the last 3 years, riding hours only, start and end of the leg */
-async function hourlyHist(id, date){
-  const s=S[id], key='hh:'+s[1].toFixed(2)+','+s[2].toFixed(2)+':'+date.slice(5), c=store.get(key,null); if(c) return c;
-  const md=date.slice(5), y0=new Date().getFullYear()-1, years=[];
-  for(const y of [y0,y0-1,y0-2]){ const day=`${y}-${md}`; if(isNaN(new Date(day+'T12:00:00Z'))) continue;
-    try{ const r=await fetch(`https://archive-api.open-meteo.com/v1/archive?latitude=${s[1]}&longitude=${s[2]}&start_date=${day}&end_date=${day}&hourly=precipitation&timezone=auto`); if(!r.ok) continue; const j=await r.json(); if(j.hourly&&j.hourly.precipitation) years.push(j.hourly.precipitation.map(v=>v||0)); }catch(e){} }
-  if(!years.length) return null; store.set(key, years); return years;
-}
-function hrKey(d,i){ const a=S[d.from], b=S[d.to]; return 'hrr:'+a[1].toFixed(2)+','+a[2].toFixed(2)+'>'+b[1].toFixed(2)+','+b[2].toFixed(2)+':'+iso(dateOf(i)).slice(5)+':'+depTime(i); }
-async function histRouteRain(d,i){
-  const key=hrKey(d,i), c=store.get(key,null); if(c) return c;
-  const date=iso(dateOf(i)), A=await hourlyHist(d.from,date), B=d.to!==d.from?await hourlyHist(d.to,date):A; if(!A&&!B) return null;
-  const dep=hmToNum(depTime(i)), dur=d.km?Math.max(1,d.km/speedOf(d.road||'asfalto')):10, start=Math.max(6,Math.floor(dep)), end=Math.min(18,Math.ceil(dep+dur))||18;
-  const nY=Math.max((A||[]).length,(B||[]).length), perYear=[];
-  for(let y=0;y<nY;y++){ let tot=0, max1=0; const bins=[0,0,0,0,0,0];
-    for(let h=start; h<Math.max(start+1,end); h++){ const f=d.km?Math.min(1,Math.max(0,(h-dep)/dur)):1, P=(f<0.5?(A||B):(B||A))[y]||(A||B)[0]; const v=P?P[h]||0:0;
-      tot+=v; max1=Math.max(max1,v); const b=Math.floor((h-6)/2); if(b>=0&&b<6) bins[b]+=v; }
-    perYear.push({tot,max1,bins}); }
-  const med=a=>{ const v=[...a].sort((x,y)=>x-y), m=Math.floor(v.length/2); return v.length%2?v[m]:(v[m-1]+v[m])/2; };
-  const res={rmm:Math.round(med(perYear.map(p=>p.tot))*10)/10, rmax:Math.round(med(perYear.map(p=>p.max1))*10)/10, rbins:[0,1,2,3,4,5].map(k=>Math.round(med(perYear.map(p=>p.bins[k]))*10)/10),
-    wet:perYear.filter(p=>p.tot>=1).length, years:perYear.length, win:`${numToHm(start)}–${numToHm(Math.max(start+1,end))}`};
-  store.set(key,res); return res;
-}
+
+
+
 
 let _histRun=null;
 async function loadHistClim(){
@@ -3266,7 +3365,7 @@ async function loadHistClim(){
 }
 function refreshCard(i){
   const days=planDays(), d=days[i], card=document.getElementById('d-'+(i+1)); if(!card||!d) return;
-  const wp=card.querySelector('.wpart'); if(wp) wp.outerHTML=weatherPart(d,i);
+  const wp=card.querySelector('.wpart'); if(wp) wp.outerHTML=weatherPart(d,i); const cc=card.querySelector('.ccs'); if(cc) cc.outerHTML=cityCards(d,i,dayWeather(d,i),i===0);
   const w=dayWeather(d,i), dot=card.querySelector('.tldot'); if(dot) dot.style.borderColor=statusColor(w.status);
   const tp=card.querySelector('.dtemp'); if(tp) tp.textContent = w.tmax!=null ? w.tmax+'°' : '';
   _anCache=null; const ar=card.querySelector('.alerts'), nr=alertRow(i+1); if(ar) ar.outerHTML=nr||''; else if(nr){ const wp2=card.querySelector('.wpart'); if(wp2) wp2.insertAdjacentHTML('afterend', nr); }
